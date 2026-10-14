@@ -12,7 +12,7 @@
 }
 
 
-/* ── Tailwind v4 theme bridge ────────────────────────────────────────
+/* â”€â”€ Tailwind v4 theme bridge â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    Utilities read these runtime vars, so [data-theme] overrides
    propagate automatically. */
 @theme {
@@ -72,13 +72,13 @@
   --color-text-on-dark: #f4efe4;
   --color-muted: #6f6759;
 
-  /* Signal red — the accent */
+  /* Signal red â€” the accent */
   --color-primary: #c2371f;
   --color-primary-hover: #a82d18;
   --color-highlight: #ff7a55;
   --color-on-signal: #fffaf6;
 
-  /* Brass — secondary accent */
+  /* Brass â€” secondary accent */
   --color-secondary: #8a6410;
   --color-secondary-hover: #6f5008;
 
@@ -97,7 +97,7 @@
   /* Shared vertical rhythm for page sections */
   --section-y: clamp(4rem, 7vw, 7rem);
 
-  /* Elevation — paper */
+  /* Elevation â€” paper */
   --elevation-card: 0 1px 2px 0 rgba(22, 19, 15, 0.05), 0 10px 28px -18px rgba(22, 19, 15, 0.25);
   --elevation-card-hover: 0 2px 4px 0 rgba(22, 19, 15, 0.06), 0 18px 40px -20px rgba(22, 19, 15, 0.35);
 
@@ -119,10 +119,10 @@
 }
 
 
-/* ═══════════════════════════════════════════════════════════════════
-   DARK THEME — "Night edition". Set by ThemeProvider via
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   DARK THEME â€” "Night edition". Set by ThemeProvider via
    <html data-theme="dark">. Utilities pick these up via var().
-   ═══════════════════════════════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 [data-theme="dark"] {
   --color-bg: #14120f;
   --color-surface: #1c1915;
@@ -171,7 +171,7 @@
 }
 
 
-/* ── Type scale (fluid, set once, used everywhere) ──────────────────── */
+/* â”€â”€ Type scale (fluid, set once, used everywhere) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .type-display {
   font-size: clamp(2.6rem, 1.6rem + 4.6vw, 5rem);
   line-height: 1.04;
@@ -221,13 +221,13 @@ html[lang="fa"] .type-lede {
   line-height: 1.9;
 }
 
-/* Locked-width digits — counters and timestamps never jitter */
+/* Locked-width digits â€” counters and timestamps never jitter */
 .tnum {
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum" 1;
 }
 
-/* ── Typography utilities ───────────────────────────────────────────── */
+/* â”€â”€ Typography utilities â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -263,7 +263,7 @@ html[lang="fa"] .eyebrow {
 }
 
 
-/* ── Base setup ─────────────────────────────────────────────────────── */
+/* â”€â”€ Base setup â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 html {
   scroll-behavior: smooth;
 }
@@ -288,7 +288,7 @@ html[lang="fa"] li {
   line-height: 1.85;
 }
 
-/* Display headings — Fraunces carries the Latin display voice;
+/* Display headings â€” Fraunces carries the Latin display voice;
    Vazirmatn (via --font-vazirmatn fallback) covers Arabic glyphs. */
 h1,
 h2,
@@ -328,7 +328,7 @@ p {
   color: var(--color-on-signal);
 }
 
-/* ── Reduced motion ─────────────────────────────────────────────────── */
+/* â”€â”€ Reduced motion â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -344,7 +344,7 @@ p {
 }
 
 
-/* ── Chips / pills ──────────────────────────────────────────────────── */
+/* â”€â”€ Chips / pills â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .chip {
   display: inline-flex;
   align-items: center;
@@ -387,7 +387,7 @@ p {
 }
 
 
-/* ── Badges ─────────────────────────────────────────────────────────── */
+/* â”€â”€ Badges â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -435,7 +435,7 @@ p {
 }
 
 
-/* ── Buttons ───────────────────────────────────────────────────────── */
+/* â”€â”€ Buttons â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -543,7 +543,7 @@ p {
 }
 
 
-/* ── Tables / ledger ────────────────────────────────────────────────── */
+/* â”€â”€ Tables / ledger â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .ledger {
   width: 100%;
   border-collapse: collapse;
@@ -575,7 +575,7 @@ p {
   border-bottom: none;
 }
 
-/* Ruled ledger rows — the dossier look */
+/* Ruled ledger rows â€” the dossier look */
 .ledger-row {
   display: flex;
   align-items: center;
@@ -641,7 +641,7 @@ p {
 }
 
 
-/* ── Surfaces ───────────────────────────────────────────────────────── */
+/* â”€â”€ Surfaces â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .surface {
   background-color: var(--color-surface);
 }
@@ -651,7 +651,7 @@ p {
 }
 
 
-/* ── Section lead ──────────────────────────────────────────────────── */
+/* â”€â”€ Section lead â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .section-lead {
   font-size: clamp(1.05rem, 1rem + 0.25vw, 1.175rem);
   line-height: 1.75;
@@ -660,9 +660,9 @@ p {
 }
 
 
-/* ═══════════════════════════════════════════════════════════════════
-   MOTION — beam, reveal, count-up
-   ═══════════════════════════════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   MOTION â€” beam, reveal, count-up
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
 @keyframes beam {
   0% {
@@ -673,26 +673,6 @@ p {
   100% {
     transform: scaleX(1);
     transform-origin: left center;
-    opacity: 1;
-  }
-}
-
-@keyframes reveal-up {
-  0% {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes reveal-fade {
-  0% {
-    opacity: 0;
-  }
-  100% {
     opacity: 1;
   }
 }
@@ -708,18 +688,7 @@ p {
   }
 }
 
-@keyframes reveal-up {
-  0% {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Beam rule under a heading — the radiator metaphor */
+/* Beam rule under a heading â€” the radiator metaphor */
 .beam-rule {
   position: relative;
 }
@@ -736,32 +705,44 @@ p {
 }
 
 /* Reveal on scroll */
-.reveal {
+/* ── Scroll-reveal (driven by components/ui/Reveal.tsx) ────────────────────
+   The component adds `.is-revealed` on intersection and sets
+   `--reveal-delay` inline for staggering. Variants differ only in their
+   hidden transform; the revealed state is shared and resets all motion. */
+.reveal,
+.reveal-from-left,
+.reveal-from-right,
+.reveal-scale {
   opacity: 0;
-  transform: translateY(18px);
-  transition: opacity var(--dur-reveal) var(--ease-io),
+  transition:
+    opacity var(--dur-reveal) var(--ease-io),
     transform var(--dur-reveal) var(--ease-io);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
 }
 
-.reveal.visible {
+.reveal {
+  transform: translateY(18px);
+}
+
+.reveal-from-left {
+  transform: translateX(-24px);
+}
+
+.reveal-from-right {
+  transform: translateX(24px);
+}
+
+.reveal-scale {
+  transform: scale(0.94);
+}
+
+.reveal.is-revealed,
+.reveal-from-left.is-revealed,
+.reveal-from-right.is-revealed,
+.reveal-scale.is-revealed {
   opacity: 1;
-  transform: translateY(0);
-}
-
-.reveal-delay-1 {
-  transition-delay: 60ms;
-}
-.reveal-delay-2 {
-  transition-delay: 120ms;
-}
-.reveal-delay-3 {
-  transition-delay: 180ms;
-}
-.reveal-delay-4 {
-  transition-delay: 240ms;
-}
-.reveal-delay-5 {
-  transition-delay: 300ms;
+  transform: none;
 }
 
 /* Count-up animation for ledger stats */
@@ -781,7 +762,7 @@ p {
   background-size: 120px 120px;
 }
 
-/* ================= PRINT — clinical-dossier print style ================= */
+/* ================= PRINT â€” clinical-dossier print style ================= */
 @media print {
   :root,
   [data-theme="dark"] {
