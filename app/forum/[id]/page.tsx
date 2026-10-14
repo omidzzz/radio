@@ -384,7 +384,7 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
                 {/* Empty-state CTA â€” jump straight to the reply form */}
                 <a
                   href="#reply-form"
-                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-deep `shadow-[0_0_20px_-6px_rgba(15,23,42,0.10)] transition hover:bg-primary-hover"
+                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-deep shadow-[0_0_20px_-6px_rgba(15,23,42,0.10)] transition hover:bg-primary-hover"
                 >
                   {dict.forum.postReply}
                 </a>

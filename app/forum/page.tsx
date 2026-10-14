@@ -196,7 +196,7 @@ export default async function ForumPage({
                 {/* Mobile CTA â€” jumps to the ask form below the list */}
                 <a
                   href="#ask-form"
-                  className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-deep `shadow-[0_0_16px_-4px_rgba(15,23,42,0.10)] transition hover:bg-primary-hover lg:hidden"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-deep shadow-[0_0_16px_-4px_rgba(15,23,42,0.10)] transition hover:bg-primary-hover lg:hidden"
                 >
                   <svg
                     className="h-3.5 w-3.5"
@@ -224,7 +224,7 @@ export default async function ForumPage({
                     scroll={false}
                     className={`rounded-full px-4 py-1.5 text-xs font-medium transition ${
                       validCategory === cat
-                        ? "bg-primary text-deep `shadow-[0_0_16px_-4px_rgba(15,23,42,0.10)]"
+                        ? "bg-primary text-deep shadow-[0_0_16px_-4px_rgba(15,23,42,0.10)]"
                         : "border border-border/70 bg-surface text-text-secondary hover:border-primary/40 hover:text-primary"
                     }`}
                   >
@@ -286,7 +286,7 @@ export default async function ForumPage({
                   {/* Empty-state CTA â€” jump straight to the ask form */}
                   <a
                     href="#ask-form"
-                    className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-deep `shadow-[0_0_20px_-6px_rgba(15,23,42,0.10)] transition hover:bg-primary-hover lg:hidden"
+                    className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-deep shadow-[0_0_20px_-6px_rgba(15,23,42,0.10)] transition hover:bg-primary-hover lg:hidden"
                   >
                     {dict.forum.askQuestionCta}
                   </a>
@@ -297,7 +297,7 @@ export default async function ForumPage({
                     <Link
                       key={post.id}
                       href={`/forum/${post.id}`}
-                      className="group relative block overflow-hidden rounded-[1.6rem] border border-border/60 bg-surface/95 p-6 shadow-sm transition-all duration-400 hover:-translate-y-1 hover:border-primary/45 hover:`shadow-[0_18px_40px_-12px_rgba(15,23,42,0.10)]"
+                      className="group relative block overflow-hidden rounded-[1.6rem] border border-border/60 bg-surface/95 p-6 shadow-sm transition-all duration-400 hover:-translate-y-1 hover:border-primary/45 hover:shadow-[0_18px_40px_-12px_rgba(15,23,42,0.10)]"
                     >
                       {/* Hover energy line */}
                       <div className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-primary transition-transform duration-500 group-hover:scale-x-100" />
@@ -369,7 +369,7 @@ export default async function ForumPage({
                         scroll={false}
                         className={`inline-flex h-10 w-10 items-center justify-center rounded-full text-sm font-semibold transition ${
                           item === page
-                            ? "bg-primary text-deep `shadow-[0_0_20px_-4px_rgba(15,23,42,0.10)]"
+                            ? "bg-primary text-deep shadow-[0_0_20px_-4px_rgba(15,23,42,0.10)]"
                             : "border border-border/70 bg-surface text-text-secondary hover:border-primary/40 hover:text-primary"
                         }`}
                         aria-current={item === page ? "page" : undefined}

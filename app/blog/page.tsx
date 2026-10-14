@@ -303,7 +303,7 @@ export default async function BlogPage({
                     href={pageHref(item)}
                     className={`inline-flex h-10 w-10 items-center justify-center rounded-full text-sm font-semibold transition ${
                       item === page
-                        ? "bg-primary text-deep `shadow-[0_0_20px_-4px_rgba(15,23,42,0.10)]"
+                        ? "bg-primary text-deep shadow-[0_0_20px_-4px_rgba(15,23,42,0.10)]"
                         : "border border-border/70 bg-surface text-text-secondary hover:border-primary/40 hover:text-primary"
                     }`}
                     aria-current={item === page ? "page" : undefined}

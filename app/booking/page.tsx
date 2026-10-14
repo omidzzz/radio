@@ -236,7 +236,7 @@ export default async function BookingPage() {
                   </p>
                   <Link
                     href="/forum"
-                    className="group relative mt-5 inline-flex items-center gap-2 overflow-hidden rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-deep `shadow-[0_0_26px_-5px_rgba(15,23,42,0.10)] transition-all hover:bg-primary-hover hover:`shadow-[0_0_34px_-4px_rgba(15,23,42,0.10)]"
+                    className="group relative mt-5 inline-flex items-center gap-2 overflow-hidden rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-deep shadow-[0_0_26px_-5px_rgba(15,23,42,0.10)] transition-all hover:bg-primary-hover hover:shadow-[0_0_34px_-4px_rgba(15,23,42,0.10)]"
                   >
                     <span className="relative z-10">
                       {dict.booking.visitForum}

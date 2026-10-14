@@ -9,6 +9,7 @@ import { breadcrumbSchema, contactPageSchema } from "@/lib/json-ld";
 import JsonLdScript from "@/components/JsonLd";
 import { RadiationIcon } from "@/components/ui/icons";
 import PageHero from "@/components/PageHero";
+import ChapterHead from "@/components/ui/ChapterHead";
 import {
   getWorkingHoursSummary,
   getOpenNowStatus,
@@ -78,14 +79,6 @@ export default async function ContactPage() {
       <JsonLdScript data={breadcrumbs} />
       <JsonLdScript data={contactPageSchema()} />
 
-      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-          GLOBAL AMBIENT FIELD â€” theme-aware
-      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
-      <div className="pointer-events-none fixed inset-0 z-0">
-        <div className="absolute -left-48 top-10 h-[600px] w-[600px] rounded-full bg-primary/[0.07] blur-[140px]" />
-        <div className="absolute -right-40 bottom-20 h-[520px] w-[520px] rounded-full bg-secondary/[0.09] blur-[120px]" />
-        <div className="absolute left-1/3 top-1/2 h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-primary/[0.04] blur-[90px]" />
-      </div>
 
       {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           HERO â€” clean medical-tech hero
@@ -107,10 +100,10 @@ export default async function ContactPage() {
               key={f.label}
               className={`anim-fade-up delay-${(i + 1) * 200} flex flex-col items-start gap-2.5`}
             >
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-primary/25 bg-primary/10 text-primary">
+              <div className="flex h-10 w-10 items-center justify-center border border-white/20 bg-white/5 text-primary">
                 {HERO_FEATURE_ICONS[i]}
               </div>
-              <p className="text-sm font-medium leading-tight text-slate-200">
+              <p className="mono text-[0.65rem] uppercase tracking-[0.18em] leading-tight text-slate-300">
                 {f.label}
               </p>
               <p className="text-xs leading-tight text-slate-400">{f.sub}</p>
@@ -121,7 +114,7 @@ export default async function ContactPage() {
         <div className="mt-10 flex flex-wrap items-center gap-3">
           <a
             href={siteConfig.phoneHref}
-            className="group inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-medium text-white backdrop-blur-sm transition-all hover:border-primary/50 hover:bg-primary/15"
+            className="btn btn-outline !border-white/25 !text-white hover:!border-primary/60"
           >
             <PhoneIcon className="h-4 w-4 text-primary" />
             {dict.contact.quickCall}
@@ -129,10 +122,10 @@ export default async function ContactPage() {
 
           <a
             href="#form"
-            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-deep `shadow-[0_0_28px_-4px_rgba(15,23,42,0.10)] transition-all hover:bg-primary-hover hover:`shadow-[0_0_36px_-4px_rgba(15,23,42,0.10)]"
+            className="btn btn-primary"
           >
-            <span className="relative z-10">{dict.contact.sendMessage}</span>
-            <ArrowIcon className="relative z-10 h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
+            <span>{dict.contact.sendMessage}</span>
+            <ArrowIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
           </a>
         </div>
       </PageHero>
@@ -142,7 +135,7 @@ export default async function ContactPage() {
       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section id="form" className="relative z-10 pb-8 pt-4 lg:pb-14">
         <div
-          className="grain-pattern pointer-events-none absolute inset-0 opacity-[0.15]"
+          className="grain-pattern pointer-events-none absolute inset-0"
           style={{
             maskImage:
               "linear-gradient(180deg, transparent, black 10%, black 90%, transparent)",
@@ -152,19 +145,21 @@ export default async function ContactPage() {
         />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <ChapterHead
+            index="01"
+            label={dict.contact.title}
+            title={dict.contact.contactInformation}
+            lede={dict.contact.formSubtitle}
+            align="start"
+            className="mb-10"
+          />
           <div className="grid items-stretch gap-6 lg:grid-cols-12 lg:gap-8">
             {/* â”€â”€ FORM â”€â”€ */}
             <div className="relative lg:col-span-7">
-              <div className="relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-border bg-surface shadow-[0_28px_60px_-22px_rgba(0,0,0,0.12)]">
-                {/* Energy bar */}
-                <div className="relative h-1.5 shrink-0 overflow-hidden bg-deep">
-                  <div className="absolute inset-0 bg-primary" />
-                  <div className="absolute inset-y-0 left-0 w-2/5 motion-reduce:animate-none bg-white/25" />
-                </div>
-
+              <div className="surface-card relative flex h-full flex-col overflow-hidden">
                 <div className="flex items-center gap-2.5 border-b border-border px-6 py-5 sm:px-8">
-                  <ChatIcon className="h-5 w-5 text-primary" />
-                  <h2 className="text-base font-semibold text-text-primary sm:text-lg">
+                  <ChatIcon className="h-4 w-4 text-primary" />
+                  <h2 className="mono text-[0.7rem] font-medium uppercase tracking-[0.22em] text-muted">
                     {dict.contact.formTitle}
                   </h2>
                 </div>
@@ -175,17 +170,16 @@ export default async function ContactPage() {
               </div>
             </div>
 
-            {/* â”€â”€ MAP (click-to-load) â”€â”€ */}
+            {/* MAP (click-to-load) */}
             <div className="relative lg:col-span-5">
-              <div className="relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-border bg-surface shadow-[0_28px_60px_-22px_rgba(0,0,0,0.12)]">
+              <div className="surface-card relative flex h-full flex-col overflow-hidden">
                 <div className="flex items-center justify-between gap-3 border-b border-border px-6 py-5">
                   <div className="flex items-center gap-2.5">
-                    <MapPinIcon className="h-5 w-5 text-primary" />
-                    <h2 className="text-base font-semibold text-text-primary sm:text-lg">
+                    <MapPinIcon className="h-4 w-4 text-primary" />
+                    <h2 className="mono text-[0.7rem] font-medium uppercase tracking-[0.22em] text-muted">
                       {dict.contact.mapCardTitle}
                     </h2>
                   </div>
-                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary motion-reduce:animate-none" />
                 </div>
 
                 <MapEmbed
@@ -203,14 +197,14 @@ export default async function ContactPage() {
             </div>
           </div>
 
-          {/* â”€â”€ INFO STRIP â”€â”€ */}
-          <div className="mt-6 grid gap-4 sm:grid-cols-3 lg:mt-8">
-            <div className="group flex items-center gap-3.5 rounded-2xl border border-border bg-surface px-5 py-4 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-primary/25 bg-soft text-primary transition-colors group-hover:bg-primary/10">
-                <MailIcon className="h-5 w-5" />
+          {/* INFO STRIP — ruled ledger rows */}
+          <div className="surface-card mt-6 divide-y divide-border lg:mt-8">
+            <div className="flex items-center gap-3.5 px-5 py-4">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center border border-border bg-bg text-primary">
+                <MailIcon className="h-4 w-4" />
               </div>
               <div className="min-w-0">
-                <p className="text-xs text-muted">{dict.contact.email}</p>
+                <p className="mono text-[0.65rem] uppercase tracking-[0.18em] text-muted">{dict.contact.email}</p>
                 <a
                   href={`mailto:${siteConfig.email}`}
                   className="block truncate text-sm font-medium text-text-primary transition-colors hover:text-primary"
@@ -220,12 +214,12 @@ export default async function ContactPage() {
               </div>
             </div>
 
-            <div className="group flex items-center gap-3.5 rounded-2xl border border-border bg-surface px-5 py-4 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-primary/25 bg-soft text-primary transition-colors group-hover:bg-primary/10">
-                <PhoneIcon className="h-5 w-5" />
+            <div className="flex items-center gap-3.5 px-5 py-4">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center border border-border bg-bg text-primary">
+                <PhoneIcon className="h-4 w-4" />
               </div>
               <div className="min-w-0">
-                <p className="text-xs text-muted">{dict.contact.phone}</p>
+                <p className="mono text-[0.65rem] uppercase tracking-[0.18em] text-muted">{dict.contact.phone}</p>
                 <a
                   href={siteConfig.phoneHref}
                   className="block text-sm font-medium text-text-primary transition-colors hover:text-primary"
@@ -238,30 +232,28 @@ export default async function ContactPage() {
               </div>
             </div>
 
-            <div className="group flex items-center gap-3.5 rounded-2xl border border-border bg-surface px-5 py-4 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-primary/25 bg-soft text-primary transition-colors group-hover:bg-primary/10">
-                <ClockIcon className="h-5 w-5" />
+            <div className="flex items-start gap-3.5 px-5 py-4">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center border border-border bg-bg text-primary">
+                <ClockIcon className="h-4 w-4" />
               </div>
               <div className="min-w-0">
                 <div className="flex items-center gap-2">
-                  <p className="text-xs text-muted">{dict.contact.officeHours}</p>
-                  {/* Live open/closed status */}
+                  <p className="mono text-[0.65rem] uppercase tracking-[0.18em] text-muted">{dict.contact.officeHours}</p>
+                  {/* Live open/closed status — squared chip */}
                   <span
-                    className={`inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[10px] font-semibold ${
+                    className={`inline-flex items-center gap-1.5 border px-1.5 py-0.5 text-[10px] font-semibold ${
                       isOpen
-                        ? "bg-positive-soft text-positive"
-                        : "bg-danger-soft text-danger"
+                        ? "border-positive/30 bg-positive-soft text-positive"
+                        : "border-danger/30 bg-danger-soft text-danger"
                     }`}
                   >
                     <span
-                      className={`h-1.5 w-1.5 rounded-full ${
-                        isOpen ? "bg-positive motion-reduce:animate-none" : "bg-danger"
-                      }`}
+                      className={`h-1.5 w-1.5 ${isOpen ? "bg-positive" : "bg-danger"}`}
                     />
                     {openLabel}
                   </span>
                 </div>
-                <div className="text-sm font-medium text-text-primary">
+                <div className="mt-1 text-sm font-medium text-text-primary">
                   {workingHours.map((entry) => (
                     <span key={entry.label} className="block truncate">
                       {entry.label}:{" "}
@@ -280,15 +272,14 @@ export default async function ContactPage() {
       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="relative z-10 pb-14 lg:pb-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="relative overflow-hidden rounded-[1.9rem] border border-primary/20 bg-deep">
-            {/* Beam accent â€” anchored to inline-start so it mirrors in RTL */}
-            <div className="pointer-events-none absolute inset-y-0 start-0 hidden w-1/2 sm:block">
-              <div className="absolute start-[6%] top-1/2 h-[220%] w-px -translate-y-1/2 rotate-[18deg] bg-gradient-to-b from-transparent via-primary/70 to-transparent blur-[1px]" />
-              <RadiationIcon className="h-full w-full text-primary" />
+          <div className="band-dark relative overflow-hidden">
+            {/* Trefoil watermark — mirrored automatically in RTL */}
+            <div className="pointer-events-none absolute inset-y-0 start-0 hidden w-1/2 items-center justify-center sm:flex">
+              <RadiationIcon className="h-48 w-48 text-highlight/20" />
             </div>
 
-            {/* Content offset past the beam half via logical padding */}
-            <div className="relative flex flex-col items-center gap-5 px-6 py-10 text-center sm:ps-[52%] sm:pe-10 sm:py-12 sm:items-start sm:text-start">
+            {/* Content offset past the watermark half via logical padding */}
+            <div className="relative flex flex-col items-center gap-5 px-6 py-12 text-center sm:ps-[52%] sm:pe-10 sm:items-start sm:text-start">
               <h3 className="text-xl font-bold text-text-on-dark sm:text-2xl">
                 {dict.contact.consultTitle}
               </h3>
@@ -297,7 +288,7 @@ export default async function ContactPage() {
               </p>
               <a
                 href={siteConfig.phoneHref}
-                className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-primary px-7 py-3 text-sm font-semibold text-deep `shadow-[0_0_28px_-4px_rgba(15,23,42,0.10)] transition-all hover:bg-primary-hover hover:`shadow-[0_0_36px_-4px_rgba(15,23,42,0.10)]"
+                className="btn btn-primary"
               >
                 <PhoneCallIcon className="h-4 w-4" />
                 <span>{dict.contact.consultCta}</span>
@@ -312,8 +303,8 @@ export default async function ContactPage() {
       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="relative z-10 pb-24 lg:pb-32">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="relative overflow-hidden rounded-[1.75rem] border border-border bg-surface p-6 shadow-sm sm:p-8">
-            <div className="pointer-events-none absolute bottom-0 end-0 top-0 w-1 bg-gradient-to-t from-primary via-primary/70 to-transparent" />
+          <div className="surface-card relative overflow-hidden p-6 sm:p-8">
+            <div className="absolute bottom-0 end-0 top-0 w-1 bg-primary" />
 
             <div className="relative flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
@@ -326,10 +317,10 @@ export default async function ContactPage() {
               </div>
               <Link
                 href="/forum"
-                className="group relative inline-flex shrink-0 items-center gap-2 overflow-hidden rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-deep `shadow-[0_0_26px_-5px_rgba(15,23,42,0.10)] transition-all hover:bg-primary-hover hover:`shadow-[0_0_34px_-4px_rgba(15,23,42,0.10)]"
+                className="btn btn-outline shrink-0"
               >
-                <span className="relative z-10">{dict.contact.visitForum}</span>
-                <ArrowIcon className="relative z-10 h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
+                <span>{dict.contact.visitForum}</span>
+                <ArrowIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
               </Link>
             </div>
           </div>
