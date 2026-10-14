@@ -1,4 +1,5 @@
 import React from "react";
+import { RadiationIcon } from "@/components/ui/icons";
 
 interface PageHeroProps {
   /** Small pill badge above the title */
@@ -18,9 +19,9 @@ interface PageHeroProps {
 /**
  * Shared inner-page hero.
  *
- * Design: clean dark medical-tech hero with soft ambient glows,
- * a subtle planning grid, diagonal beam accents, and a crisp
- * gradient energy line as the bottom divider (no clipped organic waves).
+ * Design: Clinical Dossier "case-file cover" — a deep band with a faint
+ * planning grid and one oversized trefoil watermark, closed by a solid
+ * rule. No glows, gradients, or animated accents.
  */
 export default function PageHero({
   badge,
@@ -31,21 +32,20 @@ export default function PageHero({
   breadcrumb,
 }: PageHeroProps) {
   return (
-    <section className="relative overflow-hidden bg-deep">
-      {/* Soft ambient glows */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -right-32 -top-24 h-[480px] w-[480px] rounded-full bg-primary/[0.14] blur-[140px]" />
-        <div className="absolute -bottom-32 -left-24 h-[400px] w-[400px] rounded-full bg-secondary/[0.1] blur-[120px]" />
+    <section className="relative overflow-hidden bg-deep text-text-on-dark">
+      {/* Faint planning grid + a single oversized trefoil watermark —
+          dossier "case file cover", no glows or gradient energy lines. */}
+      <div className="planning-grid pointer-events-none absolute inset-0 opacity-[0.12]" />
+
+      <div className="pointer-events-none absolute -end-24 -top-28 hidden opacity-[0.05] lg:block">
+        <RadiationIcon className="h-72 w-72 text-highlight" />
       </div>
 
-      {/* Subtle treatment planning grid */}
-      <div className="planning-grid pointer-events-none absolute inset-0 opacity-20" />
-
-      {/* Diagonal beam accents */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute left-[15%] top-0 h-[130%] w-px rotate-[12deg] bg-gradient-to-b from-primary/40 via-primary/10 to-transparent" />
-        <div className="absolute right-[20%] top-0 h-[130%] w-px -rotate-[14deg] bg-gradient-to-b from-secondary/30 via-secondary/10 to-transparent" />
-      </div>
+      {/* Bottom rule — solid hairline, not a gradient glow */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-[var(--color-rule-strong)]"
+      />
 
       {/* Breadcrumb / back link row */}
       {breadcrumb && (
@@ -58,23 +58,21 @@ export default function PageHero({
       <div className="relative mx-auto flex max-w-7xl flex-col items-center gap-12 px-4 pb-16 pt-16 text-center sm:px-6 lg:flex-row lg:justify-between lg:pb-20 lg:pt-20 lg:text-left rtl:lg:text-right">
         <div className="max-w-2xl">
           {badge && (
-            <div className="inline-flex items-center gap-2.5 rounded-full border border-primary/40 bg-primary/10 px-4 py-1.5 backdrop-blur-md">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-55" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
-              </span>
-              <span className="text-sm font-medium tracking-wide text-highlight">
-                {badge}
-              </span>
-            </div>
+            <span className="chip chip-ghost mono">
+              <span
+                aria-hidden="true"
+                className="inline-block h-1.5 w-1.5 bg-primary"
+              />
+              {badge}
+            </span>
           )}
 
-          <h1 className="mt-6 text-4xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-[3.2rem]">
+          <h1 className="type-h1 mt-5 font-bold text-text-on-dark">
             {title}
           </h1>
 
           {subtitle && (
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-slate-300/90">
+            <p className="section-lead mt-5 max-w-xl text-text-secondary">
               {subtitle}
             </p>
           )}
@@ -84,10 +82,6 @@ export default function PageHero({
 
         {emblem && <div className="shrink-0">{emblem}</div>}
       </div>
-
-      {/* Bottom energy divider — clean gradient line */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
-      <div className="pointer-events-none absolute inset-x-0 -bottom-1 h-3 bg-gradient-to-r from-transparent via-primary/15 to-transparent blur-md" />
     </section>
   );
 }
