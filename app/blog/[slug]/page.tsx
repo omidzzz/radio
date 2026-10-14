@@ -11,7 +11,6 @@ import { articleSchema, breadcrumbSchema } from "@/lib/json-ld";
 import { processArticleHtml } from "@/lib/blog-html";
 import JsonLdScript from "@/components/JsonLd";
 import ShareButtons from "@/components/ShareButtons";
-import ParticleBackground from "@/components/ui/ParticleBackground";
 import BlogReadingProgress from "@/components/BlogReadingProgress";
 import BlogPostCard from "@/components/blog/BlogPostCard";
 import LazyComments from "@/components/blog/LazyComments";
@@ -79,7 +78,7 @@ export async function generateMetadata({
   const post = getPost(slug);
 
   if (!post) {
-    return { title: "مقاله یافت نشد" };
+    return { title: "Ù…Ù‚Ø§Ù„Ù‡ ÛŒØ§ÙØª Ù†Ø´Ø¯" };
   }
 
   const url = `/blog/${post.id}`;
@@ -93,7 +92,7 @@ export async function generateMetadata({
       canonical: url,
     },
     openGraph: {
-      title: `${title} | کلینیک پرتودرمانی`,
+      title: `${title} | Ú©Ù„ÛŒÙ†ÛŒÚ© Ù¾Ø±ØªÙˆØ¯Ø±Ù…Ø§Ù†ÛŒ`,
       description,
       type: "article",
       url: `${siteConfig.url}${url}`,
@@ -112,7 +111,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | کلینیک پرتودرمانی`,
+      title: `${title} | Ú©Ù„ÛŒÙ†ÛŒÚ© Ù¾Ø±ØªÙˆØ¯Ø±Ù…Ø§Ù†ÛŒ`,
       description,
       images: [
         post.image
@@ -187,8 +186,8 @@ export default async function BlogPostPage({
     datePublished: post.published_at,
   });
   const breadcrumbs = breadcrumbSchema([
-    { name: "خانه", path: "/" },
-    { name: "مقالات تخصصی", path: "/blog" },
+    { name: "Ø®Ø§Ù†Ù‡", path: "/" },
+    { name: "Ù…Ù‚Ø§Ù„Ø§Øª ØªØ®ØµØµÛŒ", path: "/blog" },
     { name: post.title_fa, path: `/blog/${post.id}` },
   ]);
 
@@ -204,20 +203,19 @@ export default async function BlogPostPage({
         isRtl={isFa}
       />
 
-      {/* ══════════════════════════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           GLOBAL AMBIENT FIELD
-      ══════════════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <div className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute -left-48 top-10 h-[600px] w-[600px] rounded-full bg-primary/[0.07] blur-[140px]" />
         <div className="absolute -right-40 bottom-20 h-[520px] w-[520px] rounded-full bg-secondary/[0.09] blur-[120px]" />
         <div className="absolute left-1/3 top-1/2 h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-cyan-400/[0.04] blur-[90px]" />
 
-        <ParticleBackground id="particles-blogpost" />
       </div>
 
-      {/* ══════════════════════════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           HERO
-      ══════════════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="relative z-10">
         {/* Dark base with asymmetric cut */}
         <div
@@ -283,7 +281,7 @@ export default async function BlogPostPage({
                 <span className="h-1 w-1 rounded-full bg-white/40" />
                 <span>
                   {isFa
-                    ? `${toFarsiDigits(post.read_minutes)} دقیقه مطالعه`
+                    ? `${toFarsiDigits(post.read_minutes)} Ø¯Ù‚ÛŒÙ‚Ù‡ Ù…Ø·Ø§Ù„Ø¹Ù‡`
                     : `${post.read_minutes} min read`}
                 </span>
                 <span className="h-1 w-1 rounded-full bg-white/40" />
@@ -298,26 +296,26 @@ export default async function BlogPostPage({
           </div>
         </div>
 
-        {/* Bottom energy divider — clean gradient line */}
+        {/* Bottom energy divider â€” clean gradient line */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
         <div className="pointer-events-none absolute inset-x-0 -bottom-1 h-3 bg-gradient-to-r from-transparent via-primary/15 to-transparent blur-md" />
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           ARTICLE CONTENT
-      ══════════════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="relative z-10 -mt-6 pb-24">
         <div className="pointer-events-none absolute inset-0 opacity-[0.18] grain-pattern grain-masked" />
 
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_260px]">
-            {/* ── Main column ── */}
+            {/* â”€â”€ Main column â”€â”€ */}
             <div className="min-w-0">
               {/* Mobile TOC */}
               {toc.length > 0 && (
                 <details className="mb-6 rounded-2xl border border-border/60 bg-surface/90 px-5 py-4 shadow-sm lg:hidden">
                   <summary className="cursor-pointer text-sm font-semibold text-text-primary">
-                    {isFa ? "فهرست مطالب" : "On this page"}
+                    {isFa ? "ÙÙ‡Ø±Ø³Øª Ù…Ø·Ø§Ù„Ø¨" : "On this page"}
                   </summary>
                   <div className="mt-4">
                     <TableOfContents items={toc} isFa={isFa} />
@@ -325,7 +323,7 @@ export default async function BlogPostPage({
                 </details>
               )}
 
-              {/* Article card — light & readable */}
+              {/* Article card â€” light & readable */}
               <div className="relative">
                 <div
                   className="absolute -inset-4 -z-10 rounded-[2rem] bg-gradient-to-br from-primary/[0.08] via-transparent to-secondary/[0.05]"
@@ -343,7 +341,7 @@ export default async function BlogPostPage({
                   </div>
 
                   <div className="p-7 sm:p-9 md:p-11">
-                    {/* Body — typography comes from the .article-prose
+                    {/* Body â€” typography comes from the .article-prose
                         block in globals.css (no Typography plugin here) */}
                     <div
                       className="article-prose max-w-none text-[15.5px] text-text-secondary
@@ -366,7 +364,7 @@ export default async function BlogPostPage({
                         </p>
                         <p className="mt-0.5 text-xs text-muted">
                           {isFa
-                            ? "متخصص پرتودرمانی و تصویربرداری پزشکی"
+                            ? "Ù…ØªØ®ØµØµ Ù¾Ø±ØªÙˆØ¯Ø±Ù…Ø§Ù†ÛŒ Ùˆ ØªØµÙˆÛŒØ±Ø¨Ø±Ø¯Ø§Ø±ÛŒ Ù¾Ø²Ø´Ú©ÛŒ"
                             : "Radiotherapy & Medical Imaging Specialist"}
                         </p>
                       </div>
@@ -390,7 +388,7 @@ export default async function BlogPostPage({
                   >
                     <div className="h-1.5 w-8 rounded-full bg-gradient-to-r from-primary to-secondary" />
                     <h2 className="text-2xl font-bold tracking-tight text-text-primary">
-                      {isFa ? "مقالات مرتبط" : "Related Articles"}
+                      {isFa ? "Ù…Ù‚Ø§Ù„Ø§Øª Ù…Ø±ØªØ¨Ø·" : "Related Articles"}
                     </h2>
                   </div>
 
@@ -407,7 +405,7 @@ export default async function BlogPostPage({
                 </div>
               )}
 
-              {/* Comments — light readable card */}
+              {/* Comments â€” light readable card */}
               <div className="mt-16">
                 <div
                   className="mb-6 flex items-center gap-3"
@@ -415,7 +413,7 @@ export default async function BlogPostPage({
                 >
                   <div className="h-1.5 w-8 rounded-full bg-gradient-to-r from-primary to-secondary" />
                   <h2 className="text-2xl font-bold tracking-tight text-text-primary">
-                    {isFa ? "نظرات" : "Comments"}
+                    {isFa ? "Ù†Ø¸Ø±Ø§Øª" : "Comments"}
                   </h2>
                 </div>
 
@@ -458,12 +456,12 @@ export default async function BlogPostPage({
                       d="M15 19l-7-7 7-7"
                     />
                   </svg>
-                  {isFa ? "بازگشت به مقالات" : "Back to Articles"}
+                  {isFa ? "Ø¨Ø§Ø²Ú¯Ø´Øª Ø¨Ù‡ Ù…Ù‚Ø§Ù„Ø§Øª" : "Back to Articles"}
                 </Link>
               </div>
             </div>
 
-            {/* ── Sidebar: sticky TOC (desktop) ── */}
+            {/* â”€â”€ Sidebar: sticky TOC (desktop) â”€â”€ */}
             {toc.length > 0 && (
               <aside className="hidden self-start lg:sticky lg:top-24 min-[1220px]:lg:top-28 lg:block">
                 <div className="rounded-2xl border border-border/60 bg-surface/90 p-5 shadow-sm backdrop-blur-sm">

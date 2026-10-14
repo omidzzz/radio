@@ -8,8 +8,7 @@ import { toFarsiDigits } from "@/lib/i18n/numbers";
 import { siteConfig } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/json-ld";
 import JsonLdScript from "@/components/JsonLd";
-import RadiationEmblem from "@/components/ui/RadiationEmblem";
-import ParticleBackground from "@/components/ui/ParticleBackground";
+import { RadiationIcon } from "@/components/ui/icons";
 import PageHero from "@/components/PageHero";
 import { getPageItems } from "@/lib/pagination";
 
@@ -46,7 +45,7 @@ const SORTS = ["newest", "replies"] as const;
 type Sort = (typeof SORTS)[number];
 
 /**
- * Lightweight list projection — avoids pulling the full post body for every
+ * Lightweight list projection â€” avoids pulling the full post body for every
  * row when only a two-line excerpt is rendered.
  */
 interface ForumPostListItem {
@@ -87,7 +86,7 @@ export default async function ForumPage({
       ? `ORDER BY reply_count DESC, fp.created_at DESC`
       : `ORDER BY fp.created_at DESC`;
 
-  // Query with category filter and pagination — selects only the columns the
+  // Query with category filter and pagination â€” selects only the columns the
   // UI renders (plus a short excerpt) instead of the full post body.
   const baseSelect = `
     SELECT fp.id, fp.title, fp.category, fp.author_name, fp.created_at,
@@ -122,16 +121,16 @@ export default async function ForumPage({
   const totalPages = Math.max(1, Math.ceil(total / POSTS_PER_PAGE));
 
   const breadcrumbs = breadcrumbSchema([
-    { name: isFa ? "خانه" : "Home", path: "/" },
+    { name: isFa ? "Ø®Ø§Ù†Ù‡" : "Home", path: "/" },
     { name: dict.forum.title, path: "/forum" },
   ]);
 
   const categoryLabels: Record<string, { fa: string; en: string }> = {
-    all: { fa: "همه", en: "All" },
-    general: { fa: "سوالات عمومی", en: "General" },
-    treatment: { fa: "درمان و عوارض", en: "Treatment" },
-    support: { fa: "حمایت و مقابله", en: "Support" },
-    other: { fa: "سایر", en: "Other" },
+    all: { fa: "Ù‡Ù…Ù‡", en: "All" },
+    general: { fa: "Ø³ÙˆØ§Ù„Ø§Øª Ø¹Ù…ÙˆÙ…ÛŒ", en: "General" },
+    treatment: { fa: "Ø¯Ø±Ù…Ø§Ù† Ùˆ Ø¹ÙˆØ§Ø±Ø¶", en: "Treatment" },
+    support: { fa: "Ø­Ù…Ø§ÛŒØª Ùˆ Ù…Ù‚Ø§Ø¨Ù„Ù‡", en: "Support" },
+    other: { fa: "Ø³Ø§ÛŒØ±", en: "Other" },
   };
 
   /** Build a /forum URL preserving the active category + sort */
@@ -152,35 +151,33 @@ export default async function ForumPage({
     <div className="relative min-h-screen overflow-hidden bg-bg">
       <JsonLdScript data={breadcrumbs} />
 
-      {/* ══════════════════════════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           GLOBAL AMBIENT FIELD
-      ══════════════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <div className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute -left-48 top-10 h-[600px] w-[600px] rounded-full bg-primary/[0.07] blur-[140px]" />
         <div className="absolute -right-40 bottom-20 h-[520px] w-[520px] rounded-full bg-secondary/[0.09] blur-[120px]" />
         <div className="absolute left-1/3 top-1/2 h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-cyan-400/[0.04] blur-[90px]" />
 
-        <ParticleBackground id="particles-forum" className="text-muted" />
       </div>
 
-      {/* ══════════════════════════════════════════════════════════════
-          HERO — clean medical-tech hero
-      ══════════════════════════════════════════════════════════════ */}
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+          HERO â€” clean medical-tech hero
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <PageHero
         badge={dict.forum.title}
         title={dict.forum.title}
         subtitle={dict.forum.subtitle}
         emblem={
           <div className="relative mx-auto aspect-square w-full max-w-[340px]">
-            <div className="absolute inset-[10%] rounded-full bg-primary/20 blur-3xl animate-pulse" />
-            <RadiationEmblem variant="network" />
+            <RadiationIcon className="h-full w-full text-primary" />
           </div>
         }
       />
 
-      {/* ══════════════════════════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           FORUM CONTENT
-      ══════════════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="relative z-10 overflow-hidden py-20 lg:py-24">
         <div className="grain-pattern grain-masked pointer-events-none absolute inset-0 opacity-[0.22]" />
 
@@ -196,7 +193,7 @@ export default async function ForumPage({
                   </h2>
                 </div>
 
-                {/* Mobile CTA — jumps to the ask form below the list */}
+                {/* Mobile CTA â€” jumps to the ask form below the list */}
                 <a
                   href="#ask-form"
                   className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-deep shadow-[0_0_16px_-4px_rgba(6,182,212,0.5)] transition hover:bg-primary-hover lg:hidden"
@@ -240,7 +237,7 @@ export default async function ForumPage({
 
               {/* Sort options */}
               <div className="mb-6 flex items-center gap-2 text-xs">
-                <span className="text-muted">{isFa ? "مرتب‌سازی:" : "Sort:"}</span>
+                <span className="text-muted">{isFa ? "Ù…Ø±ØªØ¨â€ŒØ³Ø§Ø²ÛŒ:" : "Sort:"}</span>
                 {SORTS.map((s) => (
                   <Link
                     key={s}
@@ -286,7 +283,7 @@ export default async function ForumPage({
                   <p className="mt-2 text-text-secondary">
                     {dict.forum.beFirst}
                   </p>
-                  {/* Empty-state CTA — jump straight to the ask form */}
+                  {/* Empty-state CTA â€” jump straight to the ask form */}
                   <a
                     href="#ask-form"
                     className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-deep shadow-[0_0_20px_-6px_rgba(6,182,212,0.6)] transition hover:bg-primary-hover lg:hidden"
@@ -348,7 +345,7 @@ export default async function ForumPage({
                 </div>
               )}
 
-              {/* Pagination — windowed so large result sets stay compact */}
+              {/* Pagination â€” windowed so large result sets stay compact */}
               {totalPages > 1 && (
                 <nav
                   className="mt-10 flex flex-wrap items-center justify-center gap-2"
@@ -360,7 +357,7 @@ export default async function ForumPage({
                       scroll={false}
                       className="inline-flex items-center gap-1 rounded-full border border-border/70 bg-surface px-4 py-2 text-sm font-medium text-text-secondary transition hover:border-primary/40 hover:text-primary"
                     >
-                      {isFa ? "قبلی" : "Previous"}
+                      {isFa ? "Ù‚Ø¨Ù„ÛŒ" : "Previous"}
                     </Link>
                   )}
 
@@ -385,7 +382,7 @@ export default async function ForumPage({
                         className="inline-flex h-10 w-6 items-center justify-center text-sm text-muted"
                         aria-hidden="true"
                       >
-                        …
+                        â€¦
                       </span>
                     ),
                   )}
@@ -396,7 +393,7 @@ export default async function ForumPage({
                       scroll={false}
                       className="inline-flex items-center gap-1 rounded-full border border-border/70 bg-surface px-4 py-2 text-sm font-medium text-text-secondary transition hover:border-primary/40 hover:text-primary"
                     >
-                      {isFa ? "بعدی" : "Next"}
+                      {isFa ? "Ø¨Ø¹Ø¯ÛŒ" : "Next"}
                     </Link>
                   )}
                 </nav>

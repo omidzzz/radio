@@ -7,8 +7,7 @@ import Link from "next/link";
 import { siteConfig } from "@/lib/seo";
 import { breadcrumbSchema, contactPageSchema } from "@/lib/json-ld";
 import JsonLdScript from "@/components/JsonLd";
-import RadiationEmblem from "@/components/ui/RadiationEmblem";
-import ParticleBackground from "@/components/ui/ParticleBackground";
+import { RadiationIcon } from "@/components/ui/icons";
 import PageHero from "@/components/PageHero";
 import {
   getWorkingHoursSummary,
@@ -26,31 +25,31 @@ import {
 } from "@/components/ui/icons";
 
 export const metadata: Metadata = {
-  title: "تماس با ما",
+  title: "ØªÙ…Ø§Ø³ Ø¨Ø§ Ù…Ø§",
   description:
-    "تماس با کلینیک پرتودرمانی: آدرس، تلفن، ایمیل و ساعات کاری. برای رزرو نوبت یا سوالات درمانی با ما در ارتباط باشید.",
+    "ØªÙ…Ø§Ø³ Ø¨Ø§ Ú©Ù„ÛŒÙ†ÛŒÚ© Ù¾Ø±ØªÙˆØ¯Ø±Ù…Ø§Ù†ÛŒ: Ø¢Ø¯Ø±Ø³ØŒ ØªÙ„ÙÙ†ØŒ Ø§ÛŒÙ…ÛŒÙ„ Ùˆ Ø³Ø§Ø¹Ø§Øª Ú©Ø§Ø±ÛŒ. Ø¨Ø±Ø§ÛŒ Ø±Ø²Ø±Ùˆ Ù†ÙˆØ¨Øª ÛŒØ§ Ø³ÙˆØ§Ù„Ø§Øª Ø¯Ø±Ù…Ø§Ù†ÛŒ Ø¨Ø§ Ù…Ø§ Ø¯Ø± Ø§Ø±ØªØ¨Ø§Ø· Ø¨Ø§Ø´ÛŒØ¯.",
   alternates: {
     canonical: "/contact",
   },
   openGraph: {
-    title: "تماس با ما | کلینیک پرتودرمانی",
+    title: "ØªÙ…Ø§Ø³ Ø¨Ø§ Ù…Ø§ | Ú©Ù„ÛŒÙ†ÛŒÚ© Ù¾Ø±ØªÙˆØ¯Ø±Ù…Ø§Ù†ÛŒ",
     description:
-      "تماس با کلینیک پرتودرمانی: آدرس، تلفن، ایمیل و ساعات کاری. برای رزرو نوبت یا سوالات درمانی با ما در ارتباط باشید.",
+      "ØªÙ…Ø§Ø³ Ø¨Ø§ Ú©Ù„ÛŒÙ†ÛŒÚ© Ù¾Ø±ØªÙˆØ¯Ø±Ù…Ø§Ù†ÛŒ: Ø¢Ø¯Ø±Ø³ØŒ ØªÙ„ÙÙ†ØŒ Ø§ÛŒÙ…ÛŒÙ„ Ùˆ Ø³Ø§Ø¹Ø§Øª Ú©Ø§Ø±ÛŒ. Ø¨Ø±Ø§ÛŒ Ø±Ø²Ø±Ùˆ Ù†ÙˆØ¨Øª ÛŒØ§ Ø³ÙˆØ§Ù„Ø§Øª Ø¯Ø±Ù…Ø§Ù†ÛŒ Ø¨Ø§ Ù…Ø§ Ø¯Ø± Ø§Ø±ØªØ¨Ø§Ø· Ø¨Ø§Ø´ÛŒØ¯.",
     type: "website",
     url: `${siteConfig.url}/contact`,
     images: [{ url: siteConfig.defaultOgImage, width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "تماس با ما | کلینیک پرتودرمانی",
+    title: "ØªÙ…Ø§Ø³ Ø¨Ø§ Ù…Ø§ | Ú©Ù„ÛŒÙ†ÛŒÚ© Ù¾Ø±ØªÙˆØ¯Ø±Ù…Ø§Ù†ÛŒ",
     description:
-      "تماس با کلینیک پرتودرمانی: آدرس، تلفن، ایمیل و ساعات کاری. برای رزرو نوبت یا سوالات درمانی با ما در ارتباط باشید.",
+      "ØªÙ…Ø§Ø³ Ø¨Ø§ Ú©Ù„ÛŒÙ†ÛŒÚ© Ù¾Ø±ØªÙˆØ¯Ø±Ù…Ø§Ù†ÛŒ: Ø¢Ø¯Ø±Ø³ØŒ ØªÙ„ÙÙ†ØŒ Ø§ÛŒÙ…ÛŒÙ„ Ùˆ Ø³Ø§Ø¹Ø§Øª Ú©Ø§Ø±ÛŒ. Ø¨Ø±Ø§ÛŒ Ø±Ø²Ø±Ùˆ Ù†ÙˆØ¨Øª ÛŒØ§ Ø³ÙˆØ§Ù„Ø§Øª Ø¯Ø±Ù…Ø§Ù†ÛŒ Ø¨Ø§ Ù…Ø§ Ø¯Ø± Ø§Ø±ØªØ¨Ø§Ø· Ø¨Ø§Ø´ÛŒØ¯.",
   },
 };
 
 export const revalidate = 3600;
 
-/** Hero feature bullets — icons reference shared components, labels come from i18n */
+/** Hero feature bullets â€” icons reference shared components, labels come from i18n */
 const HERO_FEATURE_ICONS = [
   <MapPinIcon key="pin" className="h-5 w-5" />,
   <CareIcon key="care" className="h-5 w-5" />,
@@ -60,11 +59,11 @@ const HERO_FEATURE_ICONS = [
 export default async function ContactPage() {
   const { dict, locale } = await getServerDictionary();
   const workingHours = getWorkingHoursSummary(locale);
-  const closedLabel = locale === "fa" ? "تعطیل" : "Closed";
+  const closedLabel = locale === "fa" ? "ØªØ¹Ø·ÛŒÙ„" : "Closed";
   const { isOpen } = getOpenNowStatus();
   const openLabel = isOpen ? dict.contact.openNow : dict.contact.closedNow;
   const breadcrumbs = breadcrumbSchema([
-    { name: locale === "fa" ? "خانه" : "Home", path: "/" },
+    { name: locale === "fa" ? "Ø®Ø§Ù†Ù‡" : "Home", path: "/" },
     { name: dict.contact.title, path: "/contact" },
   ]);
 
@@ -79,31 +78,29 @@ export default async function ContactPage() {
       <JsonLdScript data={breadcrumbs} />
       <JsonLdScript data={contactPageSchema()} />
 
-      {/* ══════════════════════════════════════════════════════════════
-          GLOBAL AMBIENT FIELD — theme-aware
-      ══════════════════════════════════════════════════════════════ */}
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+          GLOBAL AMBIENT FIELD â€” theme-aware
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <div className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute -left-48 top-10 h-[600px] w-[600px] rounded-full bg-primary/[0.07] blur-[140px]" />
         <div className="absolute -right-40 bottom-20 h-[520px] w-[520px] rounded-full bg-secondary/[0.09] blur-[120px]" />
         <div className="absolute left-1/3 top-1/2 h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-cyan-400/[0.04] blur-[90px]" />
-        <ParticleBackground id="particles-contact" className="text-muted" />
       </div>
 
-      {/* ══════════════════════════════════════════════════════════════
-          HERO — clean medical-tech hero
-      ══════════════════════════════════════════════════════════════ */}
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+          HERO â€” clean medical-tech hero
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <PageHero
         badge={dict.contact.title}
         title={dict.contact.title}
         subtitle={dict.contact.subtitle}
         emblem={
           <div className="relative mx-auto aspect-square w-full max-w-[440px]">
-            <div className="absolute inset-[8%] rounded-full bg-primary/25 blur-3xl animate-pulse" />
-            <RadiationEmblem variant="atom" />
+            <RadiationIcon className="h-full w-full text-primary" />
           </div>
         }
       >
-        {/* Feature bullets — staggered entrance */}
+        {/* Feature bullets â€” staggered entrance */}
         <div className="mt-10 grid grid-cols-3 gap-4 sm:gap-6">
           {heroFeatures.map((f, i) => (
             <div
@@ -140,9 +137,9 @@ export default async function ContactPage() {
         </div>
       </PageHero>
 
-      {/* ══════════════════════════════════════════════════════════════
-          MAIN CONTENT — form + map side by side, theme-aware cards
-      ══════════════════════════════════════════════════════════════ */}
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+          MAIN CONTENT â€” form + map side by side, theme-aware cards
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section id="form" className="relative z-10 pb-8 pt-4 lg:pb-14">
         <div
           className="grain-pattern pointer-events-none absolute inset-0 opacity-[0.15]"
@@ -156,7 +153,7 @@ export default async function ContactPage() {
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid items-stretch gap-6 lg:grid-cols-12 lg:gap-8">
-            {/* ── FORM ── */}
+            {/* â”€â”€ FORM â”€â”€ */}
             <div className="relative lg:col-span-7">
               <div className="relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-border bg-surface shadow-[0_28px_60px_-22px_rgba(0,0,0,0.12)]">
                 {/* Energy bar */}
@@ -178,7 +175,7 @@ export default async function ContactPage() {
               </div>
             </div>
 
-            {/* ── MAP (click-to-load) ── */}
+            {/* â”€â”€ MAP (click-to-load) â”€â”€ */}
             <div className="relative lg:col-span-5">
               <div className="relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-border bg-surface shadow-[0_28px_60px_-22px_rgba(0,0,0,0.12)]">
                 <div className="flex items-center justify-between gap-3 border-b border-border px-6 py-5">
@@ -200,13 +197,13 @@ export default async function ContactPage() {
                 />
 
                 <div className="border-t border-border px-6 py-4 text-sm leading-relaxed text-text-secondary">
-                  {dict.footer.addressLine1}، {dict.footer.addressLine2}
+                  {dict.footer.addressLine1}ØŒ {dict.footer.addressLine2}
                 </div>
               </div>
             </div>
           </div>
 
-          {/* ── INFO STRIP ── */}
+          {/* â”€â”€ INFO STRIP â”€â”€ */}
           <div className="mt-6 grid gap-4 sm:grid-cols-3 lg:mt-8">
             <div className="group flex items-center gap-3.5 rounded-2xl border border-border bg-surface px-5 py-4 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md">
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-primary/25 bg-soft text-primary transition-colors group-hover:bg-primary/10">
@@ -278,17 +275,16 @@ export default async function ContactPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════
-          CONSULTATION CTA — glowing beam banner (dark section)
-      ══════════════════════════════════════════════════════════════ */}
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+          CONSULTATION CTA â€” glowing beam banner (dark section)
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="relative z-10 pb-14 lg:pb-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="relative overflow-hidden rounded-[1.9rem] border border-primary/20 bg-deep">
-            {/* Beam accent — anchored to inline-start so it mirrors in RTL */}
+            {/* Beam accent â€” anchored to inline-start so it mirrors in RTL */}
             <div className="pointer-events-none absolute inset-y-0 start-0 hidden w-1/2 sm:block">
               <div className="absolute start-[6%] top-1/2 h-[220%] w-px -translate-y-1/2 rotate-[18deg] bg-gradient-to-b from-transparent via-primary/70 to-transparent blur-[1px]" />
-              <div className="absolute inset-[18%] rounded-full bg-primary/15 blur-3xl" />
-              <RadiationEmblem variant="atom" />
+              <RadiationIcon className="h-full w-full text-primary" />
             </div>
 
             {/* Content offset past the beam half via logical padding */}
@@ -311,13 +307,12 @@ export default async function ContactPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════
-          PREFER FORUM — theme-aware accent card
-      ══════════════════════════════════════════════════════════════ */}
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+          PREFER FORUM â€” theme-aware accent card
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="relative z-10 pb-24 lg:pb-32">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="relative overflow-hidden rounded-[1.75rem] border border-border bg-surface p-6 shadow-sm sm:p-8">
-            <div className="pointer-events-none absolute -right-10 -top-10 h-36 w-36 rounded-full bg-primary/15 blur-3xl" />
             <div className="pointer-events-none absolute bottom-0 end-0 top-0 w-1 bg-gradient-to-t from-primary via-primary/70 to-transparent" />
 
             <div className="relative flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">

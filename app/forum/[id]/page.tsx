@@ -11,7 +11,6 @@ import { toFarsiDigits } from "@/lib/i18n/numbers";
 import { siteConfig } from "@/lib/seo";
 import { qaPageSchema, breadcrumbSchema } from "@/lib/json-ld";
 import JsonLdScript from "@/components/JsonLd";
-import ParticleBackground from "@/components/ui/ParticleBackground";
 
 export const revalidate = 60;
 
@@ -26,7 +25,7 @@ export async function generateStaticParams() {
 }
 
 /**
- * Cached post lookup — shared between generateMetadata and the page render
+ * Cached post lookup â€” shared between generateMetadata and the page render
  * so the row is fetched from SQLite only once per request.
  */
 const getPostById = cache(async (postId: number): Promise<ForumPost | undefined> => {
@@ -45,28 +44,28 @@ export async function generateMetadata({
   const post = Number.isInteger(postId) ? await getPostById(postId) : undefined;
 
   if (!post) {
-    return { title: "پست یافت نشد" };
+    return { title: "Ù¾Ø³Øª ÛŒØ§ÙØª Ù†Ø´Ø¯" };
   }
 
   const url = `/forum/${id}`;
 
   return {
     title: post.title,
-    description: `پرسش و پاسخ درباره: ${post.title}`,
+    description: `Ù¾Ø±Ø³Ø´ Ùˆ Ù¾Ø§Ø³Ø® Ø¯Ø±Ø¨Ø§Ø±Ù‡: ${post.title}`,
     alternates: {
       canonical: url,
     },
     openGraph: {
-      title: `${post.title} | کلینیک پرتودرمانی`,
-      description: `پرسش و پاسخ درباره: ${post.title}`,
+      title: `${post.title} | Ú©Ù„ÛŒÙ†ÛŒÚ© Ù¾Ø±ØªÙˆØ¯Ø±Ù…Ø§Ù†ÛŒ`,
+      description: `Ù¾Ø±Ø³Ø´ Ùˆ Ù¾Ø§Ø³Ø® Ø¯Ø±Ø¨Ø§Ø±Ù‡: ${post.title}`,
       type: "article",
       url: `${siteConfig.url}${url}`,
       images: [{ url: siteConfig.defaultOgImage, width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${post.title} | کلینیک پرتودرمانی`,
-      description: `پرسش و پاسخ درباره: ${post.title}`,
+      title: `${post.title} | Ú©Ù„ÛŒÙ†ÛŒÚ© Ù¾Ø±ØªÙˆØ¯Ø±Ù…Ø§Ù†ÛŒ`,
+      description: `Ù¾Ø±Ø³Ø´ Ùˆ Ù¾Ø§Ø³Ø® Ø¯Ø±Ø¨Ø§Ø±Ù‡: ${post.title}`,
     },
   };
 }
@@ -85,7 +84,7 @@ function getInitials(name: string) {
     .join("");
 }
 
-/* Avatar palette — deterministic per-author color derived from a name hash */
+/* Avatar palette â€” deterministic per-author color derived from a name hash */
 const AVATAR_GRADIENTS = [
   "from-cyan-500 to-teal-500",
   "from-sky-500 to-cyan-400",
@@ -107,7 +106,7 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
   const { id } = await params;
   const postId = Number(id);
 
-  // Invalid or missing post → real 404 response (no soft-404 SEO penalty)
+  // Invalid or missing post â†’ real 404 response (no soft-404 SEO penalty)
   if (!Number.isInteger(postId)) {
     notFound();
   }
@@ -122,7 +121,7 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
     notFound();
   }
 
-  // Paginated replies — avoids loading unbounded thread history at once
+  // Paginated replies â€” avoids loading unbounded thread history at once
   const replyParams = await searchParams;
   const replyPage = Math.max(1, parseInt(replyParams.replyPage || "1", 10) || 1);
   const replyOffset = (replyPage - 1) * REPLIES_PER_PAGE;
@@ -148,14 +147,14 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
 
   const qaJsonLd = qaPageSchema({
     title: post.title,
-    description: `پرسش و پاسخ درباره: ${post.title}`,
+    description: `Ù¾Ø±Ø³Ø´ Ùˆ Ù¾Ø§Ø³Ø® Ø¯Ø±Ø¨Ø§Ø±Ù‡: ${post.title}`,
     url: `/forum/${post.id}`,
     author: post.author_name,
     dateCreated: post.created_at,
     content: post.content,
   });
   const breadcrumbs = breadcrumbSchema([
-    { name: isFa ? "خانه" : "Home", path: "/" },
+    { name: isFa ? "Ø®Ø§Ù†Ù‡" : "Home", path: "/" },
     { name: dict.forum.title, path: "/forum" },
     { name: post.title, path: `/forum/${post.id}` },
   ]);
@@ -167,20 +166,19 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
     <div className="relative min-h-screen overflow-hidden bg-bg">
       <JsonLdScript data={[qaJsonLd, breadcrumbs]} />
 
-      {/* ══════════════════════════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           GLOBAL AMBIENT FIELD
-      ══════════════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <div className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute -left-48 top-10 h-[600px] w-[600px] rounded-full bg-primary/[0.07] blur-[140px]" />
         <div className="absolute -right-40 bottom-20 h-[520px] w-[520px] rounded-full bg-secondary/[0.09] blur-[120px]" />
         <div className="absolute left-1/3 top-1/2 h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-cyan-400/[0.04] blur-[90px]" />
 
-        <ParticleBackground id="particles-forumpost" />
       </div>
 
-      {/* ══════════════════════════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           HERO
-      ══════════════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="relative z-10">
         <div
           className="absolute inset-0 bg-deep"
@@ -200,7 +198,7 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
         </div>
 
         <div className="relative mx-auto max-w-4xl px-4 pb-28 pt-24 sm:px-6 lg:pb-36 lg:pt-28">
-          {/* Back link — clear separation */}
+          {/* Back link â€” clear separation */}
           <div className="mb-8">
             <Link
               href="/forum"
@@ -223,7 +221,7 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
             </Link>
           </div>
 
-          {/* Category badge — separate from back link */}
+          {/* Category badge â€” separate from back link */}
           <div className="mb-5">
             <span className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-3.5 py-1.5 text-xs font-medium text-highlight backdrop-blur-md">
               <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
@@ -287,14 +285,14 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
           </div>
         </div>
 
-        {/* Bottom energy divider — clean gradient line */}
+        {/* Bottom energy divider â€” clean gradient line */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
         <div className="pointer-events-none absolute inset-x-0 -bottom-1 h-3 bg-gradient-to-r from-transparent via-primary/15 to-transparent blur-md" />
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           CONTENT
-      ══════════════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="relative z-10 -mt-4 pb-24">
         <div className="pointer-events-none absolute inset-0 opacity-[0.18] grain-pattern grain-masked" />
 
@@ -383,7 +381,7 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
                 <p className="mt-4 text-text-secondary">
                   {dict.forum.beFirstReply}
                 </p>
-                {/* Empty-state CTA — jump straight to the reply form */}
+                {/* Empty-state CTA â€” jump straight to the reply form */}
                 <a
                   href="#reply-form"
                   className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-deep shadow-[0_0_20px_-6px_rgba(6,182,212,0.6)] transition hover:bg-primary-hover"
@@ -487,7 +485,7 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
                             <span className="font-medium text-text-primary">
                               {reply.author_name}
                             </span>
-                            <span className="mx-2">·</span>
+                            <span className="mx-2">Â·</span>
                             <span title={formatDate(reply.created_at, locale)}>
                               {formatRelativeTime(reply.created_at, locale)}
                             </span>
@@ -519,7 +517,7 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
                   )}
                 </div>
 
-                {/* Reply pagination — keeps long threads light */}
+                {/* Reply pagination â€” keeps long threads light */}
                 {totalReplyPages > 1 && (
                   <nav
                     className="mt-8 flex items-center justify-center gap-3 text-sm"
@@ -531,7 +529,7 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
                         scroll={false}
                         className="inline-flex items-center gap-1 rounded-full border border-border/70 bg-surface px-4 py-2 font-medium text-text-secondary transition hover:border-primary/40 hover:text-primary"
                       >
-                        ← {dict.forum.previousReplies}
+                        â† {dict.forum.previousReplies}
                       </Link>
                     )}
                     <span className="text-muted">
@@ -543,7 +541,7 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
                         scroll={false}
                         className="inline-flex items-center gap-1 rounded-full border border-border/70 bg-surface px-4 py-2 font-medium text-text-secondary transition hover:border-primary/40 hover:text-primary"
                       >
-                        {dict.forum.loadMoreReplies} →
+                        {dict.forum.loadMoreReplies} â†’
                       </Link>
                     )}
                   </nav>

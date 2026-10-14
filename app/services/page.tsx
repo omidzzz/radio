@@ -5,18 +5,16 @@ import { toFarsiDigits } from "@/lib/i18n/numbers";
 import { siteConfig } from "@/lib/seo";
 import { medicalProcedureSchema, breadcrumbSchema } from "@/lib/json-ld";
 import JsonLdScript from "@/components/JsonLd";
-import RadiationEmblem from "@/components/ui/RadiationEmblem";
-import ParticleBackground from "@/components/ui/ParticleBackground";
-import RadiotherapyScene from "@/components/ui/RadiotherapyScene";
+import { RadiationIcon } from "@/components/ui/icons";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/ui/Reveal";
 import CountUp from "@/components/ui/CountUp";
 import FAQ from "@/components/FAQ";
 import ServiceCard from "@/components/services/ServiceCard";
 
-/* ────────────────────────────────────────────────────────────────
-   Module-level icon constants — created once, reused every render
-──────────────────────────────────────────────────────────────── */
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   Module-level icon constants â€” created once, reused every render
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const targetIcon = (
   <svg
     viewBox="0 0 64 64"
@@ -252,7 +250,7 @@ export default async function ServicesPage() {
   const { dict, locale } = await getServerDictionary();
   const isFa = locale === "fa";
 
-  /** Locale-aware zero-padded ordinal ("01" / "۰۱") */
+  /** Locale-aware zero-padded ordinal ("01" / "Û°Û±") */
   const ordinal = (n: number) => {
     const label = String(n).padStart(2, "0");
     return isFa ? toFarsiDigits(label) : label;
@@ -329,29 +327,27 @@ export default async function ServicesPage() {
     <div className="relative min-h-screen overflow-hidden bg-bg">
       <JsonLdScript data={[...procedureSchemas, breadcrumbs]} />
 
-      {/* ══════════════════════════════════════════════════════════════
-          GLOBAL AMBIENT FIELD — theme-aware, compositor-promoted orbs.
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+          GLOBAL AMBIENT FIELD â€” theme-aware, compositor-promoted orbs.
           The third orb is hidden on mobile to cut GPU paint cost.
-      ══════════════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <div className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute -left-48 top-10 h-[600px] w-[600px] rounded-full bg-primary/[0.07] blur-[140px] [transform:translateZ(0)]" />
         <div className="absolute -right-40 bottom-20 h-[520px] w-[520px] rounded-full bg-secondary/[0.09] blur-[120px] [transform:translateZ(0)]" />
         <div className="absolute left-1/3 top-1/2 hidden h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-cyan-400/[0.04] blur-[90px] [transform:translateZ(0)] md:block" />
-        <ParticleBackground id="particles-services" className="text-muted" />
       </div>
 
-      {/* ══════════════════════════════════════════════════════════════
-          HERO — clean medical-tech hero
-      ══════════════════════════════════════════════════════════════ */}
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+          HERO â€” clean medical-tech hero
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <PageHero
         badge={dict.services.title}
         title={dict.services.title}
         subtitle={dict.services.subtitle}
         emblem={
           <div className="relative mx-auto aspect-square w-full max-w-[320px]">
-            {/* Static glow — no infinite pulse, cheaper compositing */}
-            <div className="absolute inset-[10%] rounded-full bg-primary/20 blur-3xl" />
-            <RadiationEmblem variant="services" />
+            {/* Static glow â€” no infinite pulse, cheaper compositing */}
+            <RadiationIcon className="h-full w-full text-primary" />
           </div>
         }
       >
@@ -370,9 +366,9 @@ export default async function ServicesPage() {
         </div>
       </PageHero>
 
-      {/* ══════════════════════════════════════════════════════════════
-          STATS — animated credibility counters
-      ══════════════════════════════════════════════════════════════ */}
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+          STATS â€” animated credibility counters
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="relative z-10 py-14 lg:py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center">
@@ -407,9 +403,9 @@ export default async function ServicesPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════
-          SERVICES GRID — staggered reveal, accent rotation, spotlight
-      ══════════════════════════════════════════════════════════════ */}
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+          SERVICES GRID â€” staggered reveal, accent rotation, spotlight
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="relative z-10 overflow-hidden py-16 lg:py-20">
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-3">
@@ -434,9 +430,9 @@ export default async function ServicesPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════
-          PROCESS TIMELINE — four-step treatment journey
-      ══════════════════════════════════════════════════════════════ */}
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+          PROCESS TIMELINE â€” four-step treatment journey
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="relative z-10 overflow-hidden py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center">
@@ -479,14 +475,17 @@ export default async function ServicesPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════
-          CTA CARD — dark section with RadiotherapyScene
-      ══════════════════════════════════════════════════════════════ */}
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+          CTA CARD â€” dark section with RadiotherapyScene
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="relative z-10 px-4 pb-24 sm:px-6 lg:px-8 lg:pb-32">
         <div className="mx-auto max-w-6xl overflow-hidden rounded-[2rem] border border-primary/15 bg-deep shadow-[0_30px_70px_-30px_rgba(0,0,0,0.6)]">
           <div className="grid items-center lg:grid-cols-2">
-            {/* Visual */}
-            <RadiotherapyScene />
+            {/* Visual — dossier trefoil watermark on the ink panel */}
+            <div className="relative hidden min-h-[320px] items-center justify-center lg:flex">
+              <div className="planning-grid pointer-events-none absolute inset-0 opacity-[0.12]" />
+              <RadiationIcon className="relative h-56 w-56 text-highlight/25" />
+            </div>
 
             {/* Text */}
             <div className="p-10 text-center sm:p-12 lg:p-14 lg:text-start">
@@ -541,9 +540,9 @@ export default async function ServicesPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════
-          FAQ — accordion + FAQPage JSON-LD (built into the component)
-      ══════════════════════════════════════════════════════════════ */}
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+          FAQ â€” accordion + FAQPage JSON-LD (built into the component)
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <FAQ
         title={dict.services.faqTitle}
         subtitle={dict.services.faqSubtitle}

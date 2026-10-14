@@ -6,8 +6,7 @@ import { toFarsiDigits } from "@/lib/i18n/numbers";
 import { siteConfig } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/json-ld";
 import JsonLdScript from "@/components/JsonLd";
-import RadiationEmblem from "@/components/ui/RadiationEmblem";
-import ParticleBackground from "@/components/ui/ParticleBackground";
+import { RadiationIcon } from "@/components/ui/icons";
 import PageHero from "@/components/PageHero";
 import BlogPostCard from "@/components/blog/BlogPostCard";
 import CategoryFilter from "@/components/blog/CategoryFilter";
@@ -32,8 +31,8 @@ export const revalidate = 60;
 
 const POSTS_PER_PAGE = 6;
 
-/** Build a windowed page list, e.g. [1, "…", 4, 5, 6, "…", 20] */
-function getPageRange(current: number, total: number): (number | "…")[] {
+/** Build a windowed page list, e.g. [1, "â€¦", 4, 5, 6, "â€¦", 20] */
+function getPageRange(current: number, total: number): (number | "â€¦")[] {
   if (total <= 7) {
     return Array.from({ length: total }, (_, i) => i + 1);
   }
@@ -42,10 +41,10 @@ function getPageRange(current: number, total: number): (number | "…")[] {
     .filter((p) => p >= 1 && p <= total)
     .sort((a, b) => a - b);
 
-  const result: (number | "…")[] = [];
+  const result: (number | "â€¦")[] = [];
   let prev = 0;
   for (const p of sorted) {
-    if (prev && p - prev > 1) result.push("…");
+    if (prev && p - prev > 1) result.push("â€¦");
     result.push(p);
     prev = p;
   }
@@ -62,10 +61,10 @@ export async function generateMetadata({
   const category = params.category;
 
   const title = category
-    ? `${category} — مقالات تخصصی`
-    : "مقالات تخصصی";
+    ? `${category} â€” Ù…Ù‚Ø§Ù„Ø§Øª ØªØ®ØµØµÛŒ`
+    : "Ù…Ù‚Ø§Ù„Ø§Øª ØªØ®ØµØµÛŒ";
   const description =
-    "دانش و تجربه در زمینه پرتودرمانی و تصویربرداری پزشکی. مقالات تخصصی درباره تشخیص و درمان سرطان.";
+    "Ø¯Ø§Ù†Ø´ Ùˆ ØªØ¬Ø±Ø¨Ù‡ Ø¯Ø± Ø²Ù…ÛŒÙ†Ù‡ Ù¾Ø±ØªÙˆØ¯Ø±Ù…Ø§Ù†ÛŒ Ùˆ ØªØµÙˆÛŒØ±Ø¨Ø±Ø¯Ø§Ø±ÛŒ Ù¾Ø²Ø´Ú©ÛŒ. Ù…Ù‚Ø§Ù„Ø§Øª ØªØ®ØµØµÛŒ Ø¯Ø±Ø¨Ø§Ø±Ù‡ ØªØ´Ø®ÛŒØµ Ùˆ Ø¯Ø±Ù…Ø§Ù† Ø³Ø±Ø·Ø§Ù†.";
 
   // Canonical points to the clean URL for page 1 without filters;
   // deeper pages/filters get their own canonical to avoid duplicate content.
@@ -79,7 +78,7 @@ export async function generateMetadata({
     description,
     alternates: { canonical },
     openGraph: {
-      title: `${title} | کلینیک پرتودرمانی`,
+      title: `${title} | Ú©Ù„ÛŒÙ†ÛŒÚ© Ù¾Ø±ØªÙˆØ¯Ø±Ù…Ø§Ù†ÛŒ`,
       description,
       type: "website",
       url: `${siteConfig.url}${canonical}`,
@@ -87,7 +86,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | کلینیک پرتودرمانی`,
+      title: `${title} | Ú©Ù„ÛŒÙ†ÛŒÚ© Ù¾Ø±ØªÙˆØ¯Ø±Ù…Ø§Ù†ÛŒ`,
       description,
     },
   };
@@ -143,8 +142,8 @@ export default async function BlogPage({
   const totalPages = Math.max(1, Math.ceil(total / POSTS_PER_PAGE));
 
   const breadcrumbs = breadcrumbSchema([
-    { name: "خانه", path: "/" },
-    { name: "مقالات تخصصی", path: "/blog" },
+    { name: "Ø®Ø§Ù†Ù‡", path: "/" },
+    { name: "Ù…Ù‚Ø§Ù„Ø§Øª ØªØ®ØµØµÛŒ", path: "/blog" },
   ]);
 
   const pageHref = (pageNum: number) =>
@@ -154,39 +153,37 @@ export default async function BlogPage({
     <div className="relative min-h-screen overflow-hidden bg-bg">
       <JsonLdScript data={breadcrumbs} />
 
-      {/* ══════════════════════════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           GLOBAL AMBIENT FIELD
-      ══════════════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <div className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute -left-48 top-10 h-[600px] w-[600px] rounded-full bg-primary/[0.07] blur-[140px]" />
         <div className="absolute -right-40 bottom-20 h-[520px] w-[520px] rounded-full bg-secondary/[0.09] blur-[120px]" />
         <div className="absolute left-1/3 top-1/2 h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-cyan-400/[0.04] blur-[90px]" />
 
-        <ParticleBackground id="particles-blog" className="text-muted" />
       </div>
 
-      {/* ══════════════════════════════════════════════════════════════
-          HERO — clean medical-tech hero
-      ══════════════════════════════════════════════════════════════ */}
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+          HERO â€” clean medical-tech hero
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <PageHero
-        badge={isFa ? "بلاگ پزشکی" : "Medical Blog"}
-        title={isFa ? "مقالات تخصصی" : "Medical Articles"}
+        badge={isFa ? "Ø¨Ù„Ø§Ú¯ Ù¾Ø²Ø´Ú©ÛŒ" : "Medical Blog"}
+        title={isFa ? "Ù…Ù‚Ø§Ù„Ø§Øª ØªØ®ØµØµÛŒ" : "Medical Articles"}
         subtitle={
           isFa
-            ? "دانش و تجربه در زمینه پرتودرمانی و تصویربرداری پزشکی"
+            ? "Ø¯Ø§Ù†Ø´ Ùˆ ØªØ¬Ø±Ø¨Ù‡ Ø¯Ø± Ø²Ù…ÛŒÙ†Ù‡ Ù¾Ø±ØªÙˆØ¯Ø±Ù…Ø§Ù†ÛŒ Ùˆ ØªØµÙˆÛŒØ±Ø¨Ø±Ø¯Ø§Ø±ÛŒ Ù¾Ø²Ø´Ú©ÛŒ"
             : "Knowledge and expertise in radiotherapy and medical imaging"
         }
         emblem={
           <div className="relative mx-auto aspect-square w-full max-w-[340px]">
-            <div className="absolute inset-[10%] rounded-full bg-primary/20 blur-3xl animate-pulse" />
-            <RadiationEmblem variant="constellation" />
+            <RadiationIcon className="h-full w-full text-primary" />
           </div>
         }
       />
 
-      {/* ══════════════════════════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           BLOG POSTS
-      ══════════════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="relative z-10 overflow-hidden py-20 lg:py-24">
         <div className="grain-pattern grain-masked pointer-events-none absolute inset-0 opacity-[0.22]" />
 
@@ -195,7 +192,7 @@ export default async function BlogPage({
             <div className="flex items-center gap-3">
               <div className="h-1.5 w-8 rounded-full bg-gradient-to-r from-primary to-secondary" />
               <h2 className="text-2xl font-bold tracking-tight text-text-primary sm:text-3xl">
-                {isFa ? "آخرین مقالات" : "Latest Articles"}
+                {isFa ? "Ø¢Ø®Ø±ÛŒÙ† Ù…Ù‚Ø§Ù„Ø§Øª" : "Latest Articles"}
               </h2>
             </div>
 
@@ -203,8 +200,8 @@ export default async function BlogPage({
             {total > 0 && (
               <p className="text-sm text-muted">
                 {isFa
-                  ? `${toFarsiDigits(total)} مقاله${category !== "all" ? ` در دستهٔ «${category}»` : ""}`
-                  : `${total} article${total === 1 ? "" : "s"}${category !== "all" ? ` in “${category}”` : ""}`}
+                  ? `${toFarsiDigits(total)} Ù…Ù‚Ø§Ù„Ù‡${category !== "all" ? ` Ø¯Ø± Ø¯Ø³ØªÙ‡Ù” Â«${category}Â»` : ""}`
+                  : `${total} article${total === 1 ? "" : "s"}${category !== "all" ? ` in â€œ${category}â€` : ""}`}
               </p>
             )}
           </div>
@@ -250,13 +247,13 @@ export default async function BlogPage({
               </div>
               <p className="mt-6 text-base text-muted">
                 {isFa
-                  ? "هنوز مقاله‌ای منتشر نشده است"
+                  ? "Ù‡Ù†ÙˆØ² Ù…Ù‚Ø§Ù„Ù‡â€ŒØ§ÛŒ Ù…Ù†ØªØ´Ø± Ù†Ø´Ø¯Ù‡ Ø§Ø³Øª"
                   : "No articles published yet"}
               </p>
             </div>
           )}
 
-          {/* Posts grid — first post on page 1 is featured full-width */}
+          {/* Posts grid â€” first post on page 1 is featured full-width */}
           {posts.length > 0 && (
             <div className="grid gap-7 md:grid-cols-2">
               {posts.map((post, i) => (
@@ -287,18 +284,18 @@ export default async function BlogPage({
                   href={pageHref(page - 1)}
                   className="inline-flex items-center gap-1 rounded-full border border-border/70 bg-surface px-4 py-2 text-sm font-medium text-text-secondary transition hover:border-primary/40 hover:text-primary"
                 >
-                  {isFa ? "قبلی" : "Previous"}
+                  {isFa ? "Ù‚Ø¨Ù„ÛŒ" : "Previous"}
                 </Link>
               )}
 
               {getPageRange(page, totalPages).map((item, i) =>
-                item === "…" ? (
+                item === "â€¦" ? (
                   <span
                     key={`ellipsis-${i}`}
                     className="inline-flex h-10 items-center px-1 text-sm text-muted"
                     aria-hidden="true"
                   >
-                    …
+                    â€¦
                   </span>
                 ) : (
                   <Link
@@ -321,7 +318,7 @@ export default async function BlogPage({
                   href={pageHref(page + 1)}
                   className="inline-flex items-center gap-1 rounded-full border border-border/70 bg-surface px-4 py-2 text-sm font-medium text-text-secondary transition hover:border-primary/40 hover:text-primary"
                 >
-                  {isFa ? "بعدی" : "Next"}
+                  {isFa ? "Ø¨Ø¹Ø¯ÛŒ" : "Next"}
                 </Link>
               )}
             </nav>

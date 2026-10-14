@@ -6,8 +6,7 @@ import Link from "next/link";
 import { siteConfig } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/json-ld";
 import JsonLdScript from "@/components/JsonLd";
-import RadiationEmblem from "@/components/ui/RadiationEmblem";
-import ParticleBackground from "@/components/ui/ParticleBackground";
+import { RadiationIcon } from "@/components/ui/icons";
 import PageHero from "@/components/PageHero";
 import { getWorkingHoursSummary } from "@/lib/services/working-hours";
 
@@ -40,16 +39,16 @@ export const revalidate = 3600;
 export default async function BookingPage() {
   const { dict, locale } = await getServerDictionary();
   const workingHours = getWorkingHoursSummary(locale);
-  const closedLabel = locale === "fa" ? "تعطیل" : "Closed";
+  const closedLabel = locale === "fa" ? "ØªØ¹Ø·ÛŒÙ„" : "Closed";
 
-  // Name of today's weekday in the active locale — used to highlight
+  // Name of today's weekday in the active locale â€” used to highlight
   // the matching row(s) in the working-hours list.
   const todayName = new Intl.DateTimeFormat(locale === "fa" ? "fa" : "en-US", {
     weekday: "long",
   }).format(new Date());
 
   const breadcrumbs = breadcrumbSchema([
-    { name: locale === "fa" ? "خانه" : "Home", path: "/" },
+    { name: locale === "fa" ? "Ø®Ø§Ù†Ù‡" : "Home", path: "/" },
     { name: dict.booking.title, path: "/booking" },
   ]);
 
@@ -64,35 +63,33 @@ export default async function BookingPage() {
     <div className="relative min-h-screen overflow-hidden bg-bg">
       <JsonLdScript data={breadcrumbs} />
 
-      {/* ══════════════════════════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           GLOBAL AMBIENT FIELD
-      ══════════════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <div className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute -left-48 top-10 h-[600px] w-[600px] rounded-full bg-primary/[0.07] blur-[140px]" />
         <div className="absolute -right-40 bottom-20 h-[520px] w-[520px] rounded-full bg-secondary/[0.09] blur-[120px]" />
         <div className="absolute left-1/3 top-1/2 h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-cyan-400/[0.04] blur-[90px]" />
 
-        <ParticleBackground id="particles-booking" className="text-muted" />
       </div>
 
-      {/* ══════════════════════════════════════════════════════════════
-          HERO — clean medical-tech hero
-      ══════════════════════════════════════════════════════════════ */}
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+          HERO â€” clean medical-tech hero
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <PageHero
         badge={dict.booking.title}
         title={dict.booking.title}
         subtitle={dict.booking.subtitle}
         emblem={
           <div className="relative mx-auto aspect-square w-full max-w-[340px]">
-            <div className="absolute inset-[10%] rounded-full bg-primary/20 blur-3xl animate-pulse" />
-            <RadiationEmblem variant="reticle" />
+            <RadiationIcon className="h-full w-full text-primary" />
           </div>
         }
       />
 
-      {/* ══════════════════════════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           BOOKING CONTENT
-      ══════════════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="relative z-10 overflow-hidden py-20 lg:py-24">
         <div className="grain-pattern grain-masked pointer-events-none absolute inset-0 opacity-[0.22]" />
 
@@ -115,7 +112,7 @@ export default async function BookingPage() {
               </div>
             </div>
 
-            {/* Sidebar — sticky so contact info stays visible while scrolling the form */}
+            {/* Sidebar â€” sticky so contact info stays visible while scrolling the form */}
             <div className="flex flex-col gap-6 self-start lg:sticky lg:top-24 lg:col-span-5">
               {/* What to expect */}
               <div className="relative overflow-hidden rounded-[1.6rem] border border-border/60 bg-surface p-6 shadow-sm">
@@ -228,7 +225,6 @@ export default async function BookingPage() {
 
               {/* Ask first card */}
               <div className="relative overflow-hidden rounded-[1.6rem] border border-primary/30 bg-gradient-to-br from-soft via-surface to-primary/[0.07] p-6">
-                <div className="pointer-events-none absolute -right-10 -top-10 h-36 w-36 rounded-full bg-primary/20 blur-3xl" />
                 <div className="pointer-events-none absolute bottom-0 left-0 top-0 w-1 bg-gradient-to-t from-primary via-primary/70 to-transparent" />
 
                 <div className="relative">
