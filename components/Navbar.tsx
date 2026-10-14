@@ -6,6 +6,7 @@ import LanguageToggle from "./LanguageToggle";
 import ThemeToggle from "./ThemeToggle";
 import SearchDropdown from "./SearchDropdown";
 import LiveSlotBadge from "@/components/ui/LiveSlotBadge";
+import { RadiationIcon } from "@/components/ui/icons";
 
 export interface NavbarStrings {
   clinicName: string;
@@ -92,27 +93,31 @@ export default function Navbar({ strings, isFa }: NavbarProps) {
       >
 
         <nav className="relative mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6 lg:px-8">
-          {/* Logo — glow only on hover so idle navbar stays cheap */}
+          {/* Wordmark — trefoil mark + display type, framed ledger card */}
           <Link href="/" className="group flex shrink-0 items-center gap-3">
-            <span className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-primary to-secondary text-lg font-bold text-deep transition-all duration-300 group-hover:scale-[1.04] group-hover:shadow-[0_0_28px_-4px_rgba(6,182,212,0.7)]">
-              <span className="relative z-10">R</span>
-              <span className="absolute inset-0 bg-gradient-to-tr from-white/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-primary/40 text-primary transition-colors duration-200 group-hover:bg-primary/10">
+              <RadiationIcon className="h-6 w-6" />
             </span>
-            <span className="text-lg font-semibold tracking-tight text-text-primary transition-colors duration-300 group-hover:text-primary">
+            <span className="font-[family-name:var(--font-fraunces)] text-lg font-semibold tracking-tight text-text-primary">
               {strings.clinicName}
             </span>
           </Link>
 
-          {/* Desktop navigation — theme-aware text, single hover pill */}
+          {/* Desktop navigation — mono index + underline draw on hover */}
           <div className="hidden items-center gap-0.5 min-[1220px]:flex">
-            {navLinks.map((link) => (
+            {navLinks.map((link, i) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="group relative rounded-full px-3.5 py-2 text-sm font-medium text-text-secondary transition-colors duration-200 hover:text-text-primary"
+                className="group relative flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-text-secondary transition-colors duration-200 hover:text-primary"
               >
-                <span className="relative z-10">{link.label}</span>
-                <span className="absolute inset-0 rounded-full bg-primary/0 transition-colors duration-200 group-hover:bg-primary/12" />
+                <span className="tnum mono text-[0.6rem] font-semibold text-muted transition-colors duration-200 group-hover:text-primary">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="relative">
+                  {link.label}
+                  <span className="absolute -bottom-0.5 start-0 h-px w-full origin-left scale-x-0 bg-primary transition-transform duration-300 ease-[var(--ease-brand)] group-hover:scale-x-100 rtl:origin-right" />
+                </span>
               </Link>
             ))}
 
