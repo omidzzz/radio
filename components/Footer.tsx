@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import type { ComponentType, ReactNode, SVGProps } from "react";
 import { getServerDictionary } from "@/lib/i18n/server";
 import { toFarsiDigits } from "@/lib/i18n/numbers";
@@ -18,17 +18,7 @@ import {
 
 type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
 
-/** Column heading — mono uppercase label with a short signal rule */
-function ColophonHeading({ children }: { children: ReactNode }) {
-  return (
-    <h3 className="mono text-[0.66rem] font-semibold uppercase tracking-[0.18em] text-highlight">
-      {children}
-      <span aria-hidden="true" className="mt-2 block h-px w-6 bg-primary" />
-    </h3>
-  );
-}
-
-/** Trefoil print watermark — the dossier emblem, static and decorative */
+/** Decorative radiation trefoil mark, reused as watermark + brand glyph. */
 function TrefoilMark({ className }: { className?: string }) {
   return (
     <svg
@@ -39,20 +29,24 @@ function TrefoilMark({ className }: { className?: string }) {
       strokeWidth="1.5"
       aria-hidden="true"
     >
-      <circle cx="50" cy="50" r="9" fill="currentColor" stroke="none" />
-      <path d="M50 41v-22M50 59v22M41 50H19M59 50h22" strokeLinecap="round" />
-      {[0, 120, 240].map((deg) => (
-        <path
-          key={deg}
-          d="M50 41c-8 0-14 6-14 14s6 14 14 14 14-6 14-14-6-14-14-14z"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          transform={`rotate(${deg} 50 50)`}
-        />
-      ))}
+      <circle cx="50" cy="50" r="8" fill="currentColor" stroke="none" />
+      <path d="M50 42v-22M50 58v22M42 50H20M58 50h22" strokeLinecap="round" />
+      <path d="M50 42c-8 0-14 6-14 14s6 14 14 14 14-6 14-14-6-14-14-14z" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M50 42c-8 0-14-6-14-14s6-14 14-14 14 6 14 14-6 14-14 14z" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M50 58c-8 0-14 6-14 14s6 14 14 14-14-6 14-14-6-14-14-14z" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
+
+/** Column heading in the dossier mono register. */
+function ColophonHeading({ children }: { children: ReactNode }) {
+  return (
+    <h3 className="mono text-[0.66rem] font-semibold uppercase tracking-[0.16em] text-primary">
+      {children}
+    </h3>
+  );
+}
+
 
 export default async function Footer() {
   const { dict, locale } = await getServerDictionary();
@@ -107,8 +101,8 @@ export default async function Footer() {
           </span>
           <span aria-hidden="true" className="h-px flex-1 bg-[var(--color-rule-strong)]" />
         </div>
+
         <div className="mt-12 grid gap-12 md:grid-cols-12">
-          {/* Brand / mission */}
           <div className="md:col-span-4">
             <div className="flex items-center gap-3">
               <span className="flex h-10 w-10 items-center justify-center rounded-full border border-primary/40 text-primary">
@@ -121,18 +115,16 @@ export default async function Footer() {
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-text-secondary">
               {dict.footer.tagline}
             </p>
-
-            {/* Open / closed status */}
             <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-1.5">
               <span className="relative flex h-1.5 w-1.5">
                 {isOpen && (
                   <span className="absolute hidden h-full w-full animate-ping rounded-full bg-positive opacity-75 motion-reduce:animate-none sm:inline-flex" />
                 )}
-                <span
-                  className={`relative inline-flex h-1.5 w-1.5 rounded-full ${
-                    isOpen ? "bg-positive" : "bg-muted"
-                  }`}
-                />
+                <span className={
+                  isOpen
+                    ? "relative inline-flex h-1.5 w-1.5 rounded-full bg-positive"
+                    : "relative inline-flex h-1.5 w-1.5 rounded-full bg-muted"
+                } />
               </span>
               <span className="text-xs font-medium text-text-secondary">
                 {isOpen ? dict.contact.openNow : dict.contact.closedNow}
@@ -140,7 +132,6 @@ export default async function Footer() {
             </div>
           </div>
 
-          {/* Quick links */}
           <nav className="md:col-span-3" aria-label={dict.footer.quickLinks}>
             <ColophonHeading>{dict.footer.quickLinks}</ColophonHeading>
             <ul className="mt-5 space-y-3">
@@ -158,12 +149,10 @@ export default async function Footer() {
             </ul>
           </nav>
 
-          {/* Contact ledger + hours */}
           <div className="md:col-span-5">
             <ColophonHeading>{dict.footer.officeHours}</ColophonHeading>
 
             <div className="mt-5 grid gap-8 sm:grid-cols-2">
-              {/* Address + contact */}
               <div className="space-y-3 text-sm">
                 <a
                   href={siteConfig.phoneHref}
@@ -209,7 +198,6 @@ export default async function Footer() {
                 </a>
               </div>
 
-              {/* Working hours — ruled ledger */}
               <ul className="divide-y divide-[var(--color-border)]">
                 {workingHours.map((entry) => (
                   <li
@@ -231,7 +219,6 @@ export default async function Footer() {
               </ul>
             </div>
 
-            {/* Socials + admin */}
             <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-[var(--color-border)] pt-6">
               <div className="flex items-center gap-3">
                 {socials.map(({ href, label, Icon }) => (
@@ -257,28 +244,43 @@ export default async function Footer() {
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-[var(--color-rule-strong)] pt-8 sm:flex-row">
-          <p className="text-xs text-muted">
-            &copy;{" "}
-            {isFa
-              ? toFarsiDigits(new Date().getFullYear())
-              : new Date().getFullYear()}{" "}
-            {dict.common.clinicName}. {dict.footer.rightsReserved}
-          </p>
+        <div className="mt-14 border-t border-[var(--color-rule-strong)] pt-8">
+          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+            <p className="text-xs text-muted">
+              &copy;{" "}
+              {isFa
+                ? toFarsiDigits(new Date().getFullYear())
+                : new Date().getFullYear()}{" "}
+              {dict.common.clinicName}. {dict.footer.rightsReserved}
+            </p>
 
-          <div className="flex items-center gap-4 text-xs text-muted">
-            <Link href="/privacy" className="transition-colors hover:text-highlight">
-              {dict.footer.privacy}
-            </Link>
-            <span aria-hidden="true" className="h-1 w-1 rounded-full bg-[var(--color-rule-strong)]" />
-            <Link href="/terms" className="transition-colors hover:text-highlight">
-              {dict.footer.terms}
-            </Link>
+            <div className="flex items-center gap-4 text-xs text-text-secondary">
+              <Link
+                href="/privacy"
+                className="transition-colors duration-200 hover:text-highlight"
+              >
+                {dict.footer.privacy}
+              </Link>
+              <span className="h-1 w-1 rounded-full bg-[var(--color-rule-strong)]" />
+              <Link
+                href="/terms"
+                className="transition-colors duration-200 hover:text-highlight"
+              >
+                {dict.footer.terms}
+              </Link>
+              <span className="h-1 w-1 rounded-full bg-[var(--color-rule-strong)]" />
+              <a
+                href="#top"
+                aria-label={dict.footer.backToTop}
+                title={dict.footer.backToTop}
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-[var(--color-border)] text-text-secondary transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/60 hover:text-highlight"
+              >
+                <ArrowIcon className="h-3.5 w-3.5 rotate-45" />
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </footer>
   );
 }
-
