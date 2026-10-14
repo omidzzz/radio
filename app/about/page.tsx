@@ -4,8 +4,7 @@ import { getServerDictionary } from "@/lib/i18n/server";
 import { siteConfig } from "@/lib/seo";
 import { physicianSchema, breadcrumbSchema } from "@/lib/json-ld";
 import JsonLdScript from "@/components/JsonLd";
-import RadiationEmblem from "@/components/ui/RadiationEmblem";
-import ParticleBackground from "@/components/ui/ParticleBackground";
+import { RadiationIcon } from "@/components/ui/icons";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/ui/Reveal";
 import CountUp from "@/components/ui/CountUp";
@@ -130,19 +129,6 @@ export default async function AboutPage() {
       <JsonLdScript data={[...physicianSchemas, breadcrumbs]} />
 
       {/* ══════════════════════════════════════════════════════════════
-          GLOBAL AMBIENT FIELD
-          Orbs are promoted to their own compositor layer (translateZ)
-          so their large blurs don't repaint on every scroll frame.
-      ══════════════════════════════════════════════════════════════ */}
-      <div className="pointer-events-none fixed inset-0 z-0">
-        <div className="absolute -left-48 top-10 h-[600px] w-[600px] rounded-full bg-primary/[0.07] blur-[140px] [transform:translateZ(0)]" />
-        <div className="absolute -right-40 bottom-20 h-[520px] w-[520px] rounded-full bg-secondary/[0.09] blur-[120px] [transform:translateZ(0)]" />
-        <div className="absolute left-1/3 top-1/2 h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-cyan-400/[0.04] blur-[90px] [transform:translateZ(0)]" />
-
-        <ParticleBackground id="particles-about" className="text-muted" />
-      </div>
-
-      {/* ══════════════════════════════════════════════════════════════
           HERO — clean medical-tech hero
       ══════════════════════════════════════════════════════════════ */}
       <PageHero
@@ -150,11 +136,7 @@ export default async function AboutPage() {
         title={dict.about.title}
         subtitle={dict.about.subtitle}
         emblem={
-          <div className="relative mx-auto aspect-square w-full max-w-[340px]">
-            {/* Static glow — no infinite pulse, cheaper compositing */}
-            <div className="absolute inset-[10%] rounded-full bg-primary/20 blur-3xl" />
-            <RadiationEmblem variant="atom" />
-          </div>
+          <RadiationIcon className="h-40 w-40 text-primary/30 lg:h-52 lg:w-52" />
         }
       />
 
@@ -222,11 +204,8 @@ export default async function AboutPage() {
                   style={{ clipPath: "polygon(0 0, 100% 3%, 97% 100%, 0 96%)" }}
                 />
                 <div className="relative overflow-hidden rounded-[1.85rem] border border-border/60 bg-surface/95 p-8 shadow-[0_28px_60px_-22px_rgba(0,0,0,0.12)] backdrop-blur-sm sm:p-10">
-                  {/* Energy bar — sweeping highlight instead of a pulsing block */}
-                  <div className="absolute inset-x-0 top-0 h-1.5 overflow-hidden bg-deep">
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary via-cyan-300 to-secondary" />
-                    <div className="beam-sweep absolute inset-y-0 w-1/4 bg-white/25" />
-                  </div>
+                  {/* Dossier top rule — solid signal red, no sweep */}
+                  <div className="absolute inset-x-0 top-0 h-1 bg-primary" />
 
                   <div className="mt-2 flex items-center gap-3">
                     <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-soft text-primary ring-1 ring-primary/20">

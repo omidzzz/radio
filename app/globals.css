@@ -825,6 +825,39 @@ p {
 }
 
 
+/* ================= LEGACY DECORATIVE SHIMS =================
+   A few pages still reference decorative class names from the old
+   sci-fi system. They are intentionally neutralized here so nothing
+   renders a cyan glow or a stray animation — the inner-page chrome is
+   being migrated to the dossier language. Safe to delete once every
+   page has been rebuilt. */
+
+/* Old "masked grain" overlay — keep a faint, contained grain only */
+.grain-masked {
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 78%);
+}
+
+/* Former spotlight hover-card — now just a paper card surface */
+.spotlight-card {
+  position: relative;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+}
+
+/* Former dose-loading pulse — a calm static hairline now */
+.dose-loading {
+  background-color: var(--color-border);
+}
+
+/* Placeholder tone for inputs that opt in */
+.placeholder-muted::placeholder {
+  color: var(--color-muted);
+  opacity: 1;
+}
+
+
 /* ================= GRAIN OVERLAY ================= */
 .grain {
   position: fixed;
