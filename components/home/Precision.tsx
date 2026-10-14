@@ -1,5 +1,5 @@
 import Reveal from "@/components/ui/Reveal";
-import SectionHeader from "@/components/ui/SectionHeader";
+import ChapterHead from "@/components/ui/ChapterHead";
 import HeatmapGrid from "@/components/ui/HeatmapGrid";
 import { toFarsiDigits } from "@/lib/i18n/numbers";
 
@@ -51,10 +51,7 @@ export default function Precision({ isFa }: PrecisionProps) {
       ];
 
   return (
-    <section className="content-visibility relative overflow-hidden bg-soft section-pad">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/25 to-transparent" />
-      <div className="pointer-events-none absolute -left-24 top-16 hidden h-64 w-64 rounded-full bg-primary/10 blur-3xl lg:block" />
-
+    <section className="content-visibility relative overflow-hidden surface-soft section-pad">
       <div className="relative z-10 mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:gap-16 lg:px-8">
         {/* ── Dose map panel ── */}
         <Reveal variant="left">
@@ -109,13 +106,14 @@ export default function Precision({ isFa }: PrecisionProps) {
         {/* ── Copy + numbers ── */}
         <div>
           <Reveal variant="right">
-            <SectionHeader
+            <ChapterHead
               align="start"
-              eyebrow={isFa ? "دقت و ایمنی" : "Precision & Safety"}
+              index="04"
+              label={isFa ? "دقت و ایمنی" : "Precision & Safety"}
               title={
                 isFa ? "هر میلی‌متر، برنامه‌ریزی‌شده" : "Every millimetre, planned"
               }
-              subtitle={
+              lede={
                 isFa
                   ? "دوز درمانی دقیقاً به هدف می‌رسد و بافت سالم اطراف تا حد امکان حفظ می‌شود. این نتیجهٔ یک مسیر کنترل‌شده از شبیه‌سازی تا تایید نهایی است."
                   : "The dose lands on the target while surrounding healthy tissue is spared as much as possible — the result of a controlled path from simulation to final verification."
@@ -124,11 +122,11 @@ export default function Precision({ isFa }: PrecisionProps) {
           </Reveal>
 
           {/* Plan metrics */}
-          <dl className="tnum mt-8 grid grid-cols-3 gap-4 border-t border-border pt-6">
+          <dl className="tnum mt-8 grid grid-cols-3 gap-4 border-t border-[var(--color-border)] pt-6">
             {stats.map((s, i) => (
               <Reveal key={s.label} delay={i * 90}>
                 <div>
-                  <dt className="text-[11px] font-semibold uppercase tracking-wide text-text-secondary">
+                  <dt className="mono text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-text-secondary">
                     {s.label}
                   </dt>
                   <dd className="mt-1.5 text-lg font-bold text-text-primary sm:text-xl">
@@ -144,7 +142,7 @@ export default function Precision({ isFa }: PrecisionProps) {
             {checklist.map((line, i) => (
               <Reveal key={line} delay={i * 90}>
                 <li className="flex items-start gap-3 text-sm text-text-secondary">
-                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-soft text-primary ring-1 ring-primary/20">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-soft text-primary">
                     <svg
                       viewBox="0 0 16 16"
                       fill="none"

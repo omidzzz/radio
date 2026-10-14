@@ -1,6 +1,5 @@
 import Reveal from "@/components/ui/Reveal";
-import SpotLightCard from "@/components/ui/SpotLightCard";
-import SectionHeader from "@/components/ui/SectionHeader";
+import ChapterHead from "@/components/ui/ChapterHead";
 
 interface FeaturesProps {
   dict: any;
@@ -74,50 +73,41 @@ export default function Features({ dict, isFa }: FeaturesProps) {
   ];
 
   return (
-    <section className="content-visibility relative bg-bg section-pad">
-      <div className="pointer-events-none absolute -left-10 top-20 hidden h-64 w-64 rounded-full border border-primary/20 lg:block" />
-      <div className="pointer-events-none absolute -right-16 bottom-10 hidden h-48 w-48 rounded-full border border-secondary/20 lg:block" />
+    <section className="content-visibility relative section-pad">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <ChapterHead
+          index="01"
+          label={isFa ? "خدمات تصویربرداری" : "Imaging Services"}
+          title={dict.home.featuresTitle}
+          lede={
+            isFa
+              ? "ترکیبی از تخصص پزشکی و فناوری پیشرفته تصویربرداری"
+              : "Precision medicine powered by cutting-edge imaging technology"
+          }
+        />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <Reveal className="mx-auto max-w-2xl">
-          <SectionHeader
-            eyebrow={isFa ? "خدمات تصویربرداری" : "Imaging Services"}
-            title={dict.home.featuresTitle}
-            subtitle={
-              isFa
-                ? "ترکیبی از تخصص پزشکی و فناوری پیشرفته تصویربرداری"
-                : "Precision medicine powered by cutting-edge imaging technology"
-            }
-          />
-        </Reveal>
-
-        <div className="relative mt-14 grid gap-6 sm:mt-16 md:grid-cols-3 md:gap-8">
+        {/* Editorial ledger — ruled rows, not a card grid */}
+        <ul className="mt-12 border-t border-[var(--color-border)]">
           {features.map((feature, i) => (
-            <Reveal key={feature.code} delay={i * 120}>
-              <SpotLightCard className="h-full rounded-3xl">
-                <div className="surface-card no-lift-touch group relative h-full overflow-hidden p-8">
-                  <div className="dose-gradient absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 opacity-80 transition-transform duration-500 group-hover:scale-x-100" />
-                  <div className="text-xs font-semibold uppercase tracking-widest text-secondary">
-                    MOD / {feature.code}
-                  </div>
-
-                  <div className="relative mx-auto mt-5 flex h-20 w-20 items-center justify-center rounded-2xl bg-soft text-primary shadow-inner transition-colors duration-200 group-hover:bg-primary group-hover:text-white">
+            <Reveal key={feature.code} delay={i * 110}>
+              <li className="group grid grid-cols-1 items-start gap-x-8 gap-y-4 border-b border-[var(--color-border)] py-8 sm:grid-cols-[auto_1fr] sm:py-10">
+                <div className="flex items-center gap-5 sm:flex-col sm:items-start sm:gap-4">
+                  <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[var(--radius-card)] border border-[var(--color-border)] bg-soft text-primary transition-colors duration-200 group-hover:border-primary/50">
                     {featureSvgs[feature.code as keyof typeof featureSvgs]}
-                  </div>
-
-                  <h3 className="relative mt-8 text-center text-xl font-semibold text-text-primary transition-colors duration-200 group-hover:text-primary">
-                    {feature.title}
-                  </h3>
-                  <p className="relative mt-3 text-center leading-relaxed text-text-secondary">
-                    {feature.desc}
-                  </p>
-
-                  <div className="relative mx-auto mt-6 h-px w-12 bg-border transition-all duration-200 group-hover:w-20 group-hover:bg-highlight" />
+                  </span>
+                  <span className="mono text-[0.7rem] font-medium uppercase tracking-[0.2em] text-secondary">
+                    MOD / {feature.code}
+                  </span>
                 </div>
-              </SpotLightCard>
+
+                <div>
+                  <h3 className="type-h3 text-text-primary">{feature.title}</h3>
+                  <p className="section-lead mt-3 max-w-2xl">{feature.desc}</p>
+                </div>
+              </li>
             </Reveal>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

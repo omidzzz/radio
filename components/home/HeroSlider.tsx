@@ -28,11 +28,6 @@ export default function HeroSlider({ dict, isFa }: HeroSliderProps) {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  // Slides that currently play their staged entrance animations.
-  // The outgoing slide keeps its state through the 800ms opacity
-  // crossfade, then resets so the next activation replays cleanly.
-  const [entranceSlides, setEntranceSlides] = useState<number[]>([0]);
-
   // Slide 2+ mounts lazily (deferred past LCP) so its images don't
   // compete with the first slide's priority hero image. It mounts
   // shortly after hydration so autoplay still works seamlessly.
@@ -46,14 +41,6 @@ export default function HeroSlider({ dict, isFa }: HeroSliderProps) {
     }, 2500);
     return () => clearTimeout(t);
   }, []);
-
-  useEffect(() => {
-    setEntranceSlides((prev) =>
-      prev.includes(active) ? prev : [...prev, active]
-    );
-    const t = setTimeout(() => setEntranceSlides([active]), 900);
-    return () => clearTimeout(t);
-  }, [active]);
 
   const goTo = useCallback((index: number) => {
     setActive(index);
@@ -101,11 +88,7 @@ export default function HeroSlider({ dict, isFa }: HeroSliderProps) {
             aria-hidden={active !== i}
             aria-live={active === i ? "polite" : undefined}
           >
-            <Component
-              dict={dict}
-              isFa={isFa}
-              playAnim={entranceSlides.includes(i)}
-            />
+            <Component dict={dict} isFa={isFa} />
           </div>
         );
       })}
@@ -154,7 +137,7 @@ function SliderControls({
             resetTimer();
           }}
           aria-label={isFa ? "اسلاید قبلی" : "Previous slide"}
-          className="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-deep/40 text-white backdrop-blur-md transition-all duration-300 hover:border-primary/60 hover:bg-primary/20 hover:shadow-[0_0_20px_-4px_rgba(6,182,212,0.5)] active:scale-95"
+          className="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border border-[var(--color-rule-strong)] bg-deep/60 text-text-on-dark transition-colors duration-200 hover:border-primary hover:text-highlight active:scale-95"
         >
           <svg
             className={`h-5 w-5 ${isFa ? "rotate-180" : ""}`}
@@ -173,7 +156,7 @@ function SliderControls({
             resetTimer();
           }}
           aria-label={isFa ? "اسلاید بعدی" : "Next slide"}
-          className="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-deep/40 text-white backdrop-blur-md transition-all duration-300 hover:border-primary/60 hover:bg-primary/20 hover:shadow-[0_0_20px_-4px_rgba(6,182,212,0.5)] active:scale-95"
+          className="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border border-[var(--color-rule-strong)] bg-deep/60 text-text-on-dark transition-colors duration-200 hover:border-primary hover:text-highlight active:scale-95"
         >
           <svg
             className={`h-5 w-5 ${isFa ? "rotate-180" : ""}`}
@@ -193,9 +176,9 @@ function SliderControls({
         className="pointer-events-none absolute bottom-5 left-1/2 z-20 hidden -translate-x-1/2 flex-col items-center gap-2 sm:flex"
         aria-hidden="true"
       >
-        <span className="h-8 w-px bg-gradient-to-b from-transparent via-primary/50 to-transparent" />
+        <span className="h-8 w-px bg-gradient-to-b from-transparent via-[var(--color-rule-strong)] to-transparent" />
         <svg
-          className="h-3.5 w-3.5 text-highlight/60"
+          className="h-3.5 w-3.5 text-muted"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -222,8 +205,8 @@ function SliderControls({
             <span
               className={`h-2 w-2 rounded-full transition-all duration-300 ${
                 active === i
-                  ? "w-6 bg-primary shadow-[0_0_8px_rgba(6,182,212,0.8)]"
-                  : "bg-white/30 group-hover:bg-white/60"
+                  ? "w-6 bg-primary"
+                  : "bg-[var(--color-rule-strong)] group-hover:bg-muted"
               }`}
             />
           </button>

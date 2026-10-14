@@ -1,42 +1,43 @@
 import Link from "next/link";
 import Reveal from "@/components/ui/Reveal";
-import MagneticButton from "@/components/ui/MagneticButton";
-import SectionHeader from "@/components/ui/SectionHeader";
+import ChapterHead from "@/components/ui/ChapterHead";
+import { ArrowIcon } from "@/components/ui/icons";
 
 interface CTAProps {
   dict: any;
 }
 
+/**
+ * Closing chapter — an ink band with an oversized Fraunces prompt and two
+ * ruled buttons. The dossier "end of file" call to action: forum first
+ * (ask the community), contact second. No magnetic glow, no conic border.
+ */
 export default function CTA({ dict }: CTAProps) {
   return (
-    <section className="band-dark">
-      <div className="section-pad relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-        <Reveal>
-          <SectionHeader tone="dark" title={dict.home.ctaTitle} subtitle={dict.home.ctaSubtitle} />
-        </Reveal>
+    <section className="band-dark section-pad">
+      <div className="grain-pattern pointer-events-none" aria-hidden="true" />
+      <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <ChapterHead
+          tone="dark"
+          title={dict.home.ctaTitle}
+          lede={dict.home.ctaSubtitle}
+        />
 
         <Reveal delay={150}>
-          <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <MagneticButton
-              as={Link}
+          <div className="mt-10 flex flex-col items-stretch gap-4 sm:flex-row sm:justify-center">
+            <Link
               href="/forum"
-              strength={0.2}
-              className="conic-border rounded-full"
+              className="btn btn-primary group w-full sm:w-auto"
             >
-              <span className="btn-sheen group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-primary px-9 py-4 text-base font-semibold text-deep shadow-[0_0_35px_-8px_rgba(6,182,212,0.65)] transition-colors duration-200 hover:bg-primary-hover active:scale-[0.97]">
-                <span className="relative">{dict.home.visitForum}</span>
-              </span>
-            </MagneticButton>
-            <MagneticButton
-              as={Link}
+              {dict.home.visitForum}
+              <ArrowIcon className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
+            </Link>
+            <Link
               href="/contact"
-              strength={0.2}
-              className="inline-block"
+              className="btn btn-outline w-full border-[var(--color-rule-strong)] text-text-on-dark hover:border-highlight hover:text-highlight sm:w-auto"
             >
-              <span className="group inline-flex items-center justify-center rounded-full border border-white/20 bg-white/5 px-9 py-4 text-base font-semibold text-white backdrop-blur-sm transition-colors duration-200 hover:border-primary/50 hover:bg-white/10 active:scale-[0.97]">
-                {dict.home.contactUs}
-              </span>
-            </MagneticButton>
+              {dict.home.contactUs}
+            </Link>
           </div>
         </Reveal>
       </div>

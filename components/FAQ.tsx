@@ -1,6 +1,6 @@
 import { faqSchema } from "@/lib/json-ld";
 import FAQItem from "./FAQItem";
-import SectionHeader from "@/components/ui/SectionHeader";
+import ChapterHead from "@/components/ui/ChapterHead";
 
 interface FAQItemData {
   question: string;
@@ -20,7 +20,7 @@ export default function FAQ({
   eyebrow,
 }: FAQProps & { eyebrow?: string }) {
   return (
-    <section className="content-visibility relative overflow-hidden bg-bg section-pad">
+    <section className="content-visibility relative overflow-hidden section-pad">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -36,7 +36,7 @@ export default function FAQ({
       />
 
       <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <SectionHeader eyebrow={eyebrow} title={title} subtitle={subtitle} />
+        <ChapterHead label={eyebrow} title={title} lede={subtitle} align="start" />
 
         <div className="mt-10 space-y-4">
           {items.map((item, index) => (

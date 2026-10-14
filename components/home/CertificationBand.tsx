@@ -1,5 +1,5 @@
 import Reveal from "@/components/ui/Reveal";
-import SectionHeader from "@/components/ui/SectionHeader";
+import ChapterHead from "@/components/ui/ChapterHead";
 import SeamlessMarquee from "@/components/ui/SeamlessMarquee";
 
 interface CertificationBandProps {
@@ -46,8 +46,9 @@ export default function CertificationBand({ isFa }: CertificationBandProps) {
     <section className="content-visibility relative bg-bg section-pad">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
-          <SectionHeader
-            eyebrow={
+          <ChapterHead
+            index="06"
+            label={
               isFa ? "گواهینامه‌ها و استانداردها" : "Certifications & Standards"
             }
             title={
@@ -55,7 +56,7 @@ export default function CertificationBand({ isFa }: CertificationBandProps) {
                 ? "زیر نظر استانداردهای جهانی"
                 : "Held to global standards"
             }
-            subtitle={
+            lede={
               isFa
                 ? "هر فرآیند کلینیک — از تصویربرداری تا حفاظت اطلاعات بیمار — با یک استاندارد بین‌المللی سنجیده می‌شود."
                 : "Every clinical process — from imaging to patient-data protection — is measured against an international standard."
@@ -72,8 +73,8 @@ export default function CertificationBand({ isFa }: CertificationBandProps) {
         <SeamlessMarquee className="px-4 sm:px-12" duration={36}>
           {certs.map((c) => (
             <div key={c.key} className="px-3">
-              <div className="surface-card no-lift-touch group flex shrink-0 items-center gap-4 px-6 py-4">
-                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-soft text-primary transition-colors duration-200 group-hover:bg-primary group-hover:text-white">
+              <div className="surface-card group flex shrink-0 items-center gap-4 px-6 py-4">
+                <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--color-border)] bg-soft text-primary">
                   <c.Icon />
                 </span>
                 <span className="flex flex-col leading-tight">

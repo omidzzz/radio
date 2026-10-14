@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Reveal from "@/components/ui/Reveal";
-import SectionHeader from "@/components/ui/SectionHeader";
+import ChapterHead from "@/components/ui/ChapterHead";
 
 interface Testimonial {
   quote: string;
@@ -70,11 +70,12 @@ export default function Testimonials({ isFa }: TestimonialsProps) {
 
   return (
     <section className="content-visibility band-dark section-pad">
+      <div className="grain-pattern pointer-events-none" aria-hidden="true" />
       <div className="relative z-10 mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <Reveal>
-          <SectionHeader
+          <ChapterHead
             tone="dark"
-            eyebrow={isFa ? "نظرات بیماران" : "Patient Stories"}
+            label={isFa ? "نظرات بیماران" : "Patient Stories"}
             title={isFa ? "تجربه بیماران ما" : "What Our Patients Say"}
           />
         </Reveal>
@@ -82,7 +83,7 @@ export default function Testimonials({ isFa }: TestimonialsProps) {
         <Reveal delay={150}>
           <div className="relative mt-14">
             {/* Quote mark */}
-            <div className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 text-7xl font-black text-primary/20 select-none">
+            <div className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 font-[family-name:var(--font-fraunces)] text-7xl font-semibold text-highlight/30 select-none">
               &ldquo;
             </div>
 
@@ -98,12 +99,14 @@ export default function Testimonials({ isFa }: TestimonialsProps) {
                   }`}
                   aria-hidden={i !== active}
                 >
-                  <blockquote className="max-w-2xl text-lg leading-relaxed text-slate-200 sm:text-xl">
+                  <blockquote className="max-w-2xl text-lg leading-relaxed text-text-secondary sm:text-xl">
                     {t.quote}
                   </blockquote>
                   <figcaption className="mt-6">
-                    <div className="font-semibold text-white">{t.name}</div>
-                    <div className="mt-1 text-sm text-muted">{t.role}</div>
+                    <div className="font-semibold text-text-on-dark">{t.name}</div>
+                    <div className="mono mt-1 text-xs uppercase tracking-[0.14em] text-muted">
+                      {t.role}
+                    </div>
                   </figcaption>
                 </figure>
               ))}
@@ -124,7 +127,7 @@ export default function Testimonials({ isFa }: TestimonialsProps) {
                     className={`h-1.5 rounded-full transition-all duration-300 ${
                       i === active
                         ? "w-8 bg-primary"
-                        : "w-2.5 bg-white/20 hover:bg-white/40"
+                        : "w-2.5 bg-[var(--color-rule-strong)] hover:bg-muted"
                     }`}
                   />
                 </button>

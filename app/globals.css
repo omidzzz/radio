@@ -750,6 +750,81 @@ p {
   animation: count-up 0.8s var(--ease-io) forwards;
 }
 
+/* ================= DOSSIER LAYOUT LAYER =================
+   Shared section rhythm + surfaces in the Clinical Dossier language.
+   These replace the old sci-fi helpers (section-pad / band-dark /
+   surface-card / planning-grid / content-visibility) with one
+   editorial vocabulary used consistently across every page. */
+
+/* Vertical rhythm for full page sections — one token drives it all */
+.section-pad {
+  padding-block: var(--section-y);
+}
+
+.section-pad-tight {
+  padding-block: calc(var(--section-y) * 0.55);
+}
+
+/* Faint measurement grid — the "case-file" ruled backdrop.
+   Decorative only; sits behind content at very low opacity. */
+.planning-grid {
+  background-image:
+    linear-gradient(to right, var(--color-border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-border) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+/* Ink band — the deep "night edition" strip used to break the page.
+   Pairs with .surface / paper sections for editorial alternation. */
+.band-dark {
+  position: relative;
+  background-color: var(--color-deep);
+  color: var(--color-text-on-dark);
+}
+
+.band-dark .section-lead,
+.band-dark .ledger-row .label {
+  color: var(--color-muted);
+}
+
+/* Paper card — bordered, subtle elevation, no glow.
+   The single reusable content container for the whole site. */
+.surface-card {
+  position: relative;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--elevation-card);
+}
+
+/* Hairline divider that spans a section, anchored under a chapter */
+.rule {
+  height: 1px;
+  width: 100%;
+  background-color: var(--color-border);
+}
+
+/* Perf: skip rendering/painting for below-the-fold sections until
+   they approach the viewport. Paired with contain-intrinsic-size to
+   avoid scrollbar jump. */
+.content-visibility {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 640px;
+}
+
+/* Grain overlay for dark bands / imagery — a positioned variant of
+   the fixed .grain above, for use inside a relative container. */
+.grain-pattern {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 120px 120px;
+}
+
+
 /* ================= GRAIN OVERLAY ================= */
 .grain {
   position: fixed;
