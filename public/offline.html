@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>آفلاین هستید | You are offline</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: system-ui, -apple-system, "Segoe UI", Tahoma, sans-serif;
+      background: #0b1120;
+      color: #f1f5f9;
+    }
+    .card {
+      text-align: center;
+      padding: 3rem 2rem;
+      max-width: 26rem;
+    }
+    .icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    h1 { font-size: 1.4rem; margin: 0 0 0.5rem; color: #22d3ee; }
+    p { color: #94a3b8; line-height: 1.7; margin: 0 0 1.5rem; }
+    button {
+      background: #22d3ee;
+      color: #020617;
+      border: none;
+      border-radius: 999px;
+      padding: 0.7rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon">📡</div>
+    <h1>اتصال اینترنت قطع است</h1>
+    <p>در حال حاضر آفلاین هستید. لطفاً اتصال اینترنت خود را بررسی کنید و دوباره تلاش کنید.</p>
+    <h1 style="margin-top:1.5rem">You are offline</h1>
+    <p>Please check your internet connection and try again.</p>
+    <button onclick="location.reload()">تلاش مجدد / Retry</button>
+  </div>
+</body>
+</html>
