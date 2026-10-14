@@ -165,6 +165,54 @@ styling. Admin inherits tokens (functional restyle, no restructure).
 ### 6. Signature moments
 
 1. **Beam headline reveal** — chapter/hero titles wipe in under a thin signal-red
+Fonts: next/font Google (Vazirmatn, Outfit today).
+
+---
+
+## PROGRESS LOG — Clinical Dossier build-out
+
+### Milestone 1 — Homepage rebuild (`refactor(home): rebuild homepage in Clinical Dossier language`)
+- All home sections rewritten in dossier vocabulary: Hero, HeroSlideTwo,
+  TrustStrip, Features, Process, Equipment, Precision, Credibility,
+  Testimonials, CertificationBand, CTA, FAQ, HeroSlider.
+- Dossier layout layer added to `globals.css`: `.section-pad`, `.planning-grid`,
+  `.band-dark`, `.surface-card`, `.grain-pattern`, `.content-visibility`,
+  `.chip` family, ChapterHead support.
+- Deleted 15 orphaned sci-fi components (MorphingBlob, NodeNetwork,
+  ScanLineDivider, SliceDivider, AmbientFx, CursorGlow, MagneticButton,
+  TiltCard, SpotLightCard, PowerOnGantry, ScrollRotateImage, HeroEntrance,
+  HeroBottomDivider, SectionHeader, CounterRing).
+
+### Milestone 2 — Inner-page chrome (`refactor(about,globals)` + `refactor(pages)`)
+- About: ambient orb field + ParticleBackground removed; cyan
+  `RadiationEmblem` → dossier trefoil `RadiationIcon` watermark; beam-sweep
+  gradient bar → solid signal-red rule; local `SectionBadge` → `.chip`.
+- ParticleBackground + RadiationEmblem removed from every public page
+  (contact, booking, blog, blog/[slug], forum, forum/[id], privacy, terms,
+  services); Services' interactive `RadiotherapyScene` CTA visual replaced
+  with static planning-grid + trefoil panel.
+- Deleted 3 now-orphaned components: `ParticleBackground`, `RadiationEmblem`,
+  `RadiotherapyScene` (~2,600 lines).
+- Legacy decorative shims added to globals.css (`.grain-masked`,
+  `.spotlight-card`, `.dose-loading`, `.placeholder-muted`) so pages still
+  referencing them render calm dossier surfaces; safe to delete after full
+  page rebuilds.
+
+### Milestone 3 — Site-wide cyan purge (`refactor(pages,components)`)
+- Zero `cyan-*` / `rgba(6,182,212…)` references remain in `app/` +
+  `components/` (admin excluded, untouched).
+- Inline glow shadows neutralized to paper shadows; primary gradient energy
+  bars flattened to solid `bg-primary`; forum avatar palette → ink/slate;
+  HeatmapGrid + Precision isodose legend ramped in signal red.
+
+**Health:** `tsc --noEmit` clean · `next build` 45/45 pages · tests 29/29 (untouched).
+
+### Known follow-ups
+- Inner-page *bodies* still use generic card layouts — next pass should
+  rebuild each page body in ChapterHead/ledger vocabulary page by page.
+- Admin pages (`app/admin/*`) untouched — compile clean, no deleted imports.
+- `.grain-masked` / `.spotlight-card` / `.dose-loading` shims deletable once
+  every page body is rebuilt.
    beam line that then parks as the section rule.
 2. **Treatment-journey dose rail** — sticky numbered rail; active step fills with
    signal red on scroll; degrades to stacked cards on mobile / no-JS.
