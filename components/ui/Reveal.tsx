@@ -7,6 +7,7 @@ type RevealVariant = "up" | "left" | "right" | "scale";
 interface RevealProps {
   children: ReactNode;
   variant?: RevealVariant;
+  /** ms — staggered via --reveal-delay */
   delay?: number;
   className?: string;
   style?: CSSProperties;
@@ -19,6 +20,14 @@ const variantClass: Record<RevealVariant, string> = {
   scale: "reveal-scale",
 };
 
+/**
+ * Scroll-reveal wrapper — the single motion primitive for the whole site.
+ *
+ * Adds `.is-revealed` once (unobserves immediately) when the element scrolls
+ * into view. Respects prefers-reduced-motion by revealing instantly. The CSS
+ * classes live in globals.css and are fully gated by the global reduced-motion
+ * block, so this stays the only place that owns reveal timing.
+ */
 export default function Reveal({
   children,
   variant = "up",
