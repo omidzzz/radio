@@ -115,15 +115,15 @@ export default function HeatmapGrid({
       return doseColor(value * 0.55);
     }
 
-    if (hoveredCell === null) return `rgba(6, 182, 212, ${0.15 + value * 0.75})`;
+    if (hoveredCell === null) return `rgba(194, 55, 31, ${0.15 + value * 0.75})`;
     const hoverRow = Math.floor(hoveredCell / cols);
     const hoverCol = hoveredCell % cols;
     const row = Math.floor(index / cols);
     const col = index % cols;
     const dist = Math.hypot(row - hoverRow, col - hoverCol);
-    if (dist === 0) return "rgba(6, 182, 212, 1)";
-    if (dist <= 2) return `rgba(6, 182, 212, ${0.7 - dist * 0.2})`;
-    return `rgba(6, 182, 212, ${0.15 + value * 0.75})`;
+    if (dist === 0) return "rgba(194, 55, 31, 1)";
+    if (dist <= 2) return `rgba(194, 55, 31, ${0.7 - dist * 0.2})`;
+    return `rgba(194, 55, 31, ${0.15 + value * 0.75})`;
   }
 
   return (

@@ -71,7 +71,7 @@ export default function Preloader() {
         <div className="absolute inset-3 rounded-full border border-primary/30" />
         <div className="absolute inset-6 rounded-full border border-secondary/40" />
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="h-2 w-2 rounded-full bg-highlight shadow-[0_0_12px_2px_rgba(34,211,238,0.7)]" />
+          <span className="h-2 w-2 rounded-full bg-highlight shadow-sm" />
         </div>
       </div>
 

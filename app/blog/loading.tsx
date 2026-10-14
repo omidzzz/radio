@@ -13,9 +13,9 @@ export default function BlogLoading() {
       {/* Hero band */}
       <div className="band-dark">
         <div className="mx-auto max-w-7xl px-4 pb-16 pt-16 sm:px-6 lg:px-8 lg:pb-20 lg:pt-20">
-          <div className="h-7 w-40 animate-pulse rounded-full bg-white/10" />
-          <div className="mt-6 h-11 w-80 max-w-full animate-pulse rounded-xl bg-white/10" />
-          <div className="mt-5 h-5 w-[28rem] max-w-full animate-pulse rounded-lg bg-white/[0.06]" />
+          <div className="h-7 w-40 motion-reduce:animate-none rounded-full bg-white/10" />
+          <div className="mt-6 h-11 w-80 max-w-full motion-reduce:animate-none rounded-xl bg-white/10" />
+          <div className="mt-5 h-5 w-[28rem] max-w-full motion-reduce:animate-none rounded-lg bg-white/[0.06]" />
         </div>
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
       </div>
@@ -31,17 +31,17 @@ export default function BlogLoading() {
               }`}
             >
               <div
-                className={`shrink-0 animate-pulse bg-border/60 ${
+                className={`shrink-0 motion-reduce:animate-none bg-border/60 ${
                   featured ? "h-52 w-full md:h-auto md:w-[46%]" : "h-52 w-full sm:h-56"
                 }`}
               />
               <div className="flex-1 p-6 sm:p-8">
-                <div className="h-5 w-3/4 animate-pulse rounded-lg bg-border/70" />
-                <div className="mt-3 h-4 w-full animate-pulse rounded-lg bg-border/50" />
-                <div className="mt-2 h-4 w-2/3 animate-pulse rounded-lg bg-border/50" />
+                <div className="h-5 w-3/4 motion-reduce:animate-none rounded-lg bg-border/70" />
+                <div className="mt-3 h-4 w-full motion-reduce:animate-none rounded-lg bg-border/50" />
+                <div className="mt-2 h-4 w-2/3 motion-reduce:animate-none rounded-lg bg-border/50" />
                 <div className="mt-6 flex items-center justify-between">
-                  <div className="h-3 w-24 animate-pulse rounded-lg bg-border/50" />
-                  <div className="h-3 w-32 animate-pulse rounded-lg bg-border/50" />
+                  <div className="h-3 w-24 motion-reduce:animate-none rounded-lg bg-border/50" />
+                  <div className="h-3 w-32 motion-reduce:animate-none rounded-lg bg-border/50" />
                 </div>
               </div>
             </div>

@@ -28,7 +28,7 @@ export default function CategoryFilter({ categories, active }: CategoryFilterPro
   const pillClass = (isActive: boolean) =>
     `rounded-full px-4 py-1.5 text-xs font-medium transition ${
       isActive
-        ? "bg-primary text-deep shadow-[0_0_16px_-4px_rgba(6,182,212,0.5)]"
+        ? "bg-primary text-deep shadow-sm"
         : "border border-border/70 bg-surface text-text-secondary hover:border-primary/40 hover:text-primary"
     }`;
 

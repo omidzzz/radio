@@ -62,7 +62,7 @@ export default function BlogReadingProgress({
       ref={wrapRef}
       className={`reading-widget fixed top-20 z-40 min-[1220px]:top-28 ${side}`}
     >
-      <div className="flex items-center gap-3 rounded-full border border-primary/25 bg-deep/90 px-4 py-2 shadow-[0_8px_30px_-8px_rgba(6,182,212,0.4)] backdrop-blur-md">
+      <div className="flex items-center gap-3 rounded-full border border-primary/25 bg-deep/90 px-4 py-2 shadow-[0_8px_30px_-8px_rgba(194,55,31,0.4)] backdrop-blur-md">
         {/* Circular progress ring */}
         <div className="relative h-9 w-9" role="progressbar" aria-label="Reading progress">
           <svg viewBox="0 0 36 36" className="h-9 w-9 -rotate-90">

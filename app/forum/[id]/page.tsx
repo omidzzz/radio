@@ -86,12 +86,12 @@ function getInitials(name: string) {
 
 /* Avatar palette â€” deterministic per-author color derived from a name hash */
 const AVATAR_GRADIENTS = [
-  "from-cyan-500 to-teal-500",
-  "from-sky-500 to-cyan-400",
-  "from-teal-500 to-emerald-400",
-  "from-indigo-500 to-sky-400",
-  "from-cyan-600 to-blue-500",
-  "from-emerald-500 to-teal-400",
+  "from-slate-600 to-slate-800",
+  "from-primary to-rose-900",
+  "from-stone-500 to-stone-700",
+  "from-zinc-500 to-zinc-700",
+  "from-rose-800 to-rose-950",
+  "from-neutral-500 to-neutral-700",
 ];
 
 function avatarGradient(name: string) {
@@ -172,7 +172,7 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
       <div className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute -left-48 top-10 h-[600px] w-[600px] rounded-full bg-primary/[0.07] blur-[140px]" />
         <div className="absolute -right-40 bottom-20 h-[520px] w-[520px] rounded-full bg-secondary/[0.09] blur-[120px]" />
-        <div className="absolute left-1/3 top-1/2 h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-cyan-400/[0.04] blur-[90px]" />
+        <div className="absolute left-1/3 top-1/2 h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-primary/[0.04] blur-[90px]" />
 
       </div>
 
@@ -224,7 +224,7 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
           {/* Category badge â€” separate from back link */}
           <div className="mb-5">
             <span className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-3.5 py-1.5 text-xs font-medium text-highlight backdrop-blur-md">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+              <span className="h-1.5 w-1.5 rounded-full bg-primary motion-reduce:animate-none" />
               {getCategoryLabel(post.category, dict)}
             </span>
           </div>
@@ -307,7 +307,7 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
             <div className="overflow-hidden rounded-[1.75rem] border border-border/60 bg-surface shadow-[0_24px_50px_-18px_rgba(0,0,0,0.1)]">
               {/* Static gradient strip (no constant animation) */}
               <div className="relative h-1.5 overflow-hidden bg-deep">
-                <div className="absolute inset-0 bg-gradient-to-r from-primary via-cyan-300 to-secondary" />
+                <div className="absolute inset-0 bg-primary" />
               </div>
 
               <div className="relative p-7 sm:p-9">
@@ -384,7 +384,7 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
                 {/* Empty-state CTA â€” jump straight to the reply form */}
                 <a
                   href="#reply-form"
-                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-deep shadow-[0_0_20px_-6px_rgba(6,182,212,0.6)] transition hover:bg-primary-hover"
+                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-deep `shadow-[0_0_20px_-6px_rgba(15,23,42,0.10)] transition hover:bg-primary-hover"
                 >
                   {dict.forum.postReply}
                 </a>
@@ -567,7 +567,7 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
               <div className="overflow-hidden rounded-[1.75rem] border border-border/60 bg-surface shadow-[0_24px_50px_-18px_rgba(0,0,0,0.1)]">
                 {/* Static gradient strip (no constant animation) */}
                 <div className="relative h-1.5 overflow-hidden bg-deep">
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary via-cyan-300 to-secondary" />
+                  <div className="absolute inset-0 bg-primary" />
                 </div>
                 <div className="p-6 sm:p-8">
                   <ReplyForm postId={post.id} />

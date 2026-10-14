@@ -84,7 +84,7 @@ export default async function ContactPage() {
       <div className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute -left-48 top-10 h-[600px] w-[600px] rounded-full bg-primary/[0.07] blur-[140px]" />
         <div className="absolute -right-40 bottom-20 h-[520px] w-[520px] rounded-full bg-secondary/[0.09] blur-[120px]" />
-        <div className="absolute left-1/3 top-1/2 h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-cyan-400/[0.04] blur-[90px]" />
+        <div className="absolute left-1/3 top-1/2 h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-primary/[0.04] blur-[90px]" />
       </div>
 
       {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
@@ -129,7 +129,7 @@ export default async function ContactPage() {
 
           <a
             href="#form"
-            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-deep shadow-[0_0_28px_-4px_rgba(6,182,212,0.6)] transition-all hover:bg-primary-hover hover:shadow-[0_0_36px_-4px_rgba(6,182,212,0.75)]"
+            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-deep `shadow-[0_0_28px_-4px_rgba(15,23,42,0.10)] transition-all hover:bg-primary-hover hover:`shadow-[0_0_36px_-4px_rgba(15,23,42,0.10)]"
           >
             <span className="relative z-10">{dict.contact.sendMessage}</span>
             <ArrowIcon className="relative z-10 h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
@@ -158,8 +158,8 @@ export default async function ContactPage() {
               <div className="relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-border bg-surface shadow-[0_28px_60px_-22px_rgba(0,0,0,0.12)]">
                 {/* Energy bar */}
                 <div className="relative h-1.5 shrink-0 overflow-hidden bg-deep">
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary via-cyan-300 to-secondary" />
-                  <div className="absolute inset-y-0 left-0 w-2/5 animate-pulse bg-white/25" />
+                  <div className="absolute inset-0 bg-primary" />
+                  <div className="absolute inset-y-0 left-0 w-2/5 motion-reduce:animate-none bg-white/25" />
                 </div>
 
                 <div className="flex items-center gap-2.5 border-b border-border px-6 py-5 sm:px-8">
@@ -185,7 +185,7 @@ export default async function ContactPage() {
                       {dict.contact.mapCardTitle}
                     </h2>
                   </div>
-                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary animate-pulse" />
+                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary motion-reduce:animate-none" />
                 </div>
 
                 <MapEmbed
@@ -255,7 +255,7 @@ export default async function ContactPage() {
                   >
                     <span
                       className={`h-1.5 w-1.5 rounded-full ${
-                        isOpen ? "bg-positive animate-pulse" : "bg-danger"
+                        isOpen ? "bg-positive motion-reduce:animate-none" : "bg-danger"
                       }`}
                     />
                     {openLabel}
@@ -297,7 +297,7 @@ export default async function ContactPage() {
               </p>
               <a
                 href={siteConfig.phoneHref}
-                className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-primary px-7 py-3 text-sm font-semibold text-deep shadow-[0_0_28px_-4px_rgba(6,182,212,0.6)] transition-all hover:bg-primary-hover hover:shadow-[0_0_36px_-4px_rgba(6,182,212,0.75)]"
+                className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-primary px-7 py-3 text-sm font-semibold text-deep `shadow-[0_0_28px_-4px_rgba(15,23,42,0.10)] transition-all hover:bg-primary-hover hover:`shadow-[0_0_36px_-4px_rgba(15,23,42,0.10)]"
               >
                 <PhoneCallIcon className="h-4 w-4" />
                 <span>{dict.contact.consultCta}</span>
@@ -326,7 +326,7 @@ export default async function ContactPage() {
               </div>
               <Link
                 href="/forum"
-                className="group relative inline-flex shrink-0 items-center gap-2 overflow-hidden rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-deep shadow-[0_0_26px_-5px_rgba(6,182,212,0.55)] transition-all hover:bg-primary-hover hover:shadow-[0_0_34px_-4px_rgba(6,182,212,0.7)]"
+                className="group relative inline-flex shrink-0 items-center gap-2 overflow-hidden rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-deep `shadow-[0_0_26px_-5px_rgba(15,23,42,0.10)] transition-all hover:bg-primary-hover hover:`shadow-[0_0_34px_-4px_rgba(15,23,42,0.10)]"
               >
                 <span className="relative z-10">{dict.contact.visitForum}</span>
                 <ArrowIcon className="relative z-10 h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />

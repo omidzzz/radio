@@ -624,7 +624,7 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
                       aria-pressed={selected}
                       className={`rounded-full border px-4 py-2 text-sm font-medium transition-all ${
                         selected
-                          ? "border-primary bg-primary text-white shadow-[0_0_16px_-4px_rgba(6,182,212,0.55)]"
+                          ? "border-primary bg-primary text-white shadow-sm"
                           : "border-border bg-surface text-text-secondary hover:border-primary/50 hover:text-primary"
                       }`}
                     >

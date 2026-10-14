@@ -203,7 +203,7 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={submitting}
-          className="group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-lg bg-primary px-8 py-3.5 text-base font-semibold text-deep shadow-[0_0_24px_-6px_rgba(6,182,212,0.55)] transition-all hover:bg-primary-hover hover:shadow-[0_0_30px_-5px_rgba(6,182,212,0.7)] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+          className="group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-lg bg-primary px-8 py-3.5 text-base font-semibold text-deep shadow-sm transition-all hover:bg-primary-hover hover:shadow-sm disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
         >
           {submitting && <SpinnerIcon className="h-4 w-4" />}
           {submitting ? dict.common.sending : dict.common.send}

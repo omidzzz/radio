@@ -194,7 +194,7 @@ export default function BlogComments({
           <button
             type="submit"
             disabled={submitting}
-            className="rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-deep shadow-[0_0_20px_-6px_rgba(6,182,212,0.45)] transition hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-deep shadow-sm transition hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-50"
           >
             {submitting ? "در حال ارسال..." : "ارسال نظر"}
           </button>

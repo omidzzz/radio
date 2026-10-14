@@ -104,7 +104,7 @@ export default function FloatingContact({
               cy="24"
               r={RING_RADIUS}
               fill="none"
-              stroke="rgba(6,182,212,0.15)"
+              stroke="rgba(194,55,31,0.15)"
               strokeWidth="3"
             />
             <circle

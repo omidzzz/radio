@@ -41,8 +41,8 @@ const accents: Record<
     titleHover: "group-hover:text-primary",
     checkBadge: "bg-soft text-primary ring-primary/20",
     cornerGlow: "bg-primary/15",
-    barGradient: "from-primary via-cyan-300 to-secondary",
-    spotlightColor: "rgba(6,182,212,0.08)",
+    barGradient: "from-primary via-primary to-secondary",
+    spotlightColor: "rgba(194,55,31,0.08)",
     hoverBorder: "hover:border-primary/40",
   },
   secondary: {
@@ -53,7 +53,7 @@ const accents: Record<
     checkBadge: "bg-soft text-secondary ring-secondary/20",
     cornerGlow: "bg-secondary/15",
     barGradient: "from-secondary via-teal-300 to-primary",
-    spotlightColor: "rgba(20,184,166,0.08)",
+    spotlightColor: "rgba(194,55,31,0.08)",
     hoverBorder: "hover:border-secondary/40",
   },
 };

@@ -141,12 +141,12 @@ export default function RichTextEditor({
           direction: ${dir};
         }
         .rich-text-editor .ql-toolbar {
-          border: 1px solid rgba(6, 182, 212, 0.3);
+          border: 1px solid rgba(194, 55, 31, 0.3);
           border-radius: 0.5rem 0.5rem 0 0;
           background: rgba(15, 23, 42, 0.8);
         }
         .rich-text-editor .ql-container {
-          border: 1px solid rgba(6, 182, 212, 0.3);
+          border: 1px solid rgba(194, 55, 31, 0.3);
           border-top: none;
           border-radius: 0 0 0.5rem 0.5rem;
           background: rgba(15, 23, 42, 0.5);
@@ -202,14 +202,14 @@ export default function RichTextEditor({
           flex-wrap: wrap;
           gap: 4px;
           padding: 8px;
-          border: 1px solid rgba(6, 182, 212, 0.3);
+          border: 1px solid rgba(194, 55, 31, 0.3);
           border-radius: 0.5rem 0.5rem 0 0;
           background: rgba(15, 23, 42, 0.8);
         }
         .editor-toolbar button {
           padding: 6px 10px;
-          background: rgba(6, 182, 212, 0.1);
-          border: 1px solid rgba(6, 182, 212, 0.3);
+          background: rgba(194, 55, 31, 0.1);
+          border: 1px solid rgba(194, 55, 31, 0.3);
           border-radius: 4px;
           color: rgba(255, 255, 255, 0.8);
           cursor: pointer;
@@ -218,24 +218,24 @@ export default function RichTextEditor({
           transition: all 0.2s;
         }
         .editor-toolbar button:hover {
-          background: rgba(6, 182, 212, 0.3);
+          background: rgba(194, 55, 31, 0.3);
           color: #22d3ee;
         }
         .editor-toolbar button.active {
-          background: rgba(6, 182, 212, 0.4);
+          background: rgba(194, 55, 31, 0.4);
           color: #22d3ee;
         }
         .editor-toolbar select {
           padding: 6px 10px;
           background: rgba(15, 23, 42, 0.8);
-          border: 1px solid rgba(6, 182, 212, 0.3);
+          border: 1px solid rgba(194, 55, 31, 0.3);
           border-radius: 4px;
           color: rgba(255, 255, 255, 0.8);
           cursor: pointer;
           font-size: 14px;
         }
         .editor-content {
-          border: 1px solid rgba(6, 182, 212, 0.3);
+          border: 1px solid rgba(194, 55, 31, 0.3);
           border-top: none;
           border-radius: 0 0 0.5rem 0.5rem;
           background: rgba(15, 23, 42, 0.5);

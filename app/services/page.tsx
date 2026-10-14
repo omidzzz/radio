@@ -334,7 +334,7 @@ export default async function ServicesPage() {
       <div className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute -left-48 top-10 h-[600px] w-[600px] rounded-full bg-primary/[0.07] blur-[140px] [transform:translateZ(0)]" />
         <div className="absolute -right-40 bottom-20 h-[520px] w-[520px] rounded-full bg-secondary/[0.09] blur-[120px] [transform:translateZ(0)]" />
-        <div className="absolute left-1/3 top-1/2 hidden h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-cyan-400/[0.04] blur-[90px] [transform:translateZ(0)] md:block" />
+        <div className="absolute left-1/3 top-1/2 hidden h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-primary/[0.04] blur-[90px] [transform:translateZ(0)] md:block" />
       </div>
 
       {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
@@ -380,7 +380,7 @@ export default async function ServicesPage() {
           <dl className="mt-10 grid grid-cols-2 gap-5 lg:grid-cols-4 lg:gap-7">
             {stats.map((stat, i) => (
               <Reveal key={stat.label} delay={i * 110}>
-                <div className="group relative h-full overflow-hidden rounded-2xl border border-border/60 bg-surface p-6 text-center shadow-[0_18px_40px_-24px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_22px_45px_-20px_rgba(6,182,212,0.25)]">
+                <div className="group relative h-full overflow-hidden rounded-2xl border border-border/60 bg-surface p-6 text-center `shadow-[0_18px_40px_-24px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_22px_45px_-20px_rgba(15,23,42,0.10)]">
                   <div
                     aria-hidden="true"
                     className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
@@ -490,7 +490,7 @@ export default async function ServicesPage() {
             {/* Text */}
             <div className="p-10 text-center sm:p-12 lg:p-14 lg:text-start">
               <div className="mx-auto mb-5 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1 text-xs font-medium text-highlight lg:mx-0">
-                <span aria-hidden="true" className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary motion-reduce:animate-none" />
+                <span aria-hidden="true" className="h-1.5 w-1.5 motion-reduce:animate-none rounded-full bg-primary motion-reduce:animate-none" />
                 {dict.services.ctaBadge}
               </div>
 
