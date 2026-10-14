@@ -1,5 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Vazirmatn, Outfit } from "next/font/google";
+import {
+  Fraunces,
+  Instrument_Sans,
+  IBM_Plex_Mono,
+  Vazirmatn,
+} from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -27,19 +32,42 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import WebVitals from "@/components/WebVitals";
 import PWARegister from "@/components/PWARegister";
 
+/* ── Clinical Dossier type system ─────────────────────────────────────
+   Latin display:   Fraunces        (editorial serif, headlines + numerals)
+   Latin body/UI:   Instrument Sans (grotesque, body + UI)
+   Data/labels:     IBM Plex Mono   (eyebrows, indices, spec tables)
+   Persian:         Vazirmatn       (RTL body + UI — the default locale)
+   The site is Farsi-first, so only Vazirmatn is eagerly preloaded; the
+   Latin faces load on demand via display:"swap" (no invisible text). */
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-fraunces",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+  preload: false,
+});
+
+const instrument = Instrument_Sans({
+  subsets: ["latin"],
+  variable: "--font-instrument",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+  preload: false,
+});
+
+const plex = IBM_Plex_Mono({
+  subsets: ["latin"],
+  variable: "--font-plex",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+  preload: false,
+});
+
 const vazirmatn = Vazirmatn({
   subsets: ["arabic"],
   variable: "--font-vazirmatn",
   display: "swap",
   weight: ["400", "500", "700"],
-});
-
-const outfit = Outfit({
-  subsets: ["latin"],
-  variable: "--font-outfit",
-  display: "swap",
-  weight: ["400", "500", "600"],
-  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -130,8 +158,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#06b6d4" },
-    { media: "(prefers-color-scheme: dark)", color: "#020617" },
+    { media: "(prefers-color-scheme: light)", color: "#f4efe4" },
+    { media: "(prefers-color-scheme: dark)", color: "#14120f" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -176,7 +204,7 @@ export default async function RootLayout({
     <html
       lang={locale}
       dir={dir}
-      className={`${vazirmatn.variable} ${outfit.variable}`}
+      className={`${fraunces.variable} ${instrument.variable} ${plex.variable} ${vazirmatn.variable}`}
     >
       <head>
         <JsonLdScript data={jsonLd} />
@@ -229,3 +257,4 @@ export default async function RootLayout({
     </html>
   );
 }
+
