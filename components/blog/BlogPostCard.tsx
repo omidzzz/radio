@@ -82,13 +82,13 @@ export default function BlogPostCard({
 
           {/* Category badge */}
           <div className="absolute bottom-4 left-4 right-4">
-            <span className="inline-flex rounded-full border border-white/20 bg-deep/75 px-3 py-1 text-xs font-medium text-highlight backdrop-blur-sm">
+            <span className="chip border-white/20 bg-deep/75 text-highlight backdrop-blur-sm">
               {category}
             </span>
           </div>
 
           {featured && (
-            <span className="absolute top-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-deep shadow-sm">
+            <span className="chip absolute top-4 left-4 border-primary bg-primary text-white">
               <svg viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5" aria-hidden="true">
                 <path d="M12 2l2.9 6.26L21.5 9.27l-5 4.87L17.8 21 12 17.77 6.2 21l1.3-6.86-5-4.87 6.6-1.01L12 2z" />
               </svg>
@@ -127,7 +127,7 @@ export default function BlogPostCard({
                   )}
                 </span>
               )}
-              <span className="h-1 w-1 rounded-full bg-border" />
+              <span className="h-1 w-1 bg-border" />
               <span>
                 {isFa
                   ? `${toFarsiDigits(post.read_minutes)} دقیقه`
@@ -135,7 +135,7 @@ export default function BlogPostCard({
               </span>
               {typeof post.views === "number" && (
                 <>
-                  <span className="h-1 w-1 rounded-full bg-border" />
+                  <span className="h-1 w-1 bg-border" />
                   <ViewCounter
                     postId={post.id}
                     initialViews={post.views}

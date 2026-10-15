@@ -203,43 +203,14 @@ export default async function BlogPostPage({
         isRtl={isFa}
       />
 
-      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-          GLOBAL AMBIENT FIELD
-      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
-      <div className="pointer-events-none fixed inset-0 z-0">
-        <div className="absolute -left-48 top-10 h-[600px] w-[600px] rounded-full bg-primary/[0.07] blur-[140px]" />
-        <div className="absolute -right-40 bottom-20 h-[520px] w-[520px] rounded-full bg-secondary/[0.09] blur-[120px]" />
-        <div className="absolute left-1/3 top-1/2 h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-primary/[0.04] blur-[90px]" />
-
-      </div>
 
       {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           HERO
       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
-      <section className="relative z-10">
-        {/* Dark base with asymmetric cut */}
-        <div
-          className="absolute inset-0 bg-deep"
-          style={{
-            clipPath: "polygon(0 0, 100% 0, 100% 82%, 70% 95%, 0 100%)",
-          }}
-        />
-        <div
-          className="absolute inset-0 bg-gradient-to-br from-primary/15 via-transparent to-secondary/10"
-          style={{
-            clipPath: "polygon(40% 0, 100% 0, 100% 100%, 20% 100%)",
-          }}
-        />
-
-        {/* Beam lines */}
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="absolute left-[12%] top-0 h-[120%] w-px origin-top rotate-[12deg] bg-gradient-to-b from-primary/40 via-primary/10 to-transparent" />
-          <div className="absolute right-[18%] top-0 h-[130%] w-px origin-top -rotate-[14deg] bg-gradient-to-b from-secondary/30 via-secondary/10 to-transparent" />
-        </div>
-
-        <div className="relative mx-auto max-w-5xl px-4 pb-28 pt-24 sm:px-6 lg:px-8 lg:pb-36 lg:pt-28">
+      <section className="relative z-10 bg-deep">
+        <div className="relative mx-auto max-w-5xl px-4 pb-16 pt-20 sm:px-6 lg:px-8 lg:pb-20 lg:pt-24">
           {/* Featured image card */}
-          <div className="relative overflow-hidden rounded-[1.75rem] border border-white/15 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.5)]">
+          <div className="relative overflow-hidden border border-white/15">
             <div className="relative aspect-[16/9] w-full">
               <Image
                 src={post.image || "/images/blog/default.jpg"}
@@ -250,8 +221,6 @@ export default async function BlogPostPage({
                 priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-deep via-deep/40 to-transparent" />
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(194,55,31,0.12)_0%,transparent_65%)]" />
-              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
             </div>
 
             {/* Overlay content */}
@@ -259,8 +228,8 @@ export default async function BlogPostPage({
               className="absolute inset-x-0 bottom-0 z-20 p-6 sm:p-8 md:p-10"
               dir={isFa ? "rtl" : "ltr"}
             >
-              <span className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/15 px-3.5 py-1 text-xs font-medium text-highlight backdrop-blur-md">
-                <span className="h-1.5 w-1.5 rounded-full bg-primary motion-reduce:animate-none" />
+              <span className="chip border-highlight/30 text-highlight backdrop-blur-md">
+                <span aria-hidden="true" className="h-1 w-1 bg-primary" />
                 {isFa ? post.category_fa : post.category_en || post.category_fa}
               </span>
 
@@ -270,7 +239,7 @@ export default async function BlogPostPage({
 
               <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-slate-300">
                 <span className="font-medium text-white">{authorName}</span>
-                <span className="h-1 w-1 rounded-full bg-white/40" />
+                <span className="h-1 w-1 bg-white/40" />
                 <span>
                   {post.published_at
                     ? new Date(post.published_at).toLocaleDateString(
@@ -278,13 +247,13 @@ export default async function BlogPostPage({
                       )
                     : ""}
                 </span>
-                <span className="h-1 w-1 rounded-full bg-white/40" />
+                <span className="h-1 w-1 bg-white/40" />
                 <span>
                   {isFa
                     ? `${toFarsiDigits(post.read_minutes)} Ø¯Ù‚ÛŒÙ‚Ù‡ Ù…Ø·Ø§Ù„Ø¹Ù‡`
                     : `${post.read_minutes} min read`}
                 </span>
-                <span className="h-1 w-1 rounded-full bg-white/40" />
+                <span className="h-1 w-1 bg-white/40" />
                 <ViewCounter
                   postId={post.id}
                   initialViews={post.views ?? 0}
@@ -296,24 +265,23 @@ export default async function BlogPostPage({
           </div>
         </div>
 
-        {/* Bottom energy divider â€” clean gradient line */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
-        <div className="pointer-events-none absolute inset-x-0 -bottom-1 h-3 bg-gradient-to-r from-transparent via-primary/15 to-transparent blur-md" />
+        {/* Bottom rule */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-white/10" />
       </section>
 
       {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           ARTICLE CONTENT
       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="relative z-10 -mt-6 pb-24">
-        <div className="pointer-events-none absolute inset-0 opacity-[0.18] grain-pattern grain-masked" />
+        <div className="grain-pattern pointer-events-none absolute inset-0" />
 
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_260px]">
-            {/* â”€â”€ Main column â”€â”€ */}
+            {/* Main column */}
             <div className="min-w-0">
               {/* Mobile TOC */}
               {toc.length > 0 && (
-                <details className="mb-6 rounded-2xl border border-border/60 bg-surface/90 px-5 py-4 shadow-sm lg:hidden">
+                <details className="mb-6 border border-border bg-surface px-5 py-4 lg:hidden">
                   <summary className="cursor-pointer text-sm font-semibold text-text-primary">
                     {isFa ? "ÙÙ‡Ø±Ø³Øª Ù…Ø·Ø§Ù„Ø¨" : "On this page"}
                   </summary>
@@ -323,29 +291,18 @@ export default async function BlogPostPage({
                 </details>
               )}
 
-              {/* Article card â€” light & readable */}
-              <div className="relative">
-                <div
-                  className="absolute -inset-4 -z-10 rounded-[2rem] bg-gradient-to-br from-primary/[0.08] via-transparent to-secondary/[0.05]"
-                  style={{ clipPath: "polygon(0 0, 100% 2%, 98% 100%, 0 97%)" }}
-                />
-
+              {/* Article card — light & readable */}
+              <div className="surface-card">
                 <article
-                  className="overflow-hidden rounded-[1.75rem] border border-border/60 bg-surface shadow-[0_28px_60px_-22px_rgba(0,0,0,0.12)]"
+                  className="p-7 sm:p-9 md:p-11"
                   dir={isFa ? "rtl" : "ltr"}
                 >
-                  {/* Energy bar */}
-                  <div className="relative h-1.5 overflow-hidden bg-deep">
-                    <div className="absolute inset-0 bg-primary" />
-                    <div className="absolute inset-y-0 left-0 w-2/5 motion-reduce:animate-none bg-white/25" />
-                  </div>
-
-                  <div className="p-7 sm:p-9 md:p-11">
+                  <div>
                     {/* Body â€” typography comes from the .article-prose
                         block in globals.css (no Typography plugin here) */}
                     <div
                       className="article-prose max-w-none text-[15.5px] text-text-secondary
-                        [&_img]:my-8 [&_img]:rounded-xl [&_img]:shadow-md
+                        [&_img]:my-8 [&_img]:border [&_img]:border-border
                         [&_img]:max-w-full [&_img]:h-auto
                         [&_img.align-left]:float-left [&_img.align-left]:mr-6 [&_img.align-left]:my-4 [&_img.align-left]:max-w-[50%]
                         [&_img.align-right]:float-right [&_img.align-right]:ml-6 [&_img.align-right]:my-4 [&_img.align-right]:max-w-[50%]
@@ -354,8 +311,8 @@ export default async function BlogPostPage({
                     />
 
                     {/* Author box */}
-                    <div className="mt-12 flex flex-wrap items-center gap-5 rounded-2xl border border-border/60 bg-soft/40 p-5 sm:p-6">
-                      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary/25 to-secondary/20 text-xl font-bold text-primary ring-1 ring-primary/25">
+                    <div className="mt-12 flex flex-wrap items-center gap-5 border border-border bg-soft/40 p-5 sm:p-6">
+                      <div className="mono flex h-14 w-14 shrink-0 items-center justify-center border border-primary/30 bg-soft text-xl font-bold text-primary">
                         {authorInitial}
                       </div>
                       <div className="min-w-0 flex-1">
@@ -386,8 +343,8 @@ export default async function BlogPostPage({
                     className="mb-8 flex items-center gap-3"
                     dir={isFa ? "rtl" : "ltr"}
                   >
-                    <div className="h-1.5 w-8 rounded-full bg-gradient-to-r from-primary to-secondary" />
-                    <h2 className="text-2xl font-bold tracking-tight text-text-primary">
+                    <div className="h-px w-8 bg-primary" />
+                    <h2 className="mono text-[0.7rem] font-medium uppercase tracking-[0.22em] text-muted">
                       {isFa ? "Ù…Ù‚Ø§Ù„Ø§Øª Ù…Ø±ØªØ¨Ø·" : "Related Articles"}
                     </h2>
                   </div>
@@ -411,28 +368,15 @@ export default async function BlogPostPage({
                   className="mb-6 flex items-center gap-3"
                   dir={isFa ? "rtl" : "ltr"}
                 >
-                  <div className="h-1.5 w-8 rounded-full bg-gradient-to-r from-primary to-secondary" />
-                  <h2 className="text-2xl font-bold tracking-tight text-text-primary">
+                  <div className="h-px w-8 bg-primary" />
+                  <h2 className="mono text-[0.7rem] font-medium uppercase tracking-[0.22em] text-muted">
                     {isFa ? "Ù†Ø¸Ø±Ø§Øª" : "Comments"}
                   </h2>
                 </div>
 
-                <div className="relative">
-                  <div
-                    className="absolute -inset-4 -z-10 rounded-[2rem] bg-gradient-to-br from-primary/[0.07] via-transparent to-secondary/[0.05]"
-                    style={{ clipPath: "polygon(0 0, 100% 2%, 98% 100%, 0 97%)" }}
-                  />
-
-                  <div className="overflow-hidden rounded-[1.75rem] border border-border/60 bg-surface shadow-[0_24px_50px_-18px_rgba(0,0,0,0.1)]">
-                    {/* Energy bar */}
-                    <div className="relative h-1.5 overflow-hidden bg-deep">
-                      <div className="absolute inset-0 bg-primary" />
-                      <div className="absolute inset-y-0 left-0 w-2/5 motion-reduce:animate-none bg-white/25" />
-                    </div>
-
-                    <div className="p-6 sm:p-8">
-                      <LazyComments postId={post.id} initialComments={comments} />
-                    </div>
+                <div className="surface-card">
+                  <div className="p-6 sm:p-8">
+                    <LazyComments postId={post.id} initialComments={comments} />
                   </div>
                 </div>
               </div>
@@ -441,7 +385,7 @@ export default async function BlogPostPage({
               <div className="mt-12 flex justify-center">
                 <Link
                   href="/blog"
-                  className="group inline-flex items-center gap-2 rounded-full border border-border bg-surface px-5 py-2.5 text-sm font-medium text-text-secondary shadow-sm transition-all hover:border-primary/40 hover:text-primary hover:shadow-md"
+                  className="group inline-flex items-center gap-2 border border-border bg-surface px-5 py-2.5 text-sm font-medium text-text-secondary transition-colors hover:border-primary/40 hover:text-primary"
                 >
                   <svg
                     className="h-4 w-4 transition-transform group-hover:-translate-x-0.5 rtl:rotate-180 rtl:group-hover:translate-x-0.5"
@@ -464,7 +408,7 @@ export default async function BlogPostPage({
             {/* â”€â”€ Sidebar: sticky TOC (desktop) â”€â”€ */}
             {toc.length > 0 && (
               <aside className="hidden self-start lg:sticky lg:top-24 min-[1220px]:lg:top-28 lg:block">
-                <div className="rounded-2xl border border-border/60 bg-surface/90 p-5 shadow-sm backdrop-blur-sm">
+                <div className="border border-border bg-surface p-5">
                   <TableOfContents items={toc} isFa={isFa} />
                 </div>
               </aside>

@@ -153,15 +153,6 @@ export default async function BlogPage({
     <div className="relative min-h-screen overflow-hidden bg-bg">
       <JsonLdScript data={breadcrumbs} />
 
-      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-          GLOBAL AMBIENT FIELD
-      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
-      <div className="pointer-events-none fixed inset-0 z-0">
-        <div className="absolute -left-48 top-10 h-[600px] w-[600px] rounded-full bg-primary/[0.07] blur-[140px]" />
-        <div className="absolute -right-40 bottom-20 h-[520px] w-[520px] rounded-full bg-secondary/[0.09] blur-[120px]" />
-        <div className="absolute left-1/3 top-1/2 h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-primary/[0.04] blur-[90px]" />
-
-      </div>
 
       {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           HERO â€” clean medical-tech hero
@@ -184,17 +175,14 @@ export default async function BlogPage({
       {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           BLOG POSTS
       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
-      <section className="relative z-10 overflow-hidden py-20 lg:py-24">
-        <div className="grain-pattern grain-masked pointer-events-none absolute inset-0 opacity-[0.22]" />
+      <section className="section-pad">
+        <div className="grain-pattern pointer-events-none absolute inset-0" />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="h-1.5 w-8 rounded-full bg-gradient-to-r from-primary to-secondary" />
-              <h2 className="text-2xl font-bold tracking-tight text-text-primary sm:text-3xl">
-                {isFa ? "Ø¢Ø®Ø±ÛŒÙ† Ù…Ù‚Ø§Ù„Ø§Øª" : "Latest Articles"}
-              </h2>
-            </div>
+            <h2 className="mono text-[0.7rem] font-medium uppercase tracking-[0.22em] text-muted">
+              {isFa ? "Ø¢Ø®Ø±ÛŒÙ† Ù…Ù‚Ø§Ù„Ø§Øª" : "Latest Articles"}
+            </h2>
 
             {/* Result count */}
             {total > 0 && (
@@ -219,8 +207,8 @@ export default async function BlogPage({
 
           {/* Empty state */}
           {posts.length === 0 && (
-            <div className="flex flex-col items-center justify-center rounded-[1.75rem] border border-dashed border-border/80 bg-surface/90 py-24 text-center shadow-sm">
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-soft text-primary ring-1 ring-primary/15">
+            <div className="flex flex-col items-center justify-center border border-dashed border-border/80 bg-surface/90 py-24 text-center">
+              <div className="flex h-16 w-16 items-center justify-center border border-border bg-soft text-primary">
                 <svg
                   viewBox="0 0 48 48"
                   fill="none"
@@ -282,7 +270,7 @@ export default async function BlogPage({
               {page > 1 && (
                 <Link
                   href={pageHref(page - 1)}
-                  className="inline-flex items-center gap-1 rounded-full border border-border/70 bg-surface px-4 py-2 text-sm font-medium text-text-secondary transition hover:border-primary/40 hover:text-primary"
+                  className="inline-flex items-center gap-1 border border-border/70 bg-surface px-4 py-2 text-sm font-medium text-text-secondary transition hover:border-primary/40 hover:text-primary"
                 >
                   {isFa ? "Ù‚Ø¨Ù„ÛŒ" : "Previous"}
                 </Link>
@@ -301,10 +289,10 @@ export default async function BlogPage({
                   <Link
                     key={item}
                     href={pageHref(item)}
-                    className={`inline-flex h-10 w-10 items-center justify-center rounded-full text-sm font-semibold transition ${
+                    className={`mono tnum inline-flex h-10 w-10 items-center justify-center border text-sm font-semibold transition ${
                       item === page
-                        ? "bg-primary text-deep shadow-[0_0_20px_-4px_rgba(15,23,42,0.10)]"
-                        : "border border-border/70 bg-surface text-text-secondary hover:border-primary/40 hover:text-primary"
+                        ? "border-primary bg-primary text-white"
+                        : "border-border/70 bg-surface text-text-secondary hover:border-primary/40 hover:text-primary"
                     }`}
                     aria-current={item === page ? "page" : undefined}
                   >
@@ -316,7 +304,7 @@ export default async function BlogPage({
               {page < totalPages && (
                 <Link
                   href={pageHref(page + 1)}
-                  className="inline-flex items-center gap-1 rounded-full border border-border/70 bg-surface px-4 py-2 text-sm font-medium text-text-secondary transition hover:border-primary/40 hover:text-primary"
+                  className="inline-flex items-center gap-1 border border-border/70 bg-surface px-4 py-2 text-sm font-medium text-text-secondary transition hover:border-primary/40 hover:text-primary"
                 >
                   {isFa ? "Ø¨Ø¹Ø¯ÛŒ" : "Next"}
                 </Link>
