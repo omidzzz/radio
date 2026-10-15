@@ -6,6 +6,7 @@ import { physicianSchema, breadcrumbSchema } from "@/lib/json-ld";
 import JsonLdScript from "@/components/JsonLd";
 import { RadiationIcon } from "@/components/ui/icons";
 import PageHero from "@/components/PageHero";
+import ChapterHead from "@/components/ui/ChapterHead";
 import Reveal from "@/components/ui/Reveal";
 import CountUp from "@/components/ui/CountUp";
 
@@ -46,18 +47,6 @@ function getInitials(name: string): string {
     .slice(0, 2)
     .map((p) => p[0])
     .join("");
-}
-
-/** Dossier eyebrow chip — squared, mono, uppercase */
-function SectionBadge({ label, dark = false }: { label: string; dark?: boolean }) {
-  return (
-    <div
-      className={`chip ${dark ? "border-highlight/30 text-highlight" : "border-border text-muted"}`}
-    >
-      <span aria-hidden="true" className="h-1 w-1 bg-primary" />
-      {label}
-    </div>
-  );
 }
 
 export default async function AboutPage() {
@@ -139,29 +128,29 @@ export default async function AboutPage() {
       {/* ══════════════════════════════════════════════════════════════
           STATS — animated credibility counters
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative z-10 py-16 lg:py-20">
+      <section className="section-pad-tight">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Reveal className="text-center">
-            <SectionBadge label={dict.about.statsTitle} />
-          </Reveal>
-          <dl className="mt-10 grid grid-cols-2 gap-5 lg:grid-cols-4 lg:gap-7">
+          <ChapterHead
+            index="01"
+            label={dict.about.title}
+            title={dict.about.statsTitle}
+            align="start"
+            className="mb-10"
+          />
+          <dl className="surface-card grid grid-cols-2 divide-border lg:grid-cols-4 lg:divide-x lg:divide-y">
             {stats.map((stat, i) => (
-              <Reveal key={stat.label} delay={i * 110}>
-                <div className="group relative h-full overflow-hidden rounded-2xl border border-border/60 bg-surface p-6 text-center shadow-[0_18px_40px_-24px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_22px_45px_-20px_rgba(15,23,42,0.10)]">
-                  {/* Top accent line */}
-                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                  <dd className="text-3xl font-extrabold tracking-tight text-primary sm:text-4xl">
-                    <CountUp
-                      end={stat.value}
-                      suffix={stat.suffix}
-                      duration={2.2}
-                      useFarsiDigits={isFa}
-                    />
-                  </dd>
-                  <dt className="mt-2.5 text-sm font-medium leading-snug text-text-secondary">
-                    {stat.label}
-                  </dt>
-                </div>
+              <Reveal key={stat.label} delay={i * 110} className="p-6 sm:p-8">
+                <dd className="mono tnum text-3xl font-extrabold tracking-tight text-primary sm:text-4xl">
+                  <CountUp
+                    end={stat.value}
+                    suffix={stat.suffix}
+                    duration={2.2}
+                    useFarsiDigits={isFa}
+                  />
+                </dd>
+                <dt className="mt-2.5 text-sm font-medium leading-snug text-text-secondary">
+                  {stat.label}
+                </dt>
               </Reveal>
             ))}
           </dl>
@@ -171,19 +160,21 @@ export default async function AboutPage() {
       {/* ══════════════════════════════════════════════════════════════
           MISSION + VALUES
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative z-10 overflow-hidden py-24 lg:py-28">
-        <div className="grain-pattern grain-masked pointer-events-none absolute inset-0 opacity-[0.22]" />
+      <section className="section-pad">
+        <div className="grain-pattern pointer-events-none absolute inset-0" />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
+          <div className="grid items-start gap-14 lg:grid-cols-2 lg:gap-20">
             {/* Mission text */}
             <Reveal variant="left">
               <div>
-                <SectionBadge label={dict.about.missionBadge} />
-                <h2 className="mt-5 text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
-                  {dict.about.missionTitle}
-                </h2>
-                <p className="mt-6 text-lg leading-relaxed text-text-secondary">
+                <ChapterHead
+                  index="02"
+                  label={dict.about.missionBadge}
+                  title={dict.about.missionTitle}
+                  align="start"
+                />
+                <p className="mt-8 text-lg leading-relaxed text-text-secondary">
                   {dict.about.missionText1}
                 </p>
                 <p className="mt-4 text-lg leading-relaxed text-text-secondary">
@@ -194,51 +185,43 @@ export default async function AboutPage() {
 
             {/* Values card */}
             <Reveal variant="right" delay={120}>
-              <div className="relative">
-                <div
-                  className="absolute -inset-4 -z-10 rounded-[2rem] bg-gradient-to-br from-primary/[0.08] via-transparent to-secondary/[0.06]"
-                  style={{ clipPath: "polygon(0 0, 100% 3%, 97% 100%, 0 96%)" }}
-                />
-                <div className="relative overflow-hidden rounded-[1.85rem] border border-border/60 bg-surface/95 p-8 shadow-[0_28px_60px_-22px_rgba(0,0,0,0.12)] backdrop-blur-sm sm:p-10">
-                  {/* Dossier top rule — solid signal red, no sweep */}
-                  <div className="absolute inset-x-0 top-0 h-1 bg-primary" />
-
-                  <div className="mt-2 flex items-center gap-3">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-soft text-primary ring-1 ring-primary/20">
-                      <svg
-                        viewBox="0 0 48 48"
-                        fill="none"
-                        aria-hidden="true"
-                        className="h-6 w-6"
-                        stroke="currentColor"
-                        strokeWidth="1.6"
-                      >
-                        <path
-                          d="M24 5 11 11v11c0 10 6.5 18.5 13 21 6.5-2.5 13-11 13-21V11L24 5Z"
-                          strokeLinejoin="round"
-                        />
-                        <path
-                          d="M24 9 14 13.5v9c0 8 5 14.5 10 16.5 5-2 10-8.5 10-16.5v-9L24 9Z"
-                          strokeOpacity="0.2"
-                          strokeDasharray="2 3"
-                        />
-                        <path
-                          d="M18 24l4.5 4.5L31 19"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="1.8"
-                        />
-                      </svg>
-                    </div>
-                    <h3 className="text-xl font-semibold text-text-primary">
-                      {dict.about.valuesTitle}
-                    </h3>
+              <div className="surface-card p-8 sm:p-10">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-9 w-9 items-center justify-center border border-border bg-bg text-primary">
+                    <svg
+                      viewBox="0 0 48 48"
+                      fill="none"
+                      aria-hidden="true"
+                      className="h-5 w-5"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                    >
+                      <path
+                        d="M24 5 11 11v11c0 10 6.5 18.5 13 21 6.5-2.5 13-11 13-21V11L24 5Z"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M24 9 14 13.5v9c0 8 5 14.5 10 16.5 5-2 10-8.5 10-16.5v-9L24 9Z"
+                        strokeOpacity="0.2"
+                        strokeDasharray="2 3"
+                      />
+                      <path
+                        d="M18 24l4.5 4.5L31 19"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="1.8"
+                      />
+                    </svg>
                   </div>
+                  <h3 className="mono text-[0.7rem] font-medium uppercase tracking-[0.22em] text-muted">
+                    {dict.about.valuesTitle}
+                  </h3>
+                </div>
 
-                  <ul className="mt-8 space-y-4">
+                <ul className="mt-8 space-y-4">
                     {dict.about.values.map((value: string) => (
                       <li key={value} className="flex items-start gap-3.5">
-                        <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-soft text-primary ring-1 ring-primary/15">
+                        <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center border border-primary/30 bg-soft text-primary">
                           <svg
                             viewBox="0 0 20 20"
                             fill="none"
@@ -260,7 +243,6 @@ export default async function AboutPage() {
                       </li>
                     ))}
                   </ul>
-                </div>
               </div>
             </Reveal>
           </div>
@@ -270,19 +252,19 @@ export default async function AboutPage() {
       {/* ══════════════════════════════════════════════════════════════
           TECHNOLOGY STRIP — treatment modalities
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative z-10 border-y border-border/60 bg-surface/70 py-10 backdrop-blur-sm">
+      <section className="relative z-10 border-y border-border/60 bg-surface/70 py-10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal>
-            <p className="text-center text-xs font-semibold uppercase tracking-[0.28em] text-text-secondary">
+            <p className="mono text-center text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-muted">
               {dict.about.techTitle}
             </p>
-            <ul className="mt-6 flex flex-wrap items-center justify-center gap-3">
+            <ul className="mt-6 flex flex-wrap items-center justify-center gap-2.5">
               {dict.about.techItems.map((item: string) => (
                 <li
                   key={item}
-                  className="inline-flex items-center gap-2 rounded-full border border-border bg-bg px-4 py-1.5 text-sm font-medium text-text-secondary transition-colors duration-300 hover:border-primary/40 hover:text-primary"
+                  className="chip transition-colors duration-300 hover:border-primary/40 hover:text-primary"
                 >
-                  <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-primary/60" />
+                  <span aria-hidden="true" className="h-1 w-1 bg-primary/60" />
                   {item}
                 </li>
               ))}
@@ -295,49 +277,33 @@ export default async function AboutPage() {
           TEAM
       ══════════════════════════════════════════════════════════════ */}
       <section className="relative z-10 overflow-hidden bg-deep py-24 lg:py-28">
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-1/4 top-0 h-80 w-80 rounded-full bg-primary/10 blur-3xl" />
-          <div className="absolute right-1/4 bottom-0 h-64 w-64 rounded-full bg-secondary-hover/8 blur-3xl" />
-        </div>
-
-        {/* Beam lines */}
-        <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-40">
-          <div className="absolute left-[20%] top-0 h-full w-px bg-gradient-to-b from-transparent via-primary/30 to-transparent" />
-          <div className="absolute right-[25%] top-0 h-full w-px bg-gradient-to-b from-transparent via-secondary/25 to-transparent" />
+        {/* Trefoil watermark — dossier dark-band ornament */}
+        <div className="pointer-events-none absolute -bottom-24 end-[-4rem] opacity-[0.04]">
+          <svg viewBox="0 0 200 200" className="h-[420px] w-[420px]" fill="none" stroke="currentColor" strokeWidth="6">
+            <circle cx="100" cy="100" r="24" />
+            <path d="M100 76c0-28 8-52 24-52s24 18 16 40-24 28-40 28zM121 113c24 14 46 22 42 38s-28 18-44 2-14-36 2-52zM79 113c-24 14-46 22-42 38s28 18 44 2 14-36-2-52z" />
+          </svg>
         </div>
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
-            <SectionBadge label={dict.about.teamBadge} dark />
-            <h2 className="mt-5 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              {dict.about.teamTitle}
-            </h2>
-            <p className="mt-4 text-lg text-muted">{dict.about.teamSubtitle}</p>
+            <ChapterHead
+              index="03"
+              label={dict.about.teamBadge}
+              title={dict.about.teamTitle}
+              lede={dict.about.teamSubtitle}
+              align="start"
+              tone="dark"
+            />
           </Reveal>
 
           <div className="mt-14 grid gap-7 md:grid-cols-3">
             {teamMembers.map((member, i) => (
               <Reveal key={member.name} delay={i * 130}>
-                <article className="spotlight-card group relative h-full overflow-hidden rounded-[1.7rem] border border-white/10 bg-white/[0.04] p-8 backdrop-blur-sm transition-all duration-500 hover:-translate-y-2.5 hover:border-primary/35 hover:bg-white/[0.08] hover:shadow-[0_25px_60px_-18px_rgba(15,23,42,0.10)]">
-                  {/* Top accent line */}
-                  <div
-                    aria-hidden="true"
-                    className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                  />
-
-                  {/* Soft corner glow */}
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-primary/15 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100"
-                  />
-
+                <article className="h-full border border-white/10 bg-white/[0.03] p-8">
                   {/* Avatar */}
-                  <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-secondary text-xl font-bold text-deep shadow-[0_0_28px_-4px_rgba(15,23,42,0.10)] transition-shadow duration-500 group-hover:shadow-[0_0_36px_-2px_rgba(15,23,42,0.10)]">
+                  <div className="relative flex h-16 w-16 items-center justify-center border border-white/15 bg-white/5 mono text-xl font-bold text-highlight">
                     {getInitials(member.name)}
-                    <div
-                      aria-hidden="true"
-                      className="absolute inset-0 rounded-2xl bg-white/20 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                    />
                   </div>
 
                   <h3 className="mt-6 text-lg font-semibold text-white">
@@ -350,10 +316,10 @@ export default async function AboutPage() {
                     {member.bio}
                   </p>
 
-                  {/* Bottom decorative line */}
+                  {/* Bottom rule */}
                   <div
                     aria-hidden="true"
-                    className="mt-7 h-px w-12 bg-white/15 transition-all duration-500 group-hover:w-20 group-hover:bg-primary/50"
+                    className="mt-7 h-px w-12 bg-white/15"
                   />
                 </article>
               </Reveal>
@@ -365,29 +331,26 @@ export default async function AboutPage() {
       {/* ══════════════════════════════════════════════════════════════
           TIMELINE — clinic journey
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative z-10 overflow-hidden py-24 lg:py-28">
-        <div className="grain-pattern grain-masked pointer-events-none absolute inset-0 opacity-[0.15]" />
+      <section className="section-pad">
+        <div className="grain-pattern pointer-events-none absolute inset-0" />
 
         <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <Reveal className="text-center">
-            <SectionBadge label={dict.about.timelineTitle} />
-            <h2 className="mt-5 text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
-              {dict.about.timelineTitle}
-            </h2>
-            <p className="mx-auto mt-4 max-w-xl text-lg text-text-secondary">
-              {dict.about.timelineSubtitle}
-            </p>
-          </Reveal>
+          <ChapterHead
+            index="04"
+            label={dict.about.timelineTitle}
+            title={dict.about.timelineTitle}
+            lede={dict.about.timelineSubtitle}
+          />
 
-          <ol className="relative mt-14 space-y-8 before:absolute before:bottom-4 before:end-auto before:start-[19px] before:top-4 before:w-px before:bg-gradient-to-b before:from-primary/50 before:via-border before:to-transparent sm:before:start-[23px]">
+          <ol className="relative mt-14 space-y-8 before:absolute before:bottom-4 before:end-auto before:start-[23px] before:top-4 before:w-px before:bg-border sm:before:start-[27px]">
             {milestones.map((milestone, i) => (
               <li key={milestone.year} className="relative flex items-start gap-5">
                 {/* Year node */}
-                <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-surface text-[11px] font-bold text-primary ring-4 ring-bg sm:h-12 sm:w-12 sm:text-xs">
+                <div className="mono tnum relative z-10 flex h-12 w-12 shrink-0 items-center justify-center border border-primary/40 bg-bg text-[10px] font-bold text-primary sm:h-14 sm:w-14 sm:text-xs">
                   {milestone.year}
                 </div>
                 <Reveal delay={i * 110} className="min-w-0 flex-1">
-                  <div className="rounded-2xl border border-border/60 bg-surface p-6 shadow-[0_18px_40px_-26px_rgba(0,0,0,0.15)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/35 hover:shadow-[0_22px_45px_-22px_rgba(15,23,42,0.10)]">
+                  <div className="surface-card p-6">
                     <h3 className="text-lg font-semibold text-text-primary">
                       {milestone.title}
                     </h3>
@@ -405,13 +368,13 @@ export default async function AboutPage() {
       {/* ══════════════════════════════════════════════════════════════
           CTA
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative z-10 overflow-hidden py-24 lg:py-28">
-        <div className="grain-pattern grain-masked pointer-events-none absolute inset-0 opacity-[0.2]" />
+      <section className="section-pad">
+        <div className="grain-pattern pointer-events-none absolute inset-0" />
 
         <div className="relative mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
           {/* Decorative icon */}
           <Reveal variant="scale">
-            <div className="mx-auto mb-8 flex h-16 w-16 items-center justify-center rounded-2xl bg-soft text-primary ring-1 ring-primary/20 shadow-[0_0_30px_-8px_rgba(15,23,42,0.10)]">
+            <div className="mx-auto mb-8 flex h-16 w-16 items-center justify-center border border-border bg-soft text-primary">
               <svg
                 viewBox="0 0 48 48"
                 fill="none"
@@ -447,13 +410,9 @@ export default async function AboutPage() {
           <Reveal delay={200}>
             <Link
               href="/booking"
-              className="group relative mt-10 inline-flex items-center justify-center overflow-hidden rounded-full bg-primary px-9 py-4 text-base font-semibold text-deep shadow-[0_0_35px_-8px_rgba(15,23,42,0.10)] transition-all duration-300 hover:bg-primary-hover hover:shadow-[0_0_50px_-4px_rgba(15,23,42,0.10)] active:scale-[0.97]"
+              className="btn btn-primary mt-10 px-9 py-4 text-base"
             >
-              <span
-                aria-hidden="true"
-                className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-full"
-              />
-              <span className="relative flex items-center gap-2">
+              <span className="flex items-center gap-2">
                 {dict.about.bookConsultation}
                 <svg
                   aria-hidden="true"
