@@ -84,24 +84,6 @@ function getInitials(name: string) {
     .join("");
 }
 
-/* Avatar palette â€” deterministic per-author color derived from a name hash */
-const AVATAR_GRADIENTS = [
-  "from-slate-600 to-slate-800",
-  "from-primary to-rose-900",
-  "from-stone-500 to-stone-700",
-  "from-zinc-500 to-zinc-700",
-  "from-rose-800 to-rose-950",
-  "from-neutral-500 to-neutral-700",
-];
-
-function avatarGradient(name: string) {
-  let hash = 0;
-  for (let i = 0; i < name.length; i++) {
-    hash = (hash * 31 + name.charCodeAt(i)) >>> 0;
-  }
-  return AVATAR_GRADIENTS[hash % AVATAR_GRADIENTS.length];
-}
-
 export default async function ForumPostPage({ params, searchParams }: PageProps) {
   const { id } = await params;
   const postId = Number(id);
@@ -166,43 +148,17 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
     <div className="relative min-h-screen overflow-hidden bg-bg">
       <JsonLdScript data={[qaJsonLd, breadcrumbs]} />
 
-      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-          GLOBAL AMBIENT FIELD
-      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
-      <div className="pointer-events-none fixed inset-0 z-0">
-        <div className="absolute -left-48 top-10 h-[600px] w-[600px] rounded-full bg-primary/[0.07] blur-[140px]" />
-        <div className="absolute -right-40 bottom-20 h-[520px] w-[520px] rounded-full bg-secondary/[0.09] blur-[120px]" />
-        <div className="absolute left-1/3 top-1/2 h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-primary/[0.04] blur-[90px]" />
-
-      </div>
 
       {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           HERO
       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
-      <section className="relative z-10">
-        <div
-          className="absolute inset-0 bg-deep"
-          style={{
-            clipPath: "polygon(0 0, 100% 0, 100% 78%, 68% 92%, 0 100%)",
-          }}
-        />
-        <div
-          className="absolute inset-0 bg-gradient-to-br from-primary/18 via-transparent to-secondary/12"
-          style={{ clipPath: "polygon(42% 0, 100% 0, 100% 100%, 22% 100%)" }}
-        />
-
-        {/* Beam lines */}
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="absolute left-[14%] top-0 h-[130%] w-px origin-top rotate-[11deg] bg-gradient-to-b from-primary/45 via-primary/12 to-transparent" />
-          <div className="absolute right-[20%] top-0 h-[140%] w-px origin-top -rotate-[14deg] bg-gradient-to-b from-secondary/35 via-secondary/10 to-transparent" />
-        </div>
-
-        <div className="relative mx-auto max-w-4xl px-4 pb-28 pt-24 sm:px-6 lg:pb-36 lg:pt-28">
-          {/* Back link â€” clear separation */}
+      <section className="relative z-10 bg-deep">
+        <div className="relative mx-auto max-w-4xl px-4 pb-16 pt-20 sm:px-6 lg:pb-20 lg:pt-24">
+          {/* Back link */}
           <div className="mb-8">
             <Link
               href="/forum"
-              className="group inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-medium text-slate-200 backdrop-blur-sm transition-all hover:border-primary/40 hover:bg-primary/10 hover:text-white"
+              className="group inline-flex items-center gap-2 border border-white/15 bg-white/5 px-4 py-2 text-sm font-medium text-slate-200 transition-colors hover:border-primary/40 hover:bg-primary/10 hover:text-white"
             >
               <svg
                 className="h-4 w-4 transition-transform group-hover:-translate-x-0.5 rtl:rotate-180 rtl:group-hover:translate-x-0.5"
@@ -221,10 +177,10 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
             </Link>
           </div>
 
-          {/* Category badge â€” separate from back link */}
+          {/* Category badge — separate from back link */}
           <div className="mb-5">
-            <span className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-3.5 py-1.5 text-xs font-medium text-highlight backdrop-blur-md">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary motion-reduce:animate-none" />
+            <span className="chip border-highlight/30 text-highlight">
+              <span aria-hidden="true" className="h-1 w-1 bg-primary" />
               {getCategoryLabel(post.category, dict)}
             </span>
           </div>
@@ -235,9 +191,9 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
 
           {/* Meta row */}
           <div className="mt-7 flex flex-wrap items-center gap-3">
-            <span className="flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 backdrop-blur-sm">
+            <span className="flex items-center gap-2 border border-white/15 bg-white/5 px-3 py-1.5">
               <span
-                className={`flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br ${avatarGradient(post.author_name)} text-[11px] font-semibold text-white`}
+                className={`flex h-6 w-6 items-center justify-center border border-white/15 bg-white/5 mono text-[11px] font-semibold text-highlight`}
               >
                 {getInitials(post.author_name)}
               </span>
@@ -285,61 +241,43 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
           </div>
         </div>
 
-        {/* Bottom energy divider â€” clean gradient line */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
-        <div className="pointer-events-none absolute inset-x-0 -bottom-1 h-3 bg-gradient-to-r from-transparent via-primary/15 to-transparent blur-md" />
+        {/* Bottom rule */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-white/10" />
       </section>
 
       {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           CONTENT
       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="relative z-10 -mt-4 pb-24">
-        <div className="pointer-events-none absolute inset-0 opacity-[0.18] grain-pattern grain-masked" />
+        <div className="grain-pattern pointer-events-none absolute inset-0" />
 
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6">
           {/* Original post */}
-          <div className="relative">
-            <div
-              className="absolute -inset-4 -z-10 rounded-[2rem] bg-gradient-to-br from-primary/[0.07] via-transparent to-secondary/[0.05]"
-              style={{ clipPath: "polygon(0 0, 100% 2%, 98% 100%, 0 97%)" }}
-            />
+          <div className="surface-card p-7 sm:p-9">
+            <span className="chip mb-5">
+              {dict.forum.originalPost}
+            </span>
 
-            <div className="overflow-hidden rounded-[1.75rem] border border-border/60 bg-surface shadow-[0_24px_50px_-18px_rgba(0,0,0,0.1)]">
-              {/* Static gradient strip (no constant animation) */}
-              <div className="relative h-1.5 overflow-hidden bg-deep">
-                <div className="absolute inset-0 bg-primary" />
-              </div>
-
-              <div className="relative p-7 sm:p-9">
-                <span className="mb-5 inline-flex items-center gap-1.5 rounded-full bg-soft px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-primary ring-1 ring-primary/15">
-                  {dict.forum.originalPost}
-                </span>
-
-                <p className="whitespace-pre-line leading-relaxed text-text-secondary">
-                  {post.content}
-                </p>
-              </div>
-            </div>
+            <p className="whitespace-pre-line leading-relaxed text-text-secondary">
+              {post.content}
+            </p>
           </div>
 
           {/* Replies */}
           <div id="replies" className="mt-14 scroll-mt-28">
             <div className="mb-7 flex flex-wrap items-center justify-between gap-3">
-              <div className="flex items-center gap-3">
-                <div className="h-1.5 w-8 rounded-full bg-gradient-to-r from-primary to-secondary" />
-                <h2 className="text-2xl font-bold tracking-tight text-text-primary">
-                  {totalReplies === 0
-                    ? dict.forum.noRepliesYet
-                    : `${formatCount(totalReplies)} ${
-                        totalReplies === 1
-                          ? dict.forum.replyCount
-                          : dict.forum.replies
-                      }`}
-                </h2>
-              </div>
+              <h2 className="mono text-[0.7rem] font-medium uppercase tracking-[0.22em] text-muted">
+                {totalReplies === 0
+                  ? dict.forum.noRepliesYet
+                  : `${formatCount(totalReplies)} ${
+                      totalReplies === 1
+                        ? dict.forum.replyCount
+                        : dict.forum.replies
+                    }`}
+              </h2>
 
               {adminCount > 0 && (
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary ring-1 ring-primary/15">
+                <span className="chip border-primary/30 bg-primary/10 text-primary">
                   <svg
                     className="h-3.5 w-3.5"
                     fill="none"
@@ -362,8 +300,8 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
             </div>
 
             {replies.length === 0 ? (
-              <div className="rounded-[1.6rem] border border-dashed border-border/80 bg-surface/80 py-14 text-center">
-                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-soft text-primary ring-1 ring-primary/15">
+              <div className="border border-dashed border-border/80 bg-surface/80 py-14 text-center">
+                <div className="mx-auto flex h-14 w-14 items-center justify-center border border-border bg-soft text-primary">
                   <svg
                     className="h-6 w-6"
                     fill="none"
@@ -384,7 +322,7 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
                 {/* Empty-state CTA â€” jump straight to the reply form */}
                 <a
                   href="#reply-form"
-                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-deep shadow-[0_0_20px_-6px_rgba(15,23,42,0.10)] transition hover:bg-primary-hover"
+                  className="btn btn-primary mt-6 px-5 py-2.5 text-sm"
                 >
                   {dict.forum.postReply}
                 </a>
@@ -397,11 +335,11 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
                       <div
                         key={reply.id}
                         id={`reply-${reply.id}`}
-                        className="group relative scroll-mt-28 rounded-[1.6rem] bg-gradient-to-br from-primary via-secondary to-primary p-[1.5px] shadow-lg shadow-primary/10 transition-transform duration-300 hover:-translate-y-0.5"
+                        className="group relative scroll-mt-28 border-l-2 border-primary bg-surface"
                       >
-                        <div className="relative overflow-hidden rounded-[calc(1.6rem-1.5px)] bg-gradient-to-br from-soft via-surface to-surface p-6 sm:p-7">
+                        <div className="relative p-6 sm:p-7">
                           <div className="relative flex items-start gap-4">
-                            <div className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary text-white shadow-sm ring-2 ring-white">
+                            <div className="relative flex h-11 w-11 shrink-0 items-center justify-center border border-primary/30 bg-soft text-primary">
                               <svg
                                 className="h-5 w-5"
                                 fill="none"
@@ -424,7 +362,7 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
 
                             <div className="min-w-0 flex-1">
                               <div className="flex flex-wrap items-center gap-2">
-                                <span className="inline-flex items-center gap-1 rounded-full bg-primary px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-deep">
+                                <span className="chip border-primary bg-primary text-white">
                                   {dict.forum.officialResponse}
                                 </span>
                                 <span className="font-semibold text-text-primary">
@@ -470,10 +408,10 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
                       <div
                         key={reply.id}
                         id={`reply-${reply.id}`}
-                        className="group flex items-start gap-4 scroll-mt-28 rounded-[1.5rem] border border-border/60 bg-surface p-5 sm:p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md"
+                        className="group surface-card flex items-start gap-4 scroll-mt-28 p-5 transition-colors duration-300 hover:border-primary/30 sm:p-6"
                       >
                         <div
-                          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${avatarGradient(reply.author_name)} text-sm font-semibold text-white`}
+                          className={`flex h-10 w-10 shrink-0 items-center justify-center border border-border bg-soft mono text-sm font-semibold text-primary`}
                         >
                           {getInitials(reply.author_name)}
                         </div>
@@ -527,7 +465,7 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
                       <Link
                         href={replyHref(replyPage - 1)}
                         scroll={false}
-                        className="inline-flex items-center gap-1 rounded-full border border-border/70 bg-surface px-4 py-2 font-medium text-text-secondary transition hover:border-primary/40 hover:text-primary"
+                        className="inline-flex items-center gap-1 border border-border/70 bg-surface px-4 py-2 font-medium text-text-secondary transition hover:border-primary/40 hover:text-primary"
                       >
                         â† {dict.forum.previousReplies}
                       </Link>
@@ -539,7 +477,7 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
                       <Link
                         href={replyHref(replyPage + 1)}
                         scroll={false}
-                        className="inline-flex items-center gap-1 rounded-full border border-border/70 bg-surface px-4 py-2 font-medium text-text-secondary transition hover:border-primary/40 hover:text-primary"
+                        className="inline-flex items-center gap-1 border border-border/70 bg-surface px-4 py-2 font-medium text-text-secondary transition hover:border-primary/40 hover:text-primary"
                       >
                         {dict.forum.loadMoreReplies} â†’
                       </Link>
@@ -552,26 +490,15 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
 
           {/* Reply form */}
           <div id="reply-form" className="mt-14 scroll-mt-28">
-            <div className="mb-5 flex items-center gap-3">
-              <div className="h-1.5 w-8 rounded-full bg-gradient-to-r from-primary to-secondary" />
-              <h3 className="text-lg font-semibold text-text-primary">
+            <div className="mb-5">
+              <h3 className="mono text-[0.7rem] font-medium uppercase tracking-[0.22em] text-muted">
                 {dict.forum.leaveReply}
               </h3>
             </div>
 
-            <div className="relative">
-              <div
-                className="absolute -inset-4 -z-10 rounded-[2rem] bg-gradient-to-br from-primary/[0.07] via-transparent to-secondary/[0.05]"
-                style={{ clipPath: "polygon(0 0, 100% 2%, 98% 100%, 0 97%)" }}
-              />
-              <div className="overflow-hidden rounded-[1.75rem] border border-border/60 bg-surface shadow-[0_24px_50px_-18px_rgba(0,0,0,0.1)]">
-                {/* Static gradient strip (no constant animation) */}
-                <div className="relative h-1.5 overflow-hidden bg-deep">
-                  <div className="absolute inset-0 bg-primary" />
-                </div>
-                <div className="p-6 sm:p-8">
-                  <ReplyForm postId={post.id} />
-                </div>
+            <div className="surface-card overflow-hidden">
+              <div className="p-6 sm:p-8">
+                <ReplyForm postId={post.id} />
               </div>
             </div>
           </div>
