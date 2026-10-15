@@ -85,12 +85,12 @@ export default async function SearchPage({
               name="q"
               defaultValue={q}
               placeholder={isFa ? "جستجو..." : "Search..."}
-              className="flex-1 rounded-full border border-white/20 bg-white/10 px-6 py-3.5 text-white placeholder-muted backdrop-blur-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
+              className="flex-1 border border-white/20 bg-white/10 px-6 py-3.5 text-white placeholder-muted backdrop-blur-sm focus:border-primary focus:outline-none"
               dir={isFa ? "rtl" : "ltr"}
             />
             <button
               type="submit"
-              className="rounded-full bg-primary px-8 py-3.5 font-semibold text-deep transition hover:bg-primary-hover"
+              className="btn btn-primary px-8 py-3.5"
             >
               {isFa ? "جستجو" : "Search"}
             </button>
@@ -101,7 +101,7 @@ export default async function SearchPage({
       {/* Results */}
       <section className="relative mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
         {q && (
-          <h2 className="mb-8 text-2xl font-bold text-text-primary">
+          <h2 className="mono mb-8 text-[0.7rem] font-medium uppercase tracking-[0.22em] text-muted">
             {isFa
               ? `${toFarsiDigits(results.length)} نتیجه برای "${q}"`
               : `${results.length} results for "${q}"`}
@@ -109,7 +109,7 @@ export default async function SearchPage({
         )}
 
         {!q && (
-          <div className="rounded-3xl border border-dashed border-border bg-surface p-16 text-center">
+          <div className="border border-dashed border-border bg-surface p-16 text-center">
             <p className="text-lg text-text-secondary">
               {isFa
                 ? "عبارت جستجو را وارد کنید"
@@ -119,7 +119,7 @@ export default async function SearchPage({
         )}
 
         {q && results.length === 0 && (
-          <div className="rounded-3xl border border-dashed border-border bg-surface p-16 text-center">
+          <div className="border border-dashed border-border bg-surface p-16 text-center">
             <div className="text-4xl">🔍</div>
             <p className="mt-4 text-lg text-text-secondary">
               {isFa
@@ -139,11 +139,11 @@ export default async function SearchPage({
                 <Link
                   key={result.id}
                   href={result.url}
-                  className="group block rounded-3xl border border-border bg-surface p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
+                  className="surface-card group block p-6 transition-colors duration-300 hover:border-primary/40"
                 >
                   <div className="flex items-start gap-4">
                     {result.type === "blog" && result.image && (
-                      <div className="relative h-20 w-28 shrink-0 overflow-hidden rounded-xl">
+                      <div className="relative h-20 w-28 shrink-0 overflow-hidden border border-border">
                         <Image
                           src={result.image}
                           alt={result.title}
@@ -155,12 +155,12 @@ export default async function SearchPage({
                     )}
                     <div className="min-w-0 flex-1">
                       <div className="flex flex-wrap items-center gap-2">
-                        <span className="inline-flex items-center gap-1 rounded-full bg-soft px-3 py-1 text-xs font-medium text-primary">
+                        <span className="chip">
                           <span>{meta.icon}</span>
                           {typeLabel}
                         </span>
                         {result.category && (
-                          <span className="rounded-full bg-surface px-2.5 py-0.5 text-[10px] font-medium text-muted ring-1 ring-border">
+                          <span className="chip border-border text-muted">
                             {result.category}
                           </span>
                         )}

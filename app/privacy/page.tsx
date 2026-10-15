@@ -99,10 +99,6 @@ export default async function PrivacyPage() {
     <div className="relative min-h-screen overflow-hidden bg-bg">
       <JsonLdScript data={breadcrumbs} />
 
-      <div className="pointer-events-none fixed inset-0 z-0">
-        <div className="absolute -left-48 top-10 h-[600px] w-[600px] rounded-full bg-primary/[0.07] blur-[140px]" />
-        <div className="absolute -right-40 bottom-20 h-[520px] w-[520px] rounded-full bg-secondary/[0.09] blur-[120px]" />
-      </div>
 
       <PageHero
         badge={isFa ? "Ø­Ø±ÛŒÙ… Ø®ØµÙˆØµÛŒ" : "Privacy Policy"}
@@ -114,18 +110,18 @@ export default async function PrivacyPage() {
         }
       />
 
-      <section className="relative z-10 overflow-hidden py-20 lg:py-24">
-        <div className="grain-pattern grain-masked pointer-events-none absolute inset-0 opacity-[0.22]" />
+      <section className="section-pad">
+        <div className="grain-pattern pointer-events-none absolute inset-0" />
 
         <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <div className="space-y-6">
             {sections.map((section, index) => (
               <div
                 key={section.title}
-                className="rounded-[1.6rem] border border-border/60 bg-surface p-7 shadow-sm"
+                className="surface-card p-7"
               >
                 <div className="flex items-start gap-4">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-soft text-sm font-bold text-primary ring-1 ring-primary/15">
+                  <span className="mono tnum flex h-9 w-9 shrink-0 items-center justify-center border border-primary/30 bg-soft text-sm font-bold text-primary">
                     {index + 1}
                   </span>
                   <div>
