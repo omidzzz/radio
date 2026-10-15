@@ -306,7 +306,7 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
   );
 
   const inputClasses =
-    "w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-text-primary placeholder-muted transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20";
+    "w-full border border-border bg-surface px-4 py-2.5 text-text-primary placeholder-muted transition-colors focus:border-primary focus:outline-none";
 
   const labelClasses = "mb-1 block text-sm font-medium text-text-primary";
 
@@ -361,7 +361,7 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
       onSubmit={handleSubmit}
       className={embedded
         ? "p-2 sm:p-4"
-        : "rounded-2xl border border-border bg-surface p-8 shadow-sm"}
+        : "border border-border bg-surface p-8"}
       noValidate
     >
       {!embedded && (
@@ -378,10 +378,10 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
         {[1, 2].map((n) => (
           <div key={n} className="flex flex-1 items-center gap-2.5">
             <span
-              className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold transition-colors ${
+              className={`mono tnum flex h-7 w-7 shrink-0 items-center justify-center border text-xs font-bold transition-colors ${
                 step >= n
-                  ? "bg-primary text-white"
-                  : "bg-soft text-muted ring-1 ring-border"
+                  ? "border-primary bg-primary text-white"
+                  : "border-border bg-soft text-muted"
               }`}
             >
               {n}
@@ -406,7 +406,7 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
         {step === 2 && (
         <>
         {/* Summary of step-1 choices, with a quick way back */}
-        <div className="flex flex-wrap items-center gap-2 rounded-xl border border-primary/20 bg-soft/60 px-4 py-3 text-sm">
+        <div className="flex flex-wrap items-center gap-2 border-l-2 border-primary bg-soft/60 px-4 py-3 text-sm">
           <span className="text-muted">{dict.booking.wizardSummary}:</span>
           <span className="font-medium text-text-primary">
             {sessionTypes.find((t) => t.value === values.session_type)?.label}
@@ -513,9 +513,9 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
               return (
                 <label
                   key={type.value}
-                  className={`flex cursor-pointer items-start gap-3 rounded-xl border p-3.5 transition-all ${
+                  className={`flex cursor-pointer items-start gap-3 border p-3.5 transition-colors ${
                     selected
-                      ? "border-primary bg-soft ring-1 ring-primary/30"
+                      ? "border-primary bg-soft"
                       : "border-border hover:border-primary/40 hover:bg-soft/50"
                   }`}
                 >
@@ -528,10 +528,10 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
                     className="sr-only"
                   />
                   <span
-                    className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-colors ${
+                    className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center border transition-colors ${
                       selected
-                        ? "bg-primary text-white"
-                        : "bg-soft text-primary ring-1 ring-primary/20"
+                        ? "border-primary bg-primary text-white"
+                        : "border-primary/30 bg-soft text-primary"
                     }`}
                   >
                     <svg
@@ -604,7 +604,7 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
                 {[0, 1, 2, 3].map((i) => (
                   <div
                     key={i}
-                    className="h-9 w-20 animate-pulse rounded-full bg-soft ring-1 ring-border"
+                    className="h-9 w-20 animate-pulse border border-border bg-soft"
                   />
                 ))}
               </div>
@@ -622,9 +622,9 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
                       type="button"
                       onClick={() => setValue("preferred_time", slot)}
                       aria-pressed={selected}
-                      className={`rounded-full border px-4 py-2 text-sm font-medium transition-all ${
+                      className={`tnum border px-4 py-2 text-sm font-medium transition-colors ${
                         selected
-                          ? "border-primary bg-primary text-white shadow-sm"
+                          ? "border-primary bg-primary text-white"
                           : "border-border bg-surface text-text-secondary hover:border-primary/50 hover:text-primary"
                       }`}
                     >
@@ -634,7 +634,7 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
                 })}
               </div>
             ) : (
-              <div className="flex h-[42px] items-center rounded-lg border border-dashed border-border px-4 text-sm text-muted">
+              <div className="flex h-[42px] items-center border border-dashed border-border px-4 text-sm text-muted">
                 {values.preferred_date
                   ? dict.booking.selectDateFirst
                   : dict.booking.selectTime}
@@ -655,7 +655,7 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
                         setValue("preferred_date", next);
                         setValue("preferred_time", "");
                       }}
-                      className="inline-flex items-center gap-1.5 rounded-full bg-soft px-3 py-1 text-xs font-semibold text-primary ring-1 ring-primary/25 transition-colors hover:bg-primary/10"
+                      className="mono inline-flex items-center gap-1.5 border border-primary/40 bg-bg px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-primary transition-colors hover:bg-primary/10"
                     >
                       <svg
                         viewBox="0 0 24 24"
@@ -684,7 +684,7 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
           <div
             role="alert"
             aria-live="assertive"
-            className="rounded-lg bg-danger-soft px-4 py-3 text-sm text-danger"
+            className="border-l-2 border-danger bg-danger-soft px-4 py-3 text-sm text-danger"
           >
             {dict.booking.wizardChooseTime}
           </div>
@@ -694,7 +694,7 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
           <button
             type="button"
             onClick={goToDetails}
-            className="group relative inline-flex items-center gap-2 rounded-lg bg-primary px-8 py-3 text-base font-semibold text-white transition hover:bg-primary-hover"
+            className="btn btn-primary px-8 py-3 text-base"
           >
             {dict.booking.wizardNext}
             <svg
@@ -733,7 +733,7 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
           <div
             role="alert"
             aria-live="assertive"
-            className="rounded-lg bg-danger-soft px-4 py-3 text-sm text-danger"
+            className="border-l-2 border-danger bg-danger-soft px-4 py-3 text-sm text-danger"
           >
             {error}
           </div>
@@ -743,7 +743,7 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
             ref={successRef}
             role="status"
             aria-live="polite"
-            className="rounded-lg bg-positive-soft px-4 py-3 text-sm text-positive"
+            className="border-l-2 border-positive bg-positive-soft px-4 py-3 text-sm text-positive"
           >
             <p className="font-medium">{success}</p>
             {bookingRef && (
@@ -760,14 +760,14 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
           <button
             type="button"
             onClick={() => { setStep(1); setStepError(false); }}
-            className="rounded-lg border border-border px-6 py-3.5 text-base font-medium text-text-secondary transition hover:border-primary/40 hover:text-primary"
+            className="btn btn-outline px-6 py-3.5 text-base"
           >
             {dict.booking.wizardBack}
           </button>
           <button
             type="submit"
             disabled={submitting}
-            className="group relative flex-1 overflow-hidden rounded-lg bg-primary px-8 py-3.5 text-base font-semibold text-white transition hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-50"
+            className="btn btn-primary flex-1 px-8 py-3.5 text-base disabled:cursor-not-allowed disabled:opacity-50"
           >
           <span className="relative z-10 inline-flex items-center justify-center gap-2.5">
             {submitting && (

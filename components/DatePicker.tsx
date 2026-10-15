@@ -204,7 +204,7 @@ export default function DatePicker({
           <button
             type="button"
             onClick={onPrev}
-            className="flex h-7 w-7 items-center justify-center rounded-full text-text-secondary transition-colors hover:bg-soft hover:text-primary"
+            className="flex h-7 w-7 items-center justify-center border border-transparent text-text-secondary transition-colors hover:border-border hover:bg-soft hover:text-primary"
             aria-label={isFa ? "ماه قبل" : "Previous month"}
           >
             <svg
@@ -221,7 +221,7 @@ export default function DatePicker({
           <button
             type="button"
             onClick={onNext}
-            className="flex h-7 w-7 items-center justify-center rounded-full text-text-secondary transition-colors hover:bg-soft hover:text-primary"
+            className="flex h-7 w-7 items-center justify-center border border-transparent text-text-secondary transition-colors hover:border-border hover:bg-soft hover:text-primary"
             aria-label={isFa ? "ماه بعد" : "Next month"}
           >
             <svg
@@ -268,13 +268,13 @@ export default function DatePicker({
                 disabled={disabledDay}
                 onClick={() => handleSelect(date)}
                 aria-pressed={selected}
-                className={`flex h-8 w-8 items-center justify-center rounded-full text-sm transition-colors ${
+                className={`tnum flex h-8 w-8 items-center justify-center text-sm transition-colors ${
                   selected
                     ? "bg-primary font-semibold text-white"
                     : disabledDay
                     ? "cursor-not-allowed text-muted/50"
                     : isToday
-                    ? "font-semibold text-primary ring-1 ring-primary"
+                    ? "font-semibold text-primary ring-1 ring-inset ring-primary"
                     : "text-text-primary hover:bg-primary/10"
                 }`}
               >
@@ -347,7 +347,7 @@ export default function DatePicker({
         onClick={() => setOpen(!open)}
         aria-haspopup="dialog"
         aria-expanded={open}
-        className={`flex w-full items-center justify-between rounded-lg border border-border bg-surface px-4 py-2.5 text-start text-text-primary transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-60 ${className}`}
+        className={`flex w-full items-center justify-between border border-border bg-surface px-4 py-2.5 text-start text-text-primary transition-colors focus:border-primary focus:outline-none disabled:cursor-not-allowed disabled:opacity-60 ${className}`}
       >
         <span className={value ? "" : "text-muted"}>
           {value ? formatDisplay(new Date(value + "T12:00:00")) : placeholder || (isFa ? "انتخاب تاریخ" : "Select date")}
@@ -372,7 +372,7 @@ export default function DatePicker({
         <div
           role="dialog"
           aria-label={isFa ? "تقویم انتخاب تاریخ" : "Date picker"}
-          className="anim-scale-in absolute z-50 mt-1 w-72 rounded-xl border border-border bg-surface shadow-xl"
+          className="anim-scale-in absolute z-50 mt-1 w-72 border border-border bg-surface shadow-xl"
           style={{ animationDuration: "0.18s" }}
         >
           {isFa ? renderJalaliCalendar() : renderGregorianCalendar()}
