@@ -207,12 +207,18 @@ Fonts: next/font Google (Vazirmatn, Outfit today).
 
 **Health:** `tsc --noEmit` clean · `next build` 45/45 pages · tests 29/29 (untouched).
 
-### Known follow-ups
-- Inner-page *bodies* still use generic card layouts — next pass should
-  rebuild each page body in ChapterHead/ledger vocabulary page by page.
+### Known follow-ups — DONE (page-by-page body rebuilds, `redesign/v2`)
+- Contact (`aabbd2d`), Booking + BookingForm/DatePicker (`c36471a`),
+  About (`33ce7d1`), Services + ServiceCard (`52a118a`),
+  Forum index + thread (`ac4d7dc`), Blog index + article (`2d09493`),
+  Search/Privacy/Terms (`3875a46`) — every public page body now in
+  ChapterHead/ledger vocabulary: `surface-card`, `.chip`, mono/tnum
+  labels, squared geometry, flat active states, signal rails.
+- Legacy shims deleted (`6fd4840`): `.grain-masked` / `.spotlight-card` /
+  `.dose-loading` — zero remaining references in `app/` + `components/`.
 - Admin pages (`app/admin/*`) untouched — compile clean, no deleted imports.
-- `.grain-masked` / `.spotlight-card` / `.dose-loading` shims deletable once
-  every page body is rebuilt.
+- Env note: `next build` in offline sandboxes fails inside `next/font`
+  (Google Fonts unreachable) — typecheck + dev-server 200s used instead.
    beam line that then parks as the section rule.
 2. **Treatment-journey dose rail** — sticky numbered rail; active step fills with
    signal red on scroll; degrades to stacked cards on mobile / no-JS.
