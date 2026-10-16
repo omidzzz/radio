@@ -47,7 +47,7 @@ export default function ServiceCard({
   return (
     <article className={featured ? "lg:col-span-2" : undefined}>
       <div
-        className={`surface-card group relative flex h-full flex-col p-6 transition-colors duration-300 sm:p-8 ${accent.hoverBorder}`}
+        className={`mod-frame-blueprint group relative flex h-full flex-col p-6 transition-colors duration-300 sm:p-8 ${accent.hoverBorder}`}
       >
         {/* Ghost ordinal number */}
         <span

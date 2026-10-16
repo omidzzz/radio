@@ -393,7 +393,7 @@ export default async function ServicesPage() {
       {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           SERVICES GRID â€” staggered reveal, accent rotation, spotlight
       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
-      <section className="relative z-10 overflow-hidden py-16 lg:py-20">
+      <section className="mod-service-grid relative z-10 overflow-hidden py-16 lg:py-20">
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-3">
             {services.map((service, i) => (
@@ -461,7 +461,7 @@ export default async function ServicesPage() {
           CTA CARD â€” dark section with RadiotherapyScene
       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="relative z-10 px-4 pb-24 sm:px-6 lg:px-8 lg:pb-32">
-        <div className="band-dark mx-auto max-w-6xl">
+        <div className="mod-booking-cta band-dark mx-auto max-w-6xl">
           <div className="grid items-center lg:grid-cols-2">
             {/* Visual — dossier trefoil watermark on the ink panel */}
             <div className="relative hidden min-h-[320px] items-center justify-center lg:flex">

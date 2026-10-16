@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import {
-  Fraunces,
+  Newsreader,
   Instrument_Sans,
   IBM_Plex_Mono,
   Vazirmatn,
@@ -32,16 +32,17 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import WebVitals from "@/components/WebVitals";
 import PWARegister from "@/components/PWARegister";
 
-/* ── Clinical Dossier type system ─────────────────────────────────────
-   Latin display:   Fraunces        (editorial serif, headlines + numerals)
-   Latin body/UI:   Instrument Sans (grotesque, body + UI)
-   Data/labels:     IBM Plex Mono   (eyebrows, indices, spec tables)
-   Persian:         Vazirmatn       (RTL body + UI — the default locale)
+/* ── Persian Modern type system ─────────────────────────────────────
+   Farsi hero:       Vazirmatn       (the primary voice — huge headlines)
+   Latin display:    Newsreader      (soft serif, headlines when Latin)
+   Latin body/UI:    Instrument Sans (grotesque, body + UI)
+   Data/labels:      IBM Plex Mono   (indices, spec tables)
+   Persian:          Vazirmatn       (RTL body + UI — the default locale)
    The site is Farsi-first, so only Vazirmatn is eagerly preloaded; the
    Latin faces load on demand via display:"swap" (no invisible text). */
-const fraunces = Fraunces({
+const newsreader = Newsreader({
   subsets: ["latin"],
-  variable: "--font-fraunces",
+  variable: "--font-newsreader",
   display: "swap",
   weight: ["400", "500", "600", "700"],
   preload: false,
@@ -158,8 +159,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f4efe4" },
-    { media: "(prefers-color-scheme: dark)", color: "#14120f" },
+    { media: "(prefers-color-scheme: light)", color: "#e5e4e2" },
+    { media: "(prefers-color-scheme: dark)", color: "#141316" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -204,7 +205,7 @@ export default async function RootLayout({
     <html
       lang={locale}
       dir={dir}
-      className={`${fraunces.variable} ${instrument.variable} ${plex.variable} ${vazirmatn.variable}`}
+      className={`${newsreader.variable} ${instrument.variable} ${plex.variable} ${vazirmatn.variable}`}
     >
       <head>
         <JsonLdScript data={jsonLd} />
@@ -239,12 +240,16 @@ export default async function RootLayout({
           <LocaleProvider initialLocale={locale}>
             <BookingModalProvider>
               <Navbar strings={navbarStrings} isFa={locale === "fa"} />
-              <RootErrorBoundary>
-                <main id="main-content" className="flex-1">
-                  {children}
-                </main>
-              </RootErrorBoundary>
-              <Footer />
+              {/* console-shell offsets content past the fixed sidebar rail
+                  on lg+ (padding-inline-start); collapses to 0 below lg. */}
+              <div className="console-shell">
+                <RootErrorBoundary>
+                  <main id="main-content" className="flex-1">
+                    {children}
+                  </main>
+                </RootErrorBoundary>
+                <Footer />
+              </div>
               <StickyBookingBar
                 label={dict.common.bookNow}
                 isFa={locale === "fa"}

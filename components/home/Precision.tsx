@@ -51,17 +51,17 @@ export default function Precision({ isFa }: PrecisionProps) {
       ];
 
   return (
-    <section className="content-visibility relative overflow-hidden surface-soft section-pad">
+    <section className="mod-precision content-visibility relative overflow-hidden surface-soft section-pad">
       <div className="relative z-10 mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:gap-16 lg:px-8">
         {/* ── Dose map panel ── */}
         <Reveal variant="left">
-          <div className="relative overflow-hidden rounded-[var(--radius-panel)] border border-border bg-surface p-5 shadow-[var(--elevation-card)] sm:p-7">
-            {/* Panel header — plan readouts, not marketing copy */}
-            <div className="flex items-center justify-between gap-4">
-              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-secondary">
+          <div className="mod-panel relative overflow-hidden p-5 shadow-[var(--elevation-card)] sm:p-7">
+            {/* Panel header — plan readouts, tab-style */}
+            <div className="flex items-center justify-between gap-4 border-b border-border pb-3">
+              <span className="readout__label text-primary">
                 MOD / DOSE MAP
               </span>
-              <span className="tnum font-mono text-[10px] tracking-widest text-muted">
+              <span className="tnum readout__label text-muted">
                 IMRT · 6 MV
               </span>
             </div>
@@ -69,6 +69,8 @@ export default function Precision({ isFa }: PrecisionProps) {
             {/* Isodose field on a faint planning grid */}
             <div className="relative mt-5 flex items-center justify-center rounded-2xl border border-border/70 bg-bg px-3 py-6 sm:py-8">
               <div className="planning-grid pointer-events-none absolute inset-0 rounded-2xl opacity-30" />
+              <span className="annot top-2 left-2" aria-hidden="true">ISO: 95–110%</span>
+              <span className="annot top-2 right-2" aria-hidden="true">CT: SIM</span>
               <HeatmapGrid
                 cols={20}
                 rows={13}
@@ -110,6 +112,7 @@ export default function Precision({ isFa }: PrecisionProps) {
               align="start"
               index="04"
               label={isFa ? "دقت و ایمنی" : "Precision & Safety"}
+              variant="panel"
               title={
                 isFa ? "هر میلی‌متر، برنامه‌ریزی‌شده" : "Every millimetre, planned"
               }

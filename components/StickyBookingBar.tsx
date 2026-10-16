@@ -59,15 +59,20 @@ export default function StickyBookingBar({
       <Link
         href="/booking"
         tabIndex={show ? 0 : -1}
-        className="btn-sheen flex min-h-[52px] items-center justify-center gap-2 rounded-2xl border border-primary/40 bg-bg/92 text-base font-bold text-text-primary shadow-[0_-8px_30px_-10px_rgba(2,6,23,0.5)] backdrop-blur-md active:scale-[0.98]"
+        className="group flex min-h-[52px] items-center justify-between gap-3 rounded-[var(--radius-panel)] border border-[var(--color-rule-strong)] bg-deep px-4 text-base font-bold text-text-on-dark shadow-[0_-8px_30px_-10px_rgba(2,6,23,0.5)] backdrop-blur-md active:scale-[0.98]"
       >
+        <span className="flex items-center gap-2.5">
+          <span className="status-led" aria-hidden="true" />
+          <span className="readout__label text-highlight">
+            {isFa ? "نوبت" : "BOOK"} · SLOT
+          </span>
+          <span className="text-sm font-bold text-text-on-dark">{label}</span>
+        </span>
         <span
-          className="inline-block h-2 w-2 rounded-full bg-primary"
-          aria-hidden="true"
-        />
-        {label}
-        <span className="text-xs font-medium text-text-secondary" dir={isFa ? "rtl" : "ltr"}>
-          · {isFa ? "پاسخ در کمتر از ۲۴ ساعت" : "Replies within 24h"}
+          className="readout__label hidden text-muted sm:block"
+          dir={isFa ? "rtl" : "ltr"}
+        >
+          {isFa ? "< ۲۴H" : "< 24H"}
         </span>
       </Link>
     </div>

@@ -101,17 +101,17 @@ function blogFallbackSvg() {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#020617"/>
-      <stop offset="55%" stop-color="#04121f"/>
-      <stop offset="100%" stop-color="#020617"/>
+      <stop offset="0%" stop-color="#141316"/>
+      <stop offset="55%" stop-color="#2a0f18"/>
+      <stop offset="100%" stop-color="#141316"/>
     </linearGradient>
     <radialGradient id="glow" cx="50%" cy="42%" r="58%">
-      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.22"/>
-      <stop offset="70%" stop-color="#06b6d4" stop-opacity="0.05"/>
-      <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
+      <stop offset="0%" stop-color="#c2566b" stop-opacity="0.22"/>
+      <stop offset="70%" stop-color="#6e1e2e" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#6e1e2e" stop-opacity="0"/>
     </radialGradient>
     <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
-      <path d="M48 0H0V48" fill="none" stroke="#22d3ee" stroke-opacity="0.09" stroke-width="1"/>
+      <path d="M48 0H0V48" fill="none" stroke="#c2566b" stroke-opacity="0.09" stroke-width="1"/>
     </pattern>
   </defs>
 
@@ -119,19 +119,19 @@ function blogFallbackSvg() {
   <rect width="1200" height="800" fill="url(#grid)"/>
   <rect width="1200" height="800" fill="url(#glow)"/>
 
-  <g transform="translate(600 380)" fill="none" stroke="#22d3ee">
+  <g transform="translate(600 380)" fill="none" stroke="#c2566b">
     <circle r="300" stroke-opacity="0.08" stroke-dasharray="6 14"/>
     <circle r="248" stroke-opacity="0.12"/>
     <circle r="196" stroke-opacity="0.16" stroke-dasharray="3 9"/>
     <g stroke-opacity="0.18" stroke-width="72" stroke-linecap="butt">
       <path d="${blades}"/>
     </g>
-    <circle r="22" fill="#22d3ee" fill-opacity="0.85" stroke="none"/>
+    <circle r="22" fill="#c2566b" fill-opacity="0.85" stroke="none"/>
     <path d="M0 -196v-44M0 196v44M-196 0h-44M196 0h44" stroke-opacity="0.3" stroke-linecap="round"/>
   </g>
 
   <text x="600" y="752" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif"
-        font-size="22" font-weight="600" letter-spacing="6" fill="#67e8f9" fill-opacity="0.45">
+        font-size="22" font-weight="600" letter-spacing="6" fill="#e5e4e2" fill-opacity="0.45">
     RADIOTHERAPY / IMAGING
   </text>
 </svg>`;

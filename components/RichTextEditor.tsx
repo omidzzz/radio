@@ -186,7 +186,7 @@ export default function RichTextEditor({
           max-width: 100%;
         }
         .rich-text-editor a {
-          color: #22d3ee;
+          color: #6e1e2e;
         }
         .rich-text-editor h1,
         .rich-text-editor h2,
@@ -219,11 +219,11 @@ export default function RichTextEditor({
         }
         .editor-toolbar button:hover {
           background: rgba(194, 55, 31, 0.3);
-          color: #22d3ee;
+          color: #6e1e2e;
         }
         .editor-toolbar button.active {
           background: rgba(194, 55, 31, 0.4);
-          color: #22d3ee;
+          color: #6e1e2e;
         }
         .editor-toolbar select {
           padding: 6px 10px;
@@ -272,7 +272,7 @@ export default function RichTextEditor({
           max-width: 100%;
         }
         .editor-content a {
-          color: #22d3ee;
+          color: #6e1e2e;
         }
         .editor-content h1,
         .editor-content h2,

@@ -20,7 +20,7 @@ export default function FAQ({
   eyebrow,
 }: FAQProps & { eyebrow?: string }) {
   return (
-    <section className="content-visibility relative overflow-hidden section-pad">
+    <section className="mod-faq content-visibility relative overflow-hidden section-pad">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -36,7 +36,7 @@ export default function FAQ({
       />
 
       <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <ChapterHead label={eyebrow} title={title} lede={subtitle} align="start" />
+        <ChapterHead label={eyebrow} title={title} lede={subtitle} align="start" variant="panel" />
 
         <div className="mt-10 space-y-4">
           {items.map((item, index) => (
@@ -45,6 +45,7 @@ export default function FAQ({
               question={item.question}
               answer={item.answer}
               defaultOpen={index === 0}
+              index={index}
             />
           ))}
         </div>

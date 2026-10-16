@@ -112,11 +112,11 @@ export default function EditBlogPostPage({ params }: { params: Promise<{ id: str
               height="125"
               patternUnits="userSpaceOnUse"
             >
-              <circle cx="20" cy="30" r="1" fill="#22d3ee" />
-              <circle cx="55" cy="80" r="0.8" fill="#67e8f9" />
-              <circle cx="95" cy="25" r="1.2" fill="#22d3ee" />
-              <circle cx="35" cy="105" r="0.7" fill="#67e8f9" />
-              <circle cx="110" cy="95" r="0.9" fill="#22d3ee" />
+              <circle cx="20" cy="30" r="1" fill="#6e1e2e" />
+              <circle cx="55" cy="80" r="0.8" fill="#e5e4e2" />
+              <circle cx="95" cy="25" r="1.2" fill="#6e1e2e" />
+              <circle cx="35" cy="105" r="0.7" fill="#e5e4e2" />
+              <circle cx="110" cy="95" r="0.9" fill="#6e1e2e" />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#stars-admin-blog-edit)" />

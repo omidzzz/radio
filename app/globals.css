@@ -28,6 +28,7 @@
   --color-primary-hover: var(--color-primary-hover);
   --color-highlight: var(--color-highlight);
   --color-on-signal: var(--color-on-signal);
+  --color-primary-soft: var(--color-primary-soft);
   --color-secondary: var(--color-secondary);
   --color-secondary-hover: var(--color-secondary-hover);
   --color-border: var(--color-border);
@@ -49,7 +50,7 @@
   --radius-card: var(--radius-card);
   --radius-panel: var(--radius-panel);
   --font-sans: var(--font-instrument), system-ui, sans-serif;
-  --font-display: var(--font-fraunces), var(--font-vazirmatn), Georgia, serif;
+  --font-display: var(--font-vazirmatn), var(--font-newsreader), Georgia, serif;
   --font-mono: var(--font-plex), ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-vazir: var(--font-vazirmatn), var(--font-instrument), system-ui, sans-serif;
   --elevation-card: var(--elevation-card);
@@ -61,30 +62,31 @@
 :root,
 [data-theme="light"] {
   /* Surfaces */
-  --color-bg: #f4efe4;
-  --color-surface: #fcfaf4;
-  --color-deep: #16130f;
-  --color-soft: #f8ece6;
+  --color-bg: #e5e4e2;
+  --color-surface: #f2f1ef;
+  --color-deep: #1d1a1b;
+  --color-soft: #dcdad7;
 
   /* Text */
-  --color-text-primary: #16130f;
-  --color-text-secondary: #565045;
-  --color-text-on-dark: #f4efe4;
-  --color-muted: #6f6759;
+  --color-text-primary: #1b1a1c;
+  --color-text-secondary: #55535a;
+  --color-text-on-dark: #f1f0ee;
+  --color-muted: #807e83;
 
-  /* Signal red â€” the accent */
-  --color-primary: #c2371f;
-  --color-primary-hover: #a82d18;
-  --color-highlight: #ff7a55;
-  --color-on-signal: #fffaf6;
+  /* Bordeaux � the accent */
+  --color-primary: #6e1e2e;
+  --color-primary-hover: #571725;
+  --color-highlight: #9a3149;
+  --color-on-signal: #f9f1f2;
+  --color-primary-soft: #f0e0e4;
 
-  /* Brass â€” secondary accent */
-  --color-secondary: #8a6410;
-  --color-secondary-hover: #6f5008;
+  /* Platinum steel � secondary accent */
+  --color-secondary: #5c6067;
+  --color-secondary-hover: #494d53;
 
   /* Structure */
-  --color-border: #ddd4c2;
-  --color-rule-strong: #b9ae99;
+  --color-border: #cbc9c6;
+  --color-rule-strong: #a8a6a2;
 
   /* Status */
   --color-success: #2e7d4f;
@@ -92,14 +94,14 @@
   --color-positive-soft: #e7f1ea;
   --color-danger: #b3261e;
   --color-danger-soft: #fbeae8;
-  --color-blog-dark: #16130f;
+  --color-blog-dark: #17151a;
 
   /* Shared vertical rhythm for page sections */
   --section-y: clamp(4rem, 7vw, 7rem);
 
   /* Elevation â€” paper */
-  --elevation-card: 0 1px 2px 0 rgba(22, 19, 15, 0.05), 0 10px 28px -18px rgba(22, 19, 15, 0.25);
-  --elevation-card-hover: 0 2px 4px 0 rgba(22, 19, 15, 0.06), 0 18px 40px -20px rgba(22, 19, 15, 0.35);
+  --elevation-card: 0 1px 2px 0 rgba(20, 19, 21, 0.05), 0 10px 28px -18px rgba(20, 19, 21, 0.25);
+  --elevation-card-hover: 0 2px 4px 0 rgba(20, 19, 21, 0.06), 0 18px 40px -20px rgba(20, 19, 21, 0.35);
 
   /* Motion tokens */
   --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
@@ -124,36 +126,37 @@
    <html data-theme="dark">. Utilities pick these up via var().
    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 [data-theme="dark"] {
-  --color-bg: #14120f;
-  --color-surface: #1c1915;
-  --color-deep: #0c0a08;
-  --color-soft: #241d18;
+  --color-bg: #141316;
+  --color-surface: #1c1b1f;
+  --color-deep: #0e0d10;
+  --color-soft: #26242a;
 
-  --color-text-primary: #f4efe4;
-  --color-text-secondary: #b0a693;
-  --color-text-on-dark: #f4efe4;
-  --color-muted: #a49b8c;
+  --color-text-primary: #e5e4e2;
+  --color-text-secondary: #adabaf;
+  --color-text-on-dark: #f1f0ee;
+  --color-muted: #85838a;
 
-  --color-primary: #ff6b4a;
-  --color-primary-hover: #ff8a6b;
-  --color-highlight: #ff8f70;
-  --color-on-signal: #16130f;
+  --color-primary: #c2566b;
+  --color-primary-hover: #d4788a;
+  --color-highlight: #d4788a;
+  --color-on-signal: #141316;
+  --color-primary-soft: rgba(194, 86, 107, 0.16);
 
-  --color-secondary: #e8b02f;
-  --color-secondary-hover: #f5c761;
+  --color-secondary: #9698a0;
+  --color-secondary-hover: #b0b2b9;
 
-  --color-border: #332c24;
-  --color-rule-strong: #4d443a;
+  --color-border: #32303a;
+  --color-rule-strong: #4d4b57;
 
   --color-success: #57c98a;
   --color-positive: #57c98a;
   --color-positive-soft: rgba(87, 201, 138, 0.12);
   --color-danger: #ff8378;
   --color-danger-soft: rgba(255, 131, 120, 0.12);
-  --color-blog-dark: #0c0a08;
+  --color-blog-dark: #0e0d10;
 
-  --elevation-card: 0 0 0 1px rgba(244, 239, 228, 0.04), 0 12px 32px -22px rgba(0, 0, 0, 0.9);
-  --elevation-card-hover: 0 0 0 1px rgba(255, 107, 74, 0.35), 0 20px 44px -24px rgba(0, 0, 0, 0.95);
+  --elevation-card: 0 0 0 1px rgba(229, 228, 226, 0.05), 0 12px 32px -22px rgba(0, 0, 0, 0.9);
+  --elevation-card-hover: 0 0 0 1px rgba(194, 86, 107, 0.4), 0 20px 44px -24px rgba(0, 0, 0, 0.95);
 
   --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
@@ -225,6 +228,11 @@ html[lang="fa"] .type-lede {
 .tnum {
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum" 1;
+  /* NOTE: no `direction` override here. .tnum is applied to container
+     elements (grid/flex stats, badges) as well as inline numbers, and
+     forcing direction:ltr flips the whole container layout to LTR in
+     Farsi. Unicode bidi already renders digit runs left-to-right inside
+     RTL text, so digits read correctly without any override. */
 }
 
 /* â”€â”€ Typography utilities â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
@@ -232,7 +240,7 @@ html[lang="fa"] .type-lede {
   display: inline-flex;
   align-items: center;
   gap: 0.6em;
-  font-family: var(--font-plex), ui-monospace, monospace;
+  font-family: var(--font-vazirmatn), var(--font-plex), ui-monospace, monospace;
   font-size: 0.72rem;
   font-weight: 500;
   letter-spacing: 0.16em;
@@ -258,8 +266,24 @@ html[lang="fa"] .eyebrow {
 
 /* Mono data label without the marker square */
 .mono {
-  font-family: var(--font-plex), ui-monospace, monospace;
+  font-family: var(--font-vazirmatn), var(--font-plex), ui-monospace, monospace;
   letter-spacing: 0.08em;
+}
+
+/* ── Farsi typographic overrides ────────────────────────────────────
+   Arabic script letters are cursive — wide letter-spacing and uppercase
+   tracking visually disconnect the joined letterforms. When the page is
+   in Farsi (dir=rtl), soften tracking to keep words intact while leaving
+   Latin/mono labels untouched in LTR mode. */
+[dir="rtl"] .rail-link,
+[dir="rtl"] .readout__label,
+[dir="rtl"] .panel-head__idx,
+[dir="rtl"] .mono,
+[dir="rtl"] .key,
+[dir="rtl"] .chip,
+[dir="rtl"] .btn {
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 
@@ -296,7 +320,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-fraunces), var(--font-vazirmatn), Georgia, serif;
+  font-family: var(--font-vazirmatn), var(--font-newsreader), Georgia, serif;
   font-weight: 600;
   letter-spacing: -0.015em;
   text-wrap: balance;
@@ -351,7 +375,7 @@ p {
   gap: 0.4em;
   padding: 0.3rem 0.7rem;
   border-radius: 999px;
-  font-family: var(--font-plex), ui-monospace, monospace;
+  font-family: var(--font-vazirmatn), var(--font-plex), ui-monospace, monospace;
   font-size: 0.68rem;
   font-weight: 500;
   letter-spacing: 0.08em;
@@ -394,7 +418,7 @@ p {
   gap: 0.3em;
   padding: 0.15rem 0.5rem;
   border-radius: 999px;
-  font-family: var(--font-plex), ui-monospace, monospace;
+  font-family: var(--font-vazirmatn), var(--font-plex), ui-monospace, monospace;
   font-size: 0.62rem;
   font-weight: 600;
   letter-spacing: 0.06em;
@@ -467,19 +491,19 @@ p {
 .btn-primary {
   background: var(--color-primary);
   color: var(--color-on-signal);
-  box-shadow: 0 1px 2px 0 rgba(22, 19, 15, 0.05),
-    0 8px 24px -12px rgba(194, 55, 31, 0.45);
+  box-shadow: 0 1px 2px 0 rgba(20, 19, 21, 0.05),
+    0 8px 24px -12px rgba(110, 30, 46, 0.45);
 }
 
 .btn-primary:hover {
   background: var(--color-primary-hover);
-  box-shadow: 0 2px 4px 0 rgba(22, 19, 15, 0.06),
-    0 14px 36px -14px rgba(194, 55, 31, 0.5);
+  box-shadow: 0 2px 4px 0 rgba(20, 19, 21, 0.06),
+    0 14px 36px -14px rgba(110, 30, 46, 0.5);
 }
 
 .btn-primary:active {
   transform: translateY(1px);
-  box-shadow: 0 0 0 1px rgba(22, 19, 15, 0.04);
+  box-shadow: 0 0 0 1px rgba(20, 19, 21, 0.04);
 }
 
 .btn-secondary {
@@ -558,7 +582,7 @@ p {
 }
 
 .ledger thead th {
-  font-family: var(--font-plex), ui-monospace, monospace;
+  font-family: var(--font-vazirmatn), var(--font-plex), ui-monospace, monospace;
   font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.1em;
@@ -575,7 +599,9 @@ p {
   border-bottom: none;
 }
 
-/* Ruled ledger rows â€” the dossier look */
+/* Ruled ledger rows � the parchment state-line treatment for spec rows.
+   The single editorial row that still carries the hairline: the gold rule
+   sits between label and value so the eye tracks across the field. */
 .ledger-row {
   display: flex;
   align-items: center;
@@ -591,7 +617,7 @@ p {
 }
 
 .ledger-row .label {
-  font-family: var(--font-plex), ui-monospace, monospace;
+  font-family: var(--font-vazirmatn), var(--font-plex), ui-monospace, monospace;
   font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.1em;
@@ -614,6 +640,10 @@ p {
   gap: 1.25rem;
 }
 
+
+
+
+
 .ledger-stat {
   padding: 1.25rem;
   border: 1px solid var(--color-border);
@@ -622,7 +652,7 @@ p {
 }
 
 .ledger-stat .stat-value {
-  font-family: var(--font-fraunces), Georgia, serif;
+  font-family: var(--font-vazirmatn), var(--font-newsreader), Georgia, serif;
   font-size: clamp(2rem, 1.4rem + 2vw, 3rem);
   line-height: 1;
   letter-spacing: -0.02em;
@@ -631,7 +661,7 @@ p {
 }
 
 .ledger-stat .stat-label {
-  font-family: var(--font-plex), ui-monospace, monospace;
+  font-family: var(--font-vazirmatn), var(--font-plex), ui-monospace, monospace;
   font-size: 0.66rem;
   font-weight: 600;
   letter-spacing: 0.12em;
@@ -688,6 +718,24 @@ p {
   }
 }
 
+/* Seamless marquee animation — moves the track by one half-width so the
+   loop point always lands on an identical frame. Direction flips for RTL
+   so content scrolls in the natural reading direction. */
+@keyframes marquee-move-ltr {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes marquee-move-rtl {
+  from { transform: translateX(0); }
+  to { transform: translateX(50%); }
+}
+.marquee-track {
+  display: flex;
+  animation: marquee-move-ltr var(--marquee-duration, 36s) linear infinite;
+}
+[dir="rtl"] .marquee-track {
+  animation: marquee-move-rtl var(--marquee-duration, 36s) linear infinite;
+}
 /* Beam rule under a heading â€” the radiator metaphor */
 .beam-rule {
   position: relative;
@@ -750,13 +798,11 @@ p {
   animation: count-up 0.8s var(--ease-io) forwards;
 }
 
-/* ================= DOSSIER LAYOUT LAYER =================
-   Shared section rhythm + surfaces in the Clinical Dossier language.
-   These replace the old sci-fi helpers (section-pad / band-dark /
-   surface-card / planning-grid / content-visibility) with one
-   editorial vocabulary used consistently across every page. */
-
-/* Vertical rhythm for full page sections — one token drives it all */
+/* ================= PERSIAN MODERN — type system + foundation ============
+   Section rhythm + surfaces in the new heritage × technology language:
+   Vazirmatn (Farsi), Newsreader (Latin display), Instrument Sans (body),
+   IBM Plex Mono (data/labels). Tablet screens get a wider content column
+   so the type breathes; the girih band provides the editorial rhythm. */
 .section-pad {
   padding-block: var(--section-y);
 }
@@ -765,8 +811,13 @@ p {
   padding-block: calc(var(--section-y) * 0.55);
 }
 
-/* Faint measurement grid — the "case-file" ruled backdrop.
-   Decorative only; sits behind content at very low opacity. */
+/* ============ DOSSIER SURFACE LAYER (restored) ========================
+   These primitives are referenced across the homepage, about, services,
+   contact, and blog. They were dropped from the working tree during the
+   palette repaint; restored verbatim from HEAD so dark bands, cards,
+   planning grids, and below-the-fold perf behave as authored. */
+
+/* Cross-hair planning grid - the treatment-planning lattice overlay. */
 .planning-grid {
   background-image:
     linear-gradient(to right, var(--color-border) 1px, transparent 1px),
@@ -774,8 +825,7 @@ p {
   background-size: 44px 44px;
 }
 
-/* Ink band — the deep "night edition" strip used to break the page.
-   Pairs with .surface / paper sections for editorial alternation. */
+/* Ink band - the deep "night edition" strip used to break the page. */
 .band-dark {
   position: relative;
   background-color: var(--color-deep);
@@ -787,8 +837,7 @@ p {
   color: var(--color-muted);
 }
 
-/* Paper card — bordered, subtle elevation, no glow.
-   The single reusable content container for the whole site. */
+/* Paper card - bordered, subtle elevation, no glow. */
 .surface-card {
   position: relative;
   background-color: var(--color-surface);
@@ -797,23 +846,21 @@ p {
   box-shadow: var(--elevation-card);
 }
 
-/* Hairline divider that spans a section, anchored under a chapter */
+/* Hairline divider that spans a section, anchored under a chapter. */
 .rule {
   height: 1px;
   width: 100%;
   background-color: var(--color-border);
 }
 
-/* Perf: skip rendering/painting for below-the-fold sections until
-   they approach the viewport. Paired with contain-intrinsic-size to
-   avoid scrollbar jump. */
+/* Perf: skip rendering/painting for below-the-fold sections until they
+   approach the viewport. */
 .content-visibility {
   content-visibility: auto;
   contain-intrinsic-size: auto 640px;
 }
 
-/* Grain overlay for dark bands / imagery — a positioned variant of
-   the fixed .grain above, for use inside a relative container. */
+/* Grain overlay for dark bands / imagery - positioned variant of .grain. */
 .grain-pattern {
   position: absolute;
   inset: 0;
@@ -824,15 +871,178 @@ p {
   background-size: 120px 120px;
 }
 
-
-/* Placeholder tone for inputs that opt in */
-.placeholder-muted::placeholder {
-  color: var(--color-muted);
-  opacity: 1;
+/* Thin gold hairline — the section separator. A short centered medallion
+   sits inside a full-width hairline on small screens; on wide screens the
+   hairline extends beyond the margin so it meets the page edge. */
+.gold-rule {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-secondary);
 }
 
+.gold-rule::before,
+.gold-rule::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background-color: var(--color-secondary);
+  opacity: 0.6;
+}
 
-/* ================= GRAIN OVERLAY ================= */
+.gold-rule > svg {
+  flex: none;
+  width: 2.2rem;
+  height: 2.2rem;
+}
+
+/* Iwan-arch image frame — pointed-arch mask for feature imagery. The
+   mask uses a clip-path with a generous margin so the arch never clips
+   the image corners; a soft border picks up the parchment tone. */
+.iwan-frame {
+  clip-path: polygon(
+    50% 0%, 78% 4%, 96% 18%, 100% 38%,
+    100% 100%, 0% 100%, 0% 38%, 4% 18%, 22% 4%
+  );
+}
+
+.iwan-frame--soft {
+  border: 1px solid var(--color-secondary);
+}
+
+/* Manuscript margin note — vertical gold caption for editorial rows */
+.margin-note {
+  font-family: var(--font-vazirmatn), var(--font-plex), ui-monospace, monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+}
+
+/* === shared editorial components (typed, not dossier) ================= */
+
+/* Custom control base — shared across btn / chip / badge / controls */
+.controls-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: var(--font-instrument), system-ui, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: background-color 0.2s ease, color 0.2s ease,
+    border-color 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid transparent;
+  text-decoration: none;
+}
+
+/* Grid row without the old sci-fi wrapper ============================== */
+.grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.grid--cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid--cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 720px) {
+  .grid--cols-2,
+  .grid--cols-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Run-length scale — the one type scale the site actually uses. */
+.type-lead {
+  font-size: 1.5rem;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+}
+
+.type-eq {
+  font-size: 2rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 900px) {
+  .type-lead {
+    font-size: 1.85rem;
+  }
+  .type-eq {
+    font-size: 2.4rem;
+  }
+}
+
+/* Shared section header — the editorial "case-file" title block. */
+.section-header {
+  margin-bottom: var(--section-y);
+}
+
+/* Wide beam rule — the top-of-section hairline reaching to the page edge. */
+.beam-rule {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    var(--color-secondary) 0,
+    transparent 1.5rem,
+    transparent calc(100% - 1.5rem),
+    var(--color-secondary) 100%
+  );
+  opacity: 0.55;
+}
+
+/* Ink-wash tinted surface for the hero. */
+.hero-surface {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-secondary);
+}
+
+/* Faded divider for the "now showing" strip. */
+.faded-rule {
+  opacity: 0.25;
+  border-color: var(--color-border);
+}
+
+/* State line — the editorial "finding" strip beneath body copy. */
+.state-line {
+  font-size: 0.82rem;
+  color: var(--color-secondary);
+}
+
+/* Dark-side type treatment for the parchment light mode. */
+.parchment-text {
+  color: var(--color-text-primary);
+}
+
+/* Shared accent stroke for the booking + form inputs. */
+.input-accent {
+  border-color: var(--color-secondary);
+  border-width: 1px;
+}
+
+/* Modal overlay — the parchment gate. */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(14, 13, 16, 0.6);
+  z-index: 50;
+}
+
+/* ============ GRAIN OVERLAY — Persian Modern ====================== */
 .grain {
   position: fixed;
   inset: 0;
@@ -844,7 +1054,7 @@ p {
   background-size: 120px 120px;
 }
 
-/* ================= PRINT â€” clinical-dossier print style ================= */
+/* Print rule — Persian Modern ink for the archive. */
 @media print {
   :root,
   [data-theme="dark"] {
@@ -853,8 +1063,8 @@ p {
     --color-deep: #000000;
     --color-text-primary: #000000;
     --color-text-secondary: #333333;
-    --color-primary: #8a6410;
-    --color-primary-hover: #8a6410;
+    --color-primary: #6e1e2e;
+    --color-primary-hover: #6e1e2e;
     --color-border: #cccccc;
     --color-rule-strong: #999999;
   }
@@ -900,4 +1110,588 @@ p {
     border-color: var(--color-border);
   }
 }
+
+
+
+
+/* ================= PERSIAN MODERN — girih ornament engine ==========
+   Girih strapwork band: an eight-pointed star lattice drawn as an
+   inline SVG tile. Bordeaux hairlines on transparent ground; the band
+   itself supplies the platinum/lapis ground. Tile is 96px, seamless. */
+.girih-band {
+  position: relative;
+  background-color: var(--color-surface);
+  border-top: 1px solid var(--color-secondary);
+  border-bottom: 1px solid var(--color-secondary);
+  overflow: hidden;
+}
+
+.girih-band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.16;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cg fill='none' stroke='%236e1e2e' stroke-width='1.2'%3E%3Cpath d='M48 6l9.5 22.5L80 38l-22.5 9.5L48 70 38.5 47.5 16 38l22.5-9.5z'/%3E%3Ccircle cx='48' cy='48' r='30'/%3E%3Ccircle cx='48' cy='48' r='38'/%3E%3Cpath d='M0 48h18M78 48h18M48 0v18M48 78v18M10 10l12 12M74 74l12 12M86 10L74 22M22 74L10 86'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 96px 96px;
+}
+
+/* Lapis variant — gold lattice on deep ground for dark bands */
+.girih-band--lapis {
+  background-color: var(--color-deep);
+}
+
+.girih-band--lapis::before {
+  opacity: 0.22;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cg fill='none' stroke='%23b0b2b9' stroke-width='1.2'%3E%3Cpath d='M48 6l9.5 22.5L80 38l-22.5 9.5L48 70 38.5 47.5 16 38l22.5-9.5z'/%3E%3Ccircle cx='48' cy='48' r='30'/%3E%3Ccircle cx='48' cy='48' r='38'/%3E%3Cpath d='M0 48h18M78 48h18M48 0v18M48 78v18M10 10l12 12M74 74l12 12M86 10L74 22M22 74L10 86'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Placeholder tone for inputs that opt in */
+.placeholder-muted::placeholder {
+  color: var(--color-muted);
+  opacity: 1;
+}
+
+/* ============ CONSOLE / PRECISION-INSTRUMENT LAYER =====================
+   The "reading-room console" concept: a fixed left sidebar navigation
+   rail with instrument-panel components - reticles, rulers, and scan
+   readouts. Everything below uses CSS logical properties so it mirrors
+   under RTL without extra rules, and consumes the existing color vars so
+   dark/light themes propagate automatically. */
+
+/* -- Console shell: on lg+ push content past the fixed sidebar rail. */
+.console-shell {
+  padding-inline-start: 0;
+}
+
+@media (min-width: 1024px) {
+  .console-shell {
+    padding-inline-start: var(--rail-w, 17rem);
+  }
+}
+
+/* -- Sidebar rail: fixed to the inline-start edge, full height, own scroll. */
+.console-rail {
+  position: fixed;
+  inset-block: 0;
+  inset-inline-start: 0;
+  z-index: 40;
+  width: var(--rail-w, 17rem);
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface);
+  border-inline-end: 1px solid var(--color-border);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* Hairline column of tick marks - the instrument "scale" along an edge. */
+.tick-ruler {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--color-rule-strong) 0,
+    var(--color-rule-strong) 1px,
+    transparent 1px,
+    transparent 8px
+  );
+  opacity: 0.5;
+}
+
+.tick-ruler--h {
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--color-rule-strong) 0,
+    var(--color-rule-strong) 1px,
+    transparent 1px,
+    transparent 8px
+  );
+}
+
+/* Full-bleed measurement rule - a horizontal scale for section breaks. */
+.scale-rule {
+  height: 10px;
+  width: 100%;
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--color-rule-strong) 0,
+    var(--color-rule-strong) 1px,
+    transparent 1px,
+    transparent 10px
+  );
+  opacity: 0.55;
+}
+
+/* -- Reticle brackets: four corner crop-marks on any relative panel. */
+.reticle::before,
+.reticle::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.reticle::before {
+  background:
+    linear-gradient(var(--color-highlight), var(--color-highlight)) top left / 14px 1.5px no-repeat,
+    linear-gradient(var(--color-highlight), var(--color-highlight)) top left / 1.5px 14px no-repeat,
+    linear-gradient(var(--color-highlight), var(--color-highlight)) top right / 14px 1.5px no-repeat,
+    linear-gradient(var(--color-highlight), var(--color-highlight)) top right / 1.5px 14px no-repeat;
+}
+
+.reticle::after {
+  background:
+    linear-gradient(var(--color-highlight), var(--color-highlight)) bottom left / 14px 1.5px no-repeat,
+    linear-gradient(var(--color-highlight), var(--color-highlight)) bottom left / 1.5px 14px no-repeat,
+    linear-gradient(var(--color-highlight), var(--color-highlight)) bottom right / 14px 1.5px no-repeat,
+    linear-gradient(var(--color-highlight), var(--color-highlight)) bottom right / 1.5px 14px no-repeat;
+}
+
+/* -- Scan readout panel: bordered instrument tile for stats and specs. */
+.readout {
+  position: relative;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-rule-strong);
+  border-radius: var(--radius-panel);
+}
+
+.readout--deep {
+  background-color: var(--color-deep);
+  border-color: var(--color-border);
+  color: var(--color-text-on-dark);
+}
+
+/* Mono data label above a value - the instrument caption. */
+.readout__label {
+  font-family: var(--font-vazirmatn), var(--font-plex), ui-monospace, monospace;
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* Corner annotation - DICOM-style data stamp over a viewport. */
+.annot {
+  position: absolute;
+  font-family: var(--font-vazirmatn), var(--font-plex), ui-monospace, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-on-dark);
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+/* -- Rail nav items: channel-style links with a start accent when active. */
+.rail-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 1.25rem;
+  font-family: var(--font-vazirmatn), var(--font-plex), ui-monospace, monospace;
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-soft),
+    background-color var(--dur-fast) var(--ease-soft);
+}
+
+.rail-link:hover {
+  color: var(--color-text-primary);
+  background-color: var(--color-soft);
+}
+
+.rail-link[aria-current="page"] {
+  color: var(--color-primary);
+  background-color: var(--color-primary-soft);
+}
+
+.rail-link[aria-current="page"]::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 2px;
+  background-color: var(--color-primary);
+}
+
+.rail-link .idx {
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* -- Instrument panel title: mono chapter index over editorial title. */
+.panel-head {
+  position: relative;
+  padding-inline-start: 1.5rem;
+  border-inline-start: 1px solid var(--color-rule-strong);
+}
+
+.panel-head__idx {
+  font-family: var(--font-vazirmatn), var(--font-plex), ui-monospace, monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+/* -- Mobile drawer backdrop: below lg the rail overlays the content. */
+.rail-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  background-color: rgba(14, 13, 16, 0.55);
+  backdrop-filter: blur(2px);
+}
+
+@media (min-width: 1024px) {
+  .rail-backdrop {
+    display: none;
+  }
+}
+
+
+/* =====================================================================
+   Module styles � every section gets its own instrument treatment so the
+   page reads as a console made of distinct modules, not one repeated card.
+   ===================================================================== */
+
+/* -- Telemetry status bar (TrustStrip): LED + label cells on a scanline. */
+.status-led {
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: var(--color-positive, #10b981);
+  box-shadow: 0 0 6px 0 color-mix(in srgb, var(--color-positive, #10b981) 70%, transparent);
+  flex: none;
+}
+.status-cell + .status-cell {
+  border-inline-start: 1px solid var(--color-border);
+}
+
+/* -- Dotted-leader spec row (Equipment): label .... value like a datasheet. */
+.leader-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding-block: 0.7rem;
+  border-block-end: 1px dashed color-mix(in srgb, var(--color-rule-strong) 55%, transparent);
+}
+.leader-row:last-child { border-block-end: 0; }
+.leader-row__fill {
+  flex: 1 1 auto;
+  height: 0.7em;
+  background-image: radial-gradient(circle, var(--color-border) 1px, transparent 1.5px);
+  background-size: 6px 6px;
+  background-position: 0 bottom;
+  background-repeat: repeat-x;
+  min-width: 1.5rem;
+}
+
+/* -- Transcript log entry (Testimonials): a recorded-voice chart entry. */
+.log-entry {
+  position: relative;
+  border-inline-start: 2px solid var(--color-rule-strong);
+  padding-inline-start: 1.25rem;
+}
+.log-entry::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: -5px;
+  top: 0.35rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: var(--color-highlight);
+}
+
+/* -- Terminal prompt (CTA): blinking caret line above the closing statement. */
+.term-line::after {
+  content: "";
+  display: inline-block;
+  width: 0.55em;
+  height: 1.1em;
+  margin-inline-start: 0.35em;
+  vertical-align: text-bottom;
+  background: var(--color-highlight);
+  animation: term-blink 1.1s steps(1) infinite;
+}
+@keyframes term-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .term-line::after { animation: none; }
+}
+
+/* -- Console key (CTA buttons): squared-off instrument key, not a pill. */
+.key {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 1.4rem;
+  font-family: var(--font-vazirmatn), var(--font-plex), ui-monospace, monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid var(--color-rule-strong);
+  border-radius: var(--radius-panel);
+  background: transparent;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.key--live {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-on-signal);
+}
+.key--live:hover { filter: brightness(1.08); }
+.key:hover {
+  border-color: var(--color-highlight);
+  color: var(--color-highlight);
+}
+
+/* -- Credential stamp (CertificationBand): perforated certificate chip. */
+.stamp {
+  border: 1px dashed var(--color-rule-strong);
+  border-radius: var(--radius-card);
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0 8px,
+      color-mix(in srgb, var(--color-highlight) 5%, transparent) 8px 16px
+    );
+}
+
+/* =====================================================================
+   Module styles � per-component dialects
+   Every public-facing section carries its own surface/frame/accent voice
+   while consuming the shared --color-* token set (light + dark themes).
+   Logical properties only ? RTL-safe. Reduced-motion respected via Reveal.
+   ===================================================================== */
+
+/* -- Surfaces -- */
+.mod-surface {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-panel);
+}
+.mod-surface-soft {
+  background-color: var(--color-soft);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-panel);
+}
+.mod-surface-deep {
+  background-color: var(--color-deep);
+  color: var(--color-text-on-dark);
+}
+
+/* -- Panels / cards -- */
+.mod-panel {
+  position: relative;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-rule-strong);
+  border-radius: var(--radius-panel);
+  overflow: hidden;
+}
+.mod-panel--deep {
+  background-color: var(--color-deep);
+  color: var(--color-text-on-dark);
+  border-color: var(--color-border);
+}
+
+/* -- Frame families -- */
+/* Ledger: ruled label � value rows (Features / Equipment specs / FAQ) */
+.mod-frame-ledger {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-panel);
+}
+.mod-frame-ledger > * + * {
+  border-block-start: 1px dashed color-mix(in srgb, var(--color-rule-strong) 55%, transparent);
+}
+.mod-frame-ledger__head {
+  padding-block-end: 0.75rem;
+  border-block-end: 1px solid var(--color-border);
+}
+/* Blueprint: faint planning-grid mask + solid panel (Equipment / Services cards) */
+.mod-frame-blueprint {
+  position: relative;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-rule-strong);
+  border-radius: var(--radius-panel);
+  overflow: hidden;
+}
+.mod-frame-blueprint::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, var(--color-border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-border) 1px, transparent 1px);
+  background-size: 44px 44px;
+  opacity: 0.18;
+  z-index: 0;
+}
+.mod-frame-blueprint > * {
+  position: relative;
+  z-index: 1;
+}
+/* Case-file cover: deep ink band + hairline + scale rule (PageHero / About) */
+.mod-frame-casefile {
+  position: relative;
+  background-color: var(--color-deep);
+  color: var(--color-text-on-dark);
+  overflow: hidden;
+}
+/* Terminal: ink ground + squared keys + blinking caret (CTA) */
+.mod-frame-terminal {
+  position: relative;
+  background-color: var(--color-deep);
+  color: var(--color-text-on-dark);
+  overflow: hidden;
+}
+
+/* -- Accent chips / badges -- */
+.mod-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 0.25rem 0.75rem;
+  font-family: var(--font-vazirmatn), var(--font-plex), ui-monospace, monospace;
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  background: transparent;
+}
+.mod-chip--primary {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: color-mix(in srgb, var(--color-primary) 12%, transparent);
+}
+.mod-chip--highlight {
+  border-color: var(--color-highlight);
+  color: var(--color-highlight);
+  background: color-mix(in srgb, var(--color-highlight) 12%, transparent);
+}
+.mod-chip--surface {
+  background-color: var(--color-surface);
+  border-color: var(--color-rule-strong);
+  color: var(--color-text-primary);
+}
+
+/* -- Typography voice extensions -- */
+.mod-type-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+.mod-type-mono-value {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* -- Per-component wrappers -- */
+/* Home Hero � iwan-arch viewport + margin-note index (distinct from PageHero) */
+.mod-hero {
+  position: relative;
+}
+/* TrustStrip � telemetry status bar on a surface strip */
+.mod-truststrip {
+  border-block: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+}
+/* Features � parchment ledger of ruled rows */
+.mod-features {
+  position: relative;
+}
+/* Process � dose rail on ink ground (dark anchor section) */
+.mod-process {
+  position: relative;
+}
+/* Equipment � blueprint datasheet on soft surface */
+.mod-equipment {
+  position: relative;
+}
+/* Precision � isodose instrument panel */
+.mod-precision {
+  position: relative;
+}
+/* Testimonials � voice-log transcript (log-entry rule + REC stamp) */
+.mod-testimonials {
+  position: relative;
+}
+/* Credibility � instrument readout tiles */
+.mod-credibility {
+  position: relative;
+}
+/* CertificationBand � girih lapis ground + perforated stamp marquee */
+.mod-certification {
+  position: relative;
+}
+/* FAQ � case-file accordion */
+.mod-faq {
+  position: relative;
+}
+/* CTA � terminal window on ink ground */
+.mod-cta {
+  position: relative;
+}
+/* PageHero � inner-page case-file cover */
+.mod-page-hero {
+  position: relative;
+}
+/* About � parchment team cards + ink stat band + ruled milestones */
+.mod-team {
+  position: relative;
+}
+.mod-milestones {
+  position: relative;
+}
+/* Services � blueprint feature cards + ink CTA band */
+.mod-service-grid {
+  position: relative;
+}
+/* Forms � parchment form panel with input-accent fields */
+.mod-form {
+  position: relative;
+}
+/* Booking CTA � ink band closing panel */
+.mod-booking-cta {
+  position: relative;
+}
+/* Blog index � parchment article ledger */
+.mod-blog {
+  position: relative;
+}
+/* Forum index � parchment thread ledger */
+.mod-forum {
+  position: relative;
+}
+
+/* -- Section chroma accents (optional tint on any wrapper) -- */
+.mod-chroma-primary {
+  border-inline-start: 3px solid var(--color-primary);
+}
+.mod-chroma-highlight {
+  border-inline-start: 3px solid var(--color-highlight);
+}
+.mod-chroma-secondary {
+  border-inline-start: 3px solid var(--color-secondary);
+}
+
+
+
+
 

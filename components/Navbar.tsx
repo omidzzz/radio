@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import LanguageToggle from "./LanguageToggle";
 import ThemeToggle from "./ThemeToggle";
-import SearchDropdown from "./SearchDropdown";
 import LiveSlotBadge from "@/components/ui/LiveSlotBadge";
 import { RadiationIcon } from "@/components/ui/icons";
 
@@ -29,12 +29,22 @@ interface NavbarProps {
   isFa: boolean;
 }
 
+/**
+ * Console rail — the fixed left sidebar navigation for the
+ * "precision-instrument" concept.
+ *
+ * Desktop (lg+): a fixed instrument rail pinned to the inline-start edge
+ * with channel-style nav links, search, theme/language toggles, and a
+ * booking readout. Mobile (<lg): collapses to a slim top bar that opens
+ * the same rail as a slide-in drawer. Positioning uses logical properties
+ * (via .console-rail / .rail-link) so it mirrors under RTL automatically.
+ */
 export default function Navbar({ strings, isFa }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
-  // Lock body scroll when the mobile menu is open (prevents background
-  // scroll + layout shift on small screens).
+  // Lock body scroll when the drawer is open.
   useEffect(() => {
     if (!mobileOpen) return;
     const prev = document.body.style.overflow;
@@ -54,9 +64,13 @@ export default function Navbar({ strings, isFa }: NavbarProps) {
     { href: "/contact", label: strings.nav.contact },
   ];
 
+  // Active-route test: home is exact-match, everything else matches on
+  // prefix so nested routes (e.g. /blog/[slug]) keep their section lit.
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
+
+  // rAF-throttled scroll flag for the mobile bar's shadow.
   useEffect(() => {
-    // rAF-throttled so we evaluate at most once per frame, and we only touch
-    // state when the value actually changes.
     let ticking = false;
     const handleScroll = () => {
       if (ticking) return;
@@ -71,88 +85,128 @@ export default function Navbar({ strings, isFa }: NavbarProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu on resize to desktop
+  // Close the drawer on resize to desktop.
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 1220) setMobileOpen(false);
+      if (window.innerWidth >= 1024) setMobileOpen(false);
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Shared nav list — rendered once for the desktop rail, once for the drawer.
+  const NavList = ({ inDrawer = false }: { inDrawer?: boolean }) => (
+    <nav
+      className="flex flex-col"
+      aria-label={strings.toggleMenu}
+      role="navigation"
+    >
+      {navLinks.map((link, i) => (
+        <Link
+          key={link.href}
+          href={link.href}
+          aria-current={isActive(link.href) ? "page" : undefined}
+          onClick={inDrawer ? () => setMobileOpen(false) : undefined}
+          className="rail-link"
+        >
+          <span className="idx" aria-hidden="true">
+            {String(i + 1).padStart(2, "0")}
+          </span>
+          <span>{link.label}</span>
+        </Link>
+      ))}
+      <Link
+        href="/search"
+        aria-current={isActive("/search") ? "page" : undefined}
+        onClick={inDrawer ? () => setMobileOpen(false) : undefined}
+        className="rail-link"
+      >
+        <span className="idx" aria-hidden="true">
+          08
+        </span>
+        <span>{strings.nav.search}</span>
+      </Link>
+    </nav>
+  );
+
+  // Brand block — trefoil mark + clinic name, used in rail and mobile bar.
+  const Brand = () => (
+    <Link href="/" className="group flex items-center gap-3">
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-primary/40 text-primary transition-colors duration-200 group-hover:bg-primary/10">
+        <RadiationIcon className="h-5 w-5" />
+      </span>
+      <span className="flex flex-col leading-tight">
+        <span className="font-[family-name:var(--font-display)] text-base font-semibold text-text-primary">
+          {strings.clinicName}
+        </span>
+        <span className="readout__label">
+          {isFa ? "کلینیک تخصصی" : "Specialist Clinic"}
+        </span>
+      </span>
+    </Link>
+  );
+
   return (
-    <header className="sticky top-0 z-50">
-      {/* Theme-aware bar: paper in light, deep in dark via --color-bg.
-          Single hairline + one soft shadow when scrolled. */}
-      <div
-        className={`relative z-20 border-b transition-all duration-300 ${
+    <>
+      {/* ── Desktop console rail (lg+) ───────────────────────────────── */}
+      <aside className="console-rail hidden lg:flex" aria-label="Console">
+        <div className="border-b border-border px-5 py-5">
+          <Brand />
+          <div className="mt-4 flex items-center gap-2">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-positive opacity-60 motion-reduce:animate-none" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-positive" />
+            </span>
+            <span className="readout__label">
+              {isFa ? "سیستم آماده" : "System Ready"}
+            </span>
+          </div>
+        </div>
+
+        <div className="tick-ruler--h h-2.5 w-full" aria-hidden="true" />
+
+        <div className="py-3">
+          <p className="readout__label px-5 pb-2 pt-1">
+            {isFa ? "کانال‌ها" : "Channels"}
+          </p>
+          <NavList />
+        </div>
+
+        <div className="flex-1" />
+
+        <div className="border-t border-border px-5 py-4">
+          <div className="mb-4 flex items-center justify-between">
+            <ThemeToggle />
+            <LanguageToggle />
+          </div>
+          <LiveSlotBadge isFa={isFa} href="/booking" primary />
+        </div>
+
+        <div className="scale-rule" aria-hidden="true" />
+        <div className="px-5 py-3">
+          <p className="readout__label">
+            {isFa ? "پایان جلسه" : "End of Session"} ·{" "}
+            {isFa ? "رادیوتراپی" : "Radiotherapy"}
+          </p>
+        </div>
+      </aside>
+
+      {/* ── Mobile top bar (<lg) ─────────────────────────────────────── */}
+      <header
+        className={`sticky top-0 z-50 border-b bg-bg/90 backdrop-blur-md transition-all duration-300 lg:hidden ${
           scrolled
-            ? "border-primary/25 bg-bg/90 shadow-[0_8px_30px_-14px_rgba(2,6,23,0.35)] backdrop-blur-md min-[1220px]:backdrop-blur-xl"
-            : "border-border bg-bg/80 backdrop-blur-sm"
+            ? "border-primary/25 shadow-[0_8px_30px_-14px_rgba(2,6,23,0.35)]"
+            : "border-border"
         }`}
       >
-
-        <nav className="relative mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6 lg:px-8">
-          {/* Wordmark — trefoil mark + display type, framed ledger card */}
-          <Link href="/" className="group flex shrink-0 items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-primary/40 text-primary transition-colors duration-200 group-hover:bg-primary/10">
-              <RadiationIcon className="h-6 w-6" />
-            </span>
-            <span className="font-[family-name:var(--font-fraunces)] text-lg font-semibold tracking-tight text-text-primary">
-              {strings.clinicName}
-            </span>
-          </Link>
-
-          {/* Desktop navigation — mono index + underline draw on hover */}
-          <div className="hidden items-center gap-0.5 min-[1220px]:flex">
-            {navLinks.map((link, i) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="group relative flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-text-secondary transition-colors duration-200 hover:text-primary"
-              >
-                <span className="tnum mono text-[0.6rem] font-semibold text-muted transition-colors duration-200 group-hover:text-primary">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="relative">
-                  {link.label}
-                  <span className="absolute -bottom-0.5 start-0 h-px w-full origin-left scale-x-0 bg-primary transition-transform duration-300 ease-[var(--ease-brand)] group-hover:scale-x-100 rtl:origin-right" />
-                </span>
-              </Link>
-            ))}
-
-            {/* Search with dropdown */}
-            <div className="ml-1">
-              <SearchDropdown />
-            </div>
-
-            <div className="mx-2.5 h-5 w-px bg-border" />
-
-            {/* Minimal column: theme + language toggles */}
-            <div className="flex flex-col items-center gap-1.5">
-              <ThemeToggle />
-              <LanguageToggle />
-            </div>
-
-            <div className="mx-2.5 h-5 w-px bg-border" />
-
-            {/* Live next-slot badge — acts as the primary booking CTA */}
-            <LiveSlotBadge
-              isFa={isFa}
-              href="/booking"
-              primary
-              className="hidden min-[1220px]:inline-flex mx-1"
-            />
-          </div>
-
-          {/* Mobile toggle — 44px target, theme-aware */}
+        <nav className="flex items-center justify-between gap-3 px-4 py-3">
           <button
             type="button"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-xl text-text-secondary transition-colors hover:bg-primary/12 hover:text-text-primary min-[1220px]:hidden"
+            onClick={() => setMobileOpen((v) => !v)}
             aria-label={strings.toggleMenu}
             aria-expanded={mobileOpen}
-            aria-controls="mobile-menu"
+            aria-controls="mobile-drawer"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-xl text-text-secondary transition-colors hover:bg-primary/12 hover:text-text-primary"
           >
             <svg
               className="h-5 w-5"
@@ -176,66 +230,80 @@ export default function Navbar({ strings, isFa }: NavbarProps) {
               )}
             </svg>
           </button>
+
+          <Brand />
+
+          <span className="w-11" aria-hidden="true" />
         </nav>
+        <div className="scale-rule" aria-hidden="true" />
+      </header>
 
-        {/* Mobile menu — opacity + translate, body scroll locked while open */}
-        <div
-          id="mobile-menu"
-          className={`min-[1220px]:hidden ${
-            mobileOpen
-              ? "pointer-events-auto translate-y-0 opacity-100"
-              : "pointer-events-none -translate-y-2 opacity-0"
-          } transition-[opacity,transform] duration-200 ease-out`}
-          role="navigation"
-          aria-label={strings.toggleMenu}
-          inert={!mobileOpen}
-        >
-          <div className="border-t border-border bg-bg px-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))] pt-3">
-            <div className="flex flex-col gap-0.5">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
+      {/* ── Mobile drawer: same rail, overlaid ───────────────────────── */}
+      {mobileOpen && (
+        <>
+          <div
+            className="rail-backdrop lg:hidden"
+            onClick={() => setMobileOpen(false)}
+            aria-hidden="true"
+          />
+          <aside
+            id="mobile-drawer"
+            className="console-rail lg:hidden"
+            aria-label={strings.toggleMenu}
+          >
+            <div className="border-b border-border px-5 py-5">
+              <div className="flex items-start justify-between gap-3">
+                <Brand />
+                <button
+                  type="button"
                   onClick={() => setMobileOpen(false)}
-                  tabIndex={mobileOpen ? 0 : -1}
-                  className="rounded-xl px-4 py-3 text-sm font-medium text-text-secondary transition-colors hover:bg-primary/12 hover:text-text-primary"
+                  aria-label={strings.toggleMenu}
+                  className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-text-secondary hover:bg-primary/12 hover:text-text-primary"
                 >
-                  {link.label}
-                </Link>
-              ))}
-
-              <Link
-                href="/search"
-                onClick={() => setMobileOpen(false)}
-                tabIndex={mobileOpen ? 0 : -1}
-                className="rounded-xl px-4 py-3 text-sm font-medium text-text-secondary transition-colors hover:bg-primary/12 hover:text-text-primary"
-              >
-                {strings.nav.search}
-              </Link>
-
-              <div className="my-2.5 h-px bg-border" />
-
-              <div className="flex items-center justify-between gap-3 px-1 pt-1">
-                <div className="flex flex-col items-center gap-1.5">
-                  <ThemeToggle />
-                  <LanguageToggle />
-                </div>
-                <Link
-                  href="/booking"
-                  onClick={() => setMobileOpen(false)}
-                  tabIndex={mobileOpen ? 0 : -1}
-                  className="rounded-full bg-primary px-6 py-3 text-center text-sm font-semibold text-deep transition-colors hover:bg-primary-hover"
-                >
-                  {strings.bookNow}
-                </Link>
+                  <svg
+                    className="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
 
-      {/* Single 1px hairline under the bar (was double glow + energy border) */}
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
-    </header>
+            <div className="tick-ruler--h h-2.5 w-full" aria-hidden="true" />
+
+            <div className="py-3">
+              <p className="readout__label px-5 pb-2 pt-1">
+                {isFa ? "کانال‌ها" : "Channels"}
+              </p>
+              <NavList inDrawer />
+            </div>
+
+            <div className="flex-1" />
+
+            <div className="border-t border-border px-5 py-4">
+              <div className="mb-4 flex items-center justify-between">
+                <ThemeToggle />
+                <LanguageToggle />
+              </div>
+              <Link
+                href="/booking"
+                onClick={() => setMobileOpen(false)}
+                className="block rounded-full bg-primary px-6 py-3 text-center text-sm font-semibold text-on-signal transition-colors hover:bg-primary-hover"
+              >
+                {strings.bookNow}
+              </Link>
+            </div>
+          </aside>
+        </>
+      )}
+    </>
   );
 }

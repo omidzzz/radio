@@ -89,8 +89,8 @@ export default function BlogReadingProgress({
             />
             <defs>
               <linearGradient id="rp-ring-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#22d3ee" />
-                <stop offset="100%" stopColor="#14b8a6" />
+                <stop offset="0%" stopColor="#6e1e2e" />
+                <stop offset="100%" stopColor="#c2566b" />
               </linearGradient>
             </defs>
           </svg>

@@ -361,7 +361,7 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
       onSubmit={handleSubmit}
       className={embedded
         ? "p-2 sm:p-4"
-        : "border border-border bg-surface p-8"}
+        : "mod-form border border-border bg-surface p-8"}
       noValidate
     >
       {!embedded && (

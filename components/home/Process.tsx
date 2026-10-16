@@ -69,7 +69,7 @@ export default function Process({ isFa }: ProcessProps) {
   ];
 
   return (
-    <section className="content-visibility band-dark section-pad">
+    <section className="mod-process content-visibility band-dark section-pad">
       <div className="grain-pattern pointer-events-none" aria-hidden="true" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <ChapterHead
@@ -77,6 +77,7 @@ export default function Process({ isFa }: ProcessProps) {
           index="02"
           label={isFa ? "روند کار" : "How It Works"}
           align="start"
+          variant="panel"
           title={
             isFa
               ? "از رزرو تا نتیجه، سه مرحله ساده"
@@ -89,32 +90,33 @@ export default function Process({ isFa }: ProcessProps) {
           }
         />
 
-        {/* Dose rail — numbered spine on the start edge (desktop) */}
+        {/* Dose rail — a tick-ruler timeline: measurement scale as the spine */}
         <ol className="relative mt-12 lg:ps-30">
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute inset-y-2 hidden w-px bg-[var(--color-rule-strong)] lg:block start-15"
+            className="tick-ruler pointer-events-none absolute inset-y-2 hidden w-3 lg:block start-15 -translate-x-1/2 rtl:translate-x-1/2 opacity-70"
           />
 
           {process.map((p, i) => (
             <Reveal key={p.step} delay={i * 120}>
               <li className="group relative border-b border-[var(--color-rule-strong)] py-8 last:border-b-0 lg:py-10">
-                {/* Rail node — index numeral anchored to the spine */}
-                <div className="absolute top-8 hidden -translate-x-1/2 lg:block start-15">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-full border border-[var(--color-rule-strong)] bg-deep font-[family-name:var(--font-fraunces)] text-lg font-semibold text-highlight transition-colors duration-200 group-hover:border-primary group-hover:bg-primary group-hover:text-on-signal">
+                {/* Step number — dose rail node sits on the side ruler */}
+                <div className={`absolute top-8 hidden ${isFa ? "right-0 translate-x-1/2" : "left-0 -translate-x-1/2"} lg:block`}>
+                  <span className="tnum flex h-12 w-12 items-center justify-center rounded-[var(--radius-card)] border border-[var(--color-rule-strong)] bg-deep font-[family-name:var(--font-vazirmatn)] text-lg font-semibold text-highlight transition-colors duration-200 group-hover:border-primary group-hover:bg-primary group-hover:text-on-signal">
                     {isFa ? toFarsiDigits(p.step) : p.step}
                   </span>
                 </div>
 
-                <div className="flex items-start gap-5">
-                  <span className="mono mt-1 text-sm font-medium uppercase tracking-[0.2em] text-highlight lg:hidden">
-                    {isFa ? toFarsiDigits(p.step) : p.step}
-                  </span>
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--radius-card)] border border-[var(--color-rule-strong)] text-highlight">
+                <div className={`flex items-start gap-5 ${isFa ? "pr-8 lg:pr-12" : "pl-8 lg:pl-12"}`}>
+                  <span className="reticle relative flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--radius-card)] border border-[var(--color-rule-strong)] text-highlight">
                     {icons[i]}
                   </span>
                   <div>
-                    <h3 className="type-h3 text-text-on-dark">{p.title}</h3>
+                    <span className="readout__label text-muted">
+                      T+{String(i * 24).padStart(3, "0")}:00 · {isFa ? "مرحله" : "Stage"}{" "}
+                      {isFa ? toFarsiDigits(p.step) : p.step}
+                    </span>
+                    <h3 className="type-h3 mt-1.5 text-text-on-dark">{p.title}</h3>
                     <p className="section-lead mt-2 max-w-xl">{p.desc}</p>
                   </div>
                 </div>

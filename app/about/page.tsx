@@ -276,7 +276,7 @@ export default async function AboutPage() {
       {/* ══════════════════════════════════════════════════════════════
           TEAM
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative z-10 overflow-hidden bg-deep py-24 lg:py-28">
+      <section className="mod-team relative z-10 overflow-hidden bg-deep py-24 lg:py-28">
         {/* Trefoil watermark — dossier dark-band ornament */}
         <div className="pointer-events-none absolute -bottom-24 end-[-4rem] opacity-[0.04]">
           <svg viewBox="0 0 200 200" className="h-[420px] w-[420px]" fill="none" stroke="currentColor" strokeWidth="6">
@@ -300,7 +300,7 @@ export default async function AboutPage() {
           <div className="mt-14 grid gap-7 md:grid-cols-3">
             {teamMembers.map((member, i) => (
               <Reveal key={member.name} delay={i * 130}>
-                <article className="h-full border border-white/10 bg-white/[0.03] p-8">
+                <article className="mod-panel--deep h-full p-8">
                   {/* Avatar */}
                   <div className="relative flex h-16 w-16 items-center justify-center border border-white/15 bg-white/5 mono text-xl font-bold text-highlight">
                     {getInitials(member.name)}
@@ -331,7 +331,7 @@ export default async function AboutPage() {
       {/* ══════════════════════════════════════════════════════════════
           TIMELINE — clinic journey
       ══════════════════════════════════════════════════════════════ */}
-      <section className="section-pad">
+      <section className="mod-milestones section-pad">
         <div className="grain-pattern pointer-events-none absolute inset-0" />
 
         <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">

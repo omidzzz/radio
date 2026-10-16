@@ -23,14 +23,13 @@ export default function Equipment({ isFa }: EquipmentProps) {
   ];
 
   return (
-    <section className="content-visibility band-dark section-pad">
+    <section className="mod-equipment content-visibility band-dark section-pad">
       <div className="grain-pattern pointer-events-none" aria-hidden="true" />
 
       <div className="relative z-10 mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:gap-14 lg:px-8">
         {/* Detailed MRI illustration — static blueprint panel */}
         <Reveal variant="left" className="h-full">
-          <div className="group relative mx-auto flex aspect-[4/3] w-full max-w-lg items-center justify-center rounded-[var(--radius-panel)] border border-[var(--color-rule-strong)] bg-[var(--color-surface)] p-6">
-            <div className="planning-grid pointer-events-none absolute inset-0 rounded-[var(--radius-panel)] opacity-20" />
+          <div className="mod-frame-blueprint group relative mx-auto flex aspect-[4/3] w-full max-w-lg items-center justify-center p-6">
 
             <svg
               viewBox="0 0 420 300"
@@ -106,6 +105,7 @@ export default function Equipment({ isFa }: EquipmentProps) {
               tone="dark"
               index="03"
               label={isFa ? "دستگاه‌های ما" : "Our Equipment"}
+              variant="panel"
               title={
                 isFa
                   ? "فناوری که به آن اعتماد می‌کنید"
@@ -119,14 +119,16 @@ export default function Equipment({ isFa }: EquipmentProps) {
             />
           </Reveal>
 
-          <dl className="mt-8 grid grid-cols-2 gap-6 border-t border-[var(--color-rule-strong)] pt-8">
+          {/* Spec datasheet — dotted-leader rows, label … value */}
+          <dl className="mod-frame-ledger mt-8 border-t border-[var(--color-rule-strong)] pt-4">
             {specs.map((s, i) => (
               <Reveal key={s.label} delay={i * 100}>
-                <div className="cursor-default">
-                  <dt className="mono text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-muted">
+                <div className="leader-row group">
+                  <dt className="readout__label text-muted transition-colors group-hover:text-highlight">
                     {s.label}
                   </dt>
-                  <dd className="tnum mt-1.5 text-xl font-semibold text-text-on-dark">
+                  <span className="leader-row__fill" aria-hidden="true" />
+                  <dd className="tnum text-lg font-semibold text-text-on-dark">
                     {s.value}
                   </dd>
                 </div>

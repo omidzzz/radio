@@ -44,7 +44,7 @@ export default function Credibility({ isFa }: CredibilityProps) {
   ];
 
   return (
-    <section className="content-visibility relative overflow-hidden section-pad">
+    <section className="mod-credibility content-visibility relative overflow-hidden section-pad">
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <Reveal>
@@ -52,30 +52,25 @@ export default function Credibility({ isFa }: CredibilityProps) {
             index="05"
             label={isFa ? "اعتماد و کیفیت" : "Trust & Quality"}
             title={isFa ? "اعتماد جهانی، مراقبت محلی" : "Global Trust, Local Care"}
+            variant="panel"
           />
         </Reveal>
 
-        {/* Ledger stats — ruled cards with mono tabular numerals */}
+        {/* Instrument readouts — mono tiles with tabular numerals */}
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-8">
           {credibility.map((c, i) => (
             <Reveal key={c.label} delay={i * 200} variant="up">
-              <div className="surface-card group flex flex-col p-8">
-                {/* Top rule that fills with signal red on hover */}
-                <span
-                  aria-hidden="true"
-                  className="absolute inset-x-6 top-0 h-0.5 origin-left scale-x-0 bg-primary transition-transform duration-500 group-hover:scale-x-100"
-                />
-
+              <div className="readout reticle group flex h-full flex-col p-8">
                 <div className="flex items-center gap-3">
                   <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] bg-soft text-primary">
                     {c.icon}
                   </span>
-                  <span className="mono text-[0.7rem] font-medium uppercase tracking-[0.18em] text-secondary">
+                  <span className="readout__label">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                 </div>
 
-                <div className="mt-6 font-[family-name:var(--font-fraunces)] text-4xl font-semibold leading-none text-primary">
+                <div className="mt-6 font-[family-name:var(--font-plex)] text-4xl font-semibold leading-none text-primary">
                   <CountUp end={c.value} suffix={c.suffix} useFarsiDigits={isFa} />
                 </div>
 

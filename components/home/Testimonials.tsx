@@ -69,7 +69,7 @@ export default function Testimonials({ isFa }: TestimonialsProps) {
   }, [items.length]);
 
   return (
-    <section className="content-visibility band-dark section-pad">
+    <section className="mod-testimonials content-visibility band-dark section-pad">
       <div className="grain-pattern pointer-events-none" aria-hidden="true" />
       <div className="relative z-10 mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <Reveal>
@@ -77,57 +77,78 @@ export default function Testimonials({ isFa }: TestimonialsProps) {
             tone="dark"
             label={isFa ? "نظرات بیماران" : "Patient Stories"}
             title={isFa ? "تجربه بیماران ما" : "What Our Patients Say"}
+            variant="panel"
           />
         </Reveal>
 
         <Reveal delay={150}>
           <div className="relative mt-14">
-            {/* Quote mark */}
-            <div className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 font-[family-name:var(--font-fraunces)] text-7xl font-semibold text-highlight/30 select-none">
-              &ldquo;
+            {/* Transcript header — a recorded-voice log, not a quote wall */}
+            <div className="mb-6 flex items-center justify-between border-b border-[var(--color-rule-strong)] pb-3">
+              <span className="readout__label text-highlight">
+                {isFa ? "گزارش صوتی بیماران" : "Patient voice log"} · REC{" "}
+                {String(active + 1).padStart(2, "0")}/
+                {String(items.length).padStart(2, "0")}
+              </span>
+              <span className="flex items-center gap-2">
+                <span
+                  className={`status-led transition-opacity duration-500 ${
+                    active >= 0 ? "opacity-100" : "opacity-40"
+                  }`}
+                  aria-hidden="true"
+                />
+                <span className="readout__label text-muted">
+                  {isFa ? "در حال پخش" : "Playing"}
+                </span>
+              </span>
             </div>
 
-            {/* Crossfading slides */}
-            <div className="relative min-h-[220px] sm:min-h-[190px]">
+            {/* Crossfading slides, each stamped as a log entry */}
+            <div className="relative min-h-[240px] sm:min-h-[210px]">
               {items.map((t, i) => (
                 <figure
                   key={t.name}
-                  className={`absolute inset-0 flex flex-col items-center justify-center text-center transition-all duration-700 ${
+                  className={`log-entry absolute inset-0 flex flex-col justify-center transition-all duration-700 ${
                     i === active
                       ? "opacity-100 translate-y-0"
                       : "opacity-0 translate-y-4 pointer-events-none"
                   }`}
                   aria-hidden={i !== active}
                 >
+                  <span className="readout__label mb-3 text-muted">
+                    {isFa ? "رویداد" : "EVENT"} {String(i + 1).padStart(2, "0")} ·{" "}
+                    {t.role}
+                  </span>
                   <blockquote className="max-w-2xl text-lg leading-relaxed text-text-secondary sm:text-xl">
                     {t.quote}
                   </blockquote>
                   <figcaption className="mt-6">
                     <div className="font-semibold text-text-on-dark">{t.name}</div>
-                    <div className="mono mt-1 text-xs uppercase tracking-[0.14em] text-muted">
-                      {t.role}
+                    <div className="readout__label mt-1 text-muted">
+                      {isFa ? "امضا" : "SIGNED"} · {t.role}
                     </div>
                   </figcaption>
                 </figure>
               ))}
             </div>
 
-            {/* 44px dots for touch */}
-            <div className="mt-10 flex items-center justify-center gap-1">
+            {/* Scrubber — tick marks instead of dots, like an audio timeline */}
+            <div className="mt-10 flex items-end justify-center gap-1.5" role="tablist">
               {items.map((_, i) => (
                 <button
                   key={i}
                   type="button"
+                  role="tab"
                   onClick={() => setActive(i)}
-                  className="flex h-11 w-11 items-center justify-center"
+                  className="flex h-11 w-11 items-end justify-center pb-1"
                   aria-label={`Testimonial ${i + 1}`}
                   aria-current={i === active}
                 >
                   <span
-                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                    className={`w-0.5 rounded-full transition-all duration-300 ${
                       i === active
-                        ? "w-8 bg-primary"
-                        : "w-2.5 bg-[var(--color-rule-strong)] hover:bg-muted"
+                        ? "h-8 bg-primary"
+                        : "h-4 bg-[var(--color-rule-strong)] hover:bg-muted"
                     }`}
                   />
                 </button>

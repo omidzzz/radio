@@ -93,7 +93,7 @@ export default async function Footer() {
               <span className="flex h-10 w-10 items-center justify-center rounded-full border border-primary/40 text-primary">
                 <RadiationIcon className="h-6 w-6" />
               </span>
-              <span className="font-[family-name:var(--font-fraunces)] text-lg font-semibold">
+              <span className="font-[family-name:var(--font-newsreader)] text-lg font-semibold">
                 {dict.common.clinicName}
               </span>
             </Link>

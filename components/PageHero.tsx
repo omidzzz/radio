@@ -32,7 +32,7 @@ export default function PageHero({
   breadcrumb,
 }: PageHeroProps) {
   return (
-    <section className="relative overflow-hidden bg-deep text-text-on-dark">
+    <section className="mod-page-hero mod-frame-casefile relative overflow-hidden bg-deep text-text-on-dark">
       {/* Faint planning grid + a single oversized trefoil watermark —
           dossier "case file cover", no glows or gradient energy lines. */}
       <div className="planning-grid pointer-events-none absolute inset-0 opacity-[0.12]" />
@@ -41,11 +41,24 @@ export default function PageHero({
         <RadiationIcon className="h-72 w-72 text-highlight" />
       </div>
 
-      {/* Bottom rule — solid hairline, not a gradient glow */}
+      {/* DICOM frame annotations — corners of the case-file viewport */}
+      <span className="annot top-3 left-3 hidden sm:block">
+        {badge ? badge.toUpperCase() : "CASE FILE"} · SR
+      </span>
+      <span className="annot top-3 right-3 hidden sm:block">FOV: 256</span>
+      <span className="annot bottom-3 left-3 hidden sm:block">
+        SE: 01 / IM: 01
+      </span>
+      <span className="annot bottom-3 right-3 hidden sm:block">
+        TE: 80 MS · TR: 600
+      </span>
+
+      {/* Top hairline + bottom scale rule */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-[var(--color-rule-strong)]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[var(--color-rule-strong)]"
       />
+      <div className="scale-rule pointer-events-none absolute inset-x-0 bottom-0 opacity-70" aria-hidden="true" />
 
       {/* Breadcrumb / back link row */}
       {breadcrumb && (

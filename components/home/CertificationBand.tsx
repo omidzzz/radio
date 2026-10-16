@@ -43,7 +43,7 @@ const certs = [
 
 export default function CertificationBand({ isFa }: CertificationBandProps) {
   return (
-    <section className="content-visibility relative bg-bg section-pad">
+    <section className="mod-certification content-visibility relative bg-bg section-pad">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
           <ChapterHead
@@ -51,6 +51,7 @@ export default function CertificationBand({ isFa }: CertificationBandProps) {
             label={
               isFa ? "گواهینامه‌ها و استانداردها" : "Certifications & Standards"
             }
+            variant="panel"
             title={
               isFa
                 ? "زیر نظر استانداردهای جهانی"
@@ -73,12 +74,12 @@ export default function CertificationBand({ isFa }: CertificationBandProps) {
         <SeamlessMarquee className="px-4 sm:px-12" duration={36}>
           {certs.map((c) => (
             <div key={c.key} className="px-3">
-              <div className="surface-card group flex shrink-0 items-center gap-4 px-6 py-4">
-                <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--color-border)] bg-soft text-primary">
+              <div className="stamp group flex shrink-0 items-center gap-4 px-6 py-4">
+                <span className="reticle relative flex h-11 w-11 items-center justify-center rounded-[var(--radius-card)] border border-[var(--color-rule-strong)] bg-surface text-primary">
                   <c.Icon />
                 </span>
                 <span className="flex flex-col leading-tight">
-                  <span className="text-sm font-bold uppercase tracking-widest text-text-primary">
+                  <span className="mono text-sm font-bold uppercase tracking-widest text-text-primary">
                     {c.label}
                   </span>
                   <span className="mt-0.5 text-[11px] font-medium text-muted">

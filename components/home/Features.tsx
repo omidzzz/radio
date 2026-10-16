@@ -73,12 +73,13 @@ export default function Features({ dict, isFa }: FeaturesProps) {
   ];
 
   return (
-    <section className="content-visibility relative section-pad">
+    <section className="mod-features content-visibility relative section-pad">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <ChapterHead
           index="01"
           label={isFa ? "خدمات تصویربرداری" : "Imaging Services"}
           title={dict.home.featuresTitle}
+          variant="panel"
           lede={
             isFa
               ? "ترکیبی از تخصص پزشکی و فناوری پیشرفته تصویربرداری"
@@ -86,17 +87,17 @@ export default function Features({ dict, isFa }: FeaturesProps) {
           }
         />
 
-        {/* Editorial ledger — ruled rows, not a card grid */}
-        <ul className="mt-12 border-t border-[var(--color-border)]">
+        {/* Instrument modules — ruled ledger rows, not a card grid */}
+        <ul className="mod-frame-ledger mt-12 border-t border-[var(--color-border)]">
           {features.map((feature, i) => (
             <Reveal key={feature.code} delay={i * 110}>
               <li className="group grid grid-cols-1 items-start gap-x-8 gap-y-4 border-b border-[var(--color-border)] py-8 sm:grid-cols-[auto_1fr] sm:py-10">
                 <div className="flex items-center gap-5 sm:flex-col sm:items-start sm:gap-4">
-                  <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[var(--radius-card)] border border-[var(--color-border)] bg-soft text-primary transition-colors duration-200 group-hover:border-primary/50">
+                  <span className="reticle relative flex h-14 w-14 shrink-0 items-center justify-center rounded-[var(--radius-card)] border border-[var(--color-border)] bg-soft text-primary transition-colors duration-200 group-hover:border-primary/50">
                     {featureSvgs[feature.code as keyof typeof featureSvgs]}
                   </span>
-                  <span className="mono text-[0.7rem] font-medium uppercase tracking-[0.2em] text-secondary">
-                    MOD / {feature.code}
+                  <span className="readout__label">
+                    CH-{String(i + 1).padStart(2, "0")} / {feature.code}
                   </span>
                 </div>
 

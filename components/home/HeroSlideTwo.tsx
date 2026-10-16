@@ -1,4 +1,4 @@
-﻿import Image from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import type { Dictionary } from "@/lib/i18n";
 import CountUp from "@/components/ui/CountUp";
@@ -34,7 +34,7 @@ export default function HeroSlideTwo({ dict, isFa }: HeroSlideTwoProps) {
                 src="/images/home-consultation-circle.webp"
                 alt={
                   isFa
-                    ? "مشاوره دلسوزانه با بیمار"
+                    ? "?????? ???????? ?? ?????"
                     : "Compassionate patient consultation"
                 }
                 fill
@@ -115,7 +115,7 @@ export default function HeroSlideTwo({ dict, isFa }: HeroSlideTwoProps) {
           {/* Trust ledger - two load-bearing numbers */}
           <dl className="tnum mt-14 grid max-w-md grid-cols-2 gap-8 border-t border-[var(--color-rule-strong)] pt-6">
             <div>
-              <dd className="font-[family-name:var(--font-fraunces)] text-3xl font-semibold leading-none text-highlight">
+              <dd className="font-[family-name:var(--font-newsreader)] text-3xl font-semibold leading-none text-highlight">
                 <CountUp
                   end={parseInt(slide.patientsCount, 10) || 0}
                   suffix="+"
@@ -127,7 +127,7 @@ export default function HeroSlideTwo({ dict, isFa }: HeroSlideTwoProps) {
               </dt>
             </div>
             <div>
-              <dd className="font-[family-name:var(--font-fraunces)] text-3xl font-semibold leading-none text-highlight">
+              <dd className="font-[family-name:var(--font-newsreader)] text-3xl font-semibold leading-none text-highlight">
                 {isFa ? toFarsiDigits(slide.ratingValue) : slide.ratingValue}
               </dd>
               <dt className="mono mt-2 text-[0.66rem] font-medium uppercase tracking-[0.14em] text-muted">
@@ -140,3 +140,4 @@ export default function HeroSlideTwo({ dict, isFa }: HeroSlideTwoProps) {
     </section>
   );
 }
+

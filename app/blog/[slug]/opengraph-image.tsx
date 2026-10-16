@@ -62,7 +62,7 @@ export default async function OpengraphImage({
           justifyContent: "space-between",
           padding: "64px",
           background:
-            "linear-gradient(135deg, #020617 0%, #0b1120 55%, #083344 100%)",
+            "linear-gradient(135deg, #141316 0%, #1d1a1b 55%, #4a1220 100%)",
         }}
       >
         {/* Ambient glow accents */}
@@ -99,8 +99,8 @@ export default async function OpengraphImage({
               width: 56,
               height: 56,
               borderRadius: 999,
-              background: "linear-gradient(135deg,#22d3ee,#14b8a6)",
-              color: "#020617",
+              background: "linear-gradient(135deg,#6e1e2e,#4a1220)",
+              color: "#f1f0ee",
               fontSize: 30,
               fontWeight: 700,
               display: "flex",
@@ -117,8 +117,8 @@ export default async function OpengraphImage({
             <div
               style={{
                 marginRight: "auto",
-                border: "2px solid rgba(194,55,31,0.5)",
-                color: "#67e8f9",
+                border: "2px solid rgba(194,86,107,0.5)",
+                color: "#e5e4e2",
                 borderRadius: 999,
                 padding: "6px 20px",
                 fontSize: 22,
@@ -146,7 +146,7 @@ export default async function OpengraphImage({
             height: 4,
             width: "100%",
             background:
-              "linear-gradient(90deg, transparent, #22d3ee, transparent)",
+              "linear-gradient(90deg, transparent, #c2566b, transparent)",
             display: "flex",
           }}
         />

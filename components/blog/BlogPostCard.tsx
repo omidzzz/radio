@@ -57,7 +57,7 @@ export default function BlogPostCard({
       style={{ animationDelay: `${Math.min(index, 8) * 90}ms` }}
     >
       <article
-        className={`blog-card-enter blog-card surface-card surface-panel relative flex h-full overflow-hidden ${
+        className={`blog-card surface-card relative flex h-full overflow-hidden ${
           featured ? "flex-col lg:flex-row" : "flex-col"
         }`}
       >

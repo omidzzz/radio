@@ -92,7 +92,7 @@ export default function ContactForm() {
     ) : null;
 
   return (
-    <form onSubmit={handleSubmit} noValidate>
+    <form onSubmit={handleSubmit} noValidate className="mod-form border border-border bg-surface p-8 sm:p-10">
       <p className="text-sm leading-relaxed text-text-secondary">
         {dict.contact.formSubtitle}
       </p>

@@ -15,18 +15,23 @@ interface ChapterHeadProps {
   as?: "h1" | "h2" | "h3";
   /** "dark" renders the light-on-ink variant for dark bands */
   tone?: "light" | "dark";
+  /**
+   * "editorial" (default) keeps the original print-journal chapter opener.
+   * "panel" switches to the console instrument-panel treatment: a mono
+   * chapter index on the inline-start rule above an editorial title.
+   */
+  variant?: "editorial" | "panel";
   className?: string;
   /** Extra content under the lede (buttons, meta rows, …) */
   children?: ReactNode;
 }
 
 /**
- * The dossier section header — the single editorial "chapter opener" used
- * across every page. A server component with zero runtime JS.
+ * The chapter opener — the single editorial "chapter header" used across
+ * every page. A server component with zero runtime JS.
  *
- * Structure: a mono index + label rule, an oversized Fraunces title, a
- * lede, and a full-bleed hairline. This replaces the old generic centered
- * pill+heading and gives the site one consistent print-journal rhythm.
+ * Structure: a mono index + label rule, an oversized display title, a
+ * lede, and a full-bleed hairline. One consistent print-journal rhythm.
  */
 export default function ChapterHead({
   index,
@@ -36,11 +41,47 @@ export default function ChapterHead({
   align = "center",
   as: Heading = "h2",
   tone = "light",
+  variant = "editorial",
   className = "",
   children,
 }: ChapterHeadProps) {
   const isDark = tone === "dark";
   const centered = align === "center";
+
+  // Console instrument-panel variant — a mono chapter index on a
+  // start-edge rule, an editorial title, and an optional lede.
+  if (variant === "panel") {
+    return (
+      <div className={`${centered ? "text-center" : ""} ${className}`}>
+        <div className="panel-head">
+          {(index || label) && (
+            <span className="panel-head__idx">
+              {index}
+              {index && label && " — "}
+              {label}
+            </span>
+          )}
+          <Heading
+            className={`type-section font-bold ${
+              isDark ? "text-text-on-dark" : "text-text-primary"
+            }`}
+          >
+            {title}
+          </Heading>
+          {lede && (
+            <p
+              className={`type-lede mt-4 max-w-2xl ${
+                centered ? "mx-auto" : ""
+              } text-text-secondary`}
+            >
+              {lede}
+            </p>
+          )}
+        </div>
+        {children}
+      </div>
+    );
+  }
 
   return (
     <div className={`${centered ? "text-center" : "text-start"} ${className}`}>

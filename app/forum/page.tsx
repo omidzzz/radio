@@ -169,7 +169,7 @@ export default async function ForumPage({
       {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           FORUM CONTENT
       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
-      <section className="section-pad">
+      <section className="mod-forum section-pad">
         <div className="grain-pattern pointer-events-none absolute inset-0" />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

@@ -57,23 +57,25 @@ const trustMarks = [
 ];
 
 /**
- * Credential strip — a ruled mono bar of accreditations, like the header
- * block of a clinical report. Hairline-divided items instead of pills.
+ * Credential strip — a telemetry status bar: LED-marked cells divided by
+ * hairlines, scrolling horizontally on small screens. Reads like the
+ * "system checks" row at the top of a console, not a pill list.
  */
 export default function TrustStrip({ isFa }: TrustStripProps) {
   return (
-    <section className="border-y border-[var(--color-border)] bg-surface">
+    <section className="mod-truststrip border-y border-[var(--color-border)] bg-surface">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <ul className="flex items-center justify-start gap-6 overflow-x-auto py-4 [scrollbar-width:none] sm:justify-center sm:overflow-visible [&::-webkit-scrollbar]:hidden">
-          {trustMarks.map((mark, i) => (
+        <ul className="flex items-center justify-start gap-0 overflow-x-auto py-3.5 [scrollbar-width:none] sm:justify-center sm:overflow-visible [&::-webkit-scrollbar]:hidden">
+          {trustMarks.map((mark) => (
             <li
               key={mark.key}
-              className={`flex shrink-0 items-center gap-2.5 ${
-                i > 0 ? "sm:border-s sm:border-[var(--color-border)] sm:ps-6" : ""
-              }`}
+              className="status-cell flex shrink-0 items-center gap-2.5 px-4 first:ps-0 sm:px-6"
             >
-              <span className="text-secondary">{mark.svg}</span>
-              <span className="mono whitespace-nowrap text-[0.68rem] font-medium uppercase tracking-[0.14em] text-text-secondary">
+              <span className="status-led" aria-hidden="true" />
+              <span className="hidden text-secondary sm:block" aria-hidden="true">
+                {mark.svg}
+              </span>
+              <span className="readout__label whitespace-nowrap text-text-secondary">
                 {mark.label(isFa)}
               </span>
             </li>

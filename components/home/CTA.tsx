@@ -8,15 +8,26 @@ interface CTAProps {
 }
 
 /**
- * Closing chapter — an ink band with an oversized Fraunces prompt and two
- * ruled buttons. The dossier "end of file" call to action: forum first
- * (ask the community), contact second. No magnetic glow, no conic border.
+ * Closing chapter — a terminal window on the ink ground: a blinking-prompt
+ * header line, the oversized closing statement, and two squared console
+ * keys (live key first, outline key second). Distinct from every other
+ * section's panel/rule language — this one is "the command line".
  */
 export default function CTA({ dict }: CTAProps) {
   return (
-    <section className="band-dark section-pad">
+    <section className="mod-cta mod-frame-terminal band-dark section-pad">
       <div className="grain-pattern pointer-events-none" aria-hidden="true" />
       <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        {/* Terminal chrome strip */}
+        <div className="mb-8 flex items-center justify-between border-b border-[var(--color-rule-strong)] pb-3">
+          <span className="term-line readout__label text-highlight">
+            radiotherapist@clinic:~$
+          </span>
+          <span className="readout__label text-muted">
+            / end-of-session · CTRL+D
+          </span>
+        </div>
+
         <ChapterHead
           tone="dark"
           title={dict.home.ctaTitle}
@@ -25,17 +36,11 @@ export default function CTA({ dict }: CTAProps) {
 
         <Reveal delay={150}>
           <div className="mt-10 flex flex-col items-stretch gap-4 sm:flex-row sm:justify-center">
-            <Link
-              href="/forum"
-              className="btn btn-primary group w-full sm:w-auto"
-            >
+            <Link href="/forum" className="key key--live group">
               {dict.home.visitForum}
               <ArrowIcon className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
             </Link>
-            <Link
-              href="/contact"
-              className="btn btn-outline w-full border-[var(--color-rule-strong)] text-text-on-dark hover:border-highlight hover:text-highlight sm:w-auto"
-            >
+            <Link href="/contact" className="key">
               {dict.home.contactUs}
             </Link>
           </div>
