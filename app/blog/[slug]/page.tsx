@@ -146,7 +146,7 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const { dict, locale } = await getServerDictionary();
+  const { locale } = await getServerDictionary();
   const isFa = locale === "fa";
 
   const post = getPost(slug);

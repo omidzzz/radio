@@ -140,7 +140,6 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
     handleSubmit,
     setValue,
     setValues,
-    setError,
     setSuccess,
   } = useForm<BookingFormData>({
     initialValues,

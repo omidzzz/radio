@@ -21,7 +21,7 @@ export default function BlogComments({
   initialComments = [],
 }: BlogCommentsProps) {
   const { locale } = useLocale();
-  const [comments, setComments] = useState<Comment[]>(initialComments);
+  const [comments] = useState<Comment[]>(initialComments);
   const [authorName, setAuthorName] = useState("");
   const [content, setContent] = useState("");
   const [submitting, setSubmitting] = useState(false);

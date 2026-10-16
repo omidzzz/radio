@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 export default async function TermsPage() {
-  const { dict, locale } = await getServerDictionary();
+  const { locale } = await getServerDictionary();
   const isFa = locale === "fa";
 
   const breadcrumbs = breadcrumbSchema([

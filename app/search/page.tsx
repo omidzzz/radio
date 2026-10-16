@@ -3,7 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { getServerDictionary } from "@/lib/i18n/server";
 import { toFarsiDigits } from "@/lib/i18n/numbers";
-import { siteConfig } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/json-ld";
 import JsonLdScript from "@/components/JsonLd";
 import Breadcrumbs from "@/components/Breadcrumbs";

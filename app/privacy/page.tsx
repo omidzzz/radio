@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { getServerDictionary } from "@/lib/i18n/server";
-import { siteConfig } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/json-ld";
 import JsonLdScript from "@/components/JsonLd";
 import PageHero from "@/components/PageHero";
@@ -21,7 +20,7 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 export default async function PrivacyPage() {
-  const { dict, locale } = await getServerDictionary();
+  const { locale } = await getServerDictionary();
   const isFa = locale === "fa";
 
   const breadcrumbs = breadcrumbSchema([

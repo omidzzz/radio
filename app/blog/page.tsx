@@ -97,7 +97,7 @@ export default async function BlogPage({
 }: {
   searchParams: Promise<{ page?: string; category?: string }>;
 }) {
-  const { dict, locale } = await getServerDictionary();
+  const { locale } = await getServerDictionary();
   const isFa = locale === "fa";
 
   const params = await searchParams;
