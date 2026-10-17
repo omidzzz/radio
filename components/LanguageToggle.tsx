@@ -10,11 +10,11 @@ export default function LanguageToggle() {
 
   const toggle = () => {
     const newLocale: Locale = locale === "fa" ? "en" : "fa";
-    setLocale(newLocale);
 
-    // Reflect the locale in the URL so each language has a distinct,
-    // shareable address (/en/... for English). The middleware rewrites
-    // /en/* internally and pins the locale cookie.
+    // Compute the equivalent URL in the new locale so each language keeps
+    // a distinct, shareable address (/en/... for English). LocaleProvider
+    // awaits the cookie write before navigating, so the server always
+    // renders the new dictionary on the very first swap — no refresh needed.
     const isPrefixed = pathname === "/en" || pathname.startsWith("/en/");
     let target: string;
     if (newLocale === "en") {
@@ -22,7 +22,7 @@ export default function LanguageToggle() {
     } else {
       target = isPrefixed ? pathname.slice(3) || "/" : pathname;
     }
-    window.history.replaceState(null, "", target);
+    setLocale(newLocale, target);
   };
 
   return (

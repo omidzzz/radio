@@ -7,7 +7,7 @@ import { Locale } from "@/lib/i18n/config";
 interface LocaleContextValue {
   locale: Locale;
   dir: "rtl" | "ltr";
-  setLocale: (locale: Locale) => void;
+  setLocale: (locale: Locale, target?: string) => void;
 }
 
 const LocaleContext = createContext<LocaleContextValue>({
@@ -36,7 +36,7 @@ export function LocaleProvider({
     document.documentElement.lang = locale;
   }, [locale]);
 
-  const setLocale = async (newLocale: Locale) => {
+  const setLocale = async (newLocale: Locale, target?: string) => {
     setLocaleState(newLocale);
     try {
       await fetch("/api/locale", {
@@ -47,8 +47,17 @@ export function LocaleProvider({
     } catch {
       // Ignore errors — locale is still applied client-side
     }
-    // Refresh server components to re-render with new locale
-    router.refresh();
+    // Navigate with the router AFTER the cookie write has landed.
+    // A real navigation always goes through the middleware, which rewrites
+    // /en/* URLs and pins the locale cookie, so server components render
+    // the fresh dictionary on the very first swap. (The old approach —
+    // history.replaceState + router.refresh() — raced the cookie write
+    // and could return stale server-rendered content.)
+    if (target) {
+      router.replace(target);
+    } else {
+      router.refresh();
+    }
   };
 
   const dir = locale === "fa" ? "rtl" : "ltr";
