@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import {
-  Newsreader,
+  Archivo_Black,
   Instrument_Sans,
   IBM_Plex_Mono,
   Vazirmatn,
@@ -32,19 +32,18 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import WebVitals from "@/components/WebVitals";
 import PWARegister from "@/components/PWARegister";
 
-/* ── Persian Modern type system ─────────────────────────────────────
-   Farsi hero:       Vazirmatn       (the primary voice — huge headlines)
-   Latin display:    Newsreader      (soft serif, headlines when Latin)
-   Latin body/UI:    Instrument Sans (grotesque, body + UI)
-   Data/labels:      IBM Plex Mono   (indices, spec tables)
-   Persian:          Vazirmatn       (RTL body + UI — the default locale)
-   The site is Farsi-first, so only Vazirmatn is eagerly preloaded; the
-   Latin faces load on demand via display:"swap" (no invisible text). */
-const newsreader = Newsreader({
+/* ── Pulse type system ─────────────────────────────────────────────
+   Display: Archivo Black → Load via CSS @font-face (not next/font)
+   Body:    Instrument Sans (grotesque, body + UI) via next/font
+   Data:    IBM Plex Mono via next/font
+   Farsi:   Vazirmatn via next/font
+   The site is Farsi-first, so only Vazirmatn is eagerly preloaded;
+   the Latin faces load on demand via @font-face (no invisible text). */
+const displayFont = Archivo_Black({
   subsets: ["latin"],
-  variable: "--font-newsreader",
+  variable: "--font-archivo-black",
   display: "swap",
-  weight: ["400", "500", "600", "700"],
+  weight: ["400"],
   preload: false,
 });
 
@@ -205,7 +204,7 @@ export default async function RootLayout({
     <html
       lang={locale}
       dir={dir}
-      className={`${newsreader.variable} ${instrument.variable} ${plex.variable} ${vazirmatn.variable}`}
+      className={`${displayFont.variable} ${instrument.variable} ${plex.variable} ${vazirmatn.variable}`}
     >
       <head>
         <JsonLdScript data={jsonLd} />
