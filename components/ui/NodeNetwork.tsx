@@ -35,6 +35,23 @@ interface Link {
 }
 
 /**
+ * Tiny deterministic PRNG (mulberry32). NodeNetwork renders on the server
+ * AND the client, so Math.random() would produce different layouts and
+ * trigger a React hydration mismatch. A fixed seed keeps the artwork
+ * identical on both sides while preserving the organic feel.
+ */
+function mulberry32(seed: number) {
+  let a = seed >>> 0;
+  return () => {
+    a |= 0;
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+/**
  * Premium node network visualization — sophisticated connectivity map.
  * Features gradient links, varied node sizes, hub nodes, and depth effects.
  * Pure CSS animation, GPU-accelerated.
@@ -50,12 +67,15 @@ export default function NodeNetwork({
   const uniqueId = useId().replace(/:/g, "");
 
   const { nodes, links } = useMemo(() => {
+    // Deterministic stream — derived from the artwork's own dimensions so
+    // each instance shape is stable yet distinct across sizes.
+    const rand = mulberry32(nodeCount * 100003 + width * 917 + height * 131);
     const padding = 60;
     const generatedNodes: Node[] = Array.from({ length: nodeCount }, (_, i) => ({
       id: i,
-      cx: Math.round(padding + Math.random() * (width - padding * 2)),
-      cy: Math.round(padding + Math.random() * (height - padding * 2)),
-      r: nodeRadius + Math.random() * 3,
+      cx: Math.round(padding + rand() * (width - padding * 2)),
+      cy: Math.round(padding + rand() * (height - padding * 2)),
+      r: nodeRadius + rand() * 3,
       delay: i * 0.2,
       isHub: i < 3, // First 3 nodes are "hubs"
     }));

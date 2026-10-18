@@ -974,7 +974,9 @@ export default function RadiotherapyScene() {
               const width = 1.8;
               const height = 14;
               const delay = idx * 0.05 + (side === -1 ? 0 : 0.3);
-              const isFiring = firing && Math.random() > 0.4;
+              // Deterministic leaf pattern while firing — SSR and client must
+              // agree, so no Math.random() here (hydration mismatch otherwise).
+              const isFiring = firing && i % 3 !== 1;
               return (
                 <rect
                   key={i}
