@@ -165,7 +165,7 @@ export function sitePhysicianSchema(): JsonLd {
     "@context": "https://schema.org",
     "@type": "Physician",
     "@id": `${siteConfig.url}/#physician`,
-    name: "دکتر پری غدامگاهی",
+    name: "دکتر پری قدمگاهی",
     alternateName: "Dr. Pari Ghadamgahi",
     jobTitle: "متخصص رادیوتراپی و آنکولوژی",
     description: siteConfig.description.fa,

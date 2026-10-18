@@ -95,6 +95,7 @@ export default function AreasOfExpertise({ dict, isFa }: AreasOfExpertiseProps) 
             eyebrow={expertise.badge}
             title={expertise.title}
             subtitle={expertise.subtitle}
+            goldRule
           />
         </Reveal>
 

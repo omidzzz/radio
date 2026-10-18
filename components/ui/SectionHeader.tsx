@@ -14,6 +14,8 @@ interface SectionHeaderProps {
   /** Heading level — defaults to h2. Blog/services index pages use h1. */
   as?: "h1" | "h2" | "h3";
   className?: string;
+  /** Show the thin gold rule under the heading (visit-card motif) */
+  goldRule?: boolean;
   /** Extra content under the subtitle (buttons, meta rows, …) */
   children?: ReactNode;
 }
@@ -33,6 +35,7 @@ export default function SectionHeader({
   tone = "light",
   as: Heading = "h2",
   className = "",
+  goldRule = false,
   children,
 }: SectionHeaderProps) {
   const isDark = tone === "dark";
@@ -47,12 +50,19 @@ export default function SectionHeader({
       )}
 
       <Heading
-        className={`type-section font-bold ${
+        className={`type-section font-extrabold ${
           eyebrow ? "mt-4" : ""
         } ${isDark ? "text-white" : "text-text-primary"}`}
       >
         {title}
       </Heading>
+
+      {goldRule && (
+        <span
+          aria-hidden="true"
+          className={`gold-rule mt-5 ${centered ? "mx-auto" : ""}`}
+        />
+      )}
 
       {subtitle && (
         <p

@@ -10,12 +10,12 @@ import PageHero from "@/components/PageHero";
 import Reveal from "@/components/ui/Reveal";
 import CountUp from "@/components/ui/CountUp";
 
-const ABOUT_TITLE = "درباره دکتر پری غدامگاهی";
+const ABOUT_TITLE = "درباره دکتر پری قدمگاهی";
 const ABOUT_DESCRIPTION =
-  "آشنایی با دکتر پری غدامگاهی، متخصص رادیوتراپی و آنکولوژی — رویکرد درمانی، حوزه‌های تخصصی و تیم همراه در زمینه درمان سرطان.";
+  "آشنایی با دکتر پری قدمگاهی، متخصص رادیوتراپی و آنکولوژی — رویکرد درمانی، حوزه‌های تخصصی و تیم همراه در زمینه درمان سرطان.";
 
 export const metadata: Metadata = {
-  title: "درباره دکتر پری غدامگاهی",
+  title: "درباره دکتر پری قدمگاهی",
   description: ABOUT_DESCRIPTION,
   alternates: {
     canonical: "/about",

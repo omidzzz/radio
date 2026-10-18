@@ -12,17 +12,21 @@
 
 :root,
 [data-theme="light"] {
-  /* ── Ivory / forest-green / gold palette (from Dr. Ghadamgahi's card) ── */
+  /* ── Ivory / forest-green / gold palette (from Dr. Ghadamgahi's card) ──
+     Refined for legibility: text tones verified against WCAG AA (4.5:1)
+     on the ivory background; borders carry a warm gold tint. */
   --color-deep: #0b2e22;
   --color-bg: #f8f5ee;
   --color-surface: #fffdf9;
-  --color-highlight: #8f6d26;
-  --color-soft: #efeadb;
-  --color-text-primary: #14251d;
-  --color-text-secondary: #465c51;
+  --color-gold: #c9a24b;
+  --color-gold-soft: #f2e7cd;
+  --color-highlight: #82621f;
+  --color-soft: #ece5d1;
+  --color-text-primary: #16281f;
+  --color-text-secondary: #3d5248;
   --color-text-on-dark: #fffbf2;
-  --color-muted: #8b9a91;
-  --color-border: #e3dcc9;
+  --color-muted: #5d6f65;
+  --color-border: #ddd2b8;
   --color-success: #16a34a;
   --color-danger: #dc2626;
   --color-danger-soft: #fef2f2;
@@ -81,13 +85,15 @@
   --color-surface: #0e2a1f;
   --color-primary: #3dbe8b;
   --color-primary-hover: #5fd3a6;
-  --color-highlight: #d9b967;
+  --color-gold: #d9b967;
+  --color-gold-soft: #2b2413;
+  --color-highlight: #e3c67e;
   --color-soft: #0f2c21;
   --color-text-primary: #eaf3ee;
-  --color-text-secondary: #9db5a9;
+  --color-text-secondary: #a4bcb0;
   --color-text-on-dark: #fffbf2;
-  --color-muted: #6f8779;
-  --color-border: #1d3b2e;
+  --color-muted: #7e9689;
+  --color-border: #234434;
   --color-success: #3dbe8b;
   --color-danger: #f87171;
   --color-danger-soft: rgba(248, 113, 113, 0.12);
@@ -112,6 +118,8 @@
   --color-primary: var(--color-primary);
   --color-primary-hover: var(--color-primary-hover);
   --color-highlight: var(--color-highlight);
+  --color-gold: var(--color-gold);
+  --color-gold-soft: var(--color-gold-soft);
   --color-soft: var(--color-soft);
   --color-text-primary: var(--color-text-primary);
   --color-text-secondary: var(--color-text-secondary);
@@ -330,6 +338,7 @@ html[lang="fa"] .type-section {
 h1,
 h2 {
   text-wrap: balance;
+  font-weight: 800;
 }
 article p,
 section p {
@@ -354,18 +363,34 @@ html[lang="fa"] .tracking-tighter {
 section[id] {
   scroll-margin-top: 84px;
 }
-/* Shared eyebrow pill — the MOD / MRI voice used across sections */
+/* Thin gold rule — visit-card motif used under display headings */
+.gold-rule {
+  display: inline-block;
+  height: 2px;
+  width: clamp(4rem, 10vw, 7rem);
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-gold) 25%,
+    var(--color-gold) 75%,
+    transparent
+  );
+}
+/* Shared eyebrow pill — gold voice from the visit card.
+   Ivory theme: gold border + soft gold wash + deep-green text so the
+   pill stays striking while meeting AA contrast. */
 .eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--color-text-secondary);
-  border: 1px solid var(--color-border);
-  background: var(--color-surface);
+  color: var(--color-primary);
+  border: 1px solid var(--color-gold);
+  background: var(--color-gold-soft);
   border-radius: 999px;
   padding: 0.4rem 0.85rem;
 }
@@ -476,7 +501,18 @@ html[lang="fa"] .hairline-label {
   font-size: clamp(2.25rem, 1.55rem + 2.7vw, 4.3rem);
   line-height: 1.08;
   letter-spacing: -0.02em;
+  font-weight: 800;
 }
+
+/* Vazirmatn's 800/900 cuts grow tall — give Persian display room */
+html[lang="fa"] .fluid-display,
+html[lang="fa"] .type-display {
+  line-height: 1.5;
+  letter-spacing: 0;
+  font-weight: 800;
+}
+
+/* Section headings are set to 800 in the type-family block below */
 
 [dir="ltr"] body {
   font-family: var(--font-outfit), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -497,6 +533,17 @@ h4,
 h5,
 h6 {
   font-family: var(--font-vazirmatn), system-ui, sans-serif;
+  font-weight: 800;
+}
+
+/* Section ledes read with extra presence — medium weight, comfortable measure */
+.type-lede {
+  font-weight: 500;
+  max-width: 44rem;
+}
+
+/* Subsection headings (h3) — semibold is elegant enough below h2 */
+h3 {
   font-weight: 700;
 }
 

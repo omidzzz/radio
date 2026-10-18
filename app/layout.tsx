@@ -32,14 +32,16 @@ const vazirmatn = Vazirmatn({
   subsets: ["arabic"],
   variable: "--font-vazirmatn",
   display: "swap",
-  weight: ["400", "500", "700"],
+  // Full range: body 400-500, ledes 500-600, headings up to 900
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 const outfit = Outfit({
   subsets: ["latin"],
   variable: "--font-outfit",
   display: "swap",
-  weight: ["400", "500", "600"],
+  // 700/800 give latin headings and display numerals real weight
+  weight: ["400", "500", "600", "700", "800"],
   preload: false,
 });
 

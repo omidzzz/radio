@@ -79,7 +79,7 @@ export async function generateMetadata({
     description,
     alternates: { canonical },
     openGraph: {
-      title: `${title} | دکتر پری غدامگاهی`,
+      title: `${title} | دکتر پری قدمگاهی`,
       description,
       type: "website",
       url: `${siteConfig.url}${canonical}`,
@@ -87,7 +87,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | دکتر پری غدامگاهی`,
+      title: `${title} | دکتر پری قدمگاهی`,
       description,
     },
   };

@@ -4,10 +4,10 @@
 
 ## About Dr. Pari Ghadamgahi
 
-Dr. Pari Ghadamgahi (دکتر پری غدامگاهی) is a specialist in radiotherapy and oncology. Her practice combines advanced radiotherapy technology with experienced clinical staff to provide personalized, patient-centred care for every patient.
+Dr. Pari Ghadamgahi (دکتر پری قدمگاهی) is a specialist in radiotherapy and oncology. Her practice combines advanced radiotherapy technology with experienced clinical staff to provide personalized, patient-centred care for every patient.
 
 **Core Identity:**
-- **Name:** Dr. Pari Ghadamgahi | دکتر پری غدامگاهی
+- **Name:** Dr. Pari Ghadamgahi | دکتر پری قدمگاهی
 - **Type:** Physician (Healthcare Professional)
 - **Primary Specialty:** Radiotherapy & Oncology (Radiation Oncology)
 - **Focus areas:** CNS · Head & Neck · GYN · GI · Breast · Prostate · GU

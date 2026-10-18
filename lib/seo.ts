@@ -3,15 +3,15 @@
 // Identity data sourced from Dr. Ghadamgahi's visit card.
 
 export const siteConfig = {
-  name: "دکتر پری غدامگاهی | Dr. Pari Ghadamgahi",
-  shortName: "دکتر پری غدامگاهی",
+  name: "دکتر پری قدمگاهی | Dr. Pari Ghadamgahi",
+  shortName: "دکتر پری قدمگاهی",
   // Page <title> strings per locale (used in metadata templates)
   title: {
-    fa: "دکتر پری غدامگاهی | متخصص رادیوتراپی و آنکولوژی",
+    fa: "دکتر پری قدمگاهی | متخصص رادیوتراپی و آنکولوژی",
     en: "Dr. Pari Ghadamgahi | Radiotherapy & Oncology Specialist",
   },
   description: {
-    fa: "وب‌سایت دکتر پری غدامگاهی، متخصص رادیوتراپی و آنکولوژی — پرتودرمانی و رادیوسرجری با تمرکز بر تومورهای مغز و اعصاب (CNS)، سر و گردن، زنان، گوارش، پستان، پروستات و ادراری-تناسلی. رزرو مشاوره، پرسش در انجمن گفتگو و آشنایی با گزینه‌های درمانی.",
+    fa: "وب‌سایت دکتر پری قدمگاهی، متخصص رادیوتراپی و آنکولوژی — پرتودرمانی و رادیوسرجری با تمرکز بر تومورهای مغز و اعصاب (CNS)، سر و گردن، زنان، گوارش، پستان، پروستات و ادراری-تناسلی. رزرو مشاوره، پرسش در انجمن گفتگو و آشنایی با گزینه‌های درمانی.",
     en: "The website of Dr. Pari Ghadamgahi, specialist in radiotherapy and oncology — radiotherapy and radiosurgery focused on CNS, head and neck, gynecologic, gastrointestinal, breast, prostate and genitourinary cancers. Book a consultation, ask questions in the forum, and learn about treatment options.",
   },
   url: process.env.NEXT_PUBLIC_APP_URL || "https://yourdomain.com",
@@ -53,7 +53,7 @@ export const siteConfig = {
     whatsapp: "https://wa.me/989124599949",
   },
   keywords: [
-    "دکتر پری غدامگاهی",
+    "دکتر پری قدمگاهی",
     "متخصص رادیوتراپی",
     "پرتودرمانی",
     "رادیوتراپی",

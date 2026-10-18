@@ -9,7 +9,7 @@ import ParticleBackground from "@/components/ui/ParticleBackground";
 export const metadata: Metadata = {
   title: "حریم خصوصی",
   description:
-    "سیاست حفظ حریم خصوصی دکتر پری غدامگاهی: نحوه جمع‌آوری، استفاده و محافظت از اطلاعات شخصی شما.",
+    "سیاست حفظ حریم خصوصی دکتر پری قدمگاهی: نحوه جمع‌آوری، استفاده و محافظت از اطلاعات شخصی شما.",
   alternates: {
     canonical: "/privacy",
   },

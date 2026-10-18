@@ -77,7 +77,7 @@ export default function Preloader() {
 
       {/* Brand */}
       <div className="mt-6 text-lg font-bold tracking-tight text-white">
-        دکتر پری غدامگاهی
+        دکتر پری قدمگاهی
       </div>
       <div className="mt-1 text-[10px] font-semibold uppercase tracking-[0.3em] text-primary/70">
         Dr. Pari Ghadamgahi

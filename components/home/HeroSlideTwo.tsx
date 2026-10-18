@@ -178,9 +178,9 @@ export default function HeroSlideTwo({
               {slide.badge}
             </div>
 
-            <h1 className="anim-fade-up delay-300 fluid-display mt-7 font-extrabold text-white">
+            <h1 className="anim-fade-up delay-300 fluid-display mt-7 font-black text-white">
               {slide.title1}{" "}
-              <span className="shimmer-text bg-gradient-to-r from-secondary-hover via-primary-hover to-secondary-hover bg-clip-text text-transparent">
+              <span className="shimmer-text bg-gradient-to-r from-[#c9a24b] via-[#e8d5a3] to-[#c9a24b] bg-clip-text text-transparent">
                 {slide.title2}
               </span>
             </h1>
