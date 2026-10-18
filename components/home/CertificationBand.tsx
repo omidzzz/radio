@@ -1,6 +1,5 @@
 import Reveal from "@/components/ui/Reveal";
 import SectionHeader from "@/components/ui/SectionHeader";
-import SeamlessMarquee from "@/components/ui/SeamlessMarquee";
 
 interface CertificationBandProps {
   isFa: boolean;
@@ -64,16 +63,13 @@ export default function CertificationBand({ isFa }: CertificationBandProps) {
         </Reveal>
       </div>
 
-      {/* Infinite CSS marquee — GPU transform, works in both LTR and RTL */}
-      <div className="relative mt-12">
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-bg to-transparent sm:w-24" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-bg to-transparent sm:w-24" />
-
-        <SeamlessMarquee className="px-4 sm:px-12" duration={36}>
-          {certs.map((c) => (
-            <div key={c.key} className="px-3">
-              <div className="surface-card no-lift-touch group flex shrink-0 items-center gap-4 px-6 py-4">
-                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-soft text-primary transition-colors duration-200 group-hover:bg-primary group-hover:text-white">
+      {/* Credential cards — static responsive grid with staggered reveal */}
+      <div className="mx-auto mt-12 max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {certs.map((c, i) => (
+            <Reveal key={c.key} delay={i * 120}>
+              <div className="surface-card no-lift-touch group flex h-full items-center gap-4 px-6 py-5">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-soft text-primary transition-colors duration-200 group-hover:bg-primary group-hover:text-white">
                   <c.Icon />
                 </span>
                 <span className="flex flex-col leading-tight">
@@ -85,9 +81,9 @@ export default function CertificationBand({ isFa }: CertificationBandProps) {
                   </span>
                 </span>
               </div>
-            </div>
+            </Reveal>
           ))}
-        </SeamlessMarquee>
+        </div>
       </div>
     </section>
   );

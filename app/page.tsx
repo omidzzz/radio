@@ -10,7 +10,6 @@ import FAQ from "@/components/FAQ";
 import CTA from "@/components/home/CTA";
 import Testimonials from "@/components/home/Testimonials";
 import CertificationBand from "@/components/home/CertificationBand";
-import Marquee from "@/components/ui/Marquee";
 import ScanLineDivider from "@/components/ui/ScanLineDivider";
 import SliceDivider from "@/components/ui/SliceDivider";
 import HeroEntrance from "@/components/ui/HeroEntrance";
@@ -61,13 +60,21 @@ export default async function HomePage() {
         </AmbientFx>
       </div>
 
-      {/* Modality ticker strip */}
-      <div className="relative z-10 border-b border-border/80 bg-bg py-3">
-        <Marquee
-          items={dict.home.modalities}
-          duration={38}
-          itemClassName="text-xs font-semibold uppercase tracking-[0.18em] text-text-secondary hover:text-primary transition-colors duration-200"
-        />
+      {/* Modality strip — static wrapped pill list (RTL-aware, no motion) */}
+      <div className="relative z-10 border-b border-border/80 bg-bg py-4">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <ul className="flex flex-wrap items-center justify-center gap-x-2.5 gap-y-2">
+            {dict.home.modalities.map((item) => (
+              <li
+                key={item}
+                className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-text-secondary transition-colors duration-300 hover:border-primary/40 hover:text-primary"
+              >
+                <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-primary/60" />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
       <HeroEntrance>

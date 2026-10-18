@@ -1198,47 +1198,6 @@ h6 {
 }
 
 /* ═══════════════════════════════════════════
-   MARQUEE — infinite modality ticker
-═══════════════════════════════════════════ */
-@keyframes marquee-scroll {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-.marquee-track {
-  animation: marquee-scroll var(--marquee-duration, 36s) linear infinite;
-  will-change: transform;
-}
-
-.marquee-track:hover {
-  animation-play-state: paused;
-}
-
-/* RTL marquees must travel in the OPPOSITE physical direction:
-   the w-max track anchors to the container's RIGHT edge in RTL,
-   so translating left (-50%) would expose empty space on the right.
-   Moving +50% instead keeps both edges covered and lands on the
-   identical copy boundary, staying seamless. */
-@keyframes marquee-scroll-rtl {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(50%);
-  }
-}
-
-[dir="rtl"] .marquee-track {
-  animation-name: marquee-scroll-rtl;
-}
-
-/* ═══════════════════════════════════════════
    SPOTLIGHT CARD — cursor-following radial glow
    Set --spot-x / --spot-y from JS (in px or %)
    NOTE: no overflow:hidden here — the ::before glow is
@@ -1768,7 +1727,6 @@ h6 {
   .coord-flash,
   .ken-burns,
   .shimmer-text,
-  .marquee-track,
   .float-bob,
   .conic-border::before,
   .hero-slider-progress,
@@ -1801,10 +1759,6 @@ h6 {
 
   .cursor-glow {
     display: none !important;
-  }
-
-  .marquee-track:hover {
-    animation-play-state: initial;
   }
 }
 
