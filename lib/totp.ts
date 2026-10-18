@@ -132,7 +132,7 @@ export function verifyTotp(
 export function buildOtpAuthUrl(
   secretBase32: string,
   accountName: string,
-  issuer = "Radiotherapy Clinic"
+  issuer = "Dr. Pari Ghadamgahi"
 ): string {
   const params = new URLSearchParams({
     secret: secretBase32,

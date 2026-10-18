@@ -1,11 +1,11 @@
 {
-  "name": "کلینیک پرتودرمانی | Radiotherapy Clinic",
-  "short_name": "پرتودرمانی",
-  "description": "خدمات حرفه‌ای پرتودرمانی و درمان سرطان. رزرو مشاوره، پرسش در انجمن گفتگو و آشنایی با گزینه‌های درمانی.",
+  "name": "دکتر پری غدامگاهی | Dr. Pari Ghadamgahi",
+  "short_name": "دکتر پری غدامگاهی",
+  "description": "وب‌سایت دکتر پری غدامگاهی، متخصص رادیوتراپی و آنکولوژی — رزرو مشاوره، پرسش در انجمن و آشنایی با گزینه‌های درمانی.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#020617",
-  "theme_color": "#06b6d4",
+  "background_color": "#0b2e22",
+  "theme_color": "#145c41",
   "dir": "rtl",
   "lang": "fa",
   "categories": [

@@ -71,16 +71,16 @@ export default function Preloader() {
         <div className="absolute inset-3 rounded-full border border-primary/30" />
         <div className="absolute inset-6 rounded-full border border-secondary/40" />
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="h-2 w-2 rounded-full bg-highlight shadow-[0_0_12px_2px_rgba(34,211,238,0.7)]" />
+          <span className="h-2 w-2 rounded-full bg-highlight shadow-[0_0_12px_2px_rgba(76,155,122,0.7)]" />
         </div>
       </div>
 
       {/* Brand */}
       <div className="mt-6 text-lg font-bold tracking-tight text-white">
-        کلینیک پرتودرمانی
+        دکتر پری غدامگاهی
       </div>
       <div className="mt-1 text-[10px] font-semibold uppercase tracking-[0.3em] text-primary/70">
-        Radiotherapy Clinic
+        Dr. Pari Ghadamgahi
       </div>
 
       {/* Dose bar */}

@@ -8,7 +8,7 @@ import ParticleBackground from "@/components/ui/ParticleBackground";
 export const metadata: Metadata = {
   title: "شرایط استفاده",
   description:
-    "شرایط استفاده از وب‌سایت کلینیک پرتودرمانی: قوانین استفاده از خدمات، محتوا و مسئولیت‌ها.",
+    "شرایط استفاده از وب‌سایت دکتر پری غدامگاهی: قوانین استفاده از خدمات، محتوا و مسئولیت‌ها.",
   alternates: {
     canonical: "/terms",
   },
@@ -34,7 +34,7 @@ export default async function TermsPage() {
         {
           title: "پذیرش شرایط",
           content:
-            "با استفاده از وب‌سایت کلینیک پرتودرمانی، شما موافقت خود را با این شرایط استفاده اعلام می‌کنید. اگر با هر یک از این شرایط موافق نیستید، لطفاً از وب‌سایت استفاده نکنید.",
+            "با استفاده از وب‌سایت دکتر پری غدامگاهی، شما موافقت خود را با این شرایط استفاده اعلام می‌کنید. اگر با هر یک از این شرایط موافق نیستید، لطفاً از وب‌سایت استفاده نکنید.",
         },
         {
           title: "محتوا و اطلاعات پزشکی",
@@ -59,12 +59,12 @@ export default async function TermsPage() {
         {
           title: "مالکیت معنوی",
           content:
-            "تمام محتوا، طراحی، لوگو و تصاویر این وب‌سایت متعلق به کلینیک پرتودرمانی است و استفاده از آن‌ها بدون اجازه کتبی ممنوع است.",
+            "تمام محتوا، طراحی، لوگو و تصاویر این وب‌سایت متعلق به دکتر پری غدامگاهی است و استفاده از آن‌ها بدون اجازه کتبی ممنوع است.",
         },
         {
           title: "محدودیت مسئولیت",
           content:
-            "کلینیک پرتودرمانی در قبال خسارات مستقیم یا غیرمستقیم ناشی از استفاده از این وب‌سایت مسئولیتی ندارد. اطلاعات ارائه‌شده ممکن است بدون اطلاع قبلی تغییر کند.",
+            "دکتر پری غدامگاهی در قبال خسارات مستقیم یا غیرمستقیم ناشی از استفاده از این وب‌سایت مسئولیتی ندارد. اطلاعات ارائه‌شده ممکن است بدون اطلاع قبلی تغییر کند.",
         },
         {
           title: "قوانین حاکم",
@@ -76,7 +76,7 @@ export default async function TermsPage() {
         {
           title: "Acceptance of Terms",
           content:
-            "By using the Radiotherapy Clinic website, you agree to these terms of use. If you do not agree with any of these terms, please do not use the website.",
+            "By using the Dr. Pari Ghadamgahi website, you agree to these terms of use. If you do not agree with any of these terms, please do not use the website.",
         },
         {
           title: "Medical Content and Information",
@@ -101,12 +101,12 @@ export default async function TermsPage() {
         {
           title: "Intellectual Property",
           content:
-            "All content, design, logos, and images on this website belong to the Radiotherapy Clinic and may not be used without written permission.",
+            "All content, design, logos, and images on this website belong to the Dr. Pari Ghadamgahi and may not be used without written permission.",
         },
         {
           title: "Limitation of Liability",
           content:
-            "The Radiotherapy Clinic is not liable for direct or indirect damages arising from the use of this website. Information provided may change without prior notice.",
+            "The Dr. Pari Ghadamgahi is not liable for direct or indirect damages arising from the use of this website. Information provided may change without prior notice.",
         },
         {
           title: "Governing Law",

@@ -1,7 +1,7 @@
 const en = {
   common: {
     bookNow: "Book Now",
-    clinicName: "Radiotherapy Clinic",
+    doctorName: "Dr. Pari Ghadamgahi",
     viewSite: "View Site",
     logout: "Logout",
     login: "Login",
@@ -20,7 +20,7 @@ const en = {
   },
   nav: {
     home: "Home",
-    about: "About",
+    about: "About Me",
     services: "Services",
     blog: "Blog",
     forum: "Forum",
@@ -36,7 +36,7 @@ const en = {
   },
   footer: {
     tagline:
-      "Compassionate, expert cancer care with advanced radiotherapy technology. Your health and comfort are our priority.",
+      "Specialist, compassionate radiotherapy and radiosurgery with a focus on precise, human-centred cancer care. Your health and comfort come first.",
     quickLinks: "Quick Links",
     aboutUs: "About Us",
     ourServices: "Our Services",
@@ -50,19 +50,19 @@ const en = {
     closed: "Closed",
     rightsReserved: "All rights reserved.",
     adminLogin: "Admin Login",
-    addressLine1: "123 Medical Building",
-    addressLine2: "Wellness Avenue, Suite 405",
-    addressLine3: "City, Country",
+    addressLine1: "Valiasr St., Tehran",
+    addressLine2: "Opposite Day Hospital ER, Day Medical Tower",
+    addressLine3: "Floor 10, Unit C",
     privacy: "Privacy",
     terms: "Terms",
     backToTop: "Back to top",
     getDirections: "Get directions",
   },
   home: {
-    heroTitle1: "Advanced Radiotherapy Care,",
-    heroTitle2: "With Compassion",
+    heroTitle1: "Dr. Pari Ghadamgahi,",
+    heroTitle2: "Radiotherapy & Radiosurgery",
     heroSubtitle:
-      "Our clinic provides state-of-the-art radiation therapy treatments delivered by experienced specialists. We combine cutting-edge technology with personalized care to support you through every step of your treatment journey.",
+      "Specialist in radiotherapy and oncology with a focus on CNS, head and neck, gynecologic (GYN), gastrointestinal (GI), breast, prostate and genitourinary (GU) cancers — precise planning and personal care at every step, from consultation to follow-up.",
     bookConsultation: "Book a Consultation",
     exploreServices: "Explore Services",
     heroSlide2: {
@@ -71,7 +71,7 @@ const en = {
       title2: "Our Priority",
       subtitle:
         "From your first consultation to your final follow-up, our dedicated care team walks beside you — providing personalized support, clear communication, and a comforting environment at every step.",
-      ctaPrimary: "Meet Our Team",
+      ctaPrimary: "About Me",
       ctaSecondary: "Contact Us",
       quote:
         "The team treated me like family — every question answered, every fear eased.",
@@ -88,10 +88,53 @@ const en = {
       feature3Title: "Comfort First",
       feature3Desc: "A calming, healing environment",
     },
-    featuresTitle: "Why Choose Us?",
-    feature1Title: "Expert Specialists",
+    expertise: {
+      badge: "Areas of Expertise",
+      title: "Focused Care Across Key Tumor Sites",
+      subtitle:
+        "Dr. Pari Ghadamgahi focuses on seven key radiotherapy tumor-site areas — from the central nervous system to the prostate.",
+      items: [
+        {
+          code: "CNS",
+          title: "Brain & Central Nervous System",
+          desc: "Brain and spinal cord tumors treated with radiosurgery and targeted radiotherapy.",
+        },
+        {
+          code: "H&N",
+          title: "Head & Neck",
+          desc: "Radiotherapy for tumors of the pharynx, larynx and other head and neck sites.",
+        },
+        {
+          code: "GYN",
+          title: "Gynecologic (GYN)",
+          desc: "Cancers of the uterus, cervix and ovary, including brachytherapy.",
+        },
+        {
+          code: "GI",
+          title: "Gastrointestinal (GI)",
+          desc: "Radiotherapy for oesophageal, gastric, colorectal and anal tumors.",
+        },
+        {
+          code: "Breast",
+          title: "Breast",
+          desc: "Post-surgical radiotherapy with tissue-sparing techniques and fewer side effects.",
+        },
+        {
+          code: "Prostate",
+          title: "Prostate",
+          desc: "High-precision radiotherapy and brachytherapy for prostate cancer.",
+        },
+        {
+          code: "GU",
+          title: "Genitourinary (GU)",
+          desc: "Bladder, kidney and genitourinary tract cancers.",
+        },
+      ],
+    },
+    featuresTitle: "Why Dr. Ghadamgahi?",
+    feature1Title: "Specialist Expertise",
     feature1Desc:
-      "Board-certified radiation oncologists and medical physicists with years of experience in cancer treatment.",
+      "Treatment and planning delivered directly by Dr. Pari Ghadamgahi, specialist in radiotherapy and oncology, across all key tumor-site areas.",
     feature2Title: "Advanced Technology",
     feature2Desc:
       "Latest-generation linear accelerators with IMRT, IGRT, and SBRT capabilities for precise, targeted treatment.",
@@ -140,15 +183,15 @@ const en = {
     ],
   },
   about: {
-    title: "About Our Clinic",
+    title: "About Dr. Pari Ghadamgahi",
     subtitle:
-      "Dedicated to providing exceptional radiation therapy with a patient-first approach.",
-    missionTitle: "Our Mission",
+      "Specialist in radiotherapy and oncology — committed to precise, transparent and compassionate care.",
+    missionTitle: "My Approach",
     missionText1:
-      "Our mission is to deliver the highest quality radiation therapy services in a compassionate, supportive environment. We believe that every patient deserves personalized care, clear communication, and access to the most advanced treatment options available.",
+      "My mission is to deliver the highest quality radiation therapy in a compassionate, supportive environment. I believe every patient deserves personalised care, clear communication, and access to the most advanced treatment options available.",
     missionText2:
-      "Our team of radiation oncologists, medical physicists, radiation therapists, and support staff work together to create individualized treatment plans that address each patient's unique needs and circumstances.",
-    valuesTitle: "Our Values",
+      "Every treatment plan is built around the individual — the tumour type, stage and overall condition — selected in close collaboration with the patient and the wider medical team.",
+    valuesTitle: "My Values",
     values: [
       "Compassion in every interaction",
       "Excellence in clinical care",
@@ -157,9 +200,9 @@ const en = {
       "Transparency in communication",
       "Continuous learning and improvement",
     ],
-    teamTitle: "Meet Our Team",
+    teamTitle: "The Care Team",
     teamSubtitle:
-      "Our multidisciplinary team brings together expertise from across the field of radiation oncology.",
+      "Dr. Ghadamgahi works alongside medical physicists, radiation therapists and experienced clinical staff.",
     teamMember1Name: "Dr. Sarah Mitchell",
     teamMember1Role: "Chief Radiation Oncologist",
     teamMember1Bio:
@@ -174,13 +217,13 @@ const en = {
       "Expert in stereotactic radiosurgery and pediatric radiation therapy.",
     ctaTitle: "Ready to Start Your Journey?",
     ctaSubtitle:
-      "Schedule a consultation with our team to discuss your treatment options and create a plan that works for you.",
+      "Schedule a consultation with Dr. Ghadamgahi to discuss your treatment options and create a plan that works for you.",
     bookConsultation: "Book a Consultation",
-    missionBadge: "Our Mission",
-    teamBadge: "Our Specialists",
+    missionBadge: "My Approach",
+    teamBadge: "Care Team",
     breadcrumbHome: "Home",
-    breadcrumbCurrent: "About Us",
-    statsTitle: "Our Clinic at a Glance",
+    breadcrumbCurrent: "About Me",
+    statsTitle: "Dr. Ghadamgahi at a Glance",
     stat1Value: 20,
     stat1Suffix: "+",
     stat1Label: "Years of Experience",
@@ -202,13 +245,13 @@ const en = {
       "3D Conformal Radiation Therapy (3D-CRT)",
       "Brachytherapy",
     ],
-    timelineTitle: "Our Journey",
+    timelineTitle: "Career Journey",
     timelineSubtitle:
-      "From founding day to today — a continuous commitment to better care.",
+      "From early practice to today — a continuous commitment to better care.",
     milestone1Year: "2005",
-    milestone1Title: "Clinic Founded",
+    milestone1Title: "Entered Specialist Practice",
     milestone1Desc:
-      "Opened our doors with a single linear accelerator and a small team dedicated to compassionate care.",
+      "Began practice in radiation oncology with a commitment to compassionate, precise care.",
     milestone2Year: "2012",
     milestone2Title: "Technology Upgrade",
     milestone2Desc:
@@ -279,7 +322,7 @@ const en = {
       "Our team can help you understand your options. Book a consultation or ask a question in our forum.",
     bookConsultation: "Book a Consultation",
     askForum: "Ask in the Forum",
-    metaTitle: "Medical Services | Radiation Therapy Clinic",
+    metaTitle: "Medical Services | Dr. Pari Ghadamgahi",
     metaDescription:
       "Specialized radiation therapy and medical imaging services: treatment planning, precision radiotherapy, MRI, CT, and follow-up care.",
     breadcrumbHome: "Home",
@@ -329,7 +372,7 @@ const en = {
       {
         question: "Are all of these services offered on-site?",
         answer:
-          "Yes — from external beam therapy and radiosurgery to brachytherapy and treatment planning, every service is delivered at our clinic with no need for external referrals.",
+          "Yes — from external beam therapy and radiosurgery to brachytherapy and treatment planning, every service is coordinated directly by Dr. Ghadamgahi with no need for external referrals.",
       },
       {
         question: "What documents do I need to start treatment?",
@@ -346,10 +389,10 @@ const en = {
   booking: {
     title: "Book a Session",
     subtitle:
-      "Schedule your consultation or treatment session with our expert team. We'll get back to you promptly to confirm your appointment.",
+      "Schedule your consultation or treatment session with Dr. Ghadamgahi. We'll get back to you promptly to confirm your appointment.",
     formTitle: "Book Your Session",
     formSubtitle:
-      "Fill out the form below and our team will contact you to confirm your appointment.",
+      "Fill out the form below and you will be contacted to confirm your appointment.",
     wizardStepSession: "Session & Schedule",
     wizardStepDetails: "Your Details",
     wizardBack: "Back",
@@ -361,7 +404,7 @@ const en = {
     fullName: "Full Name *",
     namePlaceholder: "Your full name",
     phoneNumber: "Phone Number *",
-    phonePlaceholder: "e.g. +1 (555) 123-4567",
+    phonePlaceholder: "e.g. 0912 459 9949",
     emailAddress: "Email Address *",
     emailPlaceholder: "you@example.com",
     sessionType: "Session Type *",
@@ -396,20 +439,20 @@ const en = {
       "follow-up": "Post-treatment review with your care team",
       "second-opinion": "Expert review of your existing diagnosis or plan",
     },
-    metaTitle: "Book an Appointment | Radiotherapy Clinic",
+    metaTitle: "Book an Appointment | Dr. Pari Ghadamgahi",
     metaDescription:
       "Book your consultation or treatment session online. Choose your session type, date, and time in under two minutes.",
     notes: "Additional Notes (Optional)",
     notesPlaceholder:
       "Tell us anything we should know about your needs...",
     successMessage:
-      "Your booking request has been submitted! Our team will contact you to confirm your appointment.",
+      "Your booking request has been submitted! You will be contacted to confirm your appointment.",
     referenceNumber: "Your booking reference number is #",
     whatToExpect: "What to Expect",
     step1:
       "Submit your request through the form with your preferred date and time.",
     step2:
-      "Our team will contact you within 1-2 business days to confirm your appointment.",
+      "You will be contacted within 1-2 business days to confirm your appointment.",
     step3:
       "Prepare any relevant medical records or imaging to bring to your appointment.",
     step4: "Arrive 15 minutes early for your scheduled appointment.",
@@ -448,7 +491,7 @@ const en = {
     visitForum: "Visit the Forum",
     quickCall: "Quick Call",
     sendMessage: "Send a Message",
-    mapCardTitle: "Our Location",
+    mapCardTitle: "Clinic Location",
     feature1Label: "Fast Response",
     feature1Sub: "In the shortest time",
     feature2Label: "Personalized Care",
@@ -456,7 +499,7 @@ const en = {
     feature3Label: "Easy Booking",
     feature3Sub: "Online & by phone",
     consultTitle: "Need Specialist Consultation?",
-    consultText: "Our team of specialists is ready to answer your questions.",
+    consultText: "Dr. Ghadamgahi is ready to answer your questions.",
     consultCta: "Online Consultation",
     openNow: "Open now",
     closedNow: "Closed now",
@@ -532,7 +575,7 @@ const en = {
       "Default password: admin123 — set ADMIN_PASSWORD in your environment to change it.",
     invalidPassword: "Invalid password",
     dashboard: "Admin Dashboard",
-    clinicManagement: "Radiotherapy Clinic Management",
+    clinicManagement: "Practice Management",
     overview: "Overview",
     analytics: "Analytics",
     bookings: "Bookings",
@@ -591,7 +634,7 @@ const en = {
     failedToUpdateDaySlot: "Failed to update day slot",
     blockedTimeSlots: "Blocked Time Slots",
     blockedTimeSlotsHint:
-      "Block specific dates and times when the clinic is unavailable (e.g. already booked, holidays).",
+      "Block specific dates and times when the practice is unavailable (e.g. already booked, holidays).",
     blockTimeSlot: "Block a Time Slot",
     date: "Date",
     time: "Time",

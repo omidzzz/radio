@@ -105,12 +105,12 @@ export default async function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link href="/" className="group inline-flex items-center gap-3">
-              <span className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-primary to-secondary text-base font-bold text-deep transition-all duration-300 group-hover:shadow-[0_0_32px_-2px_rgba(6,182,212,0.85)] group-hover:scale-[1.04]">
+              <span className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-primary to-secondary text-base font-bold text-deep transition-all duration-300 group-hover:shadow-[0_0_32px_-2px_rgba(26,115,82,0.85)] group-hover:scale-[1.04]">
                 <span className="relative z-10">R</span>
                 <span className="absolute inset-0 bg-gradient-to-tr from-white/25 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               </span>
               <span className="text-lg font-semibold tracking-tight text-white transition-colors group-hover:text-highlight">
-                {dict.common.clinicName}
+                {dict.common.doctorName}
               </span>
             </Link>
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-slate-400">
@@ -280,7 +280,7 @@ export default async function Footer() {
               {isFa
                 ? toFarsiDigits(new Date().getFullYear())
                 : new Date().getFullYear()}{" "}
-              {dict.common.clinicName}. {dict.footer.rightsReserved}
+              {dict.common.doctorName}. {dict.footer.rightsReserved}
             </p>
 
             <div className="flex items-center gap-4 text-xs text-slate-400">

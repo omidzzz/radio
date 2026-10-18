@@ -10,12 +10,12 @@ import PageHero from "@/components/PageHero";
 import Reveal from "@/components/ui/Reveal";
 import CountUp from "@/components/ui/CountUp";
 
-const ABOUT_TITLE = "درباره ما | کلینیک پرتودرمانی";
+const ABOUT_TITLE = "درباره دکتر پری غدامگاهی";
 const ABOUT_DESCRIPTION =
-  "آشنایی با کلینیک پرتودرمانی، ماموریت، ارزش‌ها و تیم متخصص ما در زمینه درمان سرطان و تصویربرداری پزشکی.";
+  "آشنایی با دکتر پری غدامگاهی، متخصص رادیوتراپی و آنکولوژی — رویکرد درمانی، حوزه‌های تخصصی و تیم همراه در زمینه درمان سرطان.";
 
 export const metadata: Metadata = {
-  title: "درباره ما",
+  title: "درباره دکتر پری غدامگاهی",
   description: ABOUT_DESCRIPTION,
   alternates: {
     canonical: "/about",
@@ -137,7 +137,7 @@ export default async function AboutPage() {
       <div className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute -left-48 top-10 h-[600px] w-[600px] rounded-full bg-primary/[0.07] blur-[140px] [transform:translateZ(0)]" />
         <div className="absolute -right-40 bottom-20 h-[520px] w-[520px] rounded-full bg-secondary/[0.09] blur-[120px] [transform:translateZ(0)]" />
-        <div className="absolute left-1/3 top-1/2 h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-cyan-400/[0.04] blur-[90px] [transform:translateZ(0)]" />
+        <div className="absolute left-1/3 top-1/2 h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-primary/[0.04] blur-[90px] [transform:translateZ(0)]" />
 
         <ParticleBackground id="particles-about" className="text-muted" />
       </div>
@@ -169,7 +169,7 @@ export default async function AboutPage() {
           <dl className="mt-10 grid grid-cols-2 gap-5 lg:grid-cols-4 lg:gap-7">
             {stats.map((stat, i) => (
               <Reveal key={stat.label} delay={i * 110}>
-                <div className="group relative h-full overflow-hidden rounded-2xl border border-border/60 bg-surface p-6 text-center shadow-[0_18px_40px_-24px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_22px_45px_-20px_rgba(6,182,212,0.25)]">
+                <div className="group relative h-full overflow-hidden rounded-2xl border border-border/60 bg-surface p-6 text-center shadow-[0_18px_40px_-24px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_22px_45px_-20px_rgba(26,115,82,0.25)]">
                   {/* Top accent line */}
                   <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   <dd className="text-3xl font-extrabold tracking-tight text-primary sm:text-4xl">
@@ -224,7 +224,7 @@ export default async function AboutPage() {
                 <div className="relative overflow-hidden rounded-[1.85rem] border border-border/60 bg-surface/95 p-8 shadow-[0_28px_60px_-22px_rgba(0,0,0,0.12)] backdrop-blur-sm sm:p-10">
                   {/* Energy bar — sweeping highlight instead of a pulsing block */}
                   <div className="absolute inset-x-0 top-0 h-1.5 overflow-hidden bg-deep">
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary via-cyan-300 to-secondary" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary via-[#c9a24b] to-secondary" />
                     <div className="beam-sweep absolute inset-y-0 w-1/4 bg-white/25" />
                   </div>
 
@@ -343,7 +343,7 @@ export default async function AboutPage() {
           <div className="mt-14 grid gap-7 md:grid-cols-3">
             {teamMembers.map((member, i) => (
               <Reveal key={member.name} delay={i * 130}>
-                <article className="spotlight-card group relative h-full overflow-hidden rounded-[1.7rem] border border-white/10 bg-white/[0.04] p-8 backdrop-blur-sm transition-all duration-500 hover:-translate-y-2.5 hover:border-primary/35 hover:bg-white/[0.08] hover:shadow-[0_25px_60px_-18px_rgba(6,182,212,0.28)]">
+                <article className="spotlight-card group relative h-full overflow-hidden rounded-[1.7rem] border border-white/10 bg-white/[0.04] p-8 backdrop-blur-sm transition-all duration-500 hover:-translate-y-2.5 hover:border-primary/35 hover:bg-white/[0.08] hover:shadow-[0_25px_60px_-18px_rgba(26,115,82,0.28)]">
                   {/* Top accent line */}
                   <div
                     aria-hidden="true"
@@ -357,7 +357,7 @@ export default async function AboutPage() {
                   />
 
                   {/* Avatar */}
-                  <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-secondary text-xl font-bold text-deep shadow-[0_0_28px_-4px_rgba(6,182,212,0.55)] transition-shadow duration-500 group-hover:shadow-[0_0_36px_-2px_rgba(6,182,212,0.7)]">
+                  <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-secondary text-xl font-bold text-deep shadow-[0_0_28px_-4px_rgba(26,115,82,0.55)] transition-shadow duration-500 group-hover:shadow-[0_0_36px_-2px_rgba(26,115,82,0.7)]">
                     {getInitials(member.name)}
                     <div
                       aria-hidden="true"
@@ -412,7 +412,7 @@ export default async function AboutPage() {
                   {milestone.year}
                 </div>
                 <Reveal delay={i * 110} className="min-w-0 flex-1">
-                  <div className="rounded-2xl border border-border/60 bg-surface p-6 shadow-[0_18px_40px_-26px_rgba(0,0,0,0.15)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/35 hover:shadow-[0_22px_45px_-22px_rgba(6,182,212,0.22)]">
+                  <div className="rounded-2xl border border-border/60 bg-surface p-6 shadow-[0_18px_40px_-26px_rgba(0,0,0,0.15)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/35 hover:shadow-[0_22px_45px_-22px_rgba(26,115,82,0.22)]">
                     <h3 className="text-lg font-semibold text-text-primary">
                       {milestone.title}
                     </h3>
@@ -436,7 +436,7 @@ export default async function AboutPage() {
         <div className="relative mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
           {/* Decorative icon */}
           <Reveal variant="scale">
-            <div className="mx-auto mb-8 flex h-16 w-16 items-center justify-center rounded-2xl bg-soft text-primary ring-1 ring-primary/20 shadow-[0_0_30px_-8px_rgba(6,182,212,0.4)]">
+            <div className="mx-auto mb-8 flex h-16 w-16 items-center justify-center rounded-2xl bg-soft text-primary ring-1 ring-primary/20 shadow-[0_0_30px_-8px_rgba(26,115,82,0.4)]">
               <svg
                 viewBox="0 0 48 48"
                 fill="none"
@@ -472,7 +472,7 @@ export default async function AboutPage() {
           <Reveal delay={200}>
             <Link
               href="/booking"
-              className="group relative mt-10 inline-flex items-center justify-center overflow-hidden rounded-full bg-primary px-9 py-4 text-base font-semibold text-deep shadow-[0_0_35px_-8px_rgba(6,182,212,0.65)] transition-all duration-300 hover:bg-primary-hover hover:shadow-[0_0_50px_-4px_rgba(6,182,212,0.9)] active:scale-[0.97]"
+              className="group relative mt-10 inline-flex items-center justify-center overflow-hidden rounded-full bg-primary px-9 py-4 text-base font-semibold text-deep shadow-[0_0_35px_-8px_rgba(26,115,82,0.65)] transition-all duration-300 hover:bg-primary-hover hover:shadow-[0_0_50px_-4px_rgba(26,115,82,0.9)] active:scale-[0.97]"
             >
               <span
                 aria-hidden="true"

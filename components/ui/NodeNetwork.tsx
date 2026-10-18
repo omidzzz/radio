@@ -111,9 +111,9 @@ export default function NodeNetwork({
       <defs>
         {/* Gradient for links */}
         <linearGradient id={`link-grad-${uniqueId}`} x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="rgba(6, 182, 212, 0.1)" />
-          <stop offset="50%" stopColor="rgba(34, 211, 238, 0.3)" />
-          <stop offset="100%" stopColor="rgba(20, 184, 166, 0.1)" />
+          <stop offset="0%" stopColor="rgba(26, 115, 82, 0.1)" />
+          <stop offset="50%" stopColor="rgba(76, 155, 122, 0.3)" />
+          <stop offset="100%" stopColor="rgba(46, 125, 91, 0.1)" />
         </linearGradient>
         {/* Glow filter for nodes */}
         <filter id={`node-glow-${uniqueId}`} x="-100%" y="-100%" width="300%" height="300%">
@@ -125,9 +125,9 @@ export default function NodeNetwork({
         </filter>
         {/* Radial gradient for hub nodes */}
         <radialGradient id={`hub-grad-${uniqueId}`}>
-          <stop offset="0%" stopColor="rgba(34, 211, 238, 0.9)" />
-          <stop offset="70%" stopColor="rgba(6, 182, 212, 0.6)" />
-          <stop offset="100%" stopColor="rgba(6, 182, 212, 0.2)" />
+          <stop offset="0%" stopColor="rgba(76, 155, 122, 0.9)" />
+          <stop offset="70%" stopColor="rgba(26, 115, 82, 0.6)" />
+          <stop offset="100%" stopColor="rgba(26, 115, 82, 0.2)" />
         </radialGradient>
       </defs>
 
@@ -140,7 +140,7 @@ export default function NodeNetwork({
             y1={link.y1}
             x2={link.x2}
             y2={link.y2}
-            stroke={link.isStrong ? `url(#link-grad-${uniqueId})` : "rgba(6, 182, 212, 0.08)"}
+            stroke={link.isStrong ? `url(#link-grad-${uniqueId})` : "rgba(26, 115, 82, 0.08)"}
             strokeWidth={link.isStrong ? 1.5 : 0.75}
             className="network-link"
             style={{
@@ -162,7 +162,7 @@ export default function NodeNetwork({
                 cy={node.cy}
                 r={node.r * 2.5}
                 fill="none"
-                stroke="rgba(6, 182, 212, 0.15)"
+                stroke="rgba(26, 115, 82, 0.15)"
                 strokeWidth="1"
                 className="network-ring"
               />
@@ -172,7 +172,7 @@ export default function NodeNetwork({
               cx={node.cx}
               cy={node.cy}
               r={node.r}
-              fill={node.isHub ? `url(#hub-grad-${uniqueId})` : "rgba(6, 182, 212, 0.5)"}
+              fill={node.isHub ? `url(#hub-grad-${uniqueId})` : "rgba(26, 115, 82, 0.5)"}
             />
             {/* Inner highlight */}
             <circle

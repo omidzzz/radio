@@ -18,7 +18,7 @@ export default function StateIllustration({
   variant,
   className = "",
 }: StateIllustrationProps) {
-  const accent = variant === "error" ? "#f87171" : "#22d3ee";
+  const accent = variant === "error" ? "#f87171" : "#4c9b7a";
 
   return (
     <svg

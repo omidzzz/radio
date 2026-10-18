@@ -336,7 +336,7 @@ export default async function ServicesPage() {
       <div className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute -left-48 top-10 h-[600px] w-[600px] rounded-full bg-primary/[0.07] blur-[140px] [transform:translateZ(0)]" />
         <div className="absolute -right-40 bottom-20 h-[520px] w-[520px] rounded-full bg-secondary/[0.09] blur-[120px] [transform:translateZ(0)]" />
-        <div className="absolute left-1/3 top-1/2 hidden h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-cyan-400/[0.04] blur-[90px] [transform:translateZ(0)] md:block" />
+        <div className="absolute left-1/3 top-1/2 hidden h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-primary/[0.04] blur-[90px] [transform:translateZ(0)] md:block" />
         <ParticleBackground id="particles-services" className="text-muted" />
       </div>
 
@@ -384,7 +384,7 @@ export default async function ServicesPage() {
           <dl className="mt-10 grid grid-cols-2 gap-5 lg:grid-cols-4 lg:gap-7">
             {stats.map((stat, i) => (
               <Reveal key={stat.label} delay={i * 110}>
-                <div className="group relative h-full overflow-hidden rounded-2xl border border-border/60 bg-surface p-6 text-center shadow-[0_18px_40px_-24px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_22px_45px_-20px_rgba(6,182,212,0.25)]">
+                <div className="group relative h-full overflow-hidden rounded-2xl border border-border/60 bg-surface p-6 text-center shadow-[0_18px_40px_-24px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_22px_45px_-20px_rgba(26,115,82,0.25)]">
                   <div
                     aria-hidden="true"
                     className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"

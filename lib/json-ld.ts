@@ -156,6 +156,51 @@ export function physicianSchema(
 }
 
 /**
+ * Main site entity — Dr. Pari Ghadamgahi's physician profile.
+ * The website is a personal portfolio, so this is the primary
+ * structured-data object registered in the root layout.
+ */
+export function sitePhysicianSchema(): JsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Physician",
+    "@id": `${siteConfig.url}/#physician`,
+    name: "دکتر پری غدامگاهی",
+    alternateName: "Dr. Pari Ghadamgahi",
+    jobTitle: "متخصص رادیوتراپی و آنکولوژی",
+    description: siteConfig.description.fa,
+    url: siteConfig.url,
+    image: `${siteConfig.url}/images/icon-192.png`,
+    telephone: siteConfig.phone,
+    email: siteConfig.email,
+    medicalSpecialty: ["Oncologic", "RadiationTherapy"],
+    knowsAbout: [
+      "Radiotherapy",
+      "Radiosurgery",
+      "CNS Tumors (Brain & Spinal Cord)",
+      "Head and Neck Cancer",
+      "Gynecologic Oncology (GYN)",
+      "Gastrointestinal Oncology (GI)",
+      "Breast Cancer",
+      "Prostate Cancer",
+      "Genitourinary Oncology (GU)",
+      "IMRT / IGRT / SBRT Treatment Planning",
+    ],
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: siteConfig.address.street,
+      addressLocality: siteConfig.address.city,
+      addressCountry: siteConfig.address.country,
+    },
+    areaServed: {
+      "@type": "City",
+      name: siteConfig.address.city,
+    },
+    sameAs: Object.values(siteConfig.socials),
+  };
+}
+
+/**
  * MedicalWebPage / MedicalProcedure schema for services
  */
 export function medicalProcedureSchema(
@@ -392,13 +437,13 @@ export function conversationalContentSchema(): JsonLd {
     },
     potentialAnswer: {
       "@type": "Answer",
-      text: "Our clinic provides professional radiotherapy, radiation therapy, diagnostic imaging (MRI, CT, X-Ray), and comprehensive cancer treatment services in Tehran, Iran. We offer treatment planning, patient support, and follow-up care.",
+      text: "Dr. Pari Ghadamgahi is a specialist in radiotherapy and oncology in Tehran, providing radiotherapy and radiosurgery with a focus on CNS, head and neck, gynecologic, gastrointestinal, breast, prostate and genitourinary cancers, together with treatment planning, patient support, and follow-up care.",
     },
     mainEntity: {
-      "@type": "MedicalOrganization",
+      "@type": "Physician",
       name: siteConfig.name,
       address: siteConfig.address.city,
-      medicalSpecialty: ["Oncology", "Radiation Therapy", "Radiology"],
+      medicalSpecialty: ["Oncologic", "RadiationTherapy"],
     },
   };
 }

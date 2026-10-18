@@ -69,7 +69,7 @@ export default function BookingModal({ open, onClose }: BookingModalProps) {
       >
         {/* Top energy bar */}
         <div className="relative h-1.5 shrink-0 overflow-hidden bg-deep">
-          <div className="absolute inset-0 bg-gradient-to-r from-primary via-cyan-300 to-secondary" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary via-[#c9a24b] to-secondary" />
           <div className="absolute inset-y-0 left-0 w-1/3 animate-pulse bg-white/25" />
         </div>
 

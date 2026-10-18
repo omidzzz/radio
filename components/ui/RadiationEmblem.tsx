@@ -44,10 +44,10 @@ function CoreNucleus() {
     <g className="re-core-pulse">
       <circle cx="340" cy="340" r="66" fill="url(#re-coreGlow)" filter="url(#re-blurS)" />
       <circle cx="340" cy="340" r="46" fill="none" stroke="rgb(8,51,68)" strokeWidth="6" opacity="0.5" />
-      <circle cx="340" cy="340" r="46" fill="none" stroke="rgb(34,211,238)" strokeWidth="1.2" opacity="0.9" />
-      <circle cx="340" cy="340" r="34" fill="rgb(8,145,178)" opacity="0.95" />
+      <circle cx="340" cy="340" r="46" fill="none" stroke="rgb(76,155,122)" strokeWidth="1.2" opacity="0.9" />
+      <circle cx="340" cy="340" r="34" fill="rgb(20,92,65)" opacity="0.95" />
       <circle cx="340" cy="340" r="34" fill="none" stroke="rgb(165,243,252)" strokeWidth="0.6" opacity="0.75" />
-      <circle cx="340" cy="340" r="18" fill="rgb(103,232,249)" />
+      <circle cx="340" cy="340" r="18" fill="rgb(147,211,183)" />
       <circle cx="340" cy="340" r="8" fill="rgb(240,253,255)" />
       <circle cx="340" cy="340" r="3" fill="white" />
     </g>
@@ -56,7 +56,7 @@ function CoreNucleus() {
 
 function Particles() {
   return (
-    <g fill="rgb(207,250,254)" opacity="0.8">
+    <g fill="rgb(239,234,219)" opacity="0.8">
       <circle cx="316" cy="322" r="2" className="re-particle" />
       <circle cx="364" cy="326" r="1.6" className="re-particle" style={{ animationDelay: "1.2s" }} />
       <circle cx="352" cy="360" r="1.8" className="re-particle" style={{ animationDelay: "2.4s" }} />
@@ -69,11 +69,11 @@ function Particles() {
 function BaseRings() {
   return (
     <>
-      <circle cx="340" cy="340" r="310" stroke="rgb(34,211,238)" strokeWidth="0.5" opacity="0.18" />
-      <circle cx="340" cy="340" r="310" stroke="rgb(103,232,249)" strokeWidth="0.6" opacity="0.3" strokeDasharray="2 10" strokeLinecap="round" className="re-dash-spin" />
-      <circle cx="340" cy="340" r="275" stroke="rgb(14,116,144)" strokeWidth="0.5" opacity="0.28" strokeDasharray="6 8" className="re-dash-spin" style={{ animationDuration: "30s" }} />
-      <circle cx="340" cy="340" r="235" stroke="rgb(34,211,238)" strokeWidth="0.7" opacity="0.35" />
-      <circle cx="340" cy="340" r="190" stroke="rgb(8,145,178)" strokeWidth="0.5" opacity="0.22" />
+      <circle cx="340" cy="340" r="310" stroke="rgb(76,155,122)" strokeWidth="0.5" opacity="0.18" />
+      <circle cx="340" cy="340" r="310" stroke="rgb(147,211,183)" strokeWidth="0.6" opacity="0.3" strokeDasharray="2 10" strokeLinecap="round" className="re-dash-spin" />
+      <circle cx="340" cy="340" r="275" stroke="rgb(15,74,53)" strokeWidth="0.5" opacity="0.28" strokeDasharray="6 8" className="re-dash-spin" style={{ animationDuration: "30s" }} />
+      <circle cx="340" cy="340" r="235" stroke="rgb(76,155,122)" strokeWidth="0.7" opacity="0.35" />
+      <circle cx="340" cy="340" r="190" stroke="rgb(20,92,65)" strokeWidth="0.5" opacity="0.22" />
       <circle cx="340" cy="340" r="155" fill="url(#re-haloGlow)" filter="url(#re-blurM)" className="re-halo-pulse" />
     </>
   );
@@ -83,7 +83,7 @@ function AtomEmblem() {
   return (
     <>
       <rect x="0" y="0" width="680" height="680" fill="url(#re-bgGlow)" />
-      <g stroke="rgb(14,116,144)" strokeWidth="0.5" opacity="0.16">
+      <g stroke="rgb(15,74,53)" strokeWidth="0.5" opacity="0.16">
         <line x1="340" y1="30" x2="340" y2="650" />
         <line x1="30" y1="340" x2="650" y2="340" />
         <line x1="90" y1="90" x2="590" y2="590" />
@@ -93,26 +93,26 @@ function AtomEmblem() {
       <g className="re-orbit-1" opacity="0.85">
         <ellipse cx="340" cy="340" rx="255" ry="95" stroke="url(#re-cyan)" strokeWidth="1.2" opacity="0.55" transform="rotate(15 340 340)" />
         <circle cx="340" cy="85" r="6" fill="rgb(165,243,252)" className="re-electron" filter="url(#re-blurS)" />
-        <circle cx="340" cy="595" r="4.5" fill="rgb(103,232,249)" className="re-electron" opacity="0.8" />
+        <circle cx="340" cy="595" r="4.5" fill="rgb(147,211,183)" className="re-electron" opacity="0.8" />
       </g>
       <g className="re-orbit-2" opacity="0.85">
         <ellipse cx="340" cy="340" rx="255" ry="95" stroke="url(#re-cyan)" strokeWidth="1.1" opacity="0.5" transform="rotate(-28 340 340)" />
         <circle cx="565" cy="340" r="5.5" fill="rgb(165,243,252)" className="re-electron" filter="url(#re-blurS)" />
-        <circle cx="115" cy="340" r="4" fill="rgb(103,232,249)" className="re-electron" opacity="0.75" />
+        <circle cx="115" cy="340" r="4" fill="rgb(147,211,183)" className="re-electron" opacity="0.75" />
       </g>
       <g className="re-orbit-3" opacity="0.8">
         <ellipse cx="340" cy="340" rx="255" ry="95" stroke="url(#re-amber)" strokeWidth="1" opacity="0.45" transform="rotate(68 340 340)" />
         <circle cx="480" cy="180" r="5" fill="rgb(253,230,138)" className="re-electron" filter="url(#re-blurS)" />
       </g>
       <g className="re-orbit-1" opacity="0.75">
-        <ellipse cx="340" cy="340" rx="210" ry="75" stroke="rgb(34,211,238)" strokeWidth="0.9" opacity="0.4" transform="rotate(105 340 340)" />
+        <ellipse cx="340" cy="340" rx="210" ry="75" stroke="rgb(76,155,122)" strokeWidth="0.9" opacity="0.4" transform="rotate(105 340 340)" />
         <circle cx="200" cy="480" r="4.2" fill="rgb(165,243,252)" className="re-electron" />
       </g>
       <g opacity="0.5">
-        <ellipse cx="340" cy="340" rx="160" ry="55" stroke="rgb(103,232,249)" strokeWidth="0.7" transform="rotate(40 340 340)" />
-        <ellipse cx="340" cy="340" rx="160" ry="55" stroke="rgb(8,145,178)" strokeWidth="0.6" transform="rotate(-50 340 340)" />
+        <ellipse cx="340" cy="340" rx="160" ry="55" stroke="rgb(147,211,183)" strokeWidth="0.7" transform="rotate(40 340 340)" />
+        <ellipse cx="340" cy="340" rx="160" ry="55" stroke="rgb(20,92,65)" strokeWidth="0.6" transform="rotate(-50 340 340)" />
       </g>
-      <g stroke="rgb(34,211,238)" strokeWidth="1" opacity="0.5">
+      <g stroke="rgb(76,155,122)" strokeWidth="1" opacity="0.5">
         <line x1="340" y1="28" x2="340" y2="58" />
         <line x1="340" y1="622" x2="340" y2="652" />
         <line x1="28" y1="340" x2="58" y2="340" />
@@ -128,7 +128,7 @@ function ServicesEmblem() {
   return (
     <>
       <rect x="0" y="0" width="680" height="680" fill="url(#re-bgGlow)" />
-      <g stroke="rgb(14,116,144)" strokeWidth="0.5" opacity="0.16">
+      <g stroke="rgb(15,74,53)" strokeWidth="0.5" opacity="0.16">
         <line x1="340" y1="30" x2="340" y2="650" />
         <line x1="30" y1="340" x2="650" y2="340" />
       </g>
@@ -155,36 +155,36 @@ function ReticleEmblem() {
   return (
     <>
       <rect x="0" y="0" width="680" height="680" fill="url(#re-bgGlow)" />
-      <circle cx="340" cy="340" r="310" stroke="rgb(34,211,238)" strokeWidth="0.5" opacity="0.18" />
-      <circle cx="340" cy="340" r="310" stroke="rgb(103,232,249)" strokeWidth="0.6" opacity="0.28" strokeDasharray="3 12" strokeLinecap="round" className="re-dash-spin" />
-      <circle cx="340" cy="340" r="270" stroke="rgb(14,116,144)" strokeWidth="0.5" opacity="0.25" strokeDasharray="8 10" className="re-dash-spin" style={{ animationDuration: "26s" }} />
+      <circle cx="340" cy="340" r="310" stroke="rgb(76,155,122)" strokeWidth="0.5" opacity="0.18" />
+      <circle cx="340" cy="340" r="310" stroke="rgb(147,211,183)" strokeWidth="0.6" opacity="0.28" strokeDasharray="3 12" strokeLinecap="round" className="re-dash-spin" />
+      <circle cx="340" cy="340" r="270" stroke="rgb(15,74,53)" strokeWidth="0.5" opacity="0.25" strokeDasharray="8 10" className="re-dash-spin" style={{ animationDuration: "26s" }} />
       <circle cx="340" cy="340" r="160" fill="url(#re-haloGlow)" filter="url(#re-blurM)" className="re-halo-pulse" />
       <circle cx="340" cy="340" r="230" stroke="url(#re-cyan)" strokeWidth="1.2" opacity="0.55" />
-      <circle cx="340" cy="340" r="185" stroke="rgb(34,211,238)" strokeWidth="0.9" opacity="0.45" />
+      <circle cx="340" cy="340" r="185" stroke="rgb(76,155,122)" strokeWidth="0.9" opacity="0.45" />
       <circle cx="340" cy="340" r="140" stroke="url(#re-amber)" strokeWidth="1.1" opacity="0.5" />
-      <circle cx="340" cy="340" r="95" stroke="rgb(103,232,249)" strokeWidth="1.4" opacity="0.6" />
+      <circle cx="340" cy="340" r="95" stroke="rgb(147,211,183)" strokeWidth="1.4" opacity="0.6" />
       <g className="re-orbit-1" opacity="0.7">
         {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((deg) => (
-          <line key={deg} x1="340" y1="48" x2="340" y2="68" stroke="rgb(103,232,249)" strokeWidth="1.5" transform={`rotate(${deg} 340 340)`} />
+          <line key={deg} x1="340" y1="48" x2="340" y2="68" stroke="rgb(147,211,183)" strokeWidth="1.5" transform={`rotate(${deg} 340 340)`} />
         ))}
       </g>
       <g className="re-orbit-2" opacity="0.8">
         <circle cx="340" cy="110" r="5" fill="rgb(165,243,252)" className="re-marker-pulse" filter="url(#re-blurS)" />
-        <circle cx="570" cy="340" r="4.5" fill="rgb(103,232,249)" className="re-marker-pulse" />
+        <circle cx="570" cy="340" r="4.5" fill="rgb(147,211,183)" className="re-marker-pulse" />
         <circle cx="340" cy="570" r="5" fill="rgb(165,243,252)" className="re-marker-pulse" filter="url(#re-blurS)" />
-        <circle cx="110" cy="340" r="4.5" fill="rgb(103,232,249)" className="re-marker-pulse" />
+        <circle cx="110" cy="340" r="4.5" fill="rgb(147,211,183)" className="re-marker-pulse" />
       </g>
       <g className="re-orbit-3" opacity="0.65">
         <path d="M 340 200 A 140 140 0 0 1 480 340" fill="none" stroke="url(#re-cyan)" strokeWidth="2" strokeLinecap="round" />
         <path d="M 340 480 A 140 140 0 0 1 200 340" fill="none" stroke="url(#re-amber)" strokeWidth="1.8" strokeLinecap="round" />
       </g>
-      <g stroke="rgb(34,211,238)" strokeWidth="1" opacity="0.5">
+      <g stroke="rgb(76,155,122)" strokeWidth="1" opacity="0.5">
         <line x1="340" y1="70" x2="340" y2="120" />
         <line x1="340" y1="560" x2="340" y2="610" />
         <line x1="70" y1="340" x2="120" y2="340" />
         <line x1="560" y1="340" x2="610" y2="340" />
       </g>
-      <g stroke="rgb(34,211,238)" strokeWidth="1.5" opacity="0.55" fill="none">
+      <g stroke="rgb(76,155,122)" strokeWidth="1.5" opacity="0.55" fill="none">
         <path d="M 160 160 L 160 200 M 160 160 L 200 160" />
         <path d="M 520 160 L 520 200 M 520 160 L 480 160" />
         <path d="M 160 520 L 160 480 M 160 520 L 200 520" />
@@ -200,9 +200,9 @@ function NetworkEmblem() {
   return (
     <>
       <rect x="0" y="0" width="680" height="680" fill="url(#re-bgGlow)" />
-      <circle cx="340" cy="340" r="300" stroke="rgb(34,211,238)" strokeWidth="0.5" opacity="0.16" />
-      <circle cx="340" cy="340" r="300" stroke="rgb(103,232,249)" strokeWidth="0.5" opacity="0.25" strokeDasharray="2 11" strokeLinecap="round" className="re-dash-flow" />
-      <circle cx="340" cy="340" r="250" stroke="rgb(14,116,144)" strokeWidth="0.5" opacity="0.22" />
+      <circle cx="340" cy="340" r="300" stroke="rgb(76,155,122)" strokeWidth="0.5" opacity="0.16" />
+      <circle cx="340" cy="340" r="300" stroke="rgb(147,211,183)" strokeWidth="0.5" opacity="0.25" strokeDasharray="2 11" strokeLinecap="round" className="re-dash-flow" />
+      <circle cx="340" cy="340" r="250" stroke="rgb(15,74,53)" strokeWidth="0.5" opacity="0.22" />
       <circle cx="340" cy="340" r="155" fill="url(#re-haloGlow)" filter="url(#re-blurM)" className="re-halo-pulse" />
       <g stroke="url(#re-cyan)" strokeWidth="1.2" opacity="0.55" strokeLinecap="round">
         <line x1="340" y1="340" x2="180" y2="180" />
@@ -212,7 +212,7 @@ function NetworkEmblem() {
         <line x1="340" y1="340" x2="160" y2="320" />
         <line x1="340" y1="340" x2="480" y2="500" />
       </g>
-      <g stroke="rgb(34,211,238)" strokeWidth="0.7" opacity="0.3" strokeDasharray="4 6" className="re-dash-flow">
+      <g stroke="rgb(76,155,122)" strokeWidth="0.7" opacity="0.3" strokeDasharray="4 6" className="re-dash-flow">
         <line x1="180" y1="180" x2="500" y2="170" />
         <line x1="500" y1="170" x2="520" y2="380" />
         <line x1="200" y1="480" x2="480" y2="500" />
@@ -229,7 +229,7 @@ function NetworkEmblem() {
         <g key={`${node.cx}-${node.cy}`} className="re-float" style={{ animationDelay: node.delay }}>
           <circle cx={node.cx} cy={node.cy} r={node.r} fill="rgb(8,51,68)" opacity="0.55" />
           <circle cx={node.cx} cy={node.cy} r={node.r} fill="none" stroke={node.amber ? "url(#re-amber)" : "url(#re-cyan)"} strokeWidth="1.4" opacity="0.75" />
-          <circle cx={node.cx} cy={node.cy} r={node.r * 0.5} fill={node.amber ? "rgb(245,158,11)" : "rgb(34,211,238)"} opacity="0.85" className="re-node-pulse" />
+          <circle cx={node.cx} cy={node.cy} r={node.r * 0.5} fill={node.amber ? "rgb(245,158,11)" : "rgb(76,155,122)"} opacity="0.85" className="re-node-pulse" />
           <circle cx={node.cx} cy={node.cy} r={node.r * 0.2} fill={node.amber ? "rgb(253,230,138)" : "rgb(165,243,252)"} />
         </g>
       ))}
@@ -243,9 +243,9 @@ function ConstellationEmblem() {
   return (
     <>
       <rect x="0" y="0" width="680" height="680" fill="url(#re-bgGlow)" />
-      <circle cx="340" cy="340" r="305" stroke="rgb(34,211,238)" strokeWidth="0.5" opacity="0.16" />
-      <circle cx="340" cy="340" r="305" stroke="rgb(103,232,249)" strokeWidth="0.5" opacity="0.25" strokeDasharray="2 12" strokeLinecap="round" className="re-dash-flow" />
-      <circle cx="340" cy="340" r="255" stroke="rgb(14,116,144)" strokeWidth="0.5" opacity="0.22" />
+      <circle cx="340" cy="340" r="305" stroke="rgb(76,155,122)" strokeWidth="0.5" opacity="0.16" />
+      <circle cx="340" cy="340" r="305" stroke="rgb(147,211,183)" strokeWidth="0.5" opacity="0.25" strokeDasharray="2 12" strokeLinecap="round" className="re-dash-flow" />
+      <circle cx="340" cy="340" r="255" stroke="rgb(15,74,53)" strokeWidth="0.5" opacity="0.22" />
       <circle cx="340" cy="340" r="150" fill="url(#re-haloGlow)" filter="url(#re-blurM)" className="re-halo-pulse" />
       <g stroke="url(#re-cyan)" strokeWidth="1.1" opacity="0.5" strokeLinecap="round">
         <line x1="340" y1="340" x2="175" y2="175" />
@@ -255,7 +255,7 @@ function ConstellationEmblem() {
         <line x1="340" y1="340" x2="150" y2="330" />
         <line x1="340" y1="340" x2="490" y2="510" />
       </g>
-      <g stroke="rgb(34,211,238)" strokeWidth="0.6" opacity="0.28" strokeDasharray="4 7" className="re-dash-flow">
+      <g stroke="rgb(76,155,122)" strokeWidth="0.6" opacity="0.28" strokeDasharray="4 7" className="re-dash-flow">
         <line x1="175" y1="175" x2="505" y2="160" />
         <line x1="505" y1="160" x2="530" y2="370" />
         <line x1="190" y1="490" x2="490" y2="510" />
@@ -271,9 +271,9 @@ function ConstellationEmblem() {
         <g key={`${doc.x}-${doc.y}`} className="re-float" style={{ animationDelay: doc.delay }}>
           <rect x={doc.x} y={doc.y} width={doc.w} height={doc.h} rx="5" fill="rgb(8,51,68)" opacity="0.65" />
           <rect x={doc.x} y={doc.y} width={doc.w} height={doc.h} rx="5" fill="none" stroke={doc.amber ? "url(#re-amber)" : "url(#re-cyan)"} strokeWidth="1.4" opacity="0.8" />
-          <line x1={doc.x + 12} y1={doc.y + 20} x2={doc.x + doc.w - 12} y2={doc.y + 20} stroke={doc.amber ? "rgb(253,230,138)" : "rgb(103,232,249)"} strokeWidth="1.1" opacity="0.55" />
-          <line x1={doc.x + 12} y1={doc.y + 33} x2={doc.x + doc.w - 12} y2={doc.y + 33} stroke={doc.amber ? "rgb(253,230,138)" : "rgb(103,232,249)"} strokeWidth="1.1" opacity="0.4" />
-          <circle cx={doc.x + doc.w / 2} cy={doc.y + doc.h - 12} r="4.5" fill={doc.amber ? "rgb(245,158,11)" : "rgb(34,211,238)"} className="re-node-pulse" />
+          <line x1={doc.x + 12} y1={doc.y + 20} x2={doc.x + doc.w - 12} y2={doc.y + 20} stroke={doc.amber ? "rgb(253,230,138)" : "rgb(147,211,183)"} strokeWidth="1.1" opacity="0.55" />
+          <line x1={doc.x + 12} y1={doc.y + 33} x2={doc.x + doc.w - 12} y2={doc.y + 33} stroke={doc.amber ? "rgb(253,230,138)" : "rgb(147,211,183)"} strokeWidth="1.1" opacity="0.4" />
+          <circle cx={doc.x + doc.w / 2} cy={doc.y + doc.h - 12} r="4.5" fill={doc.amber ? "rgb(245,158,11)" : "rgb(76,155,122)"} className="re-node-pulse" />
         </g>
       ))}
       <CoreNucleus />
@@ -310,9 +310,9 @@ export default function RadiationEmblem({ variant, className = "" }: RadiationEm
           <stop offset="100%" stopColor="rgb(0,0,0)" stopOpacity="0" />
         </radialGradient>
         <linearGradient id="re-cyan" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="rgb(103,232,249)" stopOpacity="0.9" />
-          <stop offset="50%" stopColor="rgb(34,211,238)" stopOpacity="0.7" />
-          <stop offset="100%" stopColor="rgb(8,145,178)" stopOpacity="0.3" />
+          <stop offset="0%" stopColor="rgb(147,211,183)" stopOpacity="0.9" />
+          <stop offset="50%" stopColor="rgb(76,155,122)" stopOpacity="0.7" />
+          <stop offset="100%" stopColor="rgb(20,92,65)" stopOpacity="0.3" />
         </linearGradient>
         <linearGradient id="re-amber" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="rgb(253,230,138)" stopOpacity="0.85" />
@@ -321,13 +321,13 @@ export default function RadiationEmblem({ variant, className = "" }: RadiationEm
         </linearGradient>
         <radialGradient id="re-coreGlow" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor="rgb(255,255,255)" stopOpacity="1" />
-          <stop offset="18%" stopColor="rgb(207,250,254)" stopOpacity="1" />
-          <stop offset="45%" stopColor="rgb(34,211,238)" stopOpacity="0.95" />
-          <stop offset="100%" stopColor="rgb(14,116,144)" stopOpacity="0" />
+          <stop offset="18%" stopColor="rgb(239,234,219)" stopOpacity="1" />
+          <stop offset="45%" stopColor="rgb(76,155,122)" stopOpacity="0.95" />
+          <stop offset="100%" stopColor="rgb(15,74,53)" stopOpacity="0" />
         </radialGradient>
         <radialGradient id="re-haloGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="rgb(34,211,238)" stopOpacity="0.38" />
-          <stop offset="100%" stopColor="rgb(34,211,238)" stopOpacity="0" />
+          <stop offset="0%" stopColor="rgb(76,155,122)" stopOpacity="0.38" />
+          <stop offset="100%" stopColor="rgb(76,155,122)" stopOpacity="0" />
         </radialGradient>
         <filter id="re-blurS" x="-60%" y="-60%" width="220%" height="220%">
           <feGaussianBlur stdDeviation="3" />

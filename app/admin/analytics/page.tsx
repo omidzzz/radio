@@ -245,7 +245,7 @@ export default function AdminAnalyticsPage() {
                   </span>
                   <div className="flex-1">
                     <div
-                      className="h-6 rounded bg-gradient-to-r from-cyan-400 to-blue-500"
+                      className="h-6 rounded bg-gradient-to-r from-[#145c41] to-[#4c9b7a]"
                       style={{
                         width: `${(item.count / maxMessages) * 100}%`,
                         minWidth: "2px",

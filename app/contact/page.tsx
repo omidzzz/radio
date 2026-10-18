@@ -28,23 +28,23 @@ import {
 export const metadata: Metadata = {
   title: "تماس با ما",
   description:
-    "تماس با کلینیک پرتودرمانی: آدرس، تلفن، ایمیل و ساعات کاری. برای رزرو نوبت یا سوالات درمانی با ما در ارتباط باشید.",
+    "تماس با دکتر پری غدامگاهی: آدرس، تلفن، ایمیل و ساعات کاری. برای رزرو نوبت یا سوالات درمانی با ما در ارتباط باشید.",
   alternates: {
     canonical: "/contact",
   },
   openGraph: {
-    title: "تماس با ما | کلینیک پرتودرمانی",
+    title: "تماس با ما | دکتر پری غدامگاهی",
     description:
-      "تماس با کلینیک پرتودرمانی: آدرس، تلفن، ایمیل و ساعات کاری. برای رزرو نوبت یا سوالات درمانی با ما در ارتباط باشید.",
+      "تماس با دکتر پری غدامگاهی: آدرس، تلفن، ایمیل و ساعات کاری. برای رزرو نوبت یا سوالات درمانی با ما در ارتباط باشید.",
     type: "website",
     url: `${siteConfig.url}/contact`,
     images: [{ url: siteConfig.defaultOgImage, width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "تماس با ما | کلینیک پرتودرمانی",
+    title: "تماس با ما | دکتر پری غدامگاهی",
     description:
-      "تماس با کلینیک پرتودرمانی: آدرس، تلفن، ایمیل و ساعات کاری. برای رزرو نوبت یا سوالات درمانی با ما در ارتباط باشید.",
+      "تماس با دکتر پری غدامگاهی: آدرس، تلفن، ایمیل و ساعات کاری. برای رزرو نوبت یا سوالات درمانی با ما در ارتباط باشید.",
   },
 };
 
@@ -85,7 +85,7 @@ export default async function ContactPage() {
       <div className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute -left-48 top-10 h-[600px] w-[600px] rounded-full bg-primary/[0.07] blur-[140px]" />
         <div className="absolute -right-40 bottom-20 h-[520px] w-[520px] rounded-full bg-secondary/[0.09] blur-[120px]" />
-        <div className="absolute left-1/3 top-1/2 h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-cyan-400/[0.04] blur-[90px]" />
+        <div className="absolute left-1/3 top-1/2 h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-primary/[0.04] blur-[90px]" />
         <ParticleBackground id="particles-contact" className="text-muted" />
       </div>
 
@@ -132,7 +132,7 @@ export default async function ContactPage() {
 
           <a
             href="#form"
-            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-deep shadow-[0_0_28px_-4px_rgba(6,182,212,0.6)] transition-all hover:bg-primary-hover hover:shadow-[0_0_36px_-4px_rgba(6,182,212,0.75)]"
+            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-deep shadow-[0_0_28px_-4px_rgba(26,115,82,0.6)] transition-all hover:bg-primary-hover hover:shadow-[0_0_36px_-4px_rgba(26,115,82,0.75)]"
           >
             <span className="relative z-10">{dict.contact.sendMessage}</span>
             <ArrowIcon className="relative z-10 h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
@@ -161,7 +161,7 @@ export default async function ContactPage() {
               <div className="relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-border bg-surface shadow-[0_28px_60px_-22px_rgba(0,0,0,0.12)]">
                 {/* Energy bar */}
                 <div className="relative h-1.5 shrink-0 overflow-hidden bg-deep">
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary via-cyan-300 to-secondary" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary via-[#c9a24b] to-secondary" />
                   <div className="absolute inset-y-0 left-0 w-2/5 animate-pulse bg-white/25" />
                 </div>
 
@@ -196,7 +196,7 @@ export default async function ContactPage() {
                   directionsUrl={siteConfig.mapsDirectionsUrl}
                   loadLabel={dict.contact.loadMap}
                   openLabel={dict.contact.openInMaps}
-                  title="Google Maps - Radiotherapy Clinic"
+                  title="Google Maps - Dr. Pari Ghadamgahi"
                 />
 
                 <div className="border-t border-border px-6 py-4 text-sm leading-relaxed text-text-secondary">
@@ -301,7 +301,7 @@ export default async function ContactPage() {
               </p>
               <a
                 href={siteConfig.phoneHref}
-                className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-primary px-7 py-3 text-sm font-semibold text-deep shadow-[0_0_28px_-4px_rgba(6,182,212,0.6)] transition-all hover:bg-primary-hover hover:shadow-[0_0_36px_-4px_rgba(6,182,212,0.75)]"
+                className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-primary px-7 py-3 text-sm font-semibold text-deep shadow-[0_0_28px_-4px_rgba(26,115,82,0.6)] transition-all hover:bg-primary-hover hover:shadow-[0_0_36px_-4px_rgba(26,115,82,0.75)]"
               >
                 <PhoneCallIcon className="h-4 w-4" />
                 <span>{dict.contact.consultCta}</span>
@@ -331,7 +331,7 @@ export default async function ContactPage() {
               </div>
               <Link
                 href="/forum"
-                className="group relative inline-flex shrink-0 items-center gap-2 overflow-hidden rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-deep shadow-[0_0_26px_-5px_rgba(6,182,212,0.55)] transition-all hover:bg-primary-hover hover:shadow-[0_0_34px_-4px_rgba(6,182,212,0.7)]"
+                className="group relative inline-flex shrink-0 items-center gap-2 overflow-hidden rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-deep shadow-[0_0_26px_-5px_rgba(26,115,82,0.55)] transition-all hover:bg-primary-hover hover:shadow-[0_0_34px_-4px_rgba(26,115,82,0.7)]"
               >
                 <span className="relative z-10">{dict.contact.visitForum}</span>
                 <ArrowIcon className="relative z-10 h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />

@@ -57,7 +57,7 @@ export async function generateMetadata({
       canonical: url,
     },
     openGraph: {
-      title: `${post.title} | کلینیک پرتودرمانی`,
+      title: `${post.title} | دکتر پری غدامگاهی`,
       description: `پرسش و پاسخ درباره: ${post.title}`,
       type: "article",
       url: `${siteConfig.url}${url}`,
@@ -65,7 +65,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: `${post.title} | کلینیک پرتودرمانی`,
+      title: `${post.title} | دکتر پری غدامگاهی`,
       description: `پرسش و پاسخ درباره: ${post.title}`,
     },
   };
@@ -173,7 +173,7 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
       <div className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute -left-48 top-10 h-[600px] w-[600px] rounded-full bg-primary/[0.07] blur-[140px]" />
         <div className="absolute -right-40 bottom-20 h-[520px] w-[520px] rounded-full bg-secondary/[0.09] blur-[120px]" />
-        <div className="absolute left-1/3 top-1/2 h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-cyan-400/[0.04] blur-[90px]" />
+        <div className="absolute left-1/3 top-1/2 h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-primary/[0.04] blur-[90px]" />
 
         <ParticleBackground id="particles-forumpost" />
       </div>
@@ -309,7 +309,7 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
             <div className="overflow-hidden rounded-[1.75rem] border border-border/60 bg-surface shadow-[0_24px_50px_-18px_rgba(0,0,0,0.1)]">
               {/* Static gradient strip (no constant animation) */}
               <div className="relative h-1.5 overflow-hidden bg-deep">
-                <div className="absolute inset-0 bg-gradient-to-r from-primary via-cyan-300 to-secondary" />
+                <div className="absolute inset-0 bg-gradient-to-r from-primary via-[#c9a24b] to-secondary" />
               </div>
 
               <div className="relative p-7 sm:p-9">
@@ -386,7 +386,7 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
                 {/* Empty-state CTA — jump straight to the reply form */}
                 <a
                   href="#reply-form"
-                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-deep shadow-[0_0_20px_-6px_rgba(6,182,212,0.6)] transition hover:bg-primary-hover"
+                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-deep shadow-[0_0_20px_-6px_rgba(26,115,82,0.6)] transition hover:bg-primary-hover"
                 >
                   {dict.forum.postReply}
                 </a>
@@ -569,7 +569,7 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
               <div className="overflow-hidden rounded-[1.75rem] border border-border/60 bg-surface shadow-[0_24px_50px_-18px_rgba(0,0,0,0.1)]">
                 {/* Static gradient strip (no constant animation) */}
                 <div className="relative h-1.5 overflow-hidden bg-deep">
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary via-cyan-300 to-secondary" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary via-[#c9a24b] to-secondary" />
                 </div>
                 <div className="p-6 sm:p-8">
                   <ReplyForm postId={post.id} />

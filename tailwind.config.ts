@@ -8,11 +8,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: { DEFAULT: "#06b6d4", hover: "#22d3ee" },
-        highlight: "#22d3ee",
-        soft: "#ecfeff",
-        deep: "#020617",
-        secondary: { DEFAULT: "#14b8a6", hover: "#5eead4" },
+        primary: { DEFAULT: "#145c41", hover: "#1a7352" },
+        highlight: "#8f6d26",
+        soft: "#efeadb",
+        deep: "#0b2e22",
+        secondary: { DEFAULT: "#2e7d5b", hover: "#3e9a74" },
       },
       fontFamily: {
         vazir: ["var(--font-vazir)", "system-ui", "sans-serif"],

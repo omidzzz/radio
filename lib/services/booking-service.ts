@@ -87,7 +87,7 @@ export function generateBookingIcs(booking: BookingRecord): string {
   return [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
-    "PRODID:-//Radiotherapy Clinic//Booking//EN",
+    "PRODID:-//Dr. Pari Ghadamgahi//Booking//EN",
     "CALSCALE:GREGORIAN",
     "METHOD:PUBLISH",
     "BEGIN:VEVENT",
@@ -97,7 +97,7 @@ export function generateBookingIcs(booking: BookingRecord): string {
     `DTEND:${end}`,
     `SUMMARY:Clinic appointment #${booking.id}`,
     `DESCRIPTION:Session type: ${booking.session_type}. Status: ${booking.status}.`,
-    "LOCATION:Radiotherapy Clinic",
+    "LOCATION:Dr. Pari Ghadamgahi",
     "STATUS:TENTATIVE",
     "END:VEVENT",
     "END:VCALENDAR",

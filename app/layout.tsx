@@ -11,6 +11,7 @@ import { siteConfig } from "@/lib/seo";
 import {
   websiteSchema,
   medicalClinicSchema,
+  sitePhysicianSchema,
   treatmentProcessSchema,
   conversationalContentSchema,
   authoritativeSourceSchema,
@@ -130,7 +131,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#06b6d4" },
+    { media: "(prefers-color-scheme: light)", color: "#145c41" },
     { media: "(prefers-color-scheme: dark)", color: "#020617" },
   ],
   width: "device-width",
@@ -148,7 +149,7 @@ export default async function RootLayout({
   const dict = getDictionary(locale);
 
   const navbarStrings = {
-    clinicName: dict.common.clinicName,
+    doctorName: dict.common.doctorName,
     bookNow: dict.common.bookNow,
     toggleMenu: dict.nav.toggleMenu,
     nav: {
@@ -165,6 +166,7 @@ export default async function RootLayout({
 
   const jsonLd = [
     websiteSchema(),
+    sitePhysicianSchema(),
     medicalClinicSchema(),
     treatmentProcessSchema(),
     conversationalContentSchema(),

@@ -154,7 +154,7 @@ function SliderControls({
             resetTimer();
           }}
           aria-label={isFa ? "اسلاید قبلی" : "Previous slide"}
-          className="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-deep/40 text-white backdrop-blur-md transition-all duration-300 hover:border-primary/60 hover:bg-primary/20 hover:shadow-[0_0_20px_-4px_rgba(6,182,212,0.5)] active:scale-95"
+          className="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-deep/40 text-white backdrop-blur-md transition-all duration-300 hover:border-primary/60 hover:bg-primary/20 hover:shadow-[0_0_20px_-4px_rgba(26,115,82,0.5)] active:scale-95"
         >
           <svg
             className={`h-5 w-5 ${isFa ? "rotate-180" : ""}`}
@@ -173,7 +173,7 @@ function SliderControls({
             resetTimer();
           }}
           aria-label={isFa ? "اسلاید بعدی" : "Next slide"}
-          className="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-deep/40 text-white backdrop-blur-md transition-all duration-300 hover:border-primary/60 hover:bg-primary/20 hover:shadow-[0_0_20px_-4px_rgba(6,182,212,0.5)] active:scale-95"
+          className="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-deep/40 text-white backdrop-blur-md transition-all duration-300 hover:border-primary/60 hover:bg-primary/20 hover:shadow-[0_0_20px_-4px_rgba(26,115,82,0.5)] active:scale-95"
         >
           <svg
             className={`h-5 w-5 ${isFa ? "rotate-180" : ""}`}
@@ -222,7 +222,7 @@ function SliderControls({
             <span
               className={`h-2 w-2 rounded-full transition-all duration-300 ${
                 active === i
-                  ? "w-6 bg-primary shadow-[0_0_8px_rgba(6,182,212,0.8)]"
+                  ? "w-6 bg-primary shadow-[0_0_8px_rgba(26,115,82,0.8)]"
                   : "bg-white/30 group-hover:bg-white/60"
               }`}
             />

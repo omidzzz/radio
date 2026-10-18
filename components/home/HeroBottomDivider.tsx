@@ -14,11 +14,11 @@ export default function HeroBottomDivider() {
       >
         <defs>
           <linearGradient id="wave-accent" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#06b6d4" stopOpacity="0"/>
-            <stop offset="30%" stopColor="#22d3ee" stopOpacity="0.2"/>
-            <stop offset="50%" stopColor="#67e8f9" stopOpacity="0.3"/>
-            <stop offset="70%" stopColor="#22d3ee" stopOpacity="0.2"/>
-            <stop offset="100%" stopColor="#14b8a6" stopOpacity="0"/>
+            <stop offset="0%" stopColor="#145c41" stopOpacity="0"/>
+            <stop offset="30%" stopColor="#4c9b7a" stopOpacity="0.2"/>
+            <stop offset="50%" stopColor="#5fd3a6" stopOpacity="0.3"/>
+            <stop offset="70%" stopColor="#4c9b7a" stopOpacity="0.2"/>
+            <stop offset="100%" stopColor="#2e7d5b" stopOpacity="0"/>
           </linearGradient>
         </defs>
         {/* Background fill wave */}
@@ -40,7 +40,7 @@ export default function HeroBottomDivider() {
           d="M0,85 C180,65 360,105 540,90 C720,75 900,50 1080,78 C1260,106 1380,70 1440,68"
         />
         {/* Subtle dose tick at center */}
-        <circle cx="720" cy="82" r="2" fill="#22d3ee" opacity="0.4"/>
+        <circle cx="720" cy="82" r="2" fill="#4c9b7a" opacity="0.4"/>
       </svg>
     </div>
   );

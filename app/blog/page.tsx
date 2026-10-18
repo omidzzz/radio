@@ -79,7 +79,7 @@ export async function generateMetadata({
     description,
     alternates: { canonical },
     openGraph: {
-      title: `${title} | کلینیک پرتودرمانی`,
+      title: `${title} | دکتر پری غدامگاهی`,
       description,
       type: "website",
       url: `${siteConfig.url}${canonical}`,
@@ -87,7 +87,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | کلینیک پرتودرمانی`,
+      title: `${title} | دکتر پری غدامگاهی`,
       description,
     },
   };
@@ -160,7 +160,7 @@ export default async function BlogPage({
       <div className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute -left-48 top-10 h-[600px] w-[600px] rounded-full bg-primary/[0.07] blur-[140px]" />
         <div className="absolute -right-40 bottom-20 h-[520px] w-[520px] rounded-full bg-secondary/[0.09] blur-[120px]" />
-        <div className="absolute left-1/3 top-1/2 h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-cyan-400/[0.04] blur-[90px]" />
+        <div className="absolute left-1/3 top-1/2 h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-primary/[0.04] blur-[90px]" />
 
         <ParticleBackground id="particles-blog" className="text-muted" />
       </div>
@@ -306,7 +306,7 @@ export default async function BlogPage({
                     href={pageHref(item)}
                     className={`inline-flex h-10 w-10 items-center justify-center rounded-full text-sm font-semibold transition ${
                       item === page
-                        ? "bg-primary text-deep shadow-[0_0_20px_-4px_rgba(6,182,212,0.5)]"
+                        ? "bg-primary text-deep shadow-[0_0_20px_-4px_rgba(26,115,82,0.5)]"
                         : "border border-border/70 bg-surface text-text-secondary hover:border-primary/40 hover:text-primary"
                     }`}
                     aria-current={item === page ? "page" : undefined}

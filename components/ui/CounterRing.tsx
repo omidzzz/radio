@@ -87,9 +87,9 @@ export default function CounterRing({
           {/* Static gradient — the indefinite SMIL color cycling was removed;
               one dashoffset transition on reveal is the whole effect */}
           <linearGradient id={`ring-grad-${uniqueId}`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#06b6d4" />
-            <stop offset="50%" stopColor="#22d3ee" />
-            <stop offset="100%" stopColor="#14b8a6" />
+            <stop offset="0%" stopColor="#145c41" />
+            <stop offset="50%" stopColor="#4c9b7a" />
+            <stop offset="100%" stopColor="#2e7d5b" />
           </linearGradient>
         </defs>
 
@@ -99,7 +99,7 @@ export default function CounterRing({
           cy={center}
           r={radius}
           fill="none"
-          stroke="rgba(6, 182, 212, 0.08)"
+          stroke="rgba(26, 115, 82, 0.08)"
           strokeWidth={strokeWidth}
         />
         {/* Main progress arc */}

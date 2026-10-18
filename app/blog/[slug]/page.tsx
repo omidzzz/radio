@@ -93,7 +93,7 @@ export async function generateMetadata({
       canonical: url,
     },
     openGraph: {
-      title: `${title} | کلینیک پرتودرمانی`,
+      title: `${title} | دکتر پری غدامگاهی`,
       description,
       type: "article",
       url: `${siteConfig.url}${url}`,
@@ -112,7 +112,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | کلینیک پرتودرمانی`,
+      title: `${title} | دکتر پری غدامگاهی`,
       description,
       images: [
         post.image
@@ -210,7 +210,7 @@ export default async function BlogPostPage({
       <div className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute -left-48 top-10 h-[600px] w-[600px] rounded-full bg-primary/[0.07] blur-[140px]" />
         <div className="absolute -right-40 bottom-20 h-[520px] w-[520px] rounded-full bg-secondary/[0.09] blur-[120px]" />
-        <div className="absolute left-1/3 top-1/2 h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-cyan-400/[0.04] blur-[90px]" />
+        <div className="absolute left-1/3 top-1/2 h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-primary/[0.04] blur-[90px]" />
 
         <ParticleBackground id="particles-blogpost" />
       </div>
@@ -252,7 +252,7 @@ export default async function BlogPostPage({
                 priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-deep via-deep/40 to-transparent" />
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(6,182,212,0.12)_0%,transparent_65%)]" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(26,115,82,0.12)_0%,transparent_65%)]" />
               <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
             </div>
 
@@ -338,7 +338,7 @@ export default async function BlogPostPage({
                 >
                   {/* Energy bar */}
                   <div className="relative h-1.5 overflow-hidden bg-deep">
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary via-cyan-300 to-secondary" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary via-[#c9a24b] to-secondary" />
                     <div className="absolute inset-y-0 left-0 w-2/5 animate-pulse bg-white/25" />
                   </div>
 
@@ -428,7 +428,7 @@ export default async function BlogPostPage({
                   <div className="overflow-hidden rounded-[1.75rem] border border-border/60 bg-surface shadow-[0_24px_50px_-18px_rgba(0,0,0,0.1)]">
                     {/* Energy bar */}
                     <div className="relative h-1.5 overflow-hidden bg-deep">
-                      <div className="absolute inset-0 bg-gradient-to-r from-primary via-cyan-300 to-secondary" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-primary via-[#c9a24b] to-secondary" />
                       <div className="absolute inset-y-0 left-0 w-2/5 animate-pulse bg-white/25" />
                     </div>
 

@@ -12,32 +12,33 @@
 
 :root,
 [data-theme="light"] {
-  --color-deep: #020617;
-  --color-bg: #ffffff;
-  --color-surface: #ffffff;
-  --color-highlight: #22d3ee;
-  --color-soft: #ecfeff;
-  --color-text-primary: #0f172a;
-  --color-text-secondary: #475569;
-  --color-text-on-dark: #ffffff;
-  --color-muted: #94a3b8;
-  --color-border: #e2e8f0;
-  --color-success: #67e8f9;
+  /* ── Ivory / forest-green / gold palette (from Dr. Ghadamgahi's card) ── */
+  --color-deep: #0b2e22;
+  --color-bg: #f8f5ee;
+  --color-surface: #fffdf9;
+  --color-highlight: #8f6d26;
+  --color-soft: #efeadb;
+  --color-text-primary: #14251d;
+  --color-text-secondary: #465c51;
+  --color-text-on-dark: #fffbf2;
+  --color-muted: #8b9a91;
+  --color-border: #e3dcc9;
+  --color-success: #16a34a;
   --color-danger: #dc2626;
   --color-danger-soft: #fef2f2;
   --color-positive: #059669;
   --color-positive-soft: #ecfdf5;
-  --color-secondary: #14b8a6;
-  --color-secondary-hover: #5eead4;
-  --color-blog-dark: #05040f;
+  --color-secondary: #2e7d5b;
+  --color-secondary-hover: #3e9a74;
+  --color-blog-dark: #07211a;
   --font-vazirmatn: var(--font-vazirmatn), system-ui, sans-serif;
   --font-outfit: var(--font-outfit), system-ui, sans-serif;
 
-  /* Light theme uses a darker cyan (cyan-600) so text/icons rendered in the
-     primary color meet WCAG AA contrast on white surfaces. Hover/bright
-     accents stay on the vivid cyan. */
-  --color-primary: #0891b2;
-  --color-primary-hover: #06b6d4;
+  /* Light theme uses the deep forest green so text/icons rendered in the
+     primary color meet WCAG AA contrast on ivory surfaces. Hover/bright
+     accents lighten to the mid green. */
+  --color-primary: #145c41;
+  --color-primary-hover: #1a7352;
 
   /* Shared vertical rhythm for page sections — compact on mobile,
      generous on desktop without extra utilities per section. */
@@ -75,33 +76,33 @@
    up these values via var(--color-*).
    ═══════════════════════════════════════════ */
 [data-theme="dark"] {
-  --color-deep: #020617;
-  --color-bg: #0b1120;
-  --color-surface: #111a2e;
-  --color-primary: #22d3ee;
-  --color-primary-hover: #67e8f9;
-  --color-highlight: #67e8f9;
-  --color-soft: #0f1a2e;
-  --color-text-primary: #f1f5f9;
-  --color-text-secondary: #94a3b8;
-  --color-text-on-dark: #ffffff;
-  --color-muted: #64748b;
-  --color-border: #1e293b;
-  --color-success: #22d3ee;
+  --color-deep: #04120d;
+  --color-bg: #071a13;
+  --color-surface: #0e2a1f;
+  --color-primary: #3dbe8b;
+  --color-primary-hover: #5fd3a6;
+  --color-highlight: #d9b967;
+  --color-soft: #0f2c21;
+  --color-text-primary: #eaf3ee;
+  --color-text-secondary: #9db5a9;
+  --color-text-on-dark: #fffbf2;
+  --color-muted: #6f8779;
+  --color-border: #1d3b2e;
+  --color-success: #3dbe8b;
   --color-danger: #f87171;
   --color-danger-soft: rgba(248, 113, 113, 0.12);
   --color-positive: #34d399;
   --color-positive-soft: rgba(52, 211, 153, 0.12);
-  --color-secondary: #2dd4bf;
-  --color-secondary-hover: #5eead4;
-  --color-blog-dark: #05040f;
+  --color-secondary: #2fa377;
+  --color-secondary-hover: #5fd3a6;
+  --color-blog-dark: #04120d;
 
   /* Elevation — dark theme: hairline + glow instead of diffuse shadow */
-  --elevation-card: 0 0 0 1px rgba(34, 211, 238, 0.05),
+  --elevation-card: 0 0 0 1px rgba(76, 155, 122, 0.05),
     0 12px 32px -20px rgba(0, 0, 0, 0.9);
-  --elevation-card-hover: 0 0 0 1px rgba(34, 211, 238, 0.16),
+  --elevation-card-hover: 0 0 0 1px rgba(76, 155, 122, 0.16),
     0 18px 46px -22px rgba(0, 0, 0, 0.95),
-    0 0 34px -14px rgba(34, 211, 238, 0.3);
+    0 0 34px -14px rgba(76, 155, 122, 0.3);
 }
 
 @theme {
@@ -863,11 +864,11 @@ h6 {
 
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.35);
+    box-shadow: 0 0 0 0 rgba(26, 115, 82, 0.35);
   }
 
   50% {
-    box-shadow: 0 0 0 6px rgba(6, 182, 212, 0);
+    box-shadow: 0 0 0 6px rgba(26, 115, 82, 0);
   }
 }
 
@@ -971,11 +972,11 @@ h6 {
 
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.5);
+    box-shadow: 0 0 0 0 rgba(26, 115, 82, 0.5);
   }
 
   50% {
-    box-shadow: 0 0 0 6px rgba(6, 182, 212, 0);
+    box-shadow: 0 0 0 6px rgba(26, 115, 82, 0);
   }
 }
 
@@ -1052,8 +1053,8 @@ h6 {
 /* Treatment planning grid — faint PACS-style crosshair grid */
 .planning-grid {
   background-image:
-    linear-gradient(rgba(6, 182, 212, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(6, 182, 212, 0.06) 1px, transparent 1px);
+    linear-gradient(rgba(26, 115, 82, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26, 115, 82, 0.06) 1px, transparent 1px);
   background-size: 48px 48px;
 }
 
@@ -1062,9 +1063,9 @@ h6 {
    positions keep it RTL-safe. */
 .footer-glow {
   background:
-    radial-gradient(18rem 18rem at 8% 0%, rgba(6, 182, 212, 0.10), transparent 70%),
-    radial-gradient(16rem 16rem at 95% 100%, rgba(20, 184, 166, 0.08), transparent 70%),
-    radial-gradient(10rem 10rem at 50% 50%, rgba(34, 211, 238, 0.05), transparent 70%);
+    radial-gradient(18rem 18rem at 8% 0%, rgba(26, 115, 82, 0.10), transparent 70%),
+    radial-gradient(16rem 16rem at 95% 100%, rgba(46, 125, 91, 0.08), transparent 70%),
+    radial-gradient(10rem 10rem at 50% 50%, rgba(76, 155, 122, 0.05), transparent 70%);
 }
 
 /* Theme-aware Google Maps embed: normal map in light theme,
@@ -1079,7 +1080,7 @@ h6 {
 
 /* Dose-color gradient — blue → green → yellow → red (planning color-wash) */
 .dose-gradient {
-  background: linear-gradient(90deg, #06b6d4, #14b8a6, #84cc16, #f59e0b, #ef4444);
+  background: linear-gradient(90deg, #145c41, #2e7d5b, #84cc16, #f59e0b, #ef4444);
 }
 
 /* ═══════════════════════════════════════════
@@ -1218,7 +1219,7 @@ h6 {
   border-radius: inherit;
   transition: opacity 0.4s ease;
   background: radial-gradient(480px circle at var(--spot-x, 50%) var(--spot-y, 50%),
-      var(--spot-color, rgba(6, 182, 212, 0.14)),
+      var(--spot-color, rgba(26, 115, 82, 0.14)),
       transparent 65%);
 }
 
@@ -1270,8 +1271,8 @@ h6 {
   padding: 2px;
   background: conic-gradient(from var(--conic-angle),
       transparent 0%,
-      rgba(6, 182, 212, 0.9) 12%,
-      rgba(34, 211, 238, 0.5) 20%,
+      rgba(26, 115, 82, 0.9) 12%,
+      rgba(76, 155, 122, 0.5) 20%,
       transparent 32%,
       transparent 100%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -1388,7 +1389,7 @@ h6 {
   pointer-events: none;
   border-radius: inherit;
   background: radial-gradient(circle at 50% 50%,
-      rgba(6, 182, 212, 0.18),
+      rgba(26, 115, 82, 0.18),
       transparent 70%);
   opacity: 0;
   transition: opacity 1.2s ease;
@@ -1407,7 +1408,7 @@ h6 {
   border-radius: inherit;
   background: linear-gradient(100deg,
       transparent 20%,
-      rgba(34, 211, 238, 0.12) 50%,
+      rgba(76, 155, 122, 0.12) 50%,
       transparent 80%);
   transform: translateX(-120%);
   opacity: 0;
@@ -1432,8 +1433,8 @@ h6 {
   pointer-events: none;
   z-index: 5;
   background: radial-gradient(circle,
-      rgba(6, 182, 212, 0.12),
-      rgba(34, 211, 238, 0.05) 40%,
+      rgba(26, 115, 82, 0.12),
+      rgba(76, 155, 122, 0.05) 40%,
       transparent 70%);
   opacity: 0;
   transition: opacity 0.5s ease;
@@ -1458,8 +1459,8 @@ h6 {
   z-index: 60;
   pointer-events: none;
   transform-origin: 0 0;
-  background: linear-gradient(90deg, #06b6d4, #22d3ee, #14b8a6);
-  box-shadow: 0 0 12px rgba(6, 182, 212, 0.6);
+  background: linear-gradient(90deg, #145c41, #4c9b7a, #c9a24b);
+  box-shadow: 0 0 12px rgba(26, 115, 82, 0.6);
 }
 
 [dir="rtl"] .scroll-progress {
@@ -1950,10 +1951,10 @@ h6 {
   padding: 1px;
   background: linear-gradient(
     135deg,
-    rgba(34, 211, 238, 0.65),
+    rgba(76, 155, 122, 0.65),
     transparent 40%,
     transparent 60%,
-    rgba(20, 184, 166, 0.45)
+    rgba(46, 125, 91, 0.45)
   );
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
@@ -2277,7 +2278,7 @@ h6 {
 }
 .elastic-hover:hover {
   transform: scale(1.05);
-  box-shadow: 0 8px 30px -8px rgba(6, 182, 212, 0.25);
+  box-shadow: 0 8px 30px -8px rgba(26, 115, 82, 0.25);
 }
 
 .elastic-hover-sm {
@@ -2285,7 +2286,7 @@ h6 {
 }
 .elastic-hover-sm:hover {
   transform: scale(1.03);
-  box-shadow: 0 4px 20px -6px rgba(6, 182, 212, 0.2);
+  box-shadow: 0 4px 20px -6px rgba(26, 115, 82, 0.2);
 }
 
 .elastic-hover-lg {
@@ -2293,7 +2294,7 @@ h6 {
 }
 .elastic-hover-lg:hover {
   transform: scale(1.08);
-  box-shadow: 0 12px 40px -10px rgba(6, 182, 212, 0.35);
+  box-shadow: 0 12px 40px -10px rgba(26, 115, 82, 0.35);
 }
 
 /* ─── Premium Ripple Click Effect with Glow ─── */
@@ -2311,7 +2312,7 @@ h6 {
   margin-top: -50%;
   margin-left: -50%;
   border-radius: 9999px;
-  background: radial-gradient(circle, rgba(6, 182, 212, 0.35) 0%, rgba(34, 211, 238, 0.15) 40%, transparent 70%);
+  background: radial-gradient(circle, rgba(26, 115, 82, 0.35) 0%, rgba(76, 155, 122, 0.15) 40%, transparent 70%);
   transform: scale(0);
   opacity: 0;
   pointer-events: none;
@@ -2334,15 +2335,15 @@ h6 {
    for perf: a fullscreen opacity animation is never worth the cost) ─── */
 .breathing-grid {
   background-image:
-    linear-gradient(rgba(6, 182, 212, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(6, 182, 212, 0.06) 1px, transparent 1px);
+    linear-gradient(rgba(26, 115, 82, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26, 115, 82, 0.06) 1px, transparent 1px);
   background-size: 48px 48px;
 }
 
 .breathing-grid-dense {
   background-image:
-    linear-gradient(rgba(6, 182, 212, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(6, 182, 212, 0.05) 1px, transparent 1px);
+    linear-gradient(rgba(26, 115, 82, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26, 115, 82, 0.05) 1px, transparent 1px);
   background-size: 28px 28px;
 }
 
@@ -2409,7 +2410,7 @@ h6 {
 }
 .counter-ring circle.track {
   fill: none;
-  stroke: rgba(6, 182, 212, 0.1);
+  stroke: rgba(26, 115, 82, 0.1);
 }
 .counter-ring circle.progress {
   fill: none;

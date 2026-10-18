@@ -26,8 +26,8 @@ interface MorphingBlobProps {
  * Respects prefers-reduced-motion.
  */
 export default function MorphingBlob({
-  color = "rgba(6, 182, 212, 0.06)",
-  colorSecondary = "rgba(20, 184, 166, 0.04)",
+  color = "rgba(26, 115, 82, 0.06)",
+  colorSecondary = "rgba(46, 125, 91, 0.04)",
   size = 300,
   blur = 80,
   speed = "slow",

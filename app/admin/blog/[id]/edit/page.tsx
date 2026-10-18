@@ -96,8 +96,8 @@ export default function EditBlogPostPage({ params }: { params: Promise<{ id: str
     <div className="min-h-screen bg-blog-dark overflow-x-hidden relative">
       {/* Celestial Background Pattern */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(at_20%_40%,rgba(6,182,212,0.08)_0%,transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(at_80%_60%,rgba(34,211,238,0.06)_0%,transparent_55%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(at_20%_40%,rgba(26,115,82,0.08)_0%,transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(at_80%_60%,rgba(76,155,122,0.06)_0%,transparent_55%)]" />
 
         <svg
           className="absolute inset-0 w-full h-full opacity-55"
@@ -112,11 +112,11 @@ export default function EditBlogPostPage({ params }: { params: Promise<{ id: str
               height="125"
               patternUnits="userSpaceOnUse"
             >
-              <circle cx="20" cy="30" r="1" fill="#22d3ee" />
-              <circle cx="55" cy="80" r="0.8" fill="#67e8f9" />
-              <circle cx="95" cy="25" r="1.2" fill="#22d3ee" />
-              <circle cx="35" cy="105" r="0.7" fill="#67e8f9" />
-              <circle cx="110" cy="95" r="0.9" fill="#22d3ee" />
+              <circle cx="20" cy="30" r="1" fill="#4c9b7a" />
+              <circle cx="55" cy="80" r="0.8" fill="#5fd3a6" />
+              <circle cx="95" cy="25" r="1.2" fill="#4c9b7a" />
+              <circle cx="35" cy="105" r="0.7" fill="#5fd3a6" />
+              <circle cx="110" cy="95" r="0.9" fill="#4c9b7a" />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#stars-admin-blog-edit)" />

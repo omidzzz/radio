@@ -82,8 +82,8 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-primary-hover" />
               </span>
               {isFa
-                ? "تکنولوژی پیشرفته تصویربرداری"
-                : "Advanced Imaging Technology"}
+                ? "متخصص رادیوتراپی و آنکولوژی"
+                : "Radiotherapy & Oncology Specialist"}
             </div>
 
             <h1 className="anim-fade-up delay-300 fluid-display mt-7 font-extrabold text-white">
@@ -99,17 +99,17 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
 
             {/* Live next-slot micro CTA — opens booking modal */}
             <div className="anim-fade-up delay-450 mt-5 inline-flex">
-              <LiveSlotBadge isFa={isFa} className="transition-all duration-300 hover:border-primary/70 hover:bg-primary/20 hover:shadow-[0_0_20px_-4px_rgba(6,182,212,0.5)]" />
+              <LiveSlotBadge isFa={isFa} className="transition-all duration-300 hover:border-primary/70 hover:bg-primary/20 hover:shadow-[0_0_20px_-4px_rgba(26,115,82,0.5)]" />
             </div>
 
             <div className="anim-fade-up delay-500 mt-10 flex flex-wrap gap-4">
             <MagneticButton
               as={Link}
-              href="/forum"
+              href="/booking"
               strength={0.2}
               className="conic-border rounded-full"
             >
-                <span className="btn-sheen group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-primary px-8 py-3.5 text-base font-semibold text-deep shadow-[0_0_45px_-6px_rgba(6,182,212,0.75)] transition-colors duration-200 hover:bg-primary-hover active:scale-[0.97]">
+                <span className="btn-sheen group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-primary px-8 py-3.5 text-base font-semibold text-deep shadow-[0_0_45px_-6px_rgba(26,115,82,0.75)] transition-colors duration-200 hover:bg-primary-hover active:scale-[0.97]">
                   <span className="relative flex items-center gap-2" dir="ltr">
                     {dict.home.bookConsultation}
                     <svg

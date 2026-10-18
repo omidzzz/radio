@@ -93,7 +93,7 @@ function renderRows(rows: [string, string][]): string {
 function wrapHtml(title: string, bodyHtml: string): string {
   return `<!doctype html><html><body style="font-family:sans-serif;background:#f8fafc;padding:24px">
   <div style="max-width:560px;margin:auto;background:#fff;border-radius:12px;border:1px solid #e2e8f0">
-    <div style="background:#020617;color:#22d3ee;padding:16px 24px;border-radius:12px 12px 0 0;font-weight:bold">
+    <div style="background:#020617;color:#4c9b7a;padding:16px 24px;border-radius:12px 12px 0 0;font-weight:bold">
       ${escapeHtml(title)}
     </div>
     <table style="width:100%;border-collapse:collapse;font-size:14px;color:#0f172a">

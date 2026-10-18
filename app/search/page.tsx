@@ -14,7 +14,7 @@ import type { SearchResult } from "@/lib/services/search-service";
 export const metadata: Metadata = {
   title: "جستجو",
   description:
-    "جستجو در مقالات تخصصی و انجمن گفتگوی کلینیک پرتودرمانی درباره پرتودرمانی، درمان سرطان و تصویربرداری پزشکی.",
+    "جستجو در مقالات تخصصی و انجمن گفتگوی دکتر پری غدامگاهی درباره پرتودرمانی، درمان سرطان و تصویربرداری پزشکی.",
   alternates: {
     canonical: "/search",
   },

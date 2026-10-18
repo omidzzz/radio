@@ -9,7 +9,7 @@ interface PrecisionProps {
 
 /** Isodose legend swatches — the same stops the heatmap interpolates */
 const LEGEND = [
-  { color: "rgba(20, 184, 166, 0.9)", en: "95% isodose", fa: "۹۵٪ ایزودوز" },
+  { color: "rgba(46, 125, 91, 0.9)", en: "95% isodose", fa: "۹۵٪ ایزودوز" },
   { color: "rgba(245, 158, 11, 0.95)", en: "100% isodose", fa: "۱۰۰٪ ایزودوز" },
   { color: "rgba(239, 68, 68, 0.95)", en: "110% hotspot", fa: "نقاط داغ ۱۱۰٪" },
 ];

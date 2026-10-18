@@ -1,6 +1,7 @@
 import { getServerDictionary } from "@/lib/i18n/server";
 import HeroSlider from "@/components/home/HeroSlider";
 import TrustStrip from "@/components/home/TrustStrip";
+import AreasOfExpertise from "@/components/home/AreasOfExpertise";
 import Features from "@/components/home/Features";
 import Process from "@/components/home/Process";
 import Equipment from "@/components/home/Equipment";
@@ -42,16 +43,16 @@ export default async function HomePage() {
           }
         >
           <MorphingBlob
-            color="rgba(6, 182, 212, 0.07)"
-            colorSecondary="rgba(34, 211, 238, 0.04)"
+            color="rgba(26, 115, 82, 0.07)"
+            colorSecondary="rgba(76, 155, 122, 0.04)"
             size={400}
             blur={80}
             speed="slow"
             className="absolute -left-32 top-[15%]"
           />
           <MorphingBlob
-            color="rgba(20, 184, 166, 0.05)"
-            colorSecondary="rgba(6, 182, 212, 0.03)"
+            color="rgba(46, 125, 91, 0.05)"
+            colorSecondary="rgba(26, 115, 82, 0.03)"
             size={420}
             blur={80}
             speed="medium"
@@ -81,6 +82,7 @@ export default async function HomePage() {
         <HeroSlider dict={dict} isFa={isFa} />
       </HeroEntrance>
       <TrustStrip isFa={isFa} />
+      <AreasOfExpertise dict={dict} isFa={isFa} />
       <Features dict={dict} isFa={isFa} />
       {/* Below-the-fold sections skip offscreen rendering/painting until
           scrolled into view (content-visibility: auto) */}

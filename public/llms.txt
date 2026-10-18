@@ -1,17 +1,18 @@
-# Radiotherapy Clinic - AI Assistant Guide
+# Dr. Pari Ghadamgahi - AI Assistant Guide
 
-> Specialized radiotherapy and cancer treatment center providing professional radiation therapy, diagnostic imaging, and patient support services in Tehran, Iran.
+> Personal portfolio of Dr. Pari Ghadamgahi, specialist in radiotherapy and oncology in Tehran, Iran — radiotherapy and radiosurgery with a focus on CNS, head and neck, gynecologic (GYN), gastrointestinal (GI), breast, prostate and genitourinary (GU) cancers.
 
-## About This Clinic
+## About Dr. Pari Ghadamgahi
 
-The Radiotherapy Clinic (کلینیک پرتودرمانی) is a specialized medical center offering comprehensive cancer treatment services. We combine advanced technology with experienced medical professionals to provide personalized care for every patient.
+Dr. Pari Ghadamgahi (دکتر پری غدامگاهی) is a specialist in radiotherapy and oncology. Her practice combines advanced radiotherapy technology with experienced clinical staff to provide personalized, patient-centred care for every patient.
 
 **Core Identity:**
-- **Name:** Radiotherapy Clinic | کلینیک پرتودرمانی
-- **Type:** MedicalClinic (Healthcare Organization)
-- **Primary Specialty:** Radiation Oncology
-- **Location:** Tehran, Iran
-- **Entity ID:** https://yourdomain.com/#organization
+- **Name:** Dr. Pari Ghadamgahi | دکتر پری غدامگاهی
+- **Type:** Physician (Healthcare Professional)
+- **Primary Specialty:** Radiotherapy & Oncology (Radiation Oncology)
+- **Focus areas:** CNS · Head & Neck · GYN · GI · Breast · Prostate · GU
+- **Location:** Tehran, Iran — Valiasr St., opposite Day Hospital ER, Day Medical Tower, 10th Floor, Unit C
+- **Entity ID:** https://yourdomain.com/#physician
 
 ## Services We Provide
 
@@ -57,9 +58,9 @@ Comprehensive care throughout the treatment journey, including:
 
 ## Contact Information
 
-- **Phone:** +1 (234) 567-890
+- **Phone:** 021 8870 9650 / **Mobile:** 0912 459 9949
 - **Email:** info@radiotherapyclinic.com
-- **Address:** 123 Medical Center Blvd, Tehran, Iran
+- **Address:** Valiasr St., opposite Day Hospital ER, Day Medical Tower, 10th Floor, Unit C, Tehran, Iran
 - **Hours:** Saturday-Thursday: 8:00 AM - 5:00 PM | Friday: Closed
 - **Website:** https://yourdomain.com
 
@@ -81,7 +82,7 @@ A: Yes. Modern radiotherapy is highly precise and targets only the tumor while m
 A: A typical radiation therapy session lasts 15-30 minutes. The actual radiation delivery takes only a few minutes; the remaining time is used for patient positioning and imaging verification to ensure precise treatment delivery.
 
 ### Q: How do I book an appointment?
-A: You can book an appointment online through our [booking page](https://yourdomain.com/booking) or by calling +1 (234) 567-890. Most consultation slots are confirmed within two minutes. We recommend booking in advance for the best availability.
+A: You can book an appointment online through our [booking page](https://yourdomain.com/booking) or by calling 021 8870 9650 / 0912 459 9949. Most consultation slots are confirmed within two minutes. We recommend booking in advance for the best availability.
 
 ### Q: Do I need a referral from a physician?
 A: While a referral from a physician is recommended, it is not always required. Contact our clinic to discuss your situation and determine the best path forward. Our team will guide you through the process.

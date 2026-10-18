@@ -8,7 +8,7 @@ import SearchDropdown from "./SearchDropdown";
 import LiveSlotBadge from "@/components/ui/LiveSlotBadge";
 
 export interface NavbarStrings {
-  clinicName: string;
+  doctorName: string;
   bookNow: string;
   toggleMenu: string;
   nav: {
@@ -94,12 +94,12 @@ export default function Navbar({ strings, isFa }: NavbarProps) {
         <nav className="relative mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6 lg:px-8">
           {/* Logo — glow only on hover so idle navbar stays cheap */}
           <Link href="/" className="group flex shrink-0 items-center gap-3">
-            <span className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-primary to-secondary text-lg font-bold text-deep transition-all duration-300 group-hover:scale-[1.04] group-hover:shadow-[0_0_28px_-4px_rgba(6,182,212,0.7)]">
+            <span className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-primary to-secondary text-lg font-bold text-deep transition-all duration-300 group-hover:scale-[1.04] group-hover:shadow-[0_0_28px_-4px_rgba(26,115,82,0.7)]">
               <span className="relative z-10">R</span>
               <span className="absolute inset-0 bg-gradient-to-tr from-white/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
             </span>
             <span className="text-lg font-semibold tracking-tight text-text-primary transition-colors duration-300 group-hover:text-primary">
-              {strings.clinicName}
+              {strings.doctorName}
             </span>
           </Link>
 

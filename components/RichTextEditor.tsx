@@ -141,12 +141,12 @@ export default function RichTextEditor({
           direction: ${dir};
         }
         .rich-text-editor .ql-toolbar {
-          border: 1px solid rgba(6, 182, 212, 0.3);
+          border: 1px solid rgba(26, 115, 82, 0.3);
           border-radius: 0.5rem 0.5rem 0 0;
           background: rgba(15, 23, 42, 0.8);
         }
         .rich-text-editor .ql-container {
-          border: 1px solid rgba(6, 182, 212, 0.3);
+          border: 1px solid rgba(26, 115, 82, 0.3);
           border-top: none;
           border-radius: 0 0 0.5rem 0.5rem;
           background: rgba(15, 23, 42, 0.5);
@@ -186,7 +186,7 @@ export default function RichTextEditor({
           max-width: 100%;
         }
         .rich-text-editor a {
-          color: #22d3ee;
+          color: #4c9b7a;
         }
         .rich-text-editor h1,
         .rich-text-editor h2,
@@ -202,14 +202,14 @@ export default function RichTextEditor({
           flex-wrap: wrap;
           gap: 4px;
           padding: 8px;
-          border: 1px solid rgba(6, 182, 212, 0.3);
+          border: 1px solid rgba(26, 115, 82, 0.3);
           border-radius: 0.5rem 0.5rem 0 0;
           background: rgba(15, 23, 42, 0.8);
         }
         .editor-toolbar button {
           padding: 6px 10px;
-          background: rgba(6, 182, 212, 0.1);
-          border: 1px solid rgba(6, 182, 212, 0.3);
+          background: rgba(26, 115, 82, 0.1);
+          border: 1px solid rgba(26, 115, 82, 0.3);
           border-radius: 4px;
           color: rgba(255, 255, 255, 0.8);
           cursor: pointer;
@@ -218,24 +218,24 @@ export default function RichTextEditor({
           transition: all 0.2s;
         }
         .editor-toolbar button:hover {
-          background: rgba(6, 182, 212, 0.3);
-          color: #22d3ee;
+          background: rgba(26, 115, 82, 0.3);
+          color: #4c9b7a;
         }
         .editor-toolbar button.active {
-          background: rgba(6, 182, 212, 0.4);
-          color: #22d3ee;
+          background: rgba(26, 115, 82, 0.4);
+          color: #4c9b7a;
         }
         .editor-toolbar select {
           padding: 6px 10px;
           background: rgba(15, 23, 42, 0.8);
-          border: 1px solid rgba(6, 182, 212, 0.3);
+          border: 1px solid rgba(26, 115, 82, 0.3);
           border-radius: 4px;
           color: rgba(255, 255, 255, 0.8);
           cursor: pointer;
           font-size: 14px;
         }
         .editor-content {
-          border: 1px solid rgba(6, 182, 212, 0.3);
+          border: 1px solid rgba(26, 115, 82, 0.3);
           border-top: none;
           border-radius: 0 0 0.5rem 0.5rem;
           background: rgba(15, 23, 42, 0.5);
@@ -272,7 +272,7 @@ export default function RichTextEditor({
           max-width: 100%;
         }
         .editor-content a {
-          color: #22d3ee;
+          color: #4c9b7a;
         }
         .editor-content h1,
         .editor-content h2,

@@ -151,9 +151,9 @@ export default function RadiotherapyScene() {
       style={{ perspective: "1200px" }}
     >
       {/* === BACKGROUND === */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_25%,rgba(6,182,212,0.15),transparent_55%),radial-gradient(ellipse_at_80%_85%,rgba(139,92,246,0.12),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_25%,rgba(26,115,82,0.15),transparent_55%),radial-gradient(ellipse_at_80%_85%,rgba(139,92,246,0.12),transparent_50%)]" />
       <div className="absolute inset-0 bg-gradient-to-b from-[#050d12] via-[#071520] to-[#0a1a24]" />
-      <div className="absolute bottom-0 left-1/2 h-1/3 w-3/4 -translate-x-1/2 bg-[radial-gradient(ellipse_at_50%_100%,rgba(6,182,212,0.06),transparent)]" />
+      <div className="absolute bottom-0 left-1/2 h-1/3 w-3/4 -translate-x-1/2 bg-[radial-gradient(ellipse_at_50%_100%,rgba(26,115,82,0.06),transparent)]" />
 
       {/* Parallax grid */}
       <div
@@ -270,9 +270,9 @@ export default function RadiotherapyScene() {
 
             {/* === GLOW FILTERS === */}
             <radialGradient id="isocenterGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#67e8f9" stopOpacity="0.6" />
-              <stop offset="40%" stopColor="#22d3ee" stopOpacity="0.2" />
-              <stop offset="100%" stopColor="#22d3ee" stopOpacity="0" />
+              <stop offset="0%" stopColor="#5fd3a6" stopOpacity="0.6" />
+              <stop offset="40%" stopColor="#4c9b7a" stopOpacity="0.2" />
+              <stop offset="100%" stopColor="#4c9b7a" stopOpacity="0" />
             </radialGradient>
             <radialGradient id="targetGlow" cx="50%" cy="50%" r="50%">
               <stop offset="0%" stopColor="#fbbf24" stopOpacity="0.8" />
@@ -378,7 +378,7 @@ export default function RadiotherapyScene() {
                 y1="3"
                 x2="10"
                 y2="3"
-                stroke="#67e8f9"
+                stroke="#5fd3a6"
                 strokeOpacity="0.15"
                 strokeWidth="0.4"
               />
@@ -399,7 +399,7 @@ export default function RadiotherapyScene() {
             cy="300"
             rx="190"
             ry="18"
-            stroke="#22d3ee"
+            stroke="#4c9b7a"
             strokeOpacity="0.08"
             strokeWidth="1"
           />
@@ -410,7 +410,7 @@ export default function RadiotherapyScene() {
             <path
               d="M370 280 L410 280 L420 300 L360 300 Z"
               fill="#0a1a24"
-              stroke="#22d3ee"
+              stroke="#4c9b7a"
               strokeOpacity="0.3"
               strokeWidth="1.2"
             />
@@ -426,7 +426,7 @@ export default function RadiotherapyScene() {
               height="170"
               rx="2"
               fill="url(#metalMid)"
-              stroke="#22d3ee"
+              stroke="#4c9b7a"
               strokeOpacity="0.4"
               strokeWidth="1.5"
             />
@@ -436,7 +436,7 @@ export default function RadiotherapyScene() {
               y1="120"
               x2="400"
               y2="120"
-              stroke="#22d3ee"
+              stroke="#4c9b7a"
               strokeOpacity="0.2"
               strokeWidth="0.8"
             />
@@ -445,7 +445,7 @@ export default function RadiotherapyScene() {
               y1="140"
               x2="400"
               y2="140"
-              stroke="#22d3ee"
+              stroke="#4c9b7a"
               strokeOpacity="0.15"
               strokeWidth="0.8"
             />
@@ -478,7 +478,7 @@ export default function RadiotherapyScene() {
               height="12"
               rx="1"
               fill="#071520"
-              stroke="#22d3ee"
+              stroke="#4c9b7a"
               strokeOpacity="0.3"
               strokeWidth="0.8"
             />
@@ -486,7 +486,7 @@ export default function RadiotherapyScene() {
               x="385"
               y="247"
               fontSize="2.5"
-              fill="#22d3ee"
+              fill="#4c9b7a"
               fillOpacity="0.6"
               fontFamily="monospace"
             >
@@ -496,7 +496,7 @@ export default function RadiotherapyScene() {
               cx="393"
               cy="245"
               r="1.5"
-              fill="#22d3ee"
+              fill="#4c9b7a"
               fillOpacity="0.5"
             />
             {/* Status LEDs */}
@@ -504,7 +504,7 @@ export default function RadiotherapyScene() {
               cx="383"
               cy="124"
               r="2.5"
-              fill="#22d3ee"
+              fill="#4c9b7a"
               fillOpacity="0.9"
               className="breathe"
               filter="url(#glow)"
@@ -520,7 +520,7 @@ export default function RadiotherapyScene() {
               cx="397"
               cy="124"
               r="2.5"
-              fill="#22d3ee"
+              fill="#4c9b7a"
               fillOpacity="0.4"
             />
             {/* Brand label */}
@@ -528,7 +528,7 @@ export default function RadiotherapyScene() {
               x="382"
               y="134"
               fontSize="2.8"
-              fill="#22d3ee"
+              fill="#4c9b7a"
               fillOpacity="0.3"
               fontFamily="sans-serif"
               fontWeight="bold"
@@ -566,7 +566,7 @@ export default function RadiotherapyScene() {
             {/* Inner bearing track */}
             <path
               d="M255 70 A90 90 0 0 1 345 160 A90 90 0 0 1 255 250 A90 90 0 0 1 165 160 A90 90 0 0 1 255 70"
-              stroke="#67e8f9"
+              stroke="#5fd3a6"
               strokeOpacity="0.2"
               strokeWidth="2"
               fill="none"
@@ -574,7 +574,7 @@ export default function RadiotherapyScene() {
             {/* Gear teeth (rotating) */}
             <path
               d="M255 70 A90 90 0 0 1 345 160 A90 90 0 0 1 255 250 A90 90 0 0 1 165 160 A90 90 0 0 1 255 70"
-              stroke="#22d3ee"
+              stroke="#4c9b7a"
               strokeOpacity="0.1"
               strokeWidth="4"
               strokeDasharray="4 6"
@@ -597,7 +597,7 @@ export default function RadiotherapyScene() {
                   y1={y1}
                   x2={x2}
                   y2={y2}
-                  stroke="#67e8f9"
+                  stroke="#5fd3a6"
                   strokeOpacity={isMajor ? 0.6 : 0.2}
                   strokeWidth={isMajor ? 2.5 : 1}
                 />
@@ -614,7 +614,7 @@ export default function RadiotherapyScene() {
                   x={x}
                   y={y}
                   fontSize="5"
-                  fill="#67e8f9"
+                  fill="#5fd3a6"
                   fillOpacity="0.4"
                   fontFamily="monospace"
                   textAnchor="middle"
@@ -629,7 +629,7 @@ export default function RadiotherapyScene() {
               cy="58"
               r="14"
               fill="url(#metalDark)"
-              stroke="#22d3ee"
+              stroke="#4c9b7a"
               strokeOpacity="0.4"
               strokeWidth="1.5"
             />
@@ -638,12 +638,12 @@ export default function RadiotherapyScene() {
               cy="262"
               r="14"
               fill="url(#metalDark)"
-              stroke="#22d3ee"
+              stroke="#4c9b7a"
               strokeOpacity="0.4"
               strokeWidth="1.5"
             />
-            <circle cx="255" cy="58" r="5" fill="#67e8f9" fillOpacity="0.5" />
-            <circle cx="255" cy="262" r="5" fill="#67e8f9" fillOpacity="0.5" />
+            <circle cx="255" cy="58" r="5" fill="#5fd3a6" fillOpacity="0.5" />
+            <circle cx="255" cy="262" r="5" fill="#5fd3a6" fillOpacity="0.5" />
             {/* Gantry angle indicator */}
             <polygon
               points="255,50 249,62 261,62"
@@ -673,7 +673,7 @@ export default function RadiotherapyScene() {
               cx="255"
               cy="160"
               r="72"
-              stroke="#67e8f9"
+              stroke="#5fd3a6"
               strokeOpacity="0.15"
               strokeWidth="2"
               strokeDasharray="6 8"
@@ -682,7 +682,7 @@ export default function RadiotherapyScene() {
               cx="255"
               cy="160"
               r="72"
-              stroke="#22d3ee"
+              stroke="#4c9b7a"
               strokeOpacity="0.05"
               strokeWidth="5"
               strokeDasharray="2 12"
@@ -691,7 +691,7 @@ export default function RadiotherapyScene() {
 
           {/* === ORBITING PARTICLES (Bokeh) === */}
           <g className="spin-slower" style={{ transformOrigin: "255px 160px" }}>
-            <circle cx="255" cy="58" r="4" fill="#67e8f9" filter="url(#glow)" />
+            <circle cx="255" cy="58" r="4" fill="#5fd3a6" filter="url(#glow)" />
             <circle
               cx="255"
               cy="262"
@@ -715,7 +715,7 @@ export default function RadiotherapyScene() {
               cx="153"
               cy="160"
               r="2.8"
-              fill="#67e8f9"
+              fill="#5fd3a6"
               filter="url(#glow)"
             />
           </g>
@@ -724,7 +724,7 @@ export default function RadiotherapyScene() {
               cx="312"
               cy="88"
               r="2.2"
-              fill="#67e8f9"
+              fill="#5fd3a6"
               fillOpacity="0.8"
               filter="url(#glow)"
             />
@@ -740,7 +740,7 @@ export default function RadiotherapyScene() {
               cx="325"
               cy="225"
               r="1.8"
-              fill="#67e8f9"
+              fill="#5fd3a6"
               fillOpacity="0.6"
               filter="url(#glow)"
             />
@@ -775,7 +775,7 @@ export default function RadiotherapyScene() {
             cx="255"
             cy="160"
             r="46"
-            stroke="#22d3ee"
+            stroke="#4c9b7a"
             strokeOpacity="0.2"
             strokeWidth="1"
             strokeDasharray="2 6"
@@ -808,7 +808,7 @@ export default function RadiotherapyScene() {
             cx="255"
             cy="160"
             r="6"
-            fill={firing ? "#fbbf24" : "#67e8f9"}
+            fill={firing ? "#fbbf24" : "#5fd3a6"}
             filter="url(#strongGlow)"
             className="breathe"
           />
@@ -842,7 +842,7 @@ export default function RadiotherapyScene() {
               height="90"
               rx="6"
               fill="url(#metalMid)"
-              stroke="#22d3ee"
+              stroke="#4c9b7a"
               strokeOpacity="0.5"
               strokeWidth="1.5"
             />
@@ -864,7 +864,7 @@ export default function RadiotherapyScene() {
               height="40"
               rx="1"
               fill="url(#metalLight)"
-              stroke="#67e8f9"
+              stroke="#5fd3a6"
               strokeOpacity="0.4"
               strokeWidth="1"
             />
@@ -874,7 +874,7 @@ export default function RadiotherapyScene() {
               x="255"
               y="50"
               fontSize="3"
-              fill="#22d3ee"
+              fill="#4c9b7a"
               fillOpacity="0.3"
               fontFamily="monospace"
               textAnchor="middle"
@@ -891,7 +891,7 @@ export default function RadiotherapyScene() {
               height="25"
               rx="4"
               fill="url(#metalDark)"
-              stroke="#22d3ee"
+              stroke="#4c9b7a"
               strokeOpacity="0.4"
               strokeWidth="1.2"
             />
@@ -902,16 +902,16 @@ export default function RadiotherapyScene() {
               height="15"
               rx="2"
               fill="#071520"
-              stroke="#67e8f9"
+              stroke="#5fd3a6"
               strokeOpacity="0.2"
               strokeWidth="0.8"
             />
-            <circle cx="235" cy="47" r="3" fill="#22d3ee" fillOpacity="0.3" />
+            <circle cx="235" cy="47" r="3" fill="#4c9b7a" fillOpacity="0.3" />
             <text
               x="235"
               y="55"
               fontSize="2.5"
-              fill="#22d3ee"
+              fill="#4c9b7a"
               fillOpacity="0.3"
               fontFamily="monospace"
               textAnchor="middle"
@@ -937,7 +937,7 @@ export default function RadiotherapyScene() {
               width="10"
               height="4"
               rx="1"
-              fill={firing ? "#fbbf24" : "#22d3ee"}
+              fill={firing ? "#fbbf24" : "#4c9b7a"}
               fillOpacity={firing ? 0.8 : 0.2}
               filter={firing ? "url(#glow)" : "none"}
             />
@@ -961,7 +961,7 @@ export default function RadiotherapyScene() {
               height="22"
               rx="2"
               fill="url(#metalDark)"
-              stroke="#22d3ee"
+              stroke="#4c9b7a"
               strokeOpacity="0.5"
               strokeWidth="1.2"
             />
@@ -983,7 +983,7 @@ export default function RadiotherapyScene() {
                   width={width}
                   height={height}
                   rx="0.5"
-                  fill={isFiring ? "#fbbf24" : "#67e8f9"}
+                  fill={isFiring ? "#fbbf24" : "#5fd3a6"}
                   fillOpacity={isFiring ? 0.9 : 0.5}
                   className="leaf"
                   style={{
@@ -999,7 +999,7 @@ export default function RadiotherapyScene() {
               x="255"
               y="82"
               fontSize="2.5"
-              fill="#22d3ee"
+              fill="#4c9b7a"
               fillOpacity="0.3"
               fontFamily="monospace"
               textAnchor="middle"
@@ -1015,7 +1015,7 @@ export default function RadiotherapyScene() {
               height="4"
               rx="0.5"
               fill="#0a1a24"
-              stroke="#22d3ee"
+              stroke="#4c9b7a"
               strokeOpacity="0.3"
               strokeWidth="0.8"
             />
@@ -1026,7 +1026,7 @@ export default function RadiotherapyScene() {
               height="4"
               rx="0.5"
               fill="#0a1a24"
-              stroke="#22d3ee"
+              stroke="#4c9b7a"
               strokeOpacity="0.3"
               strokeWidth="0.8"
             />
@@ -1037,7 +1037,7 @@ export default function RadiotherapyScene() {
               height="2"
               rx="0.5"
               fill="#0a1a24"
-              stroke="#22d3ee"
+              stroke="#4c9b7a"
               strokeOpacity="0.2"
               strokeWidth="0.8"
             />
@@ -1050,17 +1050,17 @@ export default function RadiotherapyScene() {
               height="6"
               rx="1"
               fill="#0a1a24"
-              stroke="#22d3ee"
+              stroke="#4c9b7a"
               strokeOpacity="0.3"
               strokeWidth="0.8"
             />
-            <circle cx="255" cy="113" r="2" fill="#22d3ee" fillOpacity="0.4" />
+            <circle cx="255" cy="113" r="2" fill="#4c9b7a" fillOpacity="0.4" />
             <line
               x1="230"
               y1="113"
               x2="280"
               y2="113"
-              stroke="#22d3ee"
+              stroke="#4c9b7a"
               strokeOpacity="0.15"
               strokeWidth="0.5"
             />
@@ -1073,7 +1073,7 @@ export default function RadiotherapyScene() {
               height="20"
               rx="2"
               fill="#071520"
-              stroke="#22d3ee"
+              stroke="#4c9b7a"
               strokeOpacity="0.3"
               strokeWidth="0.8"
             />
@@ -1091,15 +1091,15 @@ export default function RadiotherapyScene() {
               x="235"
               y="40"
               fontSize="2.5"
-              fill="#22d3ee"
+              fill="#4c9b7a"
               fillOpacity="0.4"
               fontFamily="monospace"
             >
               RAD
             </text>
-            <circle cx="223" cy="44" r="1.2" fill="#22d3ee" fillOpacity="0.6" />
+            <circle cx="223" cy="44" r="1.2" fill="#4c9b7a" fillOpacity="0.6" />
             <circle cx="228" cy="44" r="1.2" fill="#a78bfa" fillOpacity="0.5" />
-            <circle cx="233" cy="44" r="1.2" fill="#22d3ee" fillOpacity="0.3" />
+            <circle cx="233" cy="44" r="1.2" fill="#4c9b7a" fillOpacity="0.3" />
           </g>
 
           {/* === REALISTIC BEAM (Targeting the Head at Isocenter) === */}
@@ -1108,7 +1108,7 @@ export default function RadiotherapyScene() {
             <path
               d="M255 116 L190 234 L280 234 Z"
               fill={firing ? "url(#beamGrad)" : "none"}
-              stroke={firing ? "#fbbf24" : "#67e8f9"}
+              stroke={firing ? "#fbbf24" : "#5fd3a6"}
               strokeOpacity={firing ? 0.4 : 0.05}
               strokeWidth={firing ? 1.5 : 0.8}
               filter={firing ? "url(#beamGlow)" : "none"}
@@ -1119,7 +1119,7 @@ export default function RadiotherapyScene() {
               y1="116"
               x2="255"
               y2="234"
-              stroke={firing ? "#fbbf24" : "#67e8f9"}
+              stroke={firing ? "#fbbf24" : "#5fd3a6"}
               strokeOpacity={firing ? 0.9 : 0.15}
               strokeWidth={firing ? 2.5 : 1}
               strokeDasharray={firing ? "8 6" : "4 6"}
@@ -1131,7 +1131,7 @@ export default function RadiotherapyScene() {
               y1="116"
               x2="190"
               y2="234"
-              stroke="#67e8f9"
+              stroke="#5fd3a6"
               strokeOpacity="0.15"
               strokeWidth="1"
               strokeDasharray="3 5"
@@ -1141,7 +1141,7 @@ export default function RadiotherapyScene() {
               y1="116"
               x2="280"
               y2="234"
-              stroke="#67e8f9"
+              stroke="#5fd3a6"
               strokeOpacity="0.15"
               strokeWidth="1"
               strokeDasharray="3 5"
@@ -1185,7 +1185,7 @@ export default function RadiotherapyScene() {
             {/* kV Source */}
             <path
               d="M135 160 L100 160 L100 125 L115 125"
-              stroke="#22d3ee"
+              stroke="#4c9b7a"
               strokeOpacity="0.4"
               strokeWidth="4"
               strokeLinecap="round"
@@ -1198,7 +1198,7 @@ export default function RadiotherapyScene() {
               height="22"
               rx="3"
               fill="url(#metalDark)"
-              stroke="#22d3ee"
+              stroke="#4c9b7a"
               strokeOpacity="0.35"
               strokeWidth="1.2"
             />
@@ -1209,16 +1209,16 @@ export default function RadiotherapyScene() {
               height="10"
               rx="1"
               fill="#062a34"
-              stroke="#67e8f9"
+              stroke="#5fd3a6"
               strokeOpacity="0.2"
               strokeWidth="0.8"
             />
-            <circle cx="119" cy="121" r="3" fill="#67e8f9" fillOpacity="0.5" />
+            <circle cx="119" cy="121" r="3" fill="#5fd3a6" fillOpacity="0.5" />
             <text
               x="110"
               y="126"
               fontSize="2.8"
-              fill="#22d3ee"
+              fill="#4c9b7a"
               fillOpacity="0.3"
               fontFamily="monospace"
             >
@@ -1228,7 +1228,7 @@ export default function RadiotherapyScene() {
             {/* EPID Detector */}
             <path
               d="M375 160 L410 160 L410 195 L395 195"
-              stroke="#22d3ee"
+              stroke="#4c9b7a"
               strokeOpacity="0.4"
               strokeWidth="4"
               strokeLinecap="round"
@@ -1241,7 +1241,7 @@ export default function RadiotherapyScene() {
               height="20"
               rx="2"
               fill="url(#metalDark)"
-              stroke="#22d3ee"
+              stroke="#4c9b7a"
               strokeOpacity="0.35"
               strokeWidth="1.2"
             />
@@ -1252,7 +1252,7 @@ export default function RadiotherapyScene() {
               height="10"
               rx="1"
               fill="#062a34"
-              stroke="#67e8f9"
+              stroke="#5fd3a6"
               strokeOpacity="0.2"
               strokeWidth="0.8"
             />
@@ -1260,7 +1260,7 @@ export default function RadiotherapyScene() {
               x="382"
               y="198"
               fontSize="2.8"
-              fill="#22d3ee"
+              fill="#4c9b7a"
               fillOpacity="0.3"
               fontFamily="monospace"
             >
@@ -1274,7 +1274,7 @@ export default function RadiotherapyScene() {
             <path
               d="M130 280 L210 280 L220 300 L120 300 Z"
               fill="#0a1a24"
-              stroke="#22d3ee"
+              stroke="#4c9b7a"
               strokeOpacity="0.2"
               strokeWidth="1"
             />
@@ -1286,7 +1286,7 @@ export default function RadiotherapyScene() {
               height="30"
               rx="2"
               fill="url(#metalMid)"
-              stroke="#22d3ee"
+              stroke="#4c9b7a"
               strokeOpacity="0.3"
               strokeWidth="1.2"
             />
@@ -1295,7 +1295,7 @@ export default function RadiotherapyScene() {
               y1="260"
               x2="170"
               y2="260"
-              stroke="#22d3ee"
+              stroke="#4c9b7a"
               strokeOpacity="0.15"
               strokeWidth="0.8"
             />
@@ -1304,7 +1304,7 @@ export default function RadiotherapyScene() {
               y1="270"
               x2="170"
               y2="270"
-              stroke="#22d3ee"
+              stroke="#4c9b7a"
               strokeOpacity="0.15"
               strokeWidth="0.8"
             />
@@ -1316,7 +1316,7 @@ export default function RadiotherapyScene() {
               height="12"
               rx="3"
               fill="url(#carbon)"
-              stroke="#22d3ee"
+              stroke="#4c9b7a"
               strokeOpacity="0.3"
               strokeWidth="1.5"
             />
@@ -1327,7 +1327,7 @@ export default function RadiotherapyScene() {
               height="12"
               rx="3"
               fill="url(#carbon)"
-              stroke="#67e8f9"
+              stroke="#5fd3a6"
               strokeOpacity="0.1"
               strokeWidth="0.5"
             />
@@ -1369,7 +1369,7 @@ export default function RadiotherapyScene() {
                 y1="244"
                 x2={100 + i * 40}
                 y2="250"
-                stroke="#67e8f9"
+                stroke="#5fd3a6"
                 strokeOpacity="0.25"
                 strokeWidth="1.2"
               />
@@ -1381,7 +1381,7 @@ export default function RadiotherapyScene() {
                 x={100 + i * 40}
                 y="256"
                 fontSize="2.5"
-                fill="#22d3ee"
+                fill="#4c9b7a"
                 fillOpacity="0.15"
                 fontFamily="monospace"
                 textAnchor="middle"
@@ -1519,7 +1519,7 @@ export default function RadiotherapyScene() {
             <path
               d="M246 224 L292 224 C 296 224 298 226 298 229 L298 236 C 298 239 296 241 292 241 L246 241 Z"
               fill="#3a4a5a"
-              stroke="#22d3ee"
+              stroke="#4c9b7a"
               strokeOpacity="0.2"
               strokeWidth="0.8"
             />
@@ -1529,7 +1529,7 @@ export default function RadiotherapyScene() {
               rx="7"
               ry="8.5"
               fill="#3a4a5a"
-              stroke="#22d3ee"
+              stroke="#4c9b7a"
               strokeOpacity="0.15"
               strokeWidth="0.5"
             />
@@ -1711,14 +1711,14 @@ export default function RadiotherapyScene() {
             <path
               d="M65 224 C 120 216 190 218 250 220"
               fill="none"
-              stroke="#67e8f9"
+              stroke="#5fd3a6"
               strokeOpacity="0.08"
               strokeWidth="0.6"
             />
             <path
               d="M65 240 C 120 244 190 242 250 240"
               fill="none"
-              stroke="#67e8f9"
+              stroke="#5fd3a6"
               strokeOpacity="0.06"
               strokeWidth="0.6"
             />
@@ -1732,7 +1732,7 @@ export default function RadiotherapyScene() {
                 height="12"
                 rx="1.5"
                 fill="#071520"
-                stroke="#22d3ee"
+                stroke="#4c9b7a"
                 strokeOpacity="0.3"
                 strokeWidth="0.6"
               />
@@ -1761,7 +1761,7 @@ export default function RadiotherapyScene() {
           {/* === SUPPORT ARM (Stand to Gantry connection) === */}
           <path
             d="M380 160 L355 160"
-            stroke="#22d3ee"
+            stroke="#4c9b7a"
             strokeOpacity="0.3"
             strokeWidth="6"
             strokeLinecap="round"
@@ -1771,11 +1771,11 @@ export default function RadiotherapyScene() {
             cy="160"
             r="8"
             fill="url(#metalDark)"
-            stroke="#22d3ee"
+            stroke="#4c9b7a"
             strokeOpacity="0.4"
             strokeWidth="1.5"
           />
-          <circle cx="367" cy="160" r="3" fill="#22d3ee" fillOpacity="0.5" />
+          <circle cx="367" cy="160" r="3" fill="#4c9b7a" fillOpacity="0.5" />
 
           {/* === FLOOR MARKINGS === */}
           <line
@@ -1783,7 +1783,7 @@ export default function RadiotherapyScene() {
             y1="295"
             x2="500"
             y2="295"
-            stroke="#22d3ee"
+            stroke="#4c9b7a"
             strokeOpacity="0.05"
             strokeWidth="0.5"
           />
@@ -1792,7 +1792,7 @@ export default function RadiotherapyScene() {
             y1="305"
             x2="500"
             y2="305"
-            stroke="#22d3ee"
+            stroke="#4c9b7a"
             strokeOpacity="0.03"
             strokeWidth="0.5"
           />
@@ -1801,7 +1801,7 @@ export default function RadiotherapyScene() {
             y1="290"
             x2="500"
             y2="290"
-            stroke="#22d3ee"
+            stroke="#4c9b7a"
             strokeOpacity="0.02"
             strokeWidth="0.5"
           />
@@ -1811,7 +1811,7 @@ export default function RadiotherapyScene() {
             x="20"
             y="30"
             fontSize="4"
-            fill="#22d3ee"
+            fill="#4c9b7a"
             fillOpacity="0.1"
             fontFamily="monospace"
           >
@@ -1832,7 +1832,7 @@ export default function RadiotherapyScene() {
             y1="42"
             x2="120"
             y2="42"
-            stroke="#22d3ee"
+            stroke="#4c9b7a"
             strokeOpacity="0.05"
             strokeWidth="0.5"
           />
@@ -1849,17 +1849,17 @@ export default function RadiotherapyScene() {
                 firing ? "bg-amber-400 animate-ping" : "bg-primary"
               } ${hot ? "animate-pulse" : ""}`}
             />
-            <span className={firing ? "text-amber-300" : "text-cyan-200/70"}>
+            <span className={firing ? "text-amber-300" : "text-emerald-200/70"}>
               {firing ? "BEAM ON" : hot ? "READY" : "STANDBY"}
             </span>
             {firing && (
               <span className="text-amber-400/60 animate-pulse">●</span>
             )}
           </div>
-          <div className="mt-1.5 text-cyan-200/50">GANTRY {gantryAngle}°</div>
-          <div className="text-cyan-200/50">COLL {collimatorAngle}°</div>
-          <div className="text-cyan-200/40">ISO 100 cm</div>
-          <div className="mt-1 text-cyan-200/40">
+          <div className="mt-1.5 text-emerald-200/50">GANTRY {gantryAngle}°</div>
+          <div className="text-emerald-200/50">COLL {collimatorAngle}°</div>
+          <div className="text-emerald-200/40">ISO 100 cm</div>
+          <div className="mt-1 text-emerald-200/40">
             X:{coordX} Y:{coordY}
           </div>
           {firing && (
@@ -1871,13 +1871,13 @@ export default function RadiotherapyScene() {
 
         <div
           dir="ltr"
-          className="pointer-events-none absolute bottom-4 right-4 font-mono text-[10px] tracking-widest text-cyan-200/50 text-right"
+          className="pointer-events-none absolute bottom-4 right-4 font-mono text-[10px] tracking-widest text-emerald-200/50 text-right"
         >
           <div>
             SESSION {mm}:{ss}
           </div>
           <div className="mt-1.5 flex items-center justify-end gap-2">
-            <span className="text-cyan-200/40">DOSE</span>
+            <span className="text-emerald-200/40">DOSE</span>
             <span className="relative h-1.5 w-20 overflow-hidden rounded-full bg-white/8">
               <span
                 className="dose-bar absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-primary via-secondary to-amber-400"
@@ -1885,11 +1885,11 @@ export default function RadiotherapyScene() {
               />
             </span>
           </div>
-          <div className="mt-1 text-cyan-200/30 text-[8px]">MLC 120 · 6 MV</div>
-          <div className="mt-0.5 text-cyan-200/20 text-[8px]">
+          <div className="mt-1 text-emerald-200/30 text-[8px]">MLC 120 · 6 MV</div>
+          <div className="mt-0.5 text-emerald-200/20 text-[8px]">
             {firing ? "DOSE RATE 400 MU/min" : "BEAM OFF"}
           </div>
-          <div className="mt-0.5 text-cyan-200/15 text-[7px]">SYS: ONLINE</div>
+          <div className="mt-0.5 text-emerald-200/15 text-[7px]">SYS: ONLINE</div>
         </div>
       </div>
 
@@ -1917,7 +1917,7 @@ export default function RadiotherapyScene() {
               cx="20"
               cy="20"
               r="12"
-              stroke={firing ? "#fbbf24" : "#67e8f9"}
+              stroke={firing ? "#fbbf24" : "#5fd3a6"}
               strokeOpacity="0.7"
               strokeWidth="1.2"
             />
@@ -1925,13 +1925,13 @@ export default function RadiotherapyScene() {
               cx="20"
               cy="20"
               r="12"
-              stroke={firing ? "#fbbf24" : "#67e8f9"}
+              stroke={firing ? "#fbbf24" : "#5fd3a6"}
               strokeOpacity="0.15"
               strokeWidth="4"
             />
             <path
               d="M20 2v8M20 30v8M2 20h8M30 20h8"
-              stroke={firing ? "#fbbf24" : "#67e8f9"}
+              stroke={firing ? "#fbbf24" : "#5fd3a6"}
               strokeOpacity="0.8"
               strokeWidth="1.2"
               strokeLinecap="round"
@@ -1940,13 +1940,13 @@ export default function RadiotherapyScene() {
               cx="20"
               cy="20"
               r="2"
-              fill={firing ? "#fbbf24" : "#67e8f9"}
+              fill={firing ? "#fbbf24" : "#5fd3a6"}
             />
             <circle
               cx="20"
               cy="20"
               r="16"
-              stroke="#67e8f9"
+              stroke="#5fd3a6"
               strokeOpacity="0.08"
               strokeWidth="0.8"
               strokeDasharray="2 4"
@@ -1958,7 +1958,7 @@ export default function RadiotherapyScene() {
       {/* === HINT LABEL === */}
       <div
         dir="rtl"
-        className={`pointer-events-none absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-black/40 px-4 py-1.5 text-[11px] text-cyan-100/70 backdrop-blur-sm transition-opacity duration-300 ${
+        className={`pointer-events-none absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-black/40 px-4 py-1.5 text-[11px] text-emerald-100/70 backdrop-blur-sm transition-opacity duration-300 ${
           hot && !firing ? "opacity-100" : "opacity-0"
         }`}
       >

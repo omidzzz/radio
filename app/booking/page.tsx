@@ -70,7 +70,7 @@ export default async function BookingPage() {
       <div className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute -left-48 top-10 h-[600px] w-[600px] rounded-full bg-primary/[0.07] blur-[140px]" />
         <div className="absolute -right-40 bottom-20 h-[520px] w-[520px] rounded-full bg-secondary/[0.09] blur-[120px]" />
-        <div className="absolute left-1/3 top-1/2 h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-cyan-400/[0.04] blur-[90px]" />
+        <div className="absolute left-1/3 top-1/2 h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-primary/[0.04] blur-[90px]" />
 
         <ParticleBackground id="particles-booking" className="text-muted" />
       </div>
@@ -106,7 +106,7 @@ export default async function BookingPage() {
               />
               <div className="overflow-hidden rounded-[1.85rem] border border-border/60 bg-surface/95 shadow-[0_28px_60px_-22px_rgba(0,0,0,0.14)] backdrop-blur-sm">
                 <div className="relative h-1.5 overflow-hidden bg-deep">
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary via-cyan-300 to-secondary" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary via-[#c9a24b] to-secondary" />
                   <div className="absolute inset-y-0 left-0 w-2/5 animate-pulse bg-white/25" />
                 </div>
                 <div className="p-6 sm:p-8 lg:p-10">
@@ -184,11 +184,19 @@ export default async function BookingPage() {
                       {dict.contact.phone}:
                     </span>{" "}
                     <a
-                      href="tel:+1234567890"
+                      href={siteConfig.phoneHref}
                       dir="ltr"
                       className="inline-block transition-colors hover:text-primary"
                     >
-                      +1 (234) 567-890
+                      {siteConfig.phone}
+                    </a>
+                    <br />
+                    <a
+                      href={siteConfig.mobileHref}
+                      dir="ltr"
+                      className="inline-block transition-colors hover:text-primary"
+                    >
+                      {siteConfig.mobile}
                     </a>
                   </li>
                   <li>
@@ -196,11 +204,11 @@ export default async function BookingPage() {
                       {dict.contact.email}:
                     </span>{" "}
                     <a
-                      href="mailto:bookings@radiotherapyclinic.com"
+                      href={`mailto:${siteConfig.email}`}
                       dir="ltr"
                       className="inline-block transition-colors hover:text-primary"
                     >
-                      bookings@radiotherapyclinic.com
+                      {siteConfig.email}
                     </a>
                   </li>
                   <li>
@@ -240,7 +248,7 @@ export default async function BookingPage() {
                   </p>
                   <Link
                     href="/forum"
-                    className="group relative mt-5 inline-flex items-center gap-2 overflow-hidden rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-deep shadow-[0_0_26px_-5px_rgba(6,182,212,0.55)] transition-all hover:bg-primary-hover hover:shadow-[0_0_34px_-4px_rgba(6,182,212,0.7)]"
+                    className="group relative mt-5 inline-flex items-center gap-2 overflow-hidden rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-deep shadow-[0_0_26px_-5px_rgba(26,115,82,0.55)] transition-all hover:bg-primary-hover hover:shadow-[0_0_34px_-4px_rgba(26,115,82,0.7)]"
                   >
                     <span className="relative z-10">
                       {dict.booking.visitForum}

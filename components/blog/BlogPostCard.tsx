@@ -88,7 +88,7 @@ export default function BlogPostCard({
           </div>
 
           {featured && (
-            <span className="absolute top-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-deep shadow-[0_0_16px_-4px_rgba(6,182,212,0.6)]">
+            <span className="absolute top-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-deep shadow-[0_0_16px_-4px_rgba(26,115,82,0.6)]">
               <svg viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5" aria-hidden="true">
                 <path d="M12 2l2.9 6.26L21.5 9.27l-5 4.87L17.8 21 12 17.77 6.2 21l1.3-6.86-5-4.87 6.6-1.01L12 2z" />
               </svg>

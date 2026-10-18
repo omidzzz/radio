@@ -74,7 +74,7 @@ export default async function OpengraphImage({
             width: 420,
             height: 420,
             borderRadius: 999,
-            background: "rgba(34,211,238,0.14)",
+            background: "rgba(76,155,122,0.14)",
             filter: "blur(80px)",
             display: "flex",
           }}
@@ -99,7 +99,7 @@ export default async function OpengraphImage({
               width: 56,
               height: 56,
               borderRadius: 999,
-              background: "linear-gradient(135deg,#22d3ee,#14b8a6)",
+              background: "linear-gradient(135deg,#4c9b7a,#2e7d5b)",
               color: "#020617",
               fontSize: 30,
               fontWeight: 700,
@@ -117,8 +117,8 @@ export default async function OpengraphImage({
             <div
               style={{
                 marginRight: "auto",
-                border: "2px solid rgba(34,211,238,0.5)",
-                color: "#67e8f9",
+                border: "2px solid rgba(76,155,122,0.5)",
+                color: "#5fd3a6",
                 borderRadius: 999,
                 padding: "6px 20px",
                 fontSize: 22,
@@ -146,7 +146,7 @@ export default async function OpengraphImage({
             height: 4,
             width: "100%",
             background:
-              "linear-gradient(90deg, transparent, #22d3ee, transparent)",
+              "linear-gradient(90deg, transparent, #4c9b7a, transparent)",
             display: "flex",
           }}
         />
