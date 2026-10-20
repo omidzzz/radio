@@ -2,19 +2,13 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
+import type { BlogComment } from "@/lib/types";
 
-const BlogComments = dynamic(() => import("@/components/BlogComments"));
-
-interface Comment {
-  id: number;
-  author_name: string;
-  content: string;
-  created_at: string;
-}
+const BlogComments = dynamic(() => import("@/components/feedback/BlogComments"));
 
 interface LazyCommentsProps {
   postId: number;
-  initialComments?: Comment[];
+  initialComments?: BlogComment[];
 }
 
 /**

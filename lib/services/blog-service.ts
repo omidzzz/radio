@@ -1,31 +1,354 @@
-import db from "@/lib/db";
-import { BlogPost } from "@/lib/types/blog";
+import db, { prepare, syncBlogPostFts } from "@/lib/db/db";
+import { blogCache } from "@/lib/db/cache";
+import { ApiError } from "@/lib/http/api-error";
+import type {
+  BlogComment,
+  BlogCommentRow,
+  BlogPost,
+  BlogPostRow,
+  BlogPostSummary,
+  PaginationMeta,
+} from "@/lib/types";
 
 /**
- * Format a raw DB row into the camelCase BlogPost shape.
+ * Format a raw DB row into the canonical camelCase BlogPost shape.
  * Shared between GET and POST handlers in the blog API route.
  */
-export function formatBlogPost(post: any): BlogPost {
+export function formatBlogPost(post: BlogPostRow): BlogPost {
   return {
     id: post.id,
     titleFA: post.title_fa,
-    titleEN: post.title_en,
+    titleEN: post.title_en ?? undefined,
     excerptFA: post.excerpt_fa,
-    excerptEN: post.excerpt_en,
+    excerptEN: post.excerpt_en ?? undefined,
     bodyFA: post.body_fa,
-    bodyEN: post.body_en,
+    bodyEN: post.body_en ?? undefined,
     authorFA: post.author_fa,
-    authorEN: post.author_en,
+    authorEN: post.author_en ?? undefined,
     categoryFA: post.category_fa,
-    categoryEN: post.category_en,
-    image: post.image,
+    categoryEN: post.category_en ?? undefined,
+    image: post.image ?? undefined,
     readMinutes: post.read_minutes,
     isFeatured: Boolean(post.is_featured),
     isPublished: Boolean(post.is_published),
-    publishedAt: post.published_at,
+    publishedAt: post.published_at ?? undefined,
     createdAt: post.created_at,
     updatedAt: post.updated_at,
+    views: post.views ?? null,
   };
+}
+
+/**
+ * Format a raw DB row into the lightweight list/card projection.
+ */
+export function formatBlogPostSummary(post: BlogPostRow): BlogPostSummary {
+  return {
+    id: post.id,
+    titleFA: post.title_fa,
+    titleEN: post.title_en ?? undefined,
+    excerptFA: post.excerpt_fa,
+    excerptEN: post.excerpt_en ?? undefined,
+    authorFA: post.author_fa,
+    authorEN: post.author_en ?? undefined,
+    categoryFA: post.category_fa,
+    categoryEN: post.category_en ?? undefined,
+    image: post.image ?? undefined,
+    readMinutes: post.read_minutes,
+    publishedAt: post.published_at ?? undefined,
+    views: post.views ?? null,
+  };
+}
+
+/** Columns selected for list views — excludes the heavy body fields. */
+const SUMMARY_COLUMNS = `id, title_fa, title_en, excerpt_fa, excerpt_en,
+        author_fa, author_en, category_fa, category_en, image,
+        read_minutes, published_at, views`;
+
+/** Columns selected for full post payloads (includes the article body). */
+const FULL_COLUMNS = `${SUMMARY_COLUMNS}, body_fa, body_en, author_fa, author_en,
+        read_minutes, is_featured, is_published, published_at, created_at, updated_at`;
+
+/**
+ * List published posts with pagination, returning the full post model.
+ * Used by the public blog API endpoint.
+ */
+export function listBlogPosts(options: {
+  page?: number;
+  limit?: number;
+}): { posts: BlogPost[]; pagination: PaginationMeta } {
+  const { page = 1, limit = 10 } = options;
+  const offset = (page - 1) * limit;
+
+  const cacheKey = `blog:list:${page}:${limit}`;
+  const cached = blogCache.get(cacheKey);
+  if (cached) {
+    return cached as { posts: BlogPost[]; pagination: PaginationMeta };
+  }
+
+  const rows = prepare(
+    `SELECT ${FULL_COLUMNS}, COUNT(*) OVER() AS total_count
+     FROM blog_posts
+     WHERE is_published = 1
+     ORDER BY published_at DESC, created_at DESC
+     LIMIT ? OFFSET ?`
+  ).all(limit, offset) as (BlogPostRow & { total_count: number })[];
+
+  const total = rows.length > 0 ? Number(rows[0].total_count) : 0;
+
+  const result = {
+    posts: rows.map(formatBlogPost),
+    pagination: {
+      page,
+      limit,
+      total,
+      totalPages: Math.ceil(total / limit),
+    },
+  };
+
+  blogCache.set(cacheKey, result);
+  return result;
+}
+
+/**
+ * List published posts as lightweight summaries, optionally filtered by
+ * category. Used by the server-rendered blog listing page.
+ */
+export function listBlogPostSummaries(options: {
+  category?: string;
+  page?: number;
+  limit?: number;
+}): { posts: BlogPostSummary[]; pagination: PaginationMeta } {
+  const { category, page = 1, limit = 10 } = options;
+  const offset = (page - 1) * limit;
+
+  const filterCategory = category && category !== "all";
+  const sql = `
+    SELECT ${SUMMARY_COLUMNS}, COUNT(*) OVER() AS total_count
+    FROM blog_posts
+    WHERE is_published = 1 ${filterCategory ? "AND category_fa = ?" : ""}
+    ORDER BY published_at DESC, created_at DESC
+    LIMIT ? OFFSET ?`;
+
+  const rows = (
+    filterCategory
+      ? prepare(sql).all(category, limit, offset)
+      : prepare(sql).all(limit, offset)
+  ) as (BlogPostRow & { total_count: number })[];
+
+  const total = rows.length > 0 ? Number(rows[0].total_count) : 0;
+
+  return {
+    posts: rows.map(formatBlogPostSummary),
+    pagination: {
+      page,
+      limit,
+      total,
+      totalPages: Math.ceil(total / limit),
+    },
+  };
+}
+
+/** Lightweight projection for the RSS feed and OG image. */
+export interface BlogPostFeedRow {
+  id: number;
+  title_fa: string;
+  title_en?: string;
+  excerpt_fa: string;
+  excerpt_en?: string;
+  author_fa: string;
+  author_en?: string;
+  image?: string;
+  published_at?: string;
+  updated_at?: string;
+  category_fa: string;
+}
+
+/**
+ * Fetch a post's title/category for the dynamically generated OG image.
+ * Returns undefined when the post is not found or not published.
+ */
+export function getBlogPostOgData(
+  slug: string
+): { titleFA: string; categoryFA: string } | undefined {
+  const row = prepare(
+    `SELECT title_fa, category_fa FROM blog_posts
+     WHERE (id = ? OR CAST(id AS TEXT) = ?) AND is_published = 1`
+  ).get(slug, slug) as { title_fa: string; category_fa: string } | undefined;
+
+  if (!row) return undefined;
+  return { titleFA: row.title_fa, categoryFA: row.category_fa };
+}
+
+/**
+ * List recent published posts for the RSS feed (snake_case row shape).
+ */
+export function listBlogPostsForRss(limit = 50): BlogPostFeedRow[] {
+  return prepare(
+    `SELECT id, title_fa, title_en, excerpt_fa, excerpt_en,
+            author_fa, author_en, image, published_at
+     FROM blog_posts
+     WHERE is_published = 1
+     ORDER BY published_at DESC
+     LIMIT ?`
+  ).all(limit) as BlogPostFeedRow[];
+}
+
+/**
+ * List published posts for the sitemap (id + timestamps only).
+ */
+export function listBlogPostsForSitemap(): {
+  id: number;
+  published_at?: string;
+  updated_at?: string;
+}[] {
+  return prepare(
+    `SELECT id, published_at, updated_at FROM blog_posts WHERE is_published = 1`
+  ).all() as { id: number; published_at?: string; updated_at?: string }[];
+}
+
+/**
+ * List the distinct categories that have at least one published post.
+ */
+export function listBlogCategories(): {
+  categoryFA: string;
+  categoryEN?: string;
+}[] {
+  const rows = db
+    .prepare(
+      `SELECT DISTINCT category_fa, category_en FROM blog_posts
+       WHERE is_published = 1 ORDER BY category_fa`
+    )
+    .all() as { category_fa: string; category_en: string | null }[];
+
+  return rows.map((row) => ({
+    categoryFA: row.category_fa,
+    categoryEN: row.category_en ?? undefined,
+  }));
+}
+
+/**
+ * Fetch a single published post by id.
+ * Returns `undefined` when the post does not exist or is not published.
+ */
+export function getBlogPostById(id: number): BlogPost | undefined {
+  const row = prepare("SELECT * FROM blog_posts WHERE id = ?").get(id) as
+    | BlogPostRow
+    | undefined;
+  return row ? formatBlogPost(row) : undefined;
+}
+
+/**
+ * Fetch a single published post by its URL slug.
+ * The slug is the numeric post id, accepted as a string.
+ */
+export function getBlogPostBySlug(slug: string): BlogPost | undefined {
+  const row = prepare(
+    `SELECT * FROM blog_posts
+     WHERE (id = ? OR CAST(id AS TEXT) = ?) AND is_published = 1`
+  ).get(slug, slug) as BlogPostRow | undefined;
+  return row ? formatBlogPost(row) : undefined;
+}
+
+/**
+ * List the ids of all published posts, used for static param generation.
+ */
+export function listPublishedBlogIds(): number[] {
+  const rows = prepare(
+    "SELECT id FROM blog_posts WHERE is_published = 1"
+  ).all() as { id: number }[];
+  return rows.map((row) => row.id);
+}
+
+/**
+ * List the approved comments for a post, oldest first.
+ */
+export function listBlogComments(postId: number): BlogComment[] {
+  const rows = prepare(
+    `SELECT id, post_id, author_name, content, created_at
+     FROM blog_comments
+     WHERE post_id = ? AND is_approved = 1
+     ORDER BY created_at ASC`
+  ).all(postId) as BlogCommentRow[];
+
+  return rows.map(formatBlogComment);
+}
+
+/**
+ * Check whether a published post exists.
+ */
+export function blogPostExists(postId: number): boolean {
+  const row = prepare(
+    "SELECT id FROM blog_posts WHERE id = ? AND is_published = 1"
+  ).get(postId);
+  return Boolean(row);
+}
+
+/**
+ * Create a comment on a post. Comments are held for moderation
+ * (`is_approved = 0`) and only become visible after an admin approves them.
+ */
+export function createBlogComment(input: {
+  postId: number;
+  authorName: string;
+  content: string;
+}): BlogComment {
+  const result = prepare(
+    `INSERT INTO blog_comments (post_id, author_name, content, is_approved)
+     VALUES (?, ?, ?, 0)`
+  ).run(input.postId, input.authorName, input.content);
+
+  const row = prepare(
+    "SELECT id, post_id, author_name, content, created_at FROM blog_comments WHERE id = ?"
+  ).get(result.lastInsertRowid) as BlogCommentRow;
+
+  return formatBlogComment(row);
+}
+
+/** Map a raw comment row onto the canonical comment model. */
+function formatBlogComment(row: BlogCommentRow): BlogComment {
+  return {
+    id: row.id,
+    postId: row.post_id,
+    authorName: row.author_name,
+    content: row.content,
+    createdAt: row.created_at,
+  };
+}
+
+/**
+ * Fetch related posts for a post detail page: first the posts sharing the
+ * same category, then backfilled with the most recent other posts.
+ */
+export function getRelatedBlogPosts(
+  postId: number,
+  category: string,
+  limit = 2
+): BlogPostSummary[] {
+  const sameCategory = db
+    .prepare(
+      `SELECT ${SUMMARY_COLUMNS} FROM blog_posts
+       WHERE is_published = 1 AND category_fa = ? AND id != ?
+       ORDER BY published_at DESC LIMIT ?`
+    )
+    .all(category, postId, limit) as BlogPostRow[];
+
+  if (sameCategory.length >= limit) {
+    return sameCategory.map(formatBlogPostSummary);
+  }
+
+  const remaining = limit - sameCategory.length;
+  const excludedIds = [postId, ...sameCategory.map((p) => p.id)];
+  const placeholders = excludedIds.map(() => "?").join(", ");
+
+  const others = db
+    .prepare(
+      `SELECT ${SUMMARY_COLUMNS} FROM blog_posts
+       WHERE is_published = 1 AND id NOT IN (${placeholders})
+       ORDER BY published_at DESC LIMIT ?`
+    )
+    .all(...excludedIds, remaining) as BlogPostRow[];
+
+  return [...sameCategory, ...others].map(formatBlogPostSummary);
 }
 
 /**
@@ -140,4 +463,179 @@ export function searchForumPosts(searchTerm: string, limit = 10) {
        LIMIT ?`
     )
     .all(likeTerm, likeTerm, limit);
+}
+
+/**
+ * Create a new blog post. Returns the canonical BlogPost model.
+ */
+export function createBlogPost(input: {
+  titleFA: string;
+  titleEN?: string | null;
+  excerptFA: string;
+  excerptEN?: string | null;
+  bodyFA: string;
+  bodyEN?: string | null;
+  authorFA: string;
+  authorEN?: string | null;
+  categoryFA: string;
+  categoryEN?: string | null;
+  image?: string | null;
+  readMinutes?: number;
+  isFeatured?: boolean;
+  isPublished?: boolean;
+  publishedAt?: string;
+}): BlogPost {
+  const result = prepare(
+    `INSERT INTO blog_posts (
+      title_fa, title_en, excerpt_fa, excerpt_en, body_fa, body_en,
+      author_fa, author_en, category_fa, category_en, image,
+      read_minutes, is_featured, is_published, published_at
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+  ).run(
+    input.titleFA,
+    input.titleEN ?? null,
+    input.excerptFA,
+    input.excerptEN ?? null,
+    input.bodyFA,
+    input.bodyEN ?? null,
+    input.authorFA,
+    input.authorEN ?? null,
+    input.categoryFA,
+    input.categoryEN ?? null,
+    input.image ?? null,
+    input.readMinutes && Number(input.readMinutes) > 0
+      ? Number(input.readMinutes)
+      : estimateReadMinutes(input.bodyFA),
+    input.isFeatured ? 1 : 0,
+    input.isPublished ? 1 : 0,
+    input.publishedAt ?? new Date().toISOString()
+  );
+
+  // Sync the new post into the FTS5 index so search finds it immediately
+  syncBlogPostFts(Number(result.lastInsertRowid));
+
+  // Invalidate blog cache after insert
+  blogCache.clear();
+
+  const newPost = prepare("SELECT * FROM blog_posts WHERE id = ?").get(
+    result.lastInsertRowid
+  ) as BlogPostRow;
+
+  if (!newPost) {
+    throw ApiError.internal("Failed to retrieve created post");
+  }
+
+  return formatBlogPost(newPost);
+}
+
+/**
+ * Update an existing blog post. Returns the updated canonical model.
+ */
+export function updateBlogPost(
+  id: number,
+  input: {
+    titleFA?: string;
+    titleEN?: string | null;
+    excerptFA?: string;
+    excerptEN?: string | null;
+    bodyFA?: string;
+    bodyEN?: string | null;
+    authorFA?: string;
+    authorEN?: string | null;
+    categoryFA?: string;
+    categoryEN?: string | null;
+    image?: string | null;
+    readMinutes?: number;
+    isFeatured?: boolean;
+    isPublished?: boolean;
+    publishedAt?: string;
+  }
+): BlogPost | undefined {
+  const existing = prepare(
+    "SELECT * FROM blog_posts WHERE id = ?"
+  ).get(id) as BlogPostRow | undefined;
+  if (!existing) return undefined;
+
+  const result = prepare(
+    `UPDATE blog_posts SET
+      title_fa = COALESCE(?, title_fa),
+      title_en = COALESCE(?, title_en),
+      excerpt_fa = COALESCE(?, excerpt_fa),
+      excerpt_en = COALESCE(?, excerpt_en),
+      body_fa = COALESCE(?, body_fa),
+      body_en = COALESCE(?, body_en),
+      author_fa = COALESCE(?, author_fa),
+      author_en = COALESCE(?, author_en),
+      category_fa = COALESCE(?, category_fa),
+      category_en = COALESCE(?, category_en),
+      image = COALESCE(?, image),
+      read_minutes = COALESCE(?, read_minutes),
+      is_featured = COALESCE(?, is_featured),
+      is_published = COALESCE(?, is_published),
+      published_at = COALESCE(?, published_at),
+      updated_at = CURRENT_TIMESTAMP
+     WHERE id = ?`
+  ).run(
+    input.titleFA ?? null,
+    input.titleEN ?? null,
+    input.excerptFA ?? null,
+    input.excerptEN ?? null,
+    input.bodyFA ?? null,
+    input.bodyEN ?? null,
+    input.authorFA ?? null,
+    input.authorEN ?? null,
+    input.categoryFA ?? null,
+    input.categoryEN ?? null,
+    input.image ?? null,
+    input.readMinutes ?? null,
+    input.isFeatured ?? null,
+    input.isPublished ?? null,
+    input.publishedAt ?? null,
+    id
+  );
+
+  if (result.changes === 0) return undefined;
+
+  // Sync the updated post into the FTS5 index
+  syncBlogPostFts(id);
+
+  // Invalidate blog cache after update
+  blogCache.clear();
+
+  const updated = prepare(
+    "SELECT * FROM blog_posts WHERE id = ?"
+  ).get(id) as BlogPostRow;
+  return formatBlogPost(updated);
+}
+
+/**
+ * Delete a blog post. Returns true if a row was deleted.
+ */
+export function deleteBlogPost(id: number): boolean {
+  const result = prepare("DELETE FROM blog_posts WHERE id = ?").run(id);
+
+  // Invalidate blog cache after delete
+  blogCache.clear();
+
+  return result.changes > 0;
+}
+
+/**
+ * Increment the view counter for a published blog post.
+ * Returns the new view count, or undefined if the post is not found.
+ */
+export function incrementBlogViews(
+  id: number
+): { views: number } | undefined {
+  const result = prepare(
+    "UPDATE blog_posts SET views = COALESCE(views, 0) + 1 WHERE id = ? AND is_published = 1"
+  ).run(id);
+
+  if (result.changes === 0) return undefined;
+
+  const row = prepare("SELECT views FROM blog_posts WHERE id = ?").get(
+    id
+  ) as { views: number | null } | undefined;
+
+  return { views: row?.views ?? 0 };
 }

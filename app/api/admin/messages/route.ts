@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import db from "@/lib/db";
-import { requireAdmin, requireAdminWithCsrf } from "@/lib/auth";
-import { ContactMessage } from "@/lib/types";
+import { requireAdmin, requireAdminWithCsrf } from "@/lib/security/auth";
+import {
+  deleteContactMessage,
+  getContactMessages,
+} from "@/lib/services/contact-service";
 
 // GET /api/admin/messages - List all contact messages
 export async function GET(request: NextRequest) {
@@ -9,9 +11,7 @@ export async function GET(request: NextRequest) {
   if (unauthorized) return unauthorized;
 
   try {
-    const messages = db
-      .prepare("SELECT * FROM contact_messages ORDER BY created_at DESC")
-      .all() as ContactMessage[];
+    const messages = getContactMessages();
 
     return NextResponse.json({ messages });
   } catch (error) {
@@ -39,16 +39,7 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    const result = db
-      .prepare("DELETE FROM contact_messages WHERE id = ?")
-      .run(id);
-
-    if (result.changes === 0) {
-      return NextResponse.json(
-        { error: "Message not found" },
-        { status: 404 }
-      );
-    }
+    deleteContactMessage(id);
 
     return NextResponse.json({ success: true });
   } catch (error) {

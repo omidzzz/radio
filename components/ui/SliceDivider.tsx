@@ -24,7 +24,7 @@ export default function SliceDivider({ label = "SLICE · 0.5 mm" }: SliceDivider
         {slices.map((opacity, i) => (
           <span
             key={i}
-            className="block w-[3px] rounded-[1px] bg-primary"
+            className="block w-[3px] rounded-[1px] bg-primary-fill"
             style={{ height: 18 + opacity * 14, opacity }}
           />
         ))}

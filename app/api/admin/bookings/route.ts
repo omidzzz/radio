@@ -1,8 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import db from "@/lib/db";
-import { requireAdmin, requireAdminWithCsrf } from "@/lib/auth";
+import { requireAdmin, requireAdminWithCsrf } from "@/lib/security/auth";
 import { Booking } from "@/lib/types";
-import { statsCache } from "@/lib/cache";
+import {
+  deleteBooking,
+  getBookings,
+  updateBookingStatus,
+} from "@/lib/services/booking-service";
 
 function getStatusLabel(status: string) {
   const labels: Record<string, string> = {
@@ -20,9 +23,7 @@ export async function GET(request: NextRequest) {
   if (unauthorized) return unauthorized;
 
   try {
-    const bookings = db
-      .prepare("SELECT * FROM bookings ORDER BY created_at DESC")
-      .all() as Booking[];
+    const bookings = getBookings() as Booking[];
 
     return NextResponse.json({ bookings });
   } catch (error) {
@@ -60,23 +61,7 @@ export async function PATCH(request: NextRequest) {
       );
     }
 
-    const result = db
-      .prepare("UPDATE bookings SET status = ? WHERE id = ?")
-      .run(body.status, body.id);
-
-    if (result.changes === 0) {
-      return NextResponse.json(
-        { error: "Booking not found" },
-        { status: 404 }
-      );
-    }
-
-    const updated = db
-      .prepare("SELECT * FROM bookings WHERE id = ?")
-      .get(body.id);
-
-    // Invalidate stats cache after status change
-    statsCache.clear();
+    const updated = updateBookingStatus(body.id, body.status);
 
     return NextResponse.json({
       booking: updated,
@@ -107,17 +92,7 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    const result = db.prepare("DELETE FROM bookings WHERE id = ?").run(id);
-
-    if (result.changes === 0) {
-      return NextResponse.json(
-        { error: "Booking not found" },
-        { status: 404 }
-      );
-    }
-
-    // Invalidate stats cache after deleting booking
-    statsCache.clear();
+    deleteBooking(id);
 
     return NextResponse.json({ success: true });
   } catch (error) {

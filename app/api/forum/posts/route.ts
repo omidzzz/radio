@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { rateLimitByIp, getClientIp } from "@/lib/rate-limit";
-import { sanitizeContent, sanitizeText } from "@/lib/sanitize";
+import { rateLimitByIp, getClientIp } from "@/lib/http/rate-limit";
+import { sanitizeContent, sanitizeText } from "@/lib/security/sanitize";
 import { validateForumPost } from "@/lib/validation/forum";
 import { getForumPosts, createForumPost } from "@/lib/services/forum-service";
-import { ApiError, withErrorHandling } from "@/lib/api-error";
+import { ApiError, withErrorHandling } from "@/lib/http/api-error";
 
 // GET /api/forum/posts - List posts with pagination (optionally filter by category)
 export async function GET(request: NextRequest) {

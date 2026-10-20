@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
-import db from "@/lib/db";
-import { siteConfig } from "@/lib/seo";
+import { getBlogPostOgData } from "@/lib/services/blog-service";
+import { siteConfig } from "@/lib/seo/seo";
 
 export const revalidate = 3600;
 export const size = { width: 1200, height: 630 };
@@ -38,16 +38,10 @@ export default async function OpengraphImage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = db
-    .prepare(
-      "SELECT title_fa, title_en, category_fa FROM blog_posts WHERE (id = ? OR CAST(id AS TEXT) = ?) AND is_published = 1"
-    )
-    .get(slug, slug) as
-    | { title_fa: string; title_en?: string; category_fa: string }
-    | undefined;
+  const og = getBlogPostOgData(slug);
 
-  const title = post ? post.title_fa : siteConfig.title.fa;
-  const category = post?.category_fa ?? "";
+  const title = og ? og.titleFA : siteConfig.title.fa;
+  const category = og?.categoryFA ?? "";
 
   const fontData = await loadVazirmatn();
 
@@ -87,7 +81,7 @@ export default async function OpengraphImage({
             width: 460,
             height: 460,
             borderRadius: 999,
-            background: "rgba(20,184,166,0.12)",
+            background: "rgba(46,125,91,0.14)",
             filter: "blur(90px)",
             display: "flex",
           }}

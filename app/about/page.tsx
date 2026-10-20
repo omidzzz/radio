@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getServerDictionary } from "@/lib/i18n/server";
-import { siteConfig } from "@/lib/seo";
-import { physicianSchema, breadcrumbSchema } from "@/lib/json-ld";
-import JsonLdScript from "@/components/JsonLd";
+import { siteConfig, localizedAlternates } from "@/lib/seo/seo";
+import { physicianSchema, breadcrumbSchema } from "@/lib/seo/json-ld";
+import JsonLdScript from "@/components/feedback/JsonLd";
 import RadiationEmblem from "@/components/ui/RadiationEmblem";
-import ParticleBackground from "@/components/ui/ParticleBackground";
-import PageHero from "@/components/PageHero";
+import PageHero from "@/components/ui/PageHero";
 import Reveal from "@/components/ui/Reveal";
 import CountUp from "@/components/ui/CountUp";
+import AmbientBackground from "@/components/layout/AmbientBackground";
 
 const ABOUT_TITLE = "درباره دکتر پری قدمگاهی";
 const ABOUT_DESCRIPTION =
@@ -17,9 +17,7 @@ const ABOUT_DESCRIPTION =
 export const metadata: Metadata = {
   title: "درباره دکتر پری قدمگاهی",
   description: ABOUT_DESCRIPTION,
-  alternates: {
-    canonical: "/about",
-  },
+  alternates: localizedAlternates("/about"),
   openGraph: {
     title: ABOUT_TITLE,
     description: ABOUT_DESCRIPTION,
@@ -55,11 +53,11 @@ function SectionBadge({ label, dark = false }: { label: string; dark?: boolean }
     <div
       className={`inline-flex items-center gap-2 rounded-full border px-3.5 py-1 text-xs font-medium ${
         dark
-          ? "border-primary/30 bg-primary/10 text-highlight"
+          ? "border-primary/30 bg-primary/10 text-gold"
           : "border-primary/25 bg-primary/10 text-primary"
       }`}
     >
-      <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-primary" />
+      <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-primary-fill-fill" />
       {label}
     </div>
   );
@@ -134,13 +132,7 @@ export default async function AboutPage() {
           Orbs are promoted to their own compositor layer (translateZ)
           so their large blurs don't repaint on every scroll frame.
       ══════════════════════════════════════════════════════════════ */}
-      <div className="pointer-events-none fixed inset-0 z-0">
-        <div className="absolute -left-48 top-10 h-[600px] w-[600px] rounded-full bg-primary/[0.07] blur-[140px] [transform:translateZ(0)]" />
-        <div className="absolute -right-40 bottom-20 h-[520px] w-[520px] rounded-full bg-secondary/[0.09] blur-[120px] [transform:translateZ(0)]" />
-        <div className="absolute left-1/3 top-1/2 h-[280px] w-[280px] -translate-y-1/2 rounded-full bg-primary/[0.04] blur-[90px] [transform:translateZ(0)]" />
-
-        <ParticleBackground id="particles-about" className="text-muted" />
-      </div>
+      <AmbientBackground particleId="particles-about" className="text-muted" />
 
       {/* ══════════════════════════════════════════════════════════════
           HERO — clean medical-tech hero
@@ -357,7 +349,7 @@ export default async function AboutPage() {
                   />
 
                   {/* Avatar */}
-                  <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-secondary text-xl font-bold text-deep shadow-[0_0_28px_-4px_rgba(26,115,82,0.55)] transition-shadow duration-500 group-hover:shadow-[0_0_36px_-2px_rgba(26,115,82,0.7)]">
+                  <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-secondary text-xl font-bold text-on-primary shadow-[0_0_28px_-4px_rgba(26,115,82,0.55)] transition-shadow duration-500 group-hover:shadow-[0_0_36px_-2px_rgba(26,115,82,0.7)]">
                     {getInitials(member.name)}
                     <div
                       aria-hidden="true"
@@ -368,7 +360,7 @@ export default async function AboutPage() {
                   <h3 className="mt-6 text-lg font-semibold text-white">
                     {member.name}
                   </h3>
-                  <p className="mt-1.5 text-sm font-medium text-highlight">
+                  <p className="mt-1.5 text-sm font-medium text-gold">
                     {member.role}
                   </p>
                   <p className="mt-4 text-sm leading-relaxed text-muted">
@@ -472,7 +464,7 @@ export default async function AboutPage() {
           <Reveal delay={200}>
             <Link
               href="/booking"
-              className="group relative mt-10 inline-flex items-center justify-center overflow-hidden rounded-full bg-primary px-9 py-4 text-base font-semibold text-deep shadow-[0_0_35px_-8px_rgba(26,115,82,0.65)] transition-all duration-300 hover:bg-primary-hover hover:shadow-[0_0_50px_-4px_rgba(26,115,82,0.9)] active:scale-[0.97]"
+              className="group relative mt-10 inline-flex items-center justify-center overflow-hidden rounded-full bg-primary-fill-fill px-9 py-4 text-base font-semibold text-on-primary shadow-[0_0_35px_-8px_rgba(26,115,82,0.65)] transition-all duration-300 hover:bg-primary-fill-hover hover:shadow-[0_0_50px_-4px_rgba(26,115,82,0.9)] active:scale-[0.97]"
             >
               <span
                 aria-hidden="true"

@@ -1,5 +1,5 @@
-import db from "@/lib/db";
-import { ApiError } from "@/lib/api-error";
+import db from "@/lib/db/db";
+import { ApiError } from "@/lib/http/api-error";
 
 export interface UnavailableSlot {
   id: number;

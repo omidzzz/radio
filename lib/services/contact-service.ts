@@ -1,6 +1,6 @@
-import db from "@/lib/db";
+import db from "@/lib/db/db";
 import { ContactFormValues } from "@/lib/validation/contact";
-import { ApiError } from "@/lib/api-error";
+import { ApiError } from "@/lib/http/api-error";
 
 export function createContactMessage(input: ContactFormValues) {
   const result = db

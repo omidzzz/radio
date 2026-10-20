@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import db from "@/lib/db";
-import { requireAdminWithCsrf, requireAdmin } from "@/lib/auth";
+import { requireAdminWithCsrf, requireAdmin } from "@/lib/security/auth";
+import {
+  approveComment,
+  deleteComment,
+  getPendingComments,
+} from "@/lib/services/admin-service";
 
 /**
  * GET /api/admin/comments — list comments pending moderation
@@ -11,17 +15,7 @@ export async function GET(request: NextRequest) {
   if (unauthorized) return unauthorized;
 
   try {
-    const pending = db
-      .prepare(
-        `SELECT c.id, c.post_id, c.author_name, c.content, c.created_at,
-                p.title_fa AS post_title
-         FROM blog_comments c
-         JOIN blog_posts p ON p.id = c.post_id
-         WHERE c.is_approved = 0
-         ORDER BY c.created_at DESC
-         LIMIT 100`
-      )
-      .all();
+    const pending = getPendingComments();
 
     return NextResponse.json({ comments: pending });
   } catch (error) {
@@ -47,13 +41,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Comment id required" }, { status: 400 });
     }
 
-    const result = db
-      .prepare("UPDATE blog_comments SET is_approved = 1 WHERE id = ?")
-      .run(body.id);
-
-    if (result.changes === 0) {
-      return NextResponse.json({ error: "Comment not found" }, { status: 404 });
-    }
+    approveComment(body.id);
 
     return NextResponse.json({ success: true });
   } catch (error) {
@@ -78,13 +66,7 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: "Comment id required" }, { status: 400 });
     }
 
-    const result = db
-      .prepare("DELETE FROM blog_comments WHERE id = ?")
-      .run(id);
-
-    if (result.changes === 0) {
-      return NextResponse.json({ error: "Comment not found" }, { status: 404 });
-    }
+    deleteComment(id);
 
     return NextResponse.json({ success: true });
   } catch (error) {

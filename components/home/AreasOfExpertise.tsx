@@ -1,4 +1,4 @@
-import type { Dictionary } from "@/lib/i18n";
+﻿import type { Dictionary } from "@/lib/i18n";
 import Reveal from "@/components/ui/Reveal";
 import SpotLightCard from "@/components/ui/SpotLightCard";
 import SectionHeader from "@/components/ui/SectionHeader";
@@ -114,7 +114,7 @@ export default function AreasOfExpertise({ dict, isFa }: AreasOfExpertiseProps) 
                     <span className="rounded-full border border-primary/25 bg-primary/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
                       {site.code}
                     </span>
-                    <span className="text-highlight" aria-hidden="true">
+                    <span className="text-muted" aria-hidden="true">
                       <svg
                         viewBox="0 0 24 24"
                         fill="none"
@@ -131,14 +131,14 @@ export default function AreasOfExpertise({ dict, isFa }: AreasOfExpertiseProps) 
                     </span>
                   </div>
 
-                  <div className="relative mt-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-soft text-primary shadow-inner transition-colors duration-200 group-hover:bg-primary group-hover:text-white">
+                  <div className="relative mt-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-soft text-primary shadow-inner transition-colors duration-200 group-hover:bg-primary-fill group-hover:text-on-primary">
                     {siteSvgs[site.code] ?? siteSvgs.CNS}
                   </div>
 
                   <h3 className="relative mt-5 text-lg font-semibold leading-snug text-text-primary transition-colors duration-200 group-hover:text-primary">
                     {site.title}
                   </h3>
-                  <p className="relative mt-2.5 text-sm leading-relaxed text-text-secondary">
+                  <p className="relative mt-2.5 text-base leading-relaxed text-text-secondary">
                     {site.desc}
                   </p>
 
@@ -150,10 +150,10 @@ export default function AreasOfExpertise({ dict, isFa }: AreasOfExpertiseProps) 
         </div>
 
         <Reveal delay={200} className="mt-10 text-center">
-          <p className="text-sm text-muted">
+          <p className="text-base leading-relaxed text-muted">
             {isFa
-              ? "تمرکز اصلی درمان‌ها بر این هفت حوزه توموری است — سایر نواحی نیز در جلسه مشاوره بررسی می‌شوند."
-              : "Treatment focuses on these seven tumor-site areas — other sites are discussed during your consultation."}
+              ? "در هر هفت حوزه، برنامه درمان بر اساس شرایط شما شخصی‌سازی می‌شود — تمرکز اصلی درمان‌ها بر این هفت حوزه توموری است؛ سایر نواحی نیز در جلسه مشاوره بررسی می‌شوند."
+              : "In each area, the plan is personalized to your condition and your life — treatment focuses on these seven tumor-site areas; other sites are discussed during your consultation."}
           </p>
         </Reveal>
       </div>

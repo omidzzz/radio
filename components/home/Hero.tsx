@@ -31,8 +31,11 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
           alt="پرتودرمانی و تصویربرداری پیشرفته"
           fill
           priority
+          loading="eager"
           fetchPriority="high"
           sizes="100vw"
+          placeholder="blur"
+          blurDataURL="data:image/webp;base64,UklGRl4AAABXRUJQVlA4TIL3AAAAAQCdASoUAAUABm6v2ztT0W0AAAAPABsAJQbZVgjirw8qCtvpqulCZgAAA"
           className="ken-burns object-cover object-center opacity-50"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-deep via-deep/90 to-deep/50" />
@@ -43,7 +46,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.08] anim-fade-in delay-300 hidden lg:block"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l25.98 15v30L30 60 4.02 45V15z' fill='none' stroke='%2300f0ff' stroke-width='0.6'/%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l25.98 15v30L30 60 4.02 45V15z' fill='none' stroke='%23c9a24b' stroke-width='0.6'/%3E%3C/svg%3E")`,
         }}
       />
 
@@ -76,10 +79,10 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
       <div className="relative z-10 mx-auto flex h-full min-h-[96vh] max-w-7xl items-center px-4 py-20 sm:px-6 lg:px-8">
         <div className="grid w-full items-center gap-12 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-5">
-            <div className="anim-fade-up delay-200 inline-flex items-center gap-2.5 rounded-full border border-primary/40 bg-primary/10 px-4 py-1.5 text-sm font-medium text-highlight backdrop-blur-sm transition-colors duration-200 hover:border-primary/70 hover:bg-primary/20">
+            <div className="anim-fade-up delay-200 inline-flex items-center gap-2.5 rounded-full border border-primary/40 bg-primary/10 px-4 py-1.5 text-sm font-medium text-gold backdrop-blur-sm transition-colors duration-200 hover:border-primary/70 hover:bg-primary/20">
               <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary-hover opacity-75 motion-reduce:animate-none" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary-hover" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary-fill-hover opacity-75 motion-reduce:animate-none" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary-fill-hover" />
               </span>
               {isFa
                 ? "متخصص رادیوتراپی و آنکولوژی"
@@ -109,7 +112,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
               strength={0.2}
               className="conic-border rounded-full"
             >
-                <span className="btn-sheen group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-primary px-8 py-3.5 text-base font-semibold text-deep shadow-[0_0_45px_-6px_rgba(26,115,82,0.75)] transition-colors duration-200 hover:bg-primary-hover active:scale-[0.97]">
+                <span className="btn-sheen group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-primary-fill px-8 py-3.5 text-base font-semibold text-on-primary shadow-[0_0_45px_-6px_rgba(26,115,82,0.75)] transition-colors duration-200 hover:bg-primary-fill-hover active:scale-[0.97]">
                   <span className="relative flex items-center gap-2" dir="ltr">
                     {dict.home.bookConsultation}
                     <svg
@@ -184,14 +187,15 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
                   alt="Advanced radiology equipment"
                   fill
                   sizes="(max-width: 1024px) 0vw, 50vw"
+                  loading="lazy"
                   className="object-cover transition-transform duration-700 hover:scale-105"
                 />
                 <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-primary/30" />
                 <div className="pointer-events-none absolute inset-0 overflow-hidden">
                   <div className="hud-sweep absolute inset-x-0 h-8 bg-gradient-to-b from-transparent via-highlight/30 to-transparent" />
                 </div>
-                <div className="pointer-events-none absolute left-2.5 top-2.5 flex items-center gap-1.5 rounded-sm bg-deep/60 px-1.5 py-1 text-[9px] font-semibold uppercase tracking-widest text-highlight backdrop-blur-sm">
-                  <span className="hud-blink h-1.5 w-1.5 rounded-full bg-highlight" />
+                <div className="pointer-events-none absolute left-2.5 top-2.5 flex items-center gap-1.5 rounded-sm bg-deep/60 px-1.5 py-1 text-[9px] font-semibold uppercase tracking-widest text-gold backdrop-blur-sm">
+                  <span className="hud-blink h-1.5 w-1.5 rounded-full bg-gold" />
                   MOD/MRI
                 </div>
               </div>
@@ -202,6 +206,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
                   alt="Our radiologist"
                   fill
                   sizes="(max-width: 1024px) 0vw, 50vw"
+                  loading="lazy"
                   className="object-cover object-top transition-transform duration-700 hover:scale-105"
                 />
                 <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-deep/85 to-transparent" />
@@ -226,13 +231,13 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
 
               <div className="anim-scale-in delay-900 absolute -right-6 top-10 z-10 hidden h-20 w-20 rounded-full border border-primary/20 lg:block" />
               <div className="anim-scale-in delay-1000 absolute -left-10 bottom-32 z-10 hidden h-14 w-14 rounded-full border border-secondary/25 lg:block" />
-              <div className="anim-fade-in delay-1100 absolute right-1/3 top-1/4 z-10 hidden h-3 w-3 rounded-full bg-primary-hover/50 lg:block" />
+              <div className="anim-fade-in delay-1100 absolute right-1/3 top-1/4 z-10 hidden h-3 w-3 rounded-full bg-primary-fill-hover/50 lg:block" />
 
               <div className="float-bob pointer-events-none absolute -right-14 top-1/4 hidden h-60 w-60 rounded-full bg-primary/30 blur-3xl anim-fade-in delay-400 lg:block" />
               <div className="float-bob float-bob-delay-1 pointer-events-none absolute -left-20 bottom-1/4 hidden h-48 w-48 rounded-full bg-secondary-hover/20 blur-3xl anim-fade-in delay-500 lg:block" />
 
               <div className="anim-fade-up delay-1000 absolute bottom-6 right-6 z-40 flex items-center gap-3.5 rounded-2xl border border-white/15 bg-deep/90 px-5 py-3.5 shadow-xl backdrop-blur-sm">
-                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary/25 text-highlight">
+                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary/25 text-accent">
                   <svg
                     className="h-5 w-5"
                     fill="none"

@@ -66,7 +66,7 @@ export default function Credibility({ isFa }: CredibilityProps) {
                 <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
 
                 {/* Icon */}
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-soft text-primary transition-colors duration-200 group-hover:bg-primary group-hover:text-white">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-soft text-primary transition-colors duration-200 group-hover:bg-primary-fill group-hover:text-on-primary">
                   {c.icon}
                 </div>
 

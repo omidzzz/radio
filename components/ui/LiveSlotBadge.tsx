@@ -1,7 +1,7 @@
 "use client";
 
 import { toFarsiDigits } from "@/lib/i18n/numbers";
-import { useBookingModal } from "@/components/BookingModalProvider";
+import { useBookingModal } from "@/components/forms/BookingModalProvider";
 
 interface LiveSlotBadgeProps {
   isFa: boolean;
@@ -24,17 +24,23 @@ export default function LiveSlotBadge({
   const { openBookingModal } = useBookingModal();
 
   const baseClasses = `tnum inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold backdrop-blur-sm transition-colors duration-200 ${
+    // primary replaces the navbar Book Now button on the themed (light/dark)
+    // bar — text-accent flips green↔gold per theme so it never sits gold-on-
+    // sage. The non-primary variant renders on the always-dark hero, where
+    // gold works in both themes.
     primary
-      ? "border border-primary/60 bg-primary/20 text-highlight hover:border-primary hover:bg-primary/30"
-      : "border border-primary/30 bg-primary/10 text-highlight hover:border-primary/70 hover:bg-primary/20"
+      ? "border border-primary/60 bg-primary/20 text-accent hover:border-primary hover:bg-primary/30"
+      : "border border-primary/30 bg-primary/10 text-gold hover:border-primary/70 hover:bg-primary/20"
   } ${className}`;
+
+  const dotClass = primary ? "bg-accent" : "bg-gold";
 
   const content = (
     <>
       {/* Status dot — ping only on sm+ to save mobile GPU */}
       <span className="relative flex h-2 w-2">
-        <span className="absolute hidden h-full w-full animate-ping rounded-full bg-highlight opacity-60 motion-reduce:animate-none sm:inline-flex" />
-        <span className="relative inline-flex h-2 w-2 rounded-full bg-highlight" />
+        <span className={`absolute hidden h-full w-full animate-ping rounded-full opacity-60 motion-reduce:animate-none sm:inline-flex ${dotClass}`} />
+        <span className={`relative inline-flex h-2 w-2 rounded-full ${dotClass}`} />
       </span>
       {isFa ? (
         <>

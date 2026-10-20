@@ -63,7 +63,7 @@ export default function HeroSlideTwo({
       <div
         className="pointer-events-none absolute inset-0 hidden opacity-[0.05] anim-fade-in delay-300 lg:block"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l25.98 15v30L30 60 4.02 45V15z' fill='none' stroke='%2314b8a6' stroke-width='0.6'/%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l25.98 15v30L30 60 4.02 45V15z' fill='none' stroke='%23c9a24b' stroke-width='0.6'/%3E%3C/svg%3E")`,
         }}
       />
 
@@ -196,7 +196,7 @@ export default function HeroSlideTwo({
                 strength={0.2}
                 className="conic-border rounded-full"
               >
-                <span className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-secondary px-8 py-3.5 text-base font-semibold text-deep shadow-[0_0_45px_-6px_rgba(20,184,166,0.75)] transition-colors duration-300 hover:bg-secondary-hover active:scale-[0.97]">
+                <span className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-secondary px-8 py-3.5 text-base font-semibold text-on-primary shadow-[0_0_45px_-6px_rgba(46,125,91,0.75)] transition-colors duration-300 hover:bg-secondary-hover active:scale-[0.97]">
                   <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
                   <span className="relative flex items-center gap-2">
                     {slide.ctaPrimary}

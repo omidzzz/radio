@@ -5,7 +5,7 @@ import {
   getAvailableTimeSlots,
 } from "@/lib/services/availability-service";
 import { getUnavailableSlotsForDate } from "@/lib/services/unavailable-slots";
-import { rateLimitByIp, getClientIp } from "@/lib/rate-limit";
+import { rateLimitByIp, getClientIp } from "@/lib/http/rate-limit";
 
 // GET /api/availability - Get availability config and time slots
 // Query params:

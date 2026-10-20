@@ -5,9 +5,9 @@ import {
   getAdminTotpSecret,
   signSession,
   setSessionCookie,
-} from "@/lib/auth";
-import { verifyTotp } from "@/lib/totp";
-import { rateLimitByIp, getClientIp } from "@/lib/rate-limit";
+} from "@/lib/security/auth";
+import { verifyTotp } from "@/lib/security/totp";
+import { rateLimitByIp, getClientIp } from "@/lib/http/rate-limit";
 
 // POST /api/admin/login - Authenticate admin
 export async function POST(request: NextRequest) {

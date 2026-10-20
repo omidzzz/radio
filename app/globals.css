@@ -19,7 +19,7 @@
   --color-bg: #f8f5ee;
   --color-surface: #fffdf9;
   --color-gold: #c9a24b;
-  --color-gold-soft: #f2e7cd;
+  --color-gold-soft: #e9d4a3;
   --color-highlight: #82621f;
   --color-soft: #ece5d1;
   --color-text-primary: #16281f;
@@ -38,21 +38,28 @@
   --font-vazirmatn: var(--font-vazirmatn), system-ui, sans-serif;
   --font-outfit: var(--font-outfit), system-ui, sans-serif;
 
-  /* Light theme uses the deep forest green so text/icons rendered in the
-     primary color meet WCAG AA contrast on ivory surfaces. Hover/bright
-     accents lighten to the mid green. */
+  /* Light theme — primary green is reserved for borders, accents, and
+     hover states. Component fills (buttons, pills, chips) are WHITE so
+     light mode stays paper-dominant; text on fills is dark green. */
   --color-primary: #145c41;
   --color-primary-hover: #1a7352;
+  --color-primary-fill: #ffffff;
+  --color-primary-fill-soft: #f4efe5;
+  /* Dark text on white fills (WCAG AA on white). */
+  --color-on-primary: #145c41;
+  /* Accent text for badges on green-tinted surfaces — deep green works in
+     light mode; dark theme keeps warm gold. */
+  --color-accent: #145c41;
 
   /* Shared vertical rhythm for page sections — compact on mobile,
      generous on desktop without extra utilities per section. */
   --section-y: clamp(3.5rem, 6vw, 6rem);
 
   /* Elevation — light theme: neutral, soft, paper-like depth */
-  --elevation-card: 0 1px 2px 0 rgba(15, 23, 42, 0.04),
-    0 1px 3px 0 rgba(15, 23, 42, 0.06);
-  --elevation-card-hover: 0 14px 34px -14px rgba(15, 23, 42, 0.2),
-    0 2px 6px -2px rgba(15, 23, 42, 0.06);
+  --elevation-card: 0 1px 2px 0 rgba(11, 46, 34, 0.04),
+    0 1px 3px 0 rgba(11, 46, 34, 0.06);
+  --elevation-card-hover: 0 14px 34px -14px rgba(11, 46, 34, 0.2),
+    0 2px 6px -2px rgba(11, 46, 34, 0.06);
 
   /* Motion tokens (also exposed via @theme for utility generation, but
      declared here as literals so they are never tree-shaken away —
@@ -85,6 +92,17 @@
   --color-surface: #0e2a1f;
   --color-primary: #3dbe8b;
   --color-primary-hover: #5fd3a6;
+  /* Dark theme keeps green fills */
+  --color-primary-fill: #3dbe8b;
+  --color-primary-fill-soft: rgba(61, 190, 139, 0.12);
+  --color-on-primary: #04120d;
+  /* Fill on primary — light green, matching the dark theme's brand */
+  --color-primary-fill: #3dbe8b;
+  /* On dark theme primary is a light green, so on-fill text flips to
+     near-black (8.2:1) — visually identical to the old text-deep. */
+  --color-on-primary: #04120d;
+  /* Accent on tints: gold on the dark green tint (matches old highlight). */
+  --color-accent: #e3c67e;
   --color-gold: #d9b967;
   --color-gold-soft: #2b2413;
   --color-highlight: #e3c67e;
@@ -117,6 +135,10 @@
   --color-surface: var(--color-surface);
   --color-primary: var(--color-primary);
   --color-primary-hover: var(--color-primary-hover);
+  --color-on-primary: var(--color-on-primary);
+  --color-primary-fill: var(--color-primary-fill);
+  --color-primary-fill-hover: var(--color-primary-hover);
+  --color-accent: var(--color-accent);
   --color-highlight: var(--color-highlight);
   --color-gold: var(--color-gold);
   --color-gold-soft: var(--color-gold-soft);

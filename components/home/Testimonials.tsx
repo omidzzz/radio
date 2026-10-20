@@ -123,7 +123,7 @@ export default function Testimonials({ isFa }: TestimonialsProps) {
                   <span
                     className={`h-1.5 rounded-full transition-all duration-300 ${
                       i === active
-                        ? "w-8 bg-primary"
+                        ? "w-8 bg-primary-fill"
                         : "w-2.5 bg-white/20 hover:bg-white/40"
                     }`}
                   />

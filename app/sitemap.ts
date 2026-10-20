@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
-import db from "@/lib/db";
-import { siteConfig } from "@/lib/seo";
+import { listBlogPostsForSitemap } from "@/lib/services/blog-service";
+import { listForumPostsForSitemap } from "@/lib/services/forum-service";
+import { siteConfig } from "@/lib/seo/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -45,11 +46,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Blog posts
   let blogPages: MetadataRoute.Sitemap = [];
   try {
-    const posts = db
-      .prepare(
-        `SELECT id, published_at, updated_at FROM blog_posts WHERE is_published = 1`
-      )
-      .all() as { id: number; published_at?: string; updated_at?: string }[];
+    const posts = listBlogPostsForSitemap();
 
     for (const post of posts) {
       const lastModified = new Date(
@@ -66,9 +63,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Forum posts
   let forumPages: MetadataRoute.Sitemap = [];
   try {
-    const posts = db
-      .prepare(`SELECT id, created_at FROM forum_posts`)
-      .all() as { id: number; created_at: string }[];
+    const posts = listForumPostsForSitemap();
 
     for (const post of posts) {
       forumPages.push(

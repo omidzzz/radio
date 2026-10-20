@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { searchAll } from "@/lib/services/search-service";
 import { getServerLocale } from "@/lib/i18n/server";
-import { rateLimitByIp, getClientIp } from "@/lib/rate-limit";
+import { rateLimitByIp, getClientIp } from "@/lib/http/rate-limit";
 
 // Input validation schema
 const SearchQuerySchema = z.object({

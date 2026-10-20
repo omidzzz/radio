@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useLocale } from "./LocaleProvider";
+import { useLocale } from "./providers/LocaleProvider";
 import { Locale } from "@/lib/i18n/config";
 
 export default function LanguageToggle() {

@@ -1,13 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import { Vazirmatn, Outfit } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import RootErrorBoundary from "@/components/RootErrorBoundary";
-import { LocaleProvider } from "@/components/LocaleProvider";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
+import RootErrorBoundary from "@/components/ui/RootErrorBoundary";
+import { LocaleProvider } from "@/components/providers/LocaleProvider";
 import { getServerLocale, getDictionary } from "@/lib/i18n/server";
 import { localeDirs } from "@/lib/i18n/config";
-import { siteConfig } from "@/lib/seo";
+import { siteConfig } from "@/lib/seo/seo";
 import {
   websiteSchema,
   medicalClinicSchema,
@@ -16,17 +16,17 @@ import {
   conversationalContentSchema,
   authoritativeSourceSchema,
   reviewSchema,
-} from "@/lib/json-ld";
-import JsonLdScript from "@/components/JsonLd";
-import Analytics from "@/components/Analytics";
+} from "@/lib/seo/json-ld";
+import JsonLdScript from "@/components/feedback/JsonLd";
+import Analytics from "@/components/ui/Analytics";
 import ScrollProgress from "@/components/ui/ScrollProgress";
-import FloatingContactLazy from "@/components/FloatingContactLazy";
-import StickyBookingBar from "@/components/StickyBookingBar";
+import FloatingContactLazy from "@/components/feedback/FloatingContactLazy";
+import StickyBookingBar from "@/components/forms/StickyBookingBar";
 import Preloader from "@/components/ui/Preloader";
-import { BookingModalProvider } from "@/components/BookingModalProvider";
-import { ThemeProvider } from "@/components/ThemeProvider";
-import WebVitals from "@/components/WebVitals";
-import PWARegister from "@/components/PWARegister";
+import { BookingModalProvider } from "@/components/forms/BookingModalProvider";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import WebVitals from "@/components/ui/WebVitals";
+import PWARegister from "@/components/ui/PWARegister";
 
 const vazirmatn = Vazirmatn({
   subsets: ["arabic"],
@@ -181,6 +181,7 @@ export default async function RootLayout({
       lang={locale}
       dir={dir}
       className={`${vazirmatn.variable} ${outfit.variable}`}
+      data-scroll-behavior="smooth"
     >
       <head>
         <JsonLdScript data={jsonLd} />
@@ -202,7 +203,7 @@ export default async function RootLayout({
         {/* Skip-to-content link for keyboard/screen-reader users */}
         <a
           href="#main-content"
-          className="sr-only z-[100] rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-deep focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+          className="sr-only z-[100] rounded-lg bg-primary-fill px-4 py-2 text-sm font-semibold text-on-primary focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
         >
           {locale === "fa" ? "پرش به محتوای اصلی" : "Skip to main content"}
         </a>

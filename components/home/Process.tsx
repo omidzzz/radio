@@ -1,4 +1,4 @@
-import ScrollRotateImage from "@/components/ScrollRotateImage";
+import ScrollRotateImage from "@/components/ui/ScrollRotateImage";
 import Reveal from "@/components/ui/Reveal";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { toFarsiDigits } from "@/lib/i18n/numbers";
@@ -161,7 +161,7 @@ export default function Process({ isFa }: ProcessProps) {
               isFa ? "right-[12%]" : "left-[12%]"
             }`}
           >
-            <span className="absolute left-1/2 top-8 h-2 w-2 -translate-x-1/2 rounded-full bg-primary" />
+            <span className="absolute left-1/2 top-8 h-2 w-2 -translate-x-1/2 rounded-full bg-primary-fill" />
           </div>
 
           <div className="space-y-12 lg:space-y-20">
@@ -197,7 +197,7 @@ export default function Process({ isFa }: ProcessProps) {
                         </span>
 
                         {/* active node */}
-                        <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl border-2 border-primary/40 bg-surface text-base font-bold text-primary shadow-sm transition-colors duration-200 group-hover:border-primary group-hover:bg-primary group-hover:text-white">
+                        <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl border-2 border-primary/40 bg-surface text-base font-bold text-primary shadow-sm transition-colors duration-200 group-hover:border-primary group-hover:bg-primary-fill group-hover:text-on-primary">
                           {isFa ? toFarsiDigits(p.step) : p.step}
                         </div>
 
@@ -227,7 +227,7 @@ export default function Process({ isFa }: ProcessProps) {
                       <div className="surface-card no-lift-touch group relative overflow-hidden p-7">
                         {/* Fraction counter badge — treatment plan motif */}
                         <div className="absolute right-4 top-4 hidden items-center gap-1.5 rounded-full border border-primary/20 bg-soft px-2.5 py-1 font-mono text-[10px] font-semibold tracking-widest text-primary sm:flex">
-                          <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                          <span className="h-1.5 w-1.5 rounded-full bg-primary-fill" />
                           FRAC / {isFa ? toFarsiDigits("35") : "35"}
                         </div>
 

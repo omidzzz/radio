@@ -22,7 +22,10 @@ export async function POST(request: NextRequest) {
     const locale: Locale = body.locale;
     const response = NextResponse.json({ locale });
     response.cookies.set(LOCALE_COOKIE, locale, {
-      httpOnly: true,
+      // Not httpOnly: the middleware already sets this cookie
+      // JS-readably, and the client writes it directly on language
+      // toggle so the router refresh can skip a blocking round-trip.
+      httpOnly: false,
       sameSite: "lax",
       path: "/",
       maxAge: 60 * 60 * 24 * 365, // 1 year

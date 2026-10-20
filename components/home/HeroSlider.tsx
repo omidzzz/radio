@@ -222,7 +222,7 @@ function SliderControls({
             <span
               className={`h-2 w-2 rounded-full transition-all duration-300 ${
                 active === i
-                  ? "w-6 bg-primary shadow-[0_0_8px_rgba(26,115,82,0.8)]"
+                  ? "w-6 bg-primary-fill shadow-[0_0_8px_rgba(26,115,82,0.8)]"
                   : "bg-white/30 group-hover:bg-white/60"
               }`}
             />

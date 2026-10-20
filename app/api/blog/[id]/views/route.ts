@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import db from "@/lib/db";
+import { incrementBlogViews } from "@/lib/services/blog-service";
 
 export const dynamic = "force-dynamic";
 
@@ -21,21 +21,13 @@ export async function POST(
   }
 
   try {
-    const result = db
-      .prepare(
-        "UPDATE blog_posts SET views = COALESCE(views, 0) + 1 WHERE id = ? AND is_published = 1",
-      )
-      .run(postId);
+    const result = incrementBlogViews(postId);
 
-    if (result.changes === 0) {
+    if (!result) {
       return NextResponse.json({ error: "Post not found" }, { status: 404 });
     }
 
-    const row = db.prepare("SELECT views FROM blog_posts WHERE id = ?").get(
-      postId,
-    ) as { views: number | null } | undefined;
-
-    return NextResponse.json({ views: row?.views ?? 0 });
+    return NextResponse.json(result);
   } catch (error) {
     console.error("Failed to increment blog views:", error);
     return NextResponse.json(

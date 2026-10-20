@@ -52,8 +52,8 @@ const accents: Record<
     titleHover: "group-hover:text-secondary",
     checkBadge: "bg-soft text-secondary ring-secondary/20",
     cornerGlow: "bg-secondary/15",
-    barGradient: "from-secondary via-teal-300 to-primary",
-    spotlightColor: "rgba(20,184,166,0.08)",
+    barGradient: "from-secondary via-gold to-primary",
+    spotlightColor: "rgba(201,162,75,0.12)",
     hoverBorder: "hover:border-secondary/40",
   },
 };
@@ -163,7 +163,7 @@ export default function ServiceCard({
         <div className="mt-6 border-t border-border pt-5">
           <Link
             href="/booking"
-            className="inline-flex items-center gap-2 rounded-lg text-sm font-semibold text-primary outline-none transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface hover:text-highlight"
+            className="inline-flex items-center gap-2 rounded-lg text-sm font-semibold text-primary outline-none transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface hover:text-primary-hover"
           >
             <span>{ctaLabel}</span>
             <svg

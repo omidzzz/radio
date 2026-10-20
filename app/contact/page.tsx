@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import ContactForm from "@/components/ContactForm";
+import ContactForm from "@/components/forms/ContactForm";
 import MapEmbed from "@/components/MapEmbed";
 import { getServerDictionary } from "@/lib/i18n/server";
 import { toFarsiDigits } from "@/lib/i18n/numbers";
 import Link from "next/link";
-import { siteConfig } from "@/lib/seo";
-import { breadcrumbSchema, contactPageSchema } from "@/lib/json-ld";
-import JsonLdScript from "@/components/JsonLd";
+import { siteConfig } from "@/lib/seo/seo";
+import { breadcrumbSchema, contactPageSchema } from "@/lib/seo/json-ld";
+import JsonLdScript from "@/components/feedback/JsonLd";
 import RadiationEmblem from "@/components/ui/RadiationEmblem";
 import ParticleBackground from "@/components/ui/ParticleBackground";
-import PageHero from "@/components/PageHero";
+import PageHero from "@/components/ui/PageHero";
 import {
   getWorkingHoursSummary,
   getOpenNowStatus,
@@ -132,7 +132,7 @@ export default async function ContactPage() {
 
           <a
             href="#form"
-            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-deep shadow-[0_0_28px_-4px_rgba(26,115,82,0.6)] transition-all hover:bg-primary-hover hover:shadow-[0_0_36px_-4px_rgba(26,115,82,0.75)]"
+            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-primary-fill px-6 py-2.5 text-sm font-semibold text-on-primary shadow-[0_0_28px_-4px_rgba(26,115,82,0.6)] transition-all hover:bg-primary-fill-hover hover:shadow-[0_0_36px_-4px_rgba(26,115,82,0.75)]"
           >
             <span className="relative z-10">{dict.contact.sendMessage}</span>
             <ArrowIcon className="relative z-10 h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
@@ -188,7 +188,7 @@ export default async function ContactPage() {
                       {dict.contact.mapCardTitle}
                     </h2>
                   </div>
-                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary animate-pulse" />
+                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary-fill animate-pulse" />
                 </div>
 
                 <MapEmbed
@@ -253,7 +253,7 @@ export default async function ContactPage() {
                     className={`inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[10px] font-semibold ${
                       isOpen
                         ? "bg-positive-soft text-positive"
-                        : "bg-danger-soft text-danger"
+                        : "bg-positive-soft text-positive"
                     }`}
                   >
                     <span
@@ -301,7 +301,7 @@ export default async function ContactPage() {
               </p>
               <a
                 href={siteConfig.phoneHref}
-                className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-primary px-7 py-3 text-sm font-semibold text-deep shadow-[0_0_28px_-4px_rgba(26,115,82,0.6)] transition-all hover:bg-primary-hover hover:shadow-[0_0_36px_-4px_rgba(26,115,82,0.75)]"
+                className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-primary-fill px-7 py-3 text-sm font-semibold text-on-primary shadow-[0_0_28px_-4px_rgba(26,115,82,0.6)] transition-all hover:bg-primary-fill-hover hover:shadow-[0_0_36px_-4px_rgba(26,115,82,0.75)]"
               >
                 <PhoneCallIcon className="h-4 w-4" />
                 <span>{dict.contact.consultCta}</span>
@@ -331,7 +331,7 @@ export default async function ContactPage() {
               </div>
               <Link
                 href="/forum"
-                className="group relative inline-flex shrink-0 items-center gap-2 overflow-hidden rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-deep shadow-[0_0_26px_-5px_rgba(26,115,82,0.55)] transition-all hover:bg-primary-hover hover:shadow-[0_0_34px_-4px_rgba(26,115,82,0.7)]"
+                className="group relative inline-flex shrink-0 items-center gap-2 overflow-hidden rounded-full bg-primary-fill px-6 py-2.5 text-sm font-semibold text-on-primary shadow-[0_0_26px_-5px_rgba(26,115,82,0.55)] transition-all hover:bg-primary-fill-hover hover:shadow-[0_0_34px_-4px_rgba(26,115,82,0.7)]"
               >
                 <span className="relative z-10">{dict.contact.visitForum}</span>
                 <ArrowIcon className="relative z-10 h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />

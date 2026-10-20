@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import db from "@/lib/db";
-import { rateLimitByIp, getClientIp } from "@/lib/rate-limit";
-import { sanitizeText } from "@/lib/sanitize";
+import { rateLimitByIp, getClientIp } from "@/lib/http/rate-limit";
+import { sanitizeText } from "@/lib/security/sanitize";
+import {
+  blogPostExists,
+  createBlogComment,
+  listBlogComments,
+} from "@/lib/services/blog-service";
 
 // GET /api/blog/[id]/comments - List comments for a blog post
 export async function GET(
@@ -11,14 +15,7 @@ export async function GET(
   try {
     const { id } = await params;
     // Only show approved comments publicly
-    const comments = db
-      .prepare(
-        `SELECT id, author_name, content, created_at 
-         FROM blog_comments 
-         WHERE post_id = ? AND is_approved = 1
-         ORDER BY created_at ASC`
-      )
-      .all(Number(id));
+    const comments = listBlogComments(Number(id));
 
     return NextResponse.json({ comments }, {
       headers: {
@@ -64,11 +61,7 @@ export async function POST(
     }
 
     // Check if post exists
-    const post = db
-      .prepare("SELECT id FROM blog_posts WHERE id = ? AND is_published = 1")
-      .get(Number(id));
-
-    if (!post) {
+    if (!blogPostExists(Number(id))) {
       return NextResponse.json({ error: "Post not found" }, { status: 404 });
     }
 
@@ -84,16 +77,11 @@ export async function POST(
     }
 
     // Comments are held for moderation before appearing publicly
-    const result = db
-      .prepare(
-        `INSERT INTO blog_comments (post_id, author_name, content, is_approved) 
-         VALUES (?, ?, ?, 0)`
-      )
-      .run(Number(id), authorName, content);
-
-    const newComment = db
-      .prepare("SELECT * FROM blog_comments WHERE id = ?")
-      .get(result.lastInsertRowid);
+    const newComment = createBlogComment({
+      postId: Number(id),
+      authorName,
+      content,
+    });
 
     return NextResponse.json(
       {

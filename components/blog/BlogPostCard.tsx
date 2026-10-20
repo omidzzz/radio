@@ -1,23 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { toFarsiDigits } from "@/lib/i18n/numbers";
+import type { BlogPostSummary } from "@/lib/types";
 import ViewCounter from "./ViewCounter";
 
-export interface BlogPostCardData {
-  id: number;
-  title_fa: string;
-  title_en?: string;
-  excerpt_fa?: string;
-  excerpt_en?: string;
-  author_fa: string;
-  author_en?: string;
-  category_fa: string;
-  category_en?: string;
-  image?: string;
-  read_minutes: number;
-  published_at?: string;
-  views?: number | null;
-}
+export type BlogPostCardData = BlogPostSummary;
 
 interface BlogPostCardProps {
   post: BlogPostCardData;
@@ -41,14 +28,14 @@ export default function BlogPostCard({
   index = 0,
   featured = false,
 }: BlogPostCardProps) {
-  const title = isFa ? post.title_fa : post.title_en || post.title_fa;
+  const title = isFa ? post.titleFA : post.titleEN || post.titleFA;
   const excerpt = isFa
-    ? post.excerpt_fa
-    : post.excerpt_en || post.excerpt_fa;
-  const author = isFa ? post.author_fa : post.author_en || post.author_fa;
+    ? post.excerptFA
+    : post.excerptEN || post.excerptFA;
+  const author = isFa ? post.authorFA : post.authorEN || post.authorFA;
   const category = isFa
-    ? post.category_fa
-    : post.category_en || post.category_fa;
+    ? post.categoryFA
+    : post.categoryEN || post.categoryFA;
 
   return (
     <Link
@@ -82,13 +69,13 @@ export default function BlogPostCard({
 
           {/* Category badge */}
           <div className="absolute bottom-4 left-4 right-4">
-            <span className="inline-flex rounded-full border border-white/20 bg-deep/75 px-3 py-1 text-xs font-medium text-highlight backdrop-blur-sm">
+            <span className="inline-flex rounded-full border border-white/20 bg-deep/75 px-3 py-1 text-xs font-medium text-gold backdrop-blur-sm">
               {category}
             </span>
           </div>
 
           {featured && (
-            <span className="absolute top-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-deep shadow-[0_0_16px_-4px_rgba(26,115,82,0.6)]">
+            <span className="absolute top-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-primary-fill px-3 py-1 text-xs font-semibold text-on-primary shadow-[0_0_16px_-4px_rgba(26,115,82,0.6)]">
               <svg viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5" aria-hidden="true">
                 <path d="M12 2l2.9 6.26L21.5 9.27l-5 4.87L17.8 21 12 17.77 6.2 21l1.3-6.86-5-4.87 6.6-1.01L12 2z" />
               </svg>
@@ -120,9 +107,9 @@ export default function BlogPostCard({
           <div className="mt-auto flex items-center justify-between gap-3 pt-6 text-xs text-muted">
             <span className="truncate">{author}</span>
             <span className="flex shrink-0 items-center gap-3">
-              {post.published_at && (
+              {post.publishedAt && (
                 <span>
-                  {new Date(post.published_at).toLocaleDateString(
+                  {new Date(post.publishedAt).toLocaleDateString(
                     isFa ? "fa-IR" : "en-US",
                   )}
                 </span>
@@ -130,8 +117,8 @@ export default function BlogPostCard({
               <span className="h-1 w-1 rounded-full bg-border" />
               <span>
                 {isFa
-                  ? `${toFarsiDigits(post.read_minutes)} دقیقه`
-                  : `${post.read_minutes} min`}
+                  ? `${toFarsiDigits(post.readMinutes)} دقیقه`
+                  : `${post.readMinutes} min`}
               </span>
               {typeof post.views === "number" && (
                 <>

@@ -67,7 +67,7 @@ export default function TrustStrip({ isFa }: TrustStripProps) {
               key={mark.key}
               className="surface-chip group flex shrink-0 items-center gap-2.5 px-4 py-2.5"
             >
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-soft text-primary transition-colors duration-200 group-hover:bg-primary group-hover:text-white">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-soft text-primary transition-colors duration-200 group-hover:bg-primary-fill group-hover:text-on-primary">
                 {mark.svg}
               </span>
               <span className="whitespace-nowrap text-xs font-semibold uppercase tracking-wide text-text-secondary transition-colors duration-200 group-hover:text-text-primary">

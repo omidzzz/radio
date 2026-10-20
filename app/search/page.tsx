@@ -3,11 +3,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { getServerDictionary } from "@/lib/i18n/server";
 import { toFarsiDigits } from "@/lib/i18n/numbers";
-import { siteConfig } from "@/lib/seo";
-import { breadcrumbSchema } from "@/lib/json-ld";
-import JsonLdScript from "@/components/JsonLd";
+import { siteConfig } from "@/lib/seo/seo";
+import { breadcrumbSchema } from "@/lib/seo/json-ld";
+import JsonLdScript from "@/components/feedback/JsonLd";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import PageHero from "@/components/PageHero";
+import PageHero from "@/components/ui/PageHero";
 import { searchAll } from "@/lib/services/search-service";
 import type { SearchResult } from "@/lib/services/search-service";
 
@@ -90,7 +90,7 @@ export default async function SearchPage({
             />
             <button
               type="submit"
-              className="rounded-full bg-primary px-8 py-3.5 font-semibold text-deep transition hover:bg-primary-hover"
+              className="rounded-full bg-primary-fill px-8 py-3.5 font-semibold text-on-primary transition hover:bg-primary-fill-hover"
             >
               {isFa ? "جستجو" : "Search"}
             </button>
@@ -149,6 +149,7 @@ export default async function SearchPage({
                           alt={result.title}
                           fill
                           sizes="112px"
+                          loading="lazy"
                           className="object-cover"
                         />
                       </div>

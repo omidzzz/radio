@@ -81,12 +81,12 @@ export default function Features({ dict, isFa }: FeaturesProps) {
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="mx-auto max-w-2xl">
           <SectionHeader
-            eyebrow={isFa ? "خدمات تصویربرداری" : "Imaging Services"}
+            eyebrow={isFa ? "مراقبت بیمارمحور" : "Patient-Centered Care"}
             title={dict.home.featuresTitle}
             subtitle={
               isFa
-                ? "ترکیبی از تخصص پزشکی و فناوری پیشرفته تصویربرداری"
-                : "Precision medicine powered by cutting-edge imaging technology"
+                ? "همراهی شما در هر گام درمان — فناوری پیشرفته در خدمت آرامش شما"
+                : "Walking beside you at every step — advanced technology in service of your comfort"
             }
           />
         </Reveal>
@@ -101,14 +101,14 @@ export default function Features({ dict, isFa }: FeaturesProps) {
                     MOD / {feature.code}
                   </div>
 
-                  <div className="relative mx-auto mt-5 flex h-20 w-20 items-center justify-center rounded-2xl bg-soft text-primary shadow-inner transition-colors duration-200 group-hover:bg-primary group-hover:text-white">
+                  <div className="relative mx-auto mt-5 flex h-20 w-20 items-center justify-center rounded-2xl bg-soft text-primary shadow-inner transition-colors duration-200 group-hover:bg-primary-fill group-hover:text-on-primary">
                     {featureSvgs[feature.code as keyof typeof featureSvgs]}
                   </div>
 
                   <h3 className="relative mt-8 text-center text-xl font-semibold text-text-primary transition-colors duration-200 group-hover:text-primary">
                     {feature.title}
                   </h3>
-                  <p className="relative mt-3 text-center leading-relaxed text-text-secondary">
+                  <p className="relative mt-3 text-base leading-relaxed text-text-secondary">
                     {feature.desc}
                   </p>
 

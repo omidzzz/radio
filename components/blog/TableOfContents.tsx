@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { TocItem } from "@/lib/blog-html";
+import type { TocItem } from "@/lib/utils/blog-html";
 
 interface TableOfContentsProps {
   items: TocItem[];

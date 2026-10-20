@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { readdirSync, statSync } from "fs";
 import path from "path";
-import { requireAdmin } from "@/lib/auth";
+import { requireAdmin } from "@/lib/security/auth";
 
 const IMAGE_EXT = new Set([".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg"]);
 

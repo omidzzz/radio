@@ -3,9 +3,9 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useDictionary } from "@/lib/i18n/client";
-import RichTextEditor from "@/components/RichTextEditor";
-import MediaLibraryPicker from "@/components/MediaLibraryPicker";
-import { csrfHeaders } from "@/lib/csrf";
+import RichTextEditor from "@/components/forms/RichTextEditor";
+import MediaLibraryPicker from "@/components/ui/MediaLibraryPicker";
+import { csrfHeaders } from "@/lib/http/csrf";
 
 export default function EditBlogPostPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
@@ -369,14 +369,14 @@ export default function EditBlogPostPage({ params }: { params: Promise<{ id: str
             <button
               type="submit"
               disabled={submitting}
-              className="rounded-lg bg-primary px-6 py-3 font-semibold text-deep transition hover:bg-primary-hover disabled:opacity-50"
+              className="rounded-lg bg-primary-fill px-6 py-3 font-semibold text-on-primary transition hover:bg-primary-fill-hover disabled:opacity-50"
             >
               {submitting ? "Updating..." : "Update Post"}
             </button>
             <button
               type="button"
               onClick={() => router.back()}
-              className="rounded-lg border border-primary/30 px-6 py-3 font-semibold text-white transition hover:bg-primary-hover/10"
+              className="rounded-lg border border-primary/30 px-6 py-3 font-semibold text-white transition hover:bg-primary-fill-hover/10"
             >
               Cancel
             </button>

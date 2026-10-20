@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { rateLimitByIp, getClientIp } from "@/lib/rate-limit";
-import { sanitizeContent, sanitizeText } from "@/lib/sanitize";
+import { rateLimitByIp, getClientIp } from "@/lib/http/rate-limit";
+import { sanitizeContent, sanitizeText } from "@/lib/security/sanitize";
 import { validateForumReply } from "@/lib/validation/forum";
 import { getForumReplies, createForumReply } from "@/lib/services/forum-service";
-import { ApiError, withErrorHandling } from "@/lib/api-error";
-import { forumCache } from "@/lib/cache";
+import { ApiError, withErrorHandling } from "@/lib/http/api-error";
 
 type RouteContext = {
   params: Promise<{ id: string }>;
@@ -74,9 +73,6 @@ export const POST = withErrorHandling(
     };
 
     const reply = createForumReply(input);
-
-    // Invalidate forum cache after creating reply
-    forumCache.clear();
 
     return NextResponse.json({ reply }, { status: 201 });
   }

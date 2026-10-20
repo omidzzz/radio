@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { writeFileSync, mkdirSync } from "fs";
 import path from "path";
 import crypto from "crypto";
-import { requireAdminWithCsrf } from "@/lib/auth";
+import { requireAdminWithCsrf } from "@/lib/security/auth";
 import sharp from "sharp";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB

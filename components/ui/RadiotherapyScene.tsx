@@ -766,8 +766,8 @@ export default function RadiotherapyScene() {
             cx="255"
             cy="160"
             r="54"
-            stroke="#a5f3fc"
-            strokeOpacity="0.4"
+            stroke="#e9e2cf"
+            strokeOpacity="0.45"
             strokeWidth="2"
           />
           <circle cx="255" cy="160" r="54" fill="#062a34" fillOpacity="0.6" />
@@ -1848,7 +1848,7 @@ export default function RadiotherapyScene() {
           <div className="flex items-center gap-2">
             <span
               className={`h-1.5 w-1.5 rounded-full ${
-                firing ? "bg-amber-400 animate-ping" : "bg-primary"
+                firing ? "bg-amber-400 animate-ping" : "bg-primary-fill"
               } ${hot ? "animate-pulse" : ""}`}
             />
             <span className={firing ? "text-amber-300" : "text-emerald-200/70"}>

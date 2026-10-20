@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { rateLimitByIp, getClientIp } from "@/lib/rate-limit";
-import { sanitizeText } from "@/lib/sanitize";
+import { rateLimitByIp, getClientIp } from "@/lib/http/rate-limit";
+import { sanitizeText } from "@/lib/security/sanitize";
 import { validateBooking } from "@/lib/validation/booking";
 import { createBooking } from "@/lib/services/booking-service";
 import { validateBookingAvailability } from "@/lib/services/availability-service";
-import { ApiError, withErrorHandling } from "@/lib/api-error";
+import { ApiError, withErrorHandling } from "@/lib/http/api-error";
 
 // POST /api/bookings - Create a new booking request
 export const POST = withErrorHandling(async (request: NextRequest) => {

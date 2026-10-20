@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import db from "@/lib/db";
+import { pingDatabase } from "@/lib/services/system-service";
 
 // GET /api/health - Health check endpoint for uptime monitoring
 export async function GET() {
@@ -15,10 +15,8 @@ export async function GET() {
     database: "ok",
   };
 
-  try {
-    // Verify database connectivity
-    db.prepare("SELECT 1").get();
-  } catch {
+  // Verify database connectivity
+  if (!pingDatabase()) {
     status.status = "degraded";
     status.database = "error";
     return NextResponse.json(status, { status: 503 });

@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocale } from "@/components/LocaleProvider";
+import { useLocale } from "@/components/providers/LocaleProvider";
 import { getDictionary } from "./index";
 import type { Dictionary } from "./index";
 import { toFarsiDigits } from "./numbers";

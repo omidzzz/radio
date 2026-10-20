@@ -49,6 +49,7 @@ const en = {
     sunday: "Friday",
     closed: "Closed",
     rightsReserved: "All rights reserved.",
+    designerBy: "Design by",
     adminLogin: "Admin Login",
     addressLine1: "Valiasr St., Tehran",
     addressLine2: "Opposite Day Hospital ER, Day Medical Tower",
@@ -62,11 +63,11 @@ const en = {
     heroTitle1: "Dr. Pari Ghadamgahi,",
     heroTitle2: "Radiotherapy & Radiosurgery",
     heroSubtitle:
-      "Specialist in radiotherapy and oncology with a focus on CNS, head and neck, gynecologic (GYN), gastrointestinal (GI), breast, prostate and genitourinary (GU) cancers — precise planning and personal care at every step, from consultation to follow-up.",
+      "With a focus on walking beside you at every step of treatment — every plan built around the person, not just the tumor. Specialist in radiotherapy and oncology for CNS, head and neck, gynecologic (GYN), gastrointestinal (GI), breast, prostate and genitourinary (GU) cancers, using precise planning and technology in service of your comfort.",
     bookConsultation: "Book a Consultation",
     exploreServices: "Explore Services",
     heroSlide2: {
-      badge: "Compassionate Care Team",
+      badge: "Care, beside you",
       title1: "Your Journey,",
       title2: "Our Priority",
       subtitle:
@@ -132,18 +133,18 @@ const en = {
       ],
     },
     featuresTitle: "Why Dr. Ghadamgahi?",
-    feature1Title: "Specialist Expertise",
+    feature1Title: "With you from consultation to follow-up",
     feature1Desc:
-      "Treatment and planning delivered directly by Dr. Pari Ghadamgahi, specialist in radiotherapy and oncology, across all key tumor-site areas.",
-    feature2Title: "Advanced Technology",
+      "Treatment and planning delivered directly by Dr. Pari Ghadamgahi, specialist in radiotherapy and oncology — decisions are made with you, not for you.",
+    feature2Title: "Technology in service of your comfort",
     feature2Desc:
-      "Latest-generation linear accelerators with IMRT, IGRT, and SBRT capabilities for precise, targeted treatment.",
+      "Latest-generation linear accelerators with IMRT, IGRT, and SBRT capabilities; more precise treatment with less pain and fewer sessions — technology in service of your comfort.",
     feature3Title: "Patient-Centered Care",
     feature3Desc:
-      "Personalized treatment plans, dedicated support staff, and a comfortable environment focused on your wellbeing.",
+      "Decisions are made with you, not for you — personalized treatment plans, dedicated support staff, and a comfortable environment focused on your wellbeing.",
     ctaTitle: "Have Questions About Treatment?",
     ctaSubtitle:
-      "Join our community forum to ask questions, share experiences, and get support from our specialists and other patients.",
+      "Speak directly with Dr. Pari Ghadamgahi — join our community forum to ask questions, share experiences, and get support from our specialists and other patients.",
     visitForum: "Visit the Forum",
     contactUs: "Contact Us",
     faqTitle: "Frequently Asked Questions",

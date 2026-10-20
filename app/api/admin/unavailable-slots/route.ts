@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { requireAdmin, requireAdminWithCsrf } from "@/lib/auth";
+import { requireAdmin, requireAdminWithCsrf } from "@/lib/security/auth";
 import {
   getUnavailableSlots,
   addUnavailableSlot,

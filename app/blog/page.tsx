@@ -1,32 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import db from "@/lib/db";
 import { getServerDictionary } from "@/lib/i18n/server";
 import { toFarsiDigits } from "@/lib/i18n/numbers";
-import { siteConfig } from "@/lib/seo";
-import { breadcrumbSchema } from "@/lib/json-ld";
-import JsonLdScript from "@/components/JsonLd";
+import {
+  listBlogCategories,
+  listBlogPostSummaries,
+} from "@/lib/services/blog-service";
+import { siteConfig, localizedAlternates } from "@/lib/seo/seo";
+import { breadcrumbSchema } from "@/lib/seo/json-ld";
+import JsonLdScript from "@/components/feedback/JsonLd";
 import RadiationEmblem from "@/components/ui/RadiationEmblem";
 import ParticleBackground from "@/components/ui/ParticleBackground";
-import PageHero from "@/components/PageHero";
+import PageHero from "@/components/ui/PageHero";
 import BlogPostCard from "@/components/blog/BlogPostCard";
 import CategoryFilter from "@/components/blog/CategoryFilter";
-
-interface BlogPost {
-  id: number;
-  title_fa: string;
-  title_en?: string;
-  excerpt_fa: string;
-  excerpt_en?: string;
-  author_fa: string;
-  author_en?: string;
-  category_fa: string;
-  category_en?: string;
-  image?: string;
-  read_minutes: number;
-  published_at?: string;
-  views?: number | null;
-}
 
 export const revalidate = 60;
 
@@ -104,43 +91,18 @@ export default async function BlogPage({
   const params = await searchParams;
   const page = Math.max(1, Number.parseInt(params.page || "1", 10));
   const category = params.category || "all";
-  const offset = (page - 1) * POSTS_PER_PAGE;
 
   // Get all unique categories for the filter
-  const categories = db
-    .prepare(
-      `SELECT DISTINCT category_fa, category_en FROM blog_posts WHERE is_published = 1 ORDER BY category_fa`,
-    )
-    .all() as { category_fa: string; category_en: string | null }[];
+  const categories = listBlogCategories();
 
   // Single query with window function to get count + posts in one DB call
-  const rows = (category !== "all"
-    ? db
-        .prepare(
-          `SELECT id, title_fa, title_en, excerpt_fa, excerpt_en, author_fa, author_en,
-                  category_fa, category_en, image, read_minutes, published_at, views,
-                  COUNT(*) OVER() AS total_count
-           FROM blog_posts
-           WHERE is_published = 1 AND category_fa = ?
-           ORDER BY published_at DESC, created_at DESC
-           LIMIT ? OFFSET ?`,
-        )
-        .all(category, POSTS_PER_PAGE, offset)
-    : db
-        .prepare(
-          `SELECT id, title_fa, title_en, excerpt_fa, excerpt_en, author_fa, author_en,
-                  category_fa, category_en, image, read_minutes, published_at, views,
-                  COUNT(*) OVER() AS total_count
-           FROM blog_posts
-           WHERE is_published = 1
-           ORDER BY published_at DESC, created_at DESC
-           LIMIT ? OFFSET ?`,
-        )
-        .all(POSTS_PER_PAGE, offset)) as (BlogPost & { total_count: number })[];
-
-  const posts = rows;
-  const total = rows.length > 0 ? rows[0].total_count : 0;
-  const totalPages = Math.max(1, Math.ceil(total / POSTS_PER_PAGE));
+  const { posts, pagination } = listBlogPostSummaries({
+    category,
+    page,
+    limit: POSTS_PER_PAGE,
+  });
+  const total = pagination.total;
+  const totalPages = Math.max(1, pagination.totalPages);
 
   const breadcrumbs = breadcrumbSchema([
     { name: "خانه", path: "/" },
@@ -214,8 +176,8 @@ export default async function BlogPage({
             <CategoryFilter
               active={category}
               categories={categories.map((cat) => ({
-                value: cat.category_fa,
-                label: isFa ? cat.category_fa : cat.category_en || cat.category_fa,
+                value: cat.categoryFA,
+                label: isFa ? cat.categoryFA : cat.categoryEN || cat.categoryFA,
               }))}
             />
           )}
@@ -306,7 +268,7 @@ export default async function BlogPage({
                     href={pageHref(item)}
                     className={`inline-flex h-10 w-10 items-center justify-center rounded-full text-sm font-semibold transition ${
                       item === page
-                        ? "bg-primary text-deep shadow-[0_0_20px_-4px_rgba(26,115,82,0.5)]"
+                        ? "bg-primary-fill text-on-primary shadow-[0_0_20px_-4px_rgba(26,115,82,0.5)]"
                         : "border border-border/70 bg-surface text-text-secondary hover:border-primary/40 hover:text-primary"
                     }`}
                     aria-current={item === page ? "page" : undefined}

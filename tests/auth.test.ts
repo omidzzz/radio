@@ -20,7 +20,7 @@ import {
   verifySession,
   getAdminPassword,
   getSessionSecret,
-} from "../lib/auth";
+} from "../lib/security/auth";
 
 describe("Auth utilities", () => {
   it("should sign and verify a valid session", () => {

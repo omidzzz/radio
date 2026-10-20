@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { getServerDictionary } from "@/lib/i18n/server";
-import { breadcrumbSchema } from "@/lib/json-ld";
-import JsonLdScript from "@/components/JsonLd";
-import PageHero from "@/components/PageHero";
+import { breadcrumbSchema } from "@/lib/seo/json-ld";
+import JsonLdScript from "@/components/feedback/JsonLd";
+import PageHero from "@/components/ui/PageHero";
 import ParticleBackground from "@/components/ui/ParticleBackground";
 
 export const metadata: Metadata = {

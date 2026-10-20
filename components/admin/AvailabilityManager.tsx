@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { csrfHeaders } from "@/lib/csrf";
+import { csrfHeaders } from "@/lib/http/csrf";
 import { useDictionary } from "@/lib/i18n/client";
-import { useLocale } from "@/components/LocaleProvider";
+import { useLocale } from "@/components/providers/LocaleProvider";
 
 interface AvailabilitySettings {
   id: number;
@@ -352,7 +352,7 @@ export default function AvailabilityManager() {
           <button
             onClick={saveGlobalSettings}
             disabled={saving}
-            className="rounded-lg bg-primary px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-lg bg-primary-fill px-6 py-2.5 text-sm font-semibold text-on-primary transition hover:bg-primary-fill-hover disabled:cursor-not-allowed disabled:opacity-50"
           >
             {saving ? dict.admin.saving : dict.admin.saveGlobalSettings}
           </button>

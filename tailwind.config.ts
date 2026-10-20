@@ -9,7 +9,9 @@ const config: Config = {
     extend: {
       colors: {
         primary: { DEFAULT: "#145c41", hover: "#1a7352" },
-        highlight: "#8f6d26",
+        highlight: "#82621f",
+        gold: "#c9a24b",
+        goldSoft: "#f3e4ac",
         soft: "#efeadb",
         deep: "#0b2e22",
         secondary: { DEFAULT: "#2e7d5b", hover: "#3e9a74" },

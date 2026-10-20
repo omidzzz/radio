@@ -7,7 +7,7 @@ import Process from "@/components/home/Process";
 import Equipment from "@/components/home/Equipment";
 import Precision from "@/components/home/Precision";
 import Credibility from "@/components/home/Credibility";
-import FAQ from "@/components/FAQ";
+import FAQ from "@/components/ui/FAQ";
 import CTA from "@/components/home/CTA";
 import Testimonials from "@/components/home/Testimonials";
 import CertificationBand from "@/components/home/CertificationBand";
@@ -17,8 +17,8 @@ import HeroEntrance from "@/components/ui/HeroEntrance";
 import AmbientFx from "@/components/ui/AmbientFx";
 import MorphingBlob from "@/components/ui/MorphingBlob";
 import NodeNetwork from "@/components/ui/NodeNetwork";
-import JsonLdScript from "@/components/JsonLd";
-import { faqSchema } from "@/lib/json-ld";
+import JsonLdScript from "@/components/feedback/JsonLd";
+import { faqSchema } from "@/lib/seo/json-ld";
 
 export const revalidate = 3600;
 
@@ -61,23 +61,7 @@ export default async function HomePage() {
         </AmbientFx>
       </div>
 
-      {/* Modality strip — static wrapped pill list (RTL-aware, no motion) */}
-      <div className="relative z-10 border-b border-border/80 bg-bg py-4">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <ul className="flex flex-wrap items-center justify-center gap-x-2.5 gap-y-2">
-            {dict.home.modalities.map((item) => (
-              <li
-                key={item}
-                className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-text-secondary transition-colors duration-300 hover:border-primary/40 hover:text-primary"
-              >
-                <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-primary/60" />
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-
+      {/* Hero slider — full-bleed immersive on load */}
       <HeroEntrance>
         <HeroSlider dict={dict} isFa={isFa} />
       </HeroEntrance>
@@ -88,7 +72,7 @@ export default async function HomePage() {
           scrolled into view (content-visibility: auto) */}
       <div className="content-visibility">
         <Process isFa={isFa} />
-        <Equipment isFa={isFa} />
+        <Equipment isFa={isFa} modalities={dict.home.modalities} />
         <Precision isFa={isFa} />
         <ScanLineDivider />
         <Testimonials isFa={isFa} />

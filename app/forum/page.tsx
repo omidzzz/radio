@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import db from "@/lib/db";
-import NewPostForm from "@/components/NewPostForm";
+import db from "@/lib/db/db";
+import NewPostForm from "@/components/forms/NewPostForm";
 import { getServerDictionary, getServerLocale } from "@/lib/i18n/server";
 import { getCategoryLabel, formatDate, formatRelativeTime } from "@/lib/i18n";
 import { toFarsiDigits } from "@/lib/i18n/numbers";
-import { siteConfig } from "@/lib/seo";
-import { breadcrumbSchema } from "@/lib/json-ld";
-import JsonLdScript from "@/components/JsonLd";
+import { siteConfig } from "@/lib/seo/seo";
+import { breadcrumbSchema } from "@/lib/seo/json-ld";
+import JsonLdScript from "@/components/feedback/JsonLd";
 import RadiationEmblem from "@/components/ui/RadiationEmblem";
 import ParticleBackground from "@/components/ui/ParticleBackground";
-import PageHero from "@/components/PageHero";
-import { getPageItems } from "@/lib/pagination";
+import PageHero from "@/components/ui/PageHero";
+import { getPageItems } from "@/lib/http/pagination";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { dict } = await getServerDictionary();
@@ -199,7 +199,7 @@ export default async function ForumPage({
                 {/* Mobile CTA — jumps to the ask form below the list */}
                 <a
                   href="#ask-form"
-                  className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-deep shadow-[0_0_16px_-4px_rgba(26,115,82,0.5)] transition hover:bg-primary-hover lg:hidden"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary-fill px-4 py-2 text-xs font-semibold text-on-primary shadow-[0_0_16px_-4px_rgba(26,115,82,0.5)] transition hover:bg-primary-fill-hover lg:hidden"
                 >
                   <svg
                     className="h-3.5 w-3.5"
@@ -227,7 +227,7 @@ export default async function ForumPage({
                     scroll={false}
                     className={`rounded-full px-4 py-1.5 text-xs font-medium transition ${
                       validCategory === cat
-                        ? "bg-primary text-deep shadow-[0_0_16px_-4px_rgba(26,115,82,0.5)]"
+                        ? "bg-primary-fill text-on-primary shadow-[0_0_16px_-4px_rgba(26,115,82,0.5)]"
                         : "border border-border/70 bg-surface text-text-secondary hover:border-primary/40 hover:text-primary"
                     }`}
                   >
@@ -289,7 +289,7 @@ export default async function ForumPage({
                   {/* Empty-state CTA — jump straight to the ask form */}
                   <a
                     href="#ask-form"
-                    className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-deep shadow-[0_0_20px_-6px_rgba(26,115,82,0.6)] transition hover:bg-primary-hover lg:hidden"
+                    className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary-fill px-5 py-2.5 text-sm font-semibold text-on-primary shadow-[0_0_20px_-6px_rgba(26,115,82,0.6)] transition hover:bg-primary-fill-hover lg:hidden"
                   >
                     {dict.forum.askQuestionCta}
                   </a>
@@ -372,7 +372,7 @@ export default async function ForumPage({
                         scroll={false}
                         className={`inline-flex h-10 w-10 items-center justify-center rounded-full text-sm font-semibold transition ${
                           item === page
-                            ? "bg-primary text-deep shadow-[0_0_20px_-4px_rgba(26,115,82,0.5)]"
+                            ? "bg-primary-fill text-on-primary shadow-[0_0_20px_-4px_rgba(26,115,82,0.5)]"
                             : "border border-border/70 bg-surface text-text-secondary hover:border-primary/40 hover:text-primary"
                         }`}
                         aria-current={item === page ? "page" : undefined}

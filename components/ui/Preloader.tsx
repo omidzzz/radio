@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useLocale } from "@/components/LocaleProvider";
+import { useLocale } from "@/components/providers/LocaleProvider";
 import { toFarsiDigits } from "@/lib/i18n/numbers";
 
 const SEEN_KEY = "preloader-seen";

@@ -2,15 +2,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cache } from "react";
-import db from "@/lib/db";
-import ReplyForm from "@/components/ReplyForm";
+import db from "@/lib/db/db";
+import ReplyForm from "@/components/forms/ReplyForm";
 import { ForumPost, ForumReply } from "@/lib/types";
 import { getServerDictionary } from "@/lib/i18n/server";
 import { getCategoryLabel, formatDate, formatRelativeTime } from "@/lib/i18n";
 import { toFarsiDigits } from "@/lib/i18n/numbers";
-import { siteConfig } from "@/lib/seo";
-import { qaPageSchema, breadcrumbSchema } from "@/lib/json-ld";
-import JsonLdScript from "@/components/JsonLd";
+import { siteConfig } from "@/lib/seo/seo";
+import { qaPageSchema, breadcrumbSchema } from "@/lib/seo/json-ld";
+import JsonLdScript from "@/components/feedback/JsonLd";
 import ParticleBackground from "@/components/ui/ParticleBackground";
 
 export const revalidate = 60;
@@ -225,8 +225,8 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
 
           {/* Category badge — separate from back link */}
           <div className="mb-5">
-            <span className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-3.5 py-1.5 text-xs font-medium text-highlight backdrop-blur-md">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-3.5 py-1.5 text-xs font-medium text-gold backdrop-blur-md">
+              <span className="h-1.5 w-1.5 rounded-full bg-primary-fill animate-pulse" />
               {getCategoryLabel(post.category, dict)}
             </span>
           </div>
@@ -386,7 +386,7 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
                 {/* Empty-state CTA — jump straight to the reply form */}
                 <a
                   href="#reply-form"
-                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-deep shadow-[0_0_20px_-6px_rgba(26,115,82,0.6)] transition hover:bg-primary-hover"
+                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary-fill px-5 py-2.5 text-sm font-semibold text-on-primary shadow-[0_0_20px_-6px_rgba(26,115,82,0.6)] transition hover:bg-primary-fill-hover"
                 >
                   {dict.forum.postReply}
                 </a>
@@ -426,7 +426,7 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
 
                             <div className="min-w-0 flex-1">
                               <div className="flex flex-wrap items-center gap-2">
-                                <span className="inline-flex items-center gap-1 rounded-full bg-primary px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-deep">
+                                <span className="inline-flex items-center gap-1 rounded-full bg-primary-fill px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-on-primary">
                                   {dict.forum.officialResponse}
                                 </span>
                                 <span className="font-semibold text-text-primary">

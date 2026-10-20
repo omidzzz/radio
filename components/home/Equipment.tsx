@@ -5,9 +5,10 @@ import SectionHeader from "@/components/ui/SectionHeader";
 
 interface EquipmentProps {
   isFa: boolean;
+  modalities?: string[];
 }
 
-export default function Equipment({ isFa }: EquipmentProps) {
+export default function Equipment({ isFa, modalities = [] }: EquipmentProps) {
   const specs = [
     { label: isFa ? "قدرت میدان مغناطیسی" : "Field Strength", value: "3.0 T" },
     {
@@ -165,6 +166,22 @@ export default function Equipment({ isFa }: EquipmentProps) {
               </Reveal>
             ))}
           </dl>
+
+          {modalities.length > 0 && (
+            <Reveal delay={150} className="mt-8">
+              <ul className="flex flex-wrap items-center gap-2">
+                {modalities.map((item) => (
+                  <li
+                    key={item}
+                    className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-white/70 transition-colors duration-300 hover:border-primary/50 hover:text-white"
+                  >
+                    <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-primary/70" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          )}
         </div>
       </div>
     </section>

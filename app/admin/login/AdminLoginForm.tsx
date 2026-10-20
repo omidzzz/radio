@@ -53,7 +53,7 @@ export default function AdminLoginForm() {
   return (
     <div className="w-full max-w-md rounded-2xl border border-border bg-white p-8 shadow-sm">
       <div className="text-center">
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary text-2xl font-bold text-white">
+        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary-fill text-2xl font-bold text-white">
           A
         </div>
         <h1 className="mt-4 text-2xl font-bold text-text-primary">
@@ -114,7 +114,7 @@ export default function AdminLoginForm() {
         <button
           type="submit"
           disabled={submitting}
-          className="w-full rounded-lg bg-primary px-8 py-3 text-base font-semibold text-white transition hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-50"
+          className="w-full rounded-lg bg-primary-fill px-8 py-3 text-base font-semibold text-white transition hover:bg-primary-fill-hover disabled:cursor-not-allowed disabled:opacity-50"
         >
           {submitting ? dict.admin.loggingIn : dict.admin.loginButton}
         </button>

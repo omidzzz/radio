@@ -4,11 +4,11 @@ import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useDictionary, getSessionTypeLabel, getStatusLabel, useFarsiDigits } from "@/lib/i18n/client";
-import { useLocale } from "@/components/LocaleProvider";
+import { useLocale } from "@/components/providers/LocaleProvider";
 import { formatDate } from "@/lib/i18n";
-import { csrfHeaders } from "@/lib/csrf";
+import { csrfHeaders } from "@/lib/http/csrf";
 import AvailabilityManager from "@/components/admin/AvailabilityManager";
-import { toCsv, downloadCsv } from "@/lib/csv";
+import { toCsv, downloadCsv } from "@/lib/utils/csv";
 
 interface Stats {
   totalBookings: number;
@@ -355,7 +355,7 @@ export default function AdminDashboardPage() {
       <header className="border-b border-border bg-surface">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
           <div className="flex items-center gap-3">
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-lg font-bold text-white">
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-fill text-lg font-bold text-on-primary">
               A
             </span>
             <div>
@@ -399,7 +399,7 @@ export default function AdminDashboardPage() {
               onClick={() => setActiveTab(tab.key)}
               className={`rounded-full px-5 py-2 text-sm font-medium transition ${
                 activeTab === tab.key
-                  ? "bg-primary text-white"
+                  ? "bg-primary-fill text-on-primary"
                   : "bg-surface text-text-secondary hover:bg-gray-100"
               }`}
             >
@@ -699,7 +699,7 @@ export default function AdminDashboardPage() {
                             <button
                               onClick={() => submitAdminReply(post.id)}
                               disabled={submittingReply[post.id]}
-                              className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed"
+                              className="rounded-lg bg-primary-fill px-4 py-2 text-sm font-semibold text-on-primary transition hover:bg-primary-fill-hover disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                               {submittingReply[post.id] ? "Posting..." : "Post Reply as Admin"}
                             </button>
@@ -736,7 +736,7 @@ export default function AdminDashboardPage() {
               </h2>
               <Link
                 href="/admin/blog/new"
-                className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-primary-hover"
+                className="rounded-lg bg-primary-fill px-4 py-2 text-sm font-semibold text-on-primary transition hover:bg-primary-fill-hover"
               >
                 + New Post
               </Link>

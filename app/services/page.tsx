@@ -2,16 +2,16 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getServerDictionary } from "@/lib/i18n/server";
 import { toFarsiDigits } from "@/lib/i18n/numbers";
-import { siteConfig } from "@/lib/seo";
-import { medicalProcedureSchema, breadcrumbSchema } from "@/lib/json-ld";
-import JsonLdScript from "@/components/JsonLd";
+import { siteConfig } from "@/lib/seo/seo";
+import { medicalProcedureSchema, breadcrumbSchema } from "@/lib/seo/json-ld";
+import JsonLdScript from "@/components/feedback/JsonLd";
 import RadiationEmblem from "@/components/ui/RadiationEmblem";
 import ParticleBackground from "@/components/ui/ParticleBackground";
 import RadiotherapyScene from "@/components/ui/RadiotherapyScene";
-import PageHero from "@/components/PageHero";
+import PageHero from "@/components/ui/PageHero";
 import Reveal from "@/components/ui/Reveal";
 import CountUp from "@/components/ui/CountUp";
-import FAQ from "@/components/FAQ";
+import FAQ from "@/components/ui/FAQ";
 import ServiceCard from "@/components/services/ServiceCard";
 
 /* ────────────────────────────────────────────────────────────────
@@ -377,7 +377,7 @@ export default async function ServicesPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-3.5 py-1 text-xs font-medium text-primary">
-              <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-primary" />
+              <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-primary-fill" />
               {dict.services.statsTitle}
             </div>
           </Reveal>
@@ -441,7 +441,7 @@ export default async function ServicesPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-3.5 py-1 text-xs font-medium text-primary">
-              <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-primary" />
+              <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-primary-fill" />
               {dict.services.processBadge}
             </div>
             <h2 className="mt-5 text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
@@ -490,8 +490,8 @@ export default async function ServicesPage() {
 
             {/* Text */}
             <div className="p-10 text-center sm:p-12 lg:p-14 lg:text-start">
-              <div className="mx-auto mb-5 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1 text-xs font-medium text-highlight lg:mx-0">
-                <span aria-hidden="true" className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary motion-reduce:animate-none" />
+              <div className="mx-auto mb-5 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1 text-xs font-medium text-gold lg:mx-0">
+                <span aria-hidden="true" className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary-fill motion-reduce:animate-none" />
                 {dict.services.ctaBadge}
               </div>
 
@@ -505,7 +505,7 @@ export default async function ServicesPage() {
               <div className="mt-8 flex flex-wrap items-center justify-center gap-4 lg:justify-start">
                 <Link
                   href="/booking"
-                  className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-primary px-8 py-3.5 text-base font-semibold text-deep shadow-xl shadow-primary/30 outline-none transition-all duration-300 focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-2 focus-visible:ring-offset-deep hover:bg-primary-hover hover:shadow-primary/50 active:scale-[0.97]"
+                  className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-primary-fill px-8 py-3.5 text-base font-semibold text-on-primary shadow-xl shadow-primary/30 outline-none transition-all duration-300 focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-2 focus-visible:ring-offset-deep hover:bg-primary-fill-hover hover:shadow-primary/50 active:scale-[0.97]"
                 >
                   <span
                     aria-hidden="true"

@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { rateLimitByIp, getClientIp } from "@/lib/rate-limit";
-import { sanitizeText } from "@/lib/sanitize";
+import { rateLimitByIp, getClientIp } from "@/lib/http/rate-limit";
+import { sanitizeText } from "@/lib/security/sanitize";
 import {
   findBookingsByContact,
   generateBookingIcs,
 } from "@/lib/services/booking-service";
-import { ApiError, withErrorHandling } from "@/lib/api-error";
+import { ApiError, withErrorHandling } from "@/lib/http/api-error";
 
 /**
  * GET /api/bookings/status?email=...&phone=...

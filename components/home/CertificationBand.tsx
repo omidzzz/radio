@@ -69,7 +69,7 @@ export default function CertificationBand({ isFa }: CertificationBandProps) {
           {certs.map((c, i) => (
             <Reveal key={c.key} delay={i * 120}>
               <div className="surface-card no-lift-touch group flex h-full items-center gap-4 px-6 py-5">
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-soft text-primary transition-colors duration-200 group-hover:bg-primary group-hover:text-white">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-soft text-primary transition-colors duration-200 group-hover:bg-primary-fill group-hover:text-on-primary">
                   <c.Icon />
                 </span>
                 <span className="flex flex-col leading-tight">

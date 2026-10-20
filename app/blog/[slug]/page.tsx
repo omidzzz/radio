@@ -3,16 +3,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cache } from "react";
-import db from "@/lib/db";
+import {
+  getBlogPostBySlug,
+  getRelatedBlogPosts,
+  listBlogComments,
+  listPublishedBlogIds,
+} from "@/lib/services/blog-service";
 import { getServerDictionary } from "@/lib/i18n/server";
 import { toFarsiDigits } from "@/lib/i18n/numbers";
-import { siteConfig } from "@/lib/seo";
-import { articleSchema, breadcrumbSchema } from "@/lib/json-ld";
-import { processArticleHtml } from "@/lib/blog-html";
-import JsonLdScript from "@/components/JsonLd";
-import ShareButtons from "@/components/ShareButtons";
+import { siteConfig } from "@/lib/seo/seo";
+import { articleSchema, breadcrumbSchema } from "@/lib/seo/json-ld";
+import { processArticleHtml } from "@/lib/utils/blog-html";
+import JsonLdScript from "@/components/feedback/JsonLd";
+import ShareButtons from "@/components/feedback/ShareButtons";
 import ParticleBackground from "@/components/ui/ParticleBackground";
-import BlogReadingProgress from "@/components/BlogReadingProgress";
+import BlogReadingProgress from "@/components/ui/BlogReadingProgress";
 import BlogPostCard from "@/components/blog/BlogPostCard";
 import LazyComments from "@/components/blog/LazyComments";
 import TableOfContents from "@/components/blog/TableOfContents";
@@ -21,54 +26,14 @@ import ViewCounter from "@/components/blog/ViewCounter";
 export const revalidate = 60;
 
 export async function generateStaticParams() {
-  const posts = db
-    .prepare("SELECT id FROM blog_posts WHERE is_published = 1")
-    .all() as { id: number }[];
-
-  return posts.map((post) => ({ slug: String(post.id) }));
+  return listPublishedBlogIds().map((id) => ({ slug: String(id) }));
 }
 
-const getPost = cache((slug: string) => {
-  return db
-    .prepare(
-      `SELECT * FROM blog_posts
-       WHERE (id = ? OR CAST(id AS TEXT) = ?) AND is_published = 1`,
-    )
-    .get(slug, slug) as BlogPost | undefined;
-});
+const getPost = cache((slug: string) => getBlogPostBySlug(slug));
 
-const getRelatedPosts = cache((postId: number, category: string) => {
-  const sameCategory = db
-    .prepare(
-      `SELECT id, title_fa, title_en, excerpt_fa, excerpt_en, author_fa, author_en, category_fa, category_en,
-              image, read_minutes, published_at, views
-       FROM blog_posts
-       WHERE is_published = 1 AND id != ? AND category_fa = ?
-       ORDER BY published_at DESC
-       LIMIT 2`,
-    )
-    .all(postId, category) as BlogPost[];
-
-  // Backfill with latest posts from other categories so the section
-  // never looks empty on small blogs.
-  if (sameCategory.length < 2) {
-    const excludeIds = [postId, ...sameCategory.map((p) => p.id)];
-    const placeholders = excludeIds.map(() => "?").join(", ");
-    const fillers = db
-      .prepare(
-        `SELECT id, title_fa, title_en, excerpt_fa, excerpt_en, author_fa, author_en, category_fa, category_en,
-                image, read_minutes, published_at, views
-         FROM blog_posts
-         WHERE is_published = 1 AND id NOT IN (${placeholders})
-         ORDER BY published_at DESC
-         LIMIT ?`,
-      )
-      .all(...excludeIds, 2 - sameCategory.length) as BlogPost[];
-    return [...sameCategory, ...fillers];
-  }
-
-  return sameCategory;
-});
+const getRelatedPosts = cache((postId: number, category: string) =>
+  getRelatedBlogPosts(postId, category, 2)
+);
 
 export async function generateMetadata({
   params,
@@ -83,8 +48,8 @@ export async function generateMetadata({
   }
 
   const url = `/blog/${post.id}`;
-  const title = post.title_fa;
-  const description = post.excerpt_fa;
+  const title = post.titleFA;
+  const description = post.excerptFA;
 
   return {
     title,
@@ -107,8 +72,8 @@ export async function generateMetadata({
           alt: title,
         },
       ],
-      publishedTime: post.published_at,
-      authors: [post.author_fa],
+      publishedTime: post.publishedAt,
+      authors: [post.authorFA],
     },
     twitter: {
       card: "summary_large_image",
@@ -121,24 +86,6 @@ export async function generateMetadata({
       ],
     },
   };
-}
-
-interface BlogPost {
-  id: number;
-  title_fa: string;
-  title_en?: string;
-  excerpt_fa: string;
-  excerpt_en?: string;
-  body_fa: string;
-  body_en?: string;
-  author_fa: string;
-  author_en?: string;
-  category_fa: string;
-  category_en?: string;
-  image?: string;
-  read_minutes: number;
-  published_at?: string;
-  views?: number | null;
 }
 
 export default async function BlogPostPage({
@@ -156,50 +103,38 @@ export default async function BlogPostPage({
     notFound();
   }
 
-  const relatedPosts = getRelatedPosts(post.id, post.category_fa);
+  const relatedPosts = getRelatedPosts(post.id, post.categoryFA);
 
-  const comments = db
-    .prepare(
-      `SELECT id, author_name, content, created_at
-       FROM blog_comments
-       WHERE post_id = ? AND is_approved = 1
-       ORDER BY created_at ASC`,
-    )
-    .all(post.id) as {
-    id: number;
-    author_name: string;
-    content: string;
-    created_at: string;
-  }[];
+  const comments = listBlogComments(post.id);
 
   // Sanitize + enrich the article body (heading anchors, lazy images)
   // and extract the table of contents.
   const { html: articleHtml, toc } = processArticleHtml(
-    isFa ? post.body_fa : post.body_en || post.body_fa,
+    isFa ? post.bodyFA : post.bodyEN || post.bodyFA,
   );
 
   const articleJsonLd = articleSchema({
-    title: isFa ? post.title_fa : post.title_en || post.title_fa,
-    description: isFa ? post.excerpt_fa : post.excerpt_en || post.excerpt_fa,
+    title: isFa ? post.titleFA : post.titleEN || post.titleFA,
+    description: isFa ? post.excerptFA : post.excerptEN || post.excerptFA,
     url: `/blog/${post.id}`,
     image: post.image,
-    author: isFa ? post.author_fa : post.author_en || post.author_fa,
-    datePublished: post.published_at,
+    author: isFa ? post.authorFA : post.authorEN || post.authorFA,
+    datePublished: post.publishedAt,
   });
   const breadcrumbs = breadcrumbSchema([
     { name: "خانه", path: "/" },
     { name: "مقالات تخصصی", path: "/blog" },
-    { name: post.title_fa, path: `/blog/${post.id}` },
+    { name: post.titleFA, path: `/blog/${post.id}` },
   ]);
 
-  const authorName = isFa ? post.author_fa : post.author_en || post.author_fa;
+  const authorName = isFa ? post.authorFA : post.authorEN || post.authorFA;
   const authorInitial = authorName.trim().charAt(0);
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-bg">
       <JsonLdScript data={[articleJsonLd, breadcrumbs]} />
       <BlogReadingProgress
-        title={isFa ? post.title_fa : post.title_en || post.title_fa}
+        title={isFa ? post.titleFA : post.titleEN || post.titleFA}
         url={`/blog/${post.id}`}
         isRtl={isFa}
       />
@@ -245,7 +180,7 @@ export default async function BlogPostPage({
             <div className="relative aspect-[16/9] w-full">
               <Image
                 src={post.image || "/images/blog/default.jpg"}
-                alt={isFa ? post.title_fa : post.title_en || post.title_fa}
+                alt={isFa ? post.titleFA : post.titleEN || post.titleFA}
                 fill
                 sizes="(max-width: 1024px) 100vw, 1024px"
                 className="object-cover brightness-[0.75]"
@@ -261,21 +196,21 @@ export default async function BlogPostPage({
               className="absolute inset-x-0 bottom-0 z-20 p-6 sm:p-8 md:p-10"
               dir={isFa ? "rtl" : "ltr"}
             >
-              <span className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/15 px-3.5 py-1 text-xs font-medium text-highlight backdrop-blur-md">
-                <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-                {isFa ? post.category_fa : post.category_en || post.category_fa}
+              <span className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/15 px-3.5 py-1 text-xs font-medium text-gold backdrop-blur-md">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary-fill animate-pulse" />
+                {isFa ? post.categoryFA : post.categoryEN || post.categoryFA}
               </span>
 
               <h1 className="mt-4 max-w-3xl text-3xl font-extrabold leading-[1.15] tracking-tight text-white sm:text-4xl md:text-[2.75rem]">
-                {isFa ? post.title_fa : post.title_en || post.title_fa}
+                {isFa ? post.titleFA : post.titleEN || post.titleFA}
               </h1>
 
               <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-slate-300">
                 <span className="font-medium text-white">{authorName}</span>
                 <span className="h-1 w-1 rounded-full bg-white/40" />
                 <span>
-                  {post.published_at
-                    ? new Date(post.published_at).toLocaleDateString(
+                  {post.publishedAt
+                    ? new Date(post.publishedAt).toLocaleDateString(
                         isFa ? "fa-IR" : "en-US",
                       )
                     : ""}
@@ -283,8 +218,8 @@ export default async function BlogPostPage({
                 <span className="h-1 w-1 rounded-full bg-white/40" />
                 <span>
                   {isFa
-                    ? `${toFarsiDigits(post.read_minutes)} دقیقه مطالعه`
-                    : `${post.read_minutes} min read`}
+                    ? `${toFarsiDigits(post.readMinutes)} دقیقه مطالعه`
+                    : `${post.readMinutes} min read`}
                 </span>
                 <span className="h-1 w-1 rounded-full bg-white/40" />
                 <ViewCounter
@@ -372,7 +307,7 @@ export default async function BlogPostPage({
                       </div>
                       <ShareButtons
                         title={
-                          isFa ? post.title_fa : post.title_en || post.title_fa
+                          isFa ? post.titleFA : post.titleEN || post.titleFA
                         }
                         url={`/blog/${post.id}`}
                       />

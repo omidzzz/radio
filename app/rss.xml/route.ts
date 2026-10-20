@@ -1,34 +1,16 @@
 import { NextResponse } from "next/server";
-import db from "@/lib/db";
-import { siteConfig } from "@/lib/seo";
+import { listBlogPostsForRss } from "@/lib/services/blog-service";
+import { siteConfig } from "@/lib/seo/seo";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
   const baseUrl = siteConfig.url;
 
-  let posts: {
-    id: number;
-    title_fa: string;
-    title_en?: string;
-    excerpt_fa: string;
-    excerpt_en?: string;
-    author_fa: string;
-    author_en?: string;
-    image?: string;
-    published_at?: string;
-  }[] = [];
+  let posts: Awaited<ReturnType<typeof listBlogPostsForRss>> = [];
 
   try {
-    posts = db
-      .prepare(
-        `SELECT id, title_fa, title_en, excerpt_fa, excerpt_en, author_fa, author_en, image, published_at
-         FROM blog_posts 
-         WHERE is_published = 1 
-         ORDER BY published_at DESC
-         LIMIT 50`
-      )
-      .all() as typeof posts;
+    posts = listBlogPostsForRss(50);
   } catch {
     // DB might not be ready
   }

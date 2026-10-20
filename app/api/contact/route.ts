@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { rateLimitByIp, getClientIp } from "@/lib/rate-limit";
-import { sanitizeText } from "@/lib/sanitize";
+import { rateLimitByIp, getClientIp } from "@/lib/http/rate-limit";
+import { sanitizeText } from "@/lib/security/sanitize";
 import { validateContact } from "@/lib/validation/contact";
 import { createContactMessage } from "@/lib/services/contact-service";
-import { notifyContactMessage } from "@/lib/mailer";
-import { ApiError, withErrorHandling } from "@/lib/api-error";
+import { notifyContactMessage } from "@/lib/mail/mailer";
+import { ApiError, withErrorHandling } from "@/lib/http/api-error";
 
 // POST /api/contact - Submit a contact message
 export const POST = withErrorHandling(async (request: NextRequest) => {

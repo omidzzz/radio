@@ -1,4 +1,4 @@
-import db from "@/lib/db";
+import db from "@/lib/db/db";
 import { getDictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/config";
 

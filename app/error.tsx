@@ -31,7 +31,7 @@ export default function Error({
         </p>
         <button
           onClick={reset}
-          className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors duration-300 hover:bg-primary-hover"
+          className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary-fill px-6 py-3 text-sm font-semibold text-on-primary shadow-sm transition-colors duration-300 hover:bg-primary-fill-hover"
         >
           تلاش مجدد
         </button>

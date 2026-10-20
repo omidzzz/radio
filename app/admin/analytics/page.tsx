@@ -4,10 +4,10 @@ import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useDictionary, useFarsiDigits } from "@/lib/i18n/client";
-import { useLocale } from "@/components/LocaleProvider";
+import { useLocale } from "@/components/providers/LocaleProvider";
 import { formatDate } from "@/lib/i18n";
-import { csrfHeaders } from "@/lib/csrf";
-import { toCsv, downloadCsv } from "@/lib/csv";
+import { csrfHeaders } from "@/lib/http/csrf";
+import { toCsv, downloadCsv } from "@/lib/utils/csv";
 
 interface AnalyticsData {
   bookingsOverTime: { day: string; count: number }[];
@@ -119,7 +119,7 @@ export default function AdminAnalyticsPage() {
       <header className="border-b border-border bg-surface">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
           <div className="flex items-center gap-3">
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-lg font-bold text-white">
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-fill text-lg font-bold text-white">
               A
             </span>
             <div>

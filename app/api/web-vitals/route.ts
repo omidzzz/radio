@@ -1,21 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import { rateLimitByIp, getClientIp } from "@/lib/rate-limit";
-import db from "@/lib/db";
+import { rateLimitByIp, getClientIp } from "@/lib/http/rate-limit";
+import {
+  ensureWebVitalsTable,
+  isValidWebVital,
+  recordWebVital,
+} from "@/lib/services/system-service";
 
 // Ensure the metrics table exists
-db.exec(`
-  CREATE TABLE IF NOT EXISTS web_vitals (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    value REAL NOT NULL,
-    rating TEXT NOT NULL,
-    path TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  );
-  CREATE INDEX IF NOT EXISTS idx_web_vitals_name ON web_vitals(name, created_at DESC);
-`);
-
-const ALLOWED_METRICS = new Set(["LCP", "INP", "CLS", "FCP", "TTFB", "Next.js-hydration", "Next.js-route-change-to-render", "Next.js-render"]);
+ensureWebVitalsTable();
 
 /**
  * POST /api/web-vitals — receive Core Web Vitals beacons from the client.
@@ -40,25 +32,26 @@ export async function POST(request: NextRequest) {
       path?: string;
     };
 
-    if (
-      !body.name ||
-      !ALLOWED_METRICS.has(body.name) ||
-      typeof body.value !== "number" ||
-      !Number.isFinite(body.value)
-    ) {
+    if (process.env.NODE_ENV === "development") {
+      console.debug("[WebVitals API] beacon:", JSON.stringify(body));
+    }
+
+    if (!isValidWebVital(body)) {
+      if (process.env.NODE_ENV === "development") {
+        console.debug(
+          "[WebVitals API] validation failed:",
+          JSON.stringify(body)
+        );
+      }
       return NextResponse.json({ ok: false }, { status: 400 });
     }
 
-    db.prepare(
-      "INSERT INTO web_vitals (name, value, rating, path) VALUES (?, ?, ?, ?)"
-    ).run(
-      body.name,
-      body.value,
-      body.rating === "good" || body.rating === "needs-improvement" || body.rating === "poor"
-        ? body.rating
-        : "unknown",
-      typeof body.path === "string" ? body.path.slice(0, 300) : null
-    );
+    recordWebVital({
+      name: body.name ?? "",
+      value: typeof body.value === "number" ? body.value : 0,
+      rating: body.rating,
+      path: body.path,
+    });
 
     return NextResponse.json({ ok: true });
   } catch {

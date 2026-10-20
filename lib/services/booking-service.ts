@@ -1,7 +1,7 @@
-import db from "@/lib/db";
+import db from "@/lib/db/db";
 import { BookingFormValues } from "@/lib/validation/booking";
-import { ApiError } from "@/lib/api-error";
-import { notifyNewBooking } from "@/lib/mailer";
+import { ApiError } from "@/lib/http/api-error";
+import { notifyNewBooking } from "@/lib/mail/mailer";
 
 export interface BookingRecord {
   id: number;

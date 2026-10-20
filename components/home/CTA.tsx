@@ -23,7 +23,7 @@ export default function CTA({ dict }: CTAProps) {
               strength={0.2}
               className="conic-border rounded-full"
             >
-              <span className="btn-sheen group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-primary px-9 py-4 text-base font-semibold text-deep shadow-[0_0_35px_-8px_rgba(26,115,82,0.65)] transition-colors duration-200 hover:bg-primary-hover active:scale-[0.97]">
+              <span className="btn-sheen group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-primary-fill px-9 py-4 text-base font-semibold text-on-primary shadow-[0_0_35px_-8px_rgba(26,115,82,0.65)] transition-colors duration-200 hover:bg-primary-fill-hover active:scale-[0.97]">
                 <span className="relative">{dict.home.visitForum}</span>
               </span>
             </MagneticButton>

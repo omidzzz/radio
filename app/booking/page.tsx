@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import BookingForm from "@/components/BookingForm";
+import BookingForm from "@/components/forms/BookingForm";
 import { getServerDictionary } from "@/lib/i18n/server";
 import { toFarsiDigits } from "@/lib/i18n/numbers";
 import Link from "next/link";
-import { siteConfig } from "@/lib/seo";
-import { breadcrumbSchema } from "@/lib/json-ld";
-import JsonLdScript from "@/components/JsonLd";
+import { siteConfig } from "@/lib/seo/seo";
+import { breadcrumbSchema } from "@/lib/seo/json-ld";
+import JsonLdScript from "@/components/feedback/JsonLd";
 import RadiationEmblem from "@/components/ui/RadiationEmblem";
 import ParticleBackground from "@/components/ui/ParticleBackground";
-import PageHero from "@/components/PageHero";
+import PageHero from "@/components/ui/PageHero";
 import { getWorkingHoursSummary } from "@/lib/services/working-hours";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -248,7 +248,7 @@ export default async function BookingPage() {
                   </p>
                   <Link
                     href="/forum"
-                    className="group relative mt-5 inline-flex items-center gap-2 overflow-hidden rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-deep shadow-[0_0_26px_-5px_rgba(26,115,82,0.55)] transition-all hover:bg-primary-hover hover:shadow-[0_0_34px_-4px_rgba(26,115,82,0.7)]"
+                    className="group relative mt-5 inline-flex items-center gap-2 overflow-hidden rounded-full bg-primary-fill px-6 py-2.5 text-sm font-semibold text-on-primary shadow-[0_0_26px_-5px_rgba(26,115,82,0.55)] transition-all hover:bg-primary-fill-hover hover:shadow-[0_0_34px_-4px_rgba(26,115,82,0.7)]"
                   >
                     <span className="relative z-10">
                       {dict.booking.visitForum}

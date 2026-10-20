@@ -124,7 +124,7 @@ export default function SeoAuditPage() {
       <header className="border-b border-border bg-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
           <div className="flex items-center gap-3">
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-lg font-bold text-white">
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-fill text-lg font-bold text-white">
               S
             </span>
             <div>
@@ -158,7 +158,7 @@ export default function SeoAuditPage() {
           <button
             onClick={runAudit}
             disabled={checking}
-            className="rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-white transition hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-lg bg-primary-fill px-6 py-3 text-sm font-semibold text-white transition hover:bg-primary-fill-hover disabled:cursor-not-allowed disabled:opacity-50"
           >
             {checking ? "در حال بررسی..." : "شروع بررسی"}
           </button>
