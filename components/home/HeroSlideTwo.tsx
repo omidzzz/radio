@@ -48,7 +48,9 @@ export default function HeroSlideTwo({
           src="/images/home-parallax.webp"
           alt=""
           fill
+          priority
           loading="lazy"
+          blurDataURL="data:image/webp;base64,UklGRl4AAABXRUJQVlA4TIL3AAAAAQCdASoUAAUABm6v2ztT0W0AAAAPABsAJQbZVgjirw8qCtvpqulCZgAAA"
           sizes="100vw"
           className="object-cover object-center opacity-100 dark:opacity-0"
         />
@@ -102,8 +104,6 @@ export default function HeroSlideTwo({
               {/* Circular portrait */}
               <div className="anim-scale-in delay-400 absolute inset-0 overflow-hidden rounded-full shadow-2xl shadow-secondary/20 ring-4 ring-white/10 transition-transform duration-500 will-change-transform hover:scale-[1.02]">
                 <Image
-                  src="/images/home-consultation-circle.webp"
-                  alt={
                     isFa
                       ? "مشاوره دلسوزانه با بیمار"
                       : "Compassionate patient consultation"
