@@ -124,7 +124,7 @@ export default function HeroSlideTwo({
           alt={isFa ? "مشاوره دلسوزانه با بیمار" : "Compassionate patient consultation"}
           fill
           sizes="(max-width: 1024px) 0vw, 45vw"
-          className="object-cover object-center"
+          className="object-cover object-center dark:opacity-100 opacity-0"
         />
                 <div className="pointer-events-none absolute left-1/2 top-1/3 h-14 w-14 -translate-x-1/2 -translate-y-1/2">
                   <span className="hud-pulse absolute left-1/2 top-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full border border-secondary/70" />
