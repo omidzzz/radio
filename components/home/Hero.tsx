@@ -36,7 +36,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
           placeholder="blur"
           src="/images/home-hero.webp"
           blurDataURL="data:image/webp;base64,UklGRl4AAABXRUJQVlA4TIL3AAAAAQCdASoUAAUABm6v2ztT0W0AAAAPABsAJQbZVgjirw8qCtvpqulCZgAAA"
-          className="dark:opacity-100 opacity-0"
+          className="hidden dark:block"
         />
         
         
@@ -211,7 +211,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
                   fill
                   sizes="(max-width: 1024px) 0vw, 50vw"
                   loading="lazy"
-                  className="object-cover transition-transform duration-700 hover:scale-105 dark:opacity-100 opacity-0"
+                  className="object-cover transition-transform duration-700 hover:scale-105 hidden dark:block"
                 />
                 <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-primary/30" />
                 <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -230,7 +230,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
                   fill
                   sizes="(max-width: 1024px) 0vw, 50vw"
                   loading="lazy"
-                  className="object-cover object-top transition-transform duration-700 hover:scale-105 dark:opacity-100 opacity-0"
+                  className="object-cover object-top transition-transform duration-700 hover:scale-105 hidden dark:block"
                 />
                 <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-white/85 to-transparent" />
                 <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-primary/10" />
