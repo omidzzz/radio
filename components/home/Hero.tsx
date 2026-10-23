@@ -182,7 +182,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
             <div className="relative mx-auto aspect-[4/5] max-w-xl xl:max-w-none">
               <div className="anim-slide-right delay-500 absolute -left-4 bottom-10 z-20 h-[55%] w-[52%] overflow-hidden rounded-xl shadow-2xl shadow-primary/25 ring-1 ring-primary/30 transition-transform duration-500 will-change-transform hover:-translate-y-4 hover:-rotate-2 xl:-left-8 xl:bottom-14 xl:w-[48%]">
                 <Image
-                  src="/images/home-radiator.webp"
+                  src="/images/hero-radiology machine.webp"
                   alt="Advanced radiology equipment"
                   fill
                   sizes="(max-width: 1024px) 0vw, 50vw"
