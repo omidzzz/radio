@@ -104,6 +104,7 @@ export default function HeroSlideTwo({
               {/* Circular portrait */}
               <div className="anim-scale-in delay-400 absolute inset-0 overflow-hidden rounded-full shadow-2xl shadow-secondary/20 ring-4 ring-white/10 transition-transform duration-500 will-change-transform hover:scale-[1.02]">
                 <Image
+          src="/images/home-portrait.webp"
           alt={isFa ? "مشاوره دلسوزانه با بیمار" : "Compassionate patient consultation"}
           fill
           sizes="(max-width: 1024px) 0vw, 45vw"

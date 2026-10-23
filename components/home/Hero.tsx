@@ -182,6 +182,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
             <div className="relative mx-auto aspect-[4/5] max-w-xl xl:max-w-none">
               <div className="anim-slide-right delay-500 absolute -left-4 bottom-10 z-20 h-[55%] w-[52%] overflow-hidden rounded-xl shadow-2xl shadow-primary/25 ring-1 ring-primary/30 transition-transform duration-500 will-change-transform hover:-translate-y-4 hover:-rotate-2 xl:-left-8 xl:bottom-14 xl:w-[48%]">
                 <Image
+                  src="/images/home-radiator.webp"
                   alt="Advanced radiology equipment"
                   fill
                   sizes="(max-width: 1024px) 0vw, 50vw"
@@ -200,13 +201,14 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
 
               <div className="anim-slide-right delay-700 absolute right-0 top-0 z-30 h-[88%] w-[70%] overflow-hidden rounded-2xl shadow-2xl shadow-deep/70 ring-1 ring-white/15 transition-transform duration-500 will-change-transform hover:-translate-y-4 hover:rotate-1">
                 <Image
+                  src="/images/home-radiologist.webp"
                   alt="Our radiologist"
                   fill
                   sizes="(max-width: 1024px) 0vw, 50vw"
                   loading="lazy"
                   className="object-cover object-top transition-transform duration-700 hover:scale-105"
                 />
-                <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-white|/85 to-transparentfrom-white|/85 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-white/85 to-transparent" />
                 <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-primary/10" />
                 {[
                   "left-3 top-3 border-l border-t",
