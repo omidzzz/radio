@@ -25,7 +25,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
       {/* Cursor glow tracking light */}
       <CursorGlow />
 
-      <div className="absolute inset-0 anim-fade-in">
+      <div className="absolute inset-0 anim-fade-in hidden dark:block">
         <Image
           alt="پرتودرمانی و تصویربرداری پیشرفته"
           fill
@@ -36,7 +36,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
           placeholder="blur"
           src="/images/home-hero.webp"
           blurDataURL="data:image/webp;base64,UklGRl4AAABXRUJQVlA4TIL3AAAAAQCdASoUAAUABm6v2ztT0W0AAAAPABsAJQbZVgjirw8qCtvpqulCZgAAA"
-          className="hidden dark:block"
+          className=""
         />
         
         
@@ -204,7 +204,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
 
           <div className="relative hidden lg:col-span-7 lg:block">
             <div className="relative mx-auto aspect-[4/5] max-w-xl xl:max-w-none">
-              <div className="anim-slide-right delay-500 absolute -left-4 bottom-10 z-20 h-[55%] w-[52%] overflow-hidden rounded-xl shadow-2xl shadow-primary/25 ring-1 ring-primary/30 transition-transform duration-500 will-change-transform hover:-translate-y-4 hover:-rotate-2 xl:-left-8 xl:bottom-14 xl:w-[48%]">
+              <div className="anim-slide-right delay-500 absolute -left-4 bottom-10 z-20 h-[55%] w-[52%] overflow-hidden rounded-xl shadow-2xl shadow-primary/25 ring-1 ring-primary/30 transition-transform duration-500 will-change-transform hover:-translate-y-4 hover:-rotate-2 xl:-left-8 xl:bottom-14 xl:w-[48%] hidden dark:block">
                 <Image
                   src="/images/hero-radiology machine.webp"
                   alt="Advanced radiology equipment"
@@ -223,7 +223,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
                 </div>
               </div>
 
-              <div className="anim-slide-right delay-700 absolute right-0 top-0 z-30 h-[88%] w-[70%] overflow-hidden rounded-2xl shadow-2xl shadow-deep/70 ring-1 ring-white/15 transition-transform duration-500 will-change-transform hover:-translate-y-4 hover:rotate-1">
+              <div className="anim-slide-right delay-700 absolute right-0 top-0 z-30 h-[88%] w-[70%] overflow-hidden rounded-2xl shadow-2xl shadow-deep/70 ring-1 ring-white/15 transition-transform duration-500 will-change-transform hover:-translate-y-4 hover:rotate-1 hidden dark:block">
                 <Image
                   src="/images/home-radiologist.webp"
                   alt="Our radiologist"

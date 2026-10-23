@@ -43,7 +43,7 @@ export default function HeroSlideTwo({
     >
       {/* Ambient background — identical stack to slide one so switching
           slides reads as one designed hero, not two different screens */}
-      <div className="absolute inset-0 anim-fade-in">
+      <div className="absolute inset-0 anim-fade-in hidden dark:block">
         <Image
           src="/images/home-parallax.webp"
           alt=""
@@ -51,7 +51,7 @@ export default function HeroSlideTwo({
           priority
           blurDataURL="data:image/webp;base64,UklGRl4AAABXRUJQVlA4TIL3AAAAAQCdASoUAAUABm6v2ztT0W0AAAAPABsAJQbZVgjirw8qCtvpqulCZgAAA"
           sizes="100vw"
-          className="object-cover object-center hidden dark:block"
+          className="object-cover object-center"
         />
       </div>
 
@@ -118,7 +118,7 @@ export default function HeroSlideTwo({
               <div className="pointer-events-none absolute -inset-24 rounded-full border border-primary/5 anim-scale-in delay-800 hidden xl:block" />
 
               {/* Circular portrait */}
-              <div className="anim-scale-in delay-400 absolute inset-0 overflow-hidden rounded-full shadow-2xl shadow-secondary/20 ring-4 ring-white/10 transition-transform duration-500 will-change-transform hover:scale-[1.02]">
+              <div className="anim-scale-in delay-400 absolute inset-0 overflow-hidden rounded-full shadow-2xl shadow-secondary/20 ring-4 ring-white/10 transition-transform duration-500 will-change-transform hover:scale-[1.02] hidden dark:block">
                 <Image
           src="/images/home-consultation-circle.webp"
           alt={isFa ? "مشاوره دلسوزانه با بیمار" : "Compassionate patient consultation"}
