@@ -37,7 +37,7 @@ export default function HeroSlideTwo({
 
   return (
     <section
-      className={`slide-entrance relative h-full min-h-[96vh] overflow-hidden bg-deep clip-path-lightbg ${
+      className={`slide-entrance relative h-full min-h-[96vh] overflow-hidden bg-white dark:bg-deep clip-path-lightbg ${
         playAnim ? "slide-active" : ""
       }`}
     >
@@ -51,7 +51,7 @@ export default function HeroSlideTwo({
           priority
           blurDataURL="data:image/webp;base64,UklGRl4AAABXRUJQVlA4TIL3AAAAAQCdASoUAAUABm6v2ztT0W0AAAAPABsAJQbZVgjirw8qCtvpqulCZgAAA"
           sizes="100vw"
-          className="object-cover object-center opacity-100 dark:opacity-0"
+          className="object-cover object-center dark:opacity-100 opacity-0"
         />
       </div>
 
@@ -89,6 +89,23 @@ export default function HeroSlideTwo({
       {/* Floating ambient orbs — desktop only */}
       <div className="float-bob pointer-events-none absolute left-[6%] top-[42%] hidden h-56 w-56 rounded-full bg-secondary/12 blur-3xl anim-fade-in delay-400 lg:block" />
       <div className="float-bob float-bob-delay-1 pointer-events-none absolute right-[8%] top-[18%] hidden h-64 w-64 rounded-full bg-primary/10 blur-3xl anim-fade-in delay-500 lg:block" />
+
+      {/* Light-mode decorative embellishments — CSS-only, green/gold palette */}
+      <div className="dark:hidden pointer-events-none absolute inset-0">
+        <div className="absolute top-8 left-8 w-3 h-3 border-t-2 border-l-2 border-primary" />
+        <div className="absolute top-8 left-8 w-1 h-1 rounded-full bg-gold" />
+        <div className="absolute top-8 right-8 w-3 h-3 border-t-2 border-r-2 border-primary" />
+        <div className="absolute top-8 right-8 w-1 h-1 rounded-full bg-gold" />
+        <div className="absolute bottom-8 left-8 w-3 h-3 border-b-2 border-l-2 border-primary" />
+        <div className="absolute bottom-8 left-8 w-1 h-1 rounded-full bg-gold" />
+        <div className="absolute bottom-8 right-8 w-3 h-3 border-b-2 border-r-2 border-primary" />
+        <div className="absolute bottom-8 right-8 w-1 h-1 rounded-full bg-gold" />
+        <div className="absolute top-1/4 left-1/4 w-24 h-px bg-gradient-to-r from-primary via-transparent to-gold" />
+        <div className="absolute top-3/4 right-1/4 w-24 h-px bg-gradient-to-l from-primary via-transparent to-gold" />
+        <div className="absolute top-1/2 left-1/2 w-2 h-2 rounded-full bg-primary/40" />
+        <div className="absolute top-1/3 left-2/3 w-1.5 h-1.5 rounded-full bg-gold/60" />
+        <div className="absolute top-2/3 left-1/3 w-1 h-1 rounded-full bg-primary/30" />
+      </div>
 
       <div className="relative z-10 mx-auto flex h-full min-h-[96vh] max-w-7xl items-center px-4 py-20 sm:px-6 lg:px-8">
         <div className="grid w-full items-center gap-12 lg:grid-cols-12 lg:gap-8">

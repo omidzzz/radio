@@ -5740,5 +5740,6 @@ h3 {
   }
 }
 
-/* Hero slide clip-path for mostly-white light mode */
-.lightbg-clip { clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%); background: linear-gradient(to bottom, #ffffff 40%, var(--color-deep) 100%); }
+/* Hero slide clip-path — all modes; gradient background only in light mode */
+.lightbg-clip { clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%); }
+[data-theme="light"] .lightbg-clip { background: linear-gradient(to bottom, #ffffff 40%, var(--color-deep) 100%); }

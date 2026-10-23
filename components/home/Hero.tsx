@@ -18,7 +18,7 @@ interface HeroProps {
 export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
   return (
     <section
-      className={`slide-entrance relative h-full min-h-[96vh] overflow-hidden bg-deep clip-path-lightbg ${
+      className={`slide-entrance relative h-full min-h-[96vh] overflow-hidden bg-white dark:bg-deep clip-path-lightbg ${
         playAnim ? "slide-active" : ""
       }`}
     >
@@ -36,6 +36,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
           placeholder="blur"
           src="/images/home-hero.webp"
           blurDataURL="data:image/webp;base64,UklGRl4AAABXRUJQVlA4TIL3AAAAAQCdASoUAAUABm6v2ztT0W0AAAAPABsAJQbZVgjirw8qCtvpqulCZgAAA"
+          className="dark:opacity-100 opacity-0"
         />
         
         
@@ -74,6 +75,29 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
       {/* Floating ambient orbs — desktop only (2, was 3) */}
       <div className="float-bob pointer-events-none absolute left-[5%] top-[40%] h-64 w-64 rounded-full bg-primary/15 blur-3xl anim-fade-in delay-400 hidden lg:block" />
       <div className="float-bob float-bob-delay-1 pointer-events-none absolute right-[8%] top-[20%] h-72 w-72 rounded-full bg-secondary-hover/10 blur-3xl anim-fade-in delay-500 hidden lg:block" />
+
+      {/* Light-mode decorative embellishments — CSS-only, green/gold palette */}
+      <div className="dark:hidden pointer-events-none absolute inset-0">
+        {/* Top-left corner frame */}
+        <div className="absolute top-8 left-8 w-3 h-3 border-t-2 border-l-2 border-primary" />
+        <div className="absolute top-8 left-8 w-1 h-1 rounded-full bg-gold" />
+        {/* Top-right corner frame */}
+        <div className="absolute top-8 right-8 w-3 h-3 border-t-2 border-r-2 border-primary" />
+        <div className="absolute top-8 right-8 w-1 h-1 rounded-full bg-gold" />
+        {/* Bottom-left corner frame */}
+        <div className="absolute bottom-8 left-8 w-3 h-3 border-b-2 border-l-2 border-primary" />
+        <div className="absolute bottom-8 left-8 w-1 h-1 rounded-full bg-gold" />
+        {/* Bottom-right corner frame */}
+        <div className="absolute bottom-8 right-8 w-3 h-3 border-b-2 border-r-2 border-primary" />
+        <div className="absolute bottom-8 right-8 w-1 h-1 rounded-full bg-gold" />
+        {/* Diagonal accent lines */}
+        <div className="absolute top-1/4 left-1/4 w-24 h-px bg-gradient-to-r from-primary via-transparent to-gold" />
+        <div className="absolute top-3/4 right-1/4 w-24 h-px bg-gradient-to-l from-primary via-transparent to-gold" />
+        {/* Corner accent dots */}
+        <div className="absolute top-1/2 left-1/2 w-2 h-2 rounded-full bg-primary/40" />
+        <div className="absolute top-1/3 left-2/3 w-1.5 h-1.5 rounded-full bg-gold/60" />
+        <div className="absolute top-2/3 left-1/3 w-1 h-1 rounded-full bg-primary/30" />
+      </div>
 
       <div className="relative z-10 mx-auto flex h-full min-h-[96vh] max-w-7xl items-center px-4 py-20 sm:px-6 lg:px-8">
         <div className="grid w-full items-center gap-12 lg:grid-cols-12 lg:gap-8">
@@ -187,7 +211,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
                   fill
                   sizes="(max-width: 1024px) 0vw, 50vw"
                   loading="lazy"
-                  className="object-cover transition-transform duration-700 hover:scale-105"
+                  className="object-cover transition-transform duration-700 hover:scale-105 dark:opacity-100 opacity-0"
                 />
                 <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-primary/30" />
                 <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -206,7 +230,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
                   fill
                   sizes="(max-width: 1024px) 0vw, 50vw"
                   loading="lazy"
-                  className="object-cover object-top transition-transform duration-700 hover:scale-105"
+                  className="object-cover object-top transition-transform duration-700 hover:scale-105 dark:opacity-100 opacity-0"
                 />
                 <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-white/85 to-transparent" />
                 <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-primary/10" />
