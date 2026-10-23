@@ -18,7 +18,7 @@ interface HeroProps {
 export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
   return (
     <section
-      className={`slide-entrance relative h-full min-h-[96vh] overflow-hidden bg-white/95 ${
+      className={`slide-entrance relative h-full min-h-[96vh] overflow-hidden bg-deep ${
         playAnim ? "slide-active" : ""
       }`}
     >
@@ -35,7 +35,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
           sizes="100vw"
           placeholder="blur"
           blurDataURL="data:image/webp;base64,UklGRl4AAABXRUJQVlA4TIL3AAAAAQCdASoUAAUABm6v2ztT0W0AAAAPABsAJQbZVgjirw8qCtvpqulCZgAAA"
-          className="ken-burns object-cover object-center opacity-50"
+          className="ken-burns object-cover object-center opacity-100 dark:opacity-0"
         />
         
         

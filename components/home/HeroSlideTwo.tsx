@@ -37,7 +37,7 @@ export default function HeroSlideTwo({
 
   return (
     <section
-      className={`slide-entrance relative h-full min-h-[96vh] overflow-hidden bg-white/95 ${
+      className={`slide-entrance relative h-full min-h-[96vh] overflow-hidden bg-deep ${
         playAnim ? "slide-active" : ""
       }`}
     >
@@ -50,7 +50,7 @@ export default function HeroSlideTwo({
           fill
           loading="lazy"
           sizes="100vw"
-          className="object-cover object-center opacity-40"
+          className="object-cover object-center opacity-100 dark:opacity-0"
         />
       </div>
 
