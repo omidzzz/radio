@@ -34,7 +34,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
           fetchPriority="high"
           sizes="100vw"
           placeholder="blur"
-          src="/images/home-hero.webp",
+          src="/images/home-hero.webp"
           blurDataURL="data:image/webp;base64,UklGRl4AAABXRUJQVlA4TIL3AAAAAQCdASoUAAUABm6v2ztT0W0AAAAPABsAJQbZVgjirw8qCtvpqulCZgAAA"
         />
         
