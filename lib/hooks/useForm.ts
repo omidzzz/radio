@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, FormEvent } from "react";
+import { logger } from "@/lib/core/logger";
 
 interface UseFormOptions<T> {
   initialValues: T;
@@ -81,7 +82,7 @@ export function useForm<T extends object>({
       try {
         await onSubmit(values);
       } catch (err) {
-        console.error("Form submission error:", err);
+        logger.error("Form submission error", { error: err });
         setError(err instanceof Error ? err.message : "An error occurred. Please try again.");
       } finally {
         setSubmitting(false);

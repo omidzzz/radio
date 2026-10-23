@@ -1,0 +1,35 @@
+/* Split from app/globals.css — see app/styles/README.md for the layout. */
+
+/* ─── Button sheen sweep (desktop hover only) ─── */
+/* Reusable button sheen sweep — desktop hover only (touch has no hover) */
+@media (hover: hover) {
+  .btn-sheen {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .btn-sheen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    transform: translateX(-110%);
+    transition: transform 0.7s ease;
+    pointer-events: none;
+  }
+  .btn-sheen:hover::after {
+    transform: translateX(110%);
+  }
+  [dir="rtl"] .btn-sheen::after {
+    transform: translateX(110%);
+  }
+  [dir="rtl"] .btn-sheen:hover::after {
+    transform: translateX(-110%);
+  }
+}

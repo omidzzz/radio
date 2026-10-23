@@ -6,6 +6,7 @@ import { useDictionary } from "@/lib/i18n/client";
 import RichTextEditor from "@/components/forms/RichTextEditor";
 import MediaLibraryPicker from "@/components/ui/MediaLibraryPicker";
 import { csrfHeaders } from "@/lib/http/csrf";
+import { logger } from "@/lib/core/logger";
 
 export default function NewBlogPostPage() {
   const router = useRouter();
@@ -46,7 +47,7 @@ export default function NewBlogPostPage() {
         alert("Failed to create post");
       }
     } catch (error) {
-      console.error("Error creating post:", error);
+      logger.error("Error creating post", { error: error });
       alert("Error creating post");
     } finally {
       setSubmitting(false);

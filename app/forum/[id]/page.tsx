@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { cache } from "react";
 import db from "@/lib/db/db";
 import ReplyForm from "@/components/forms/ReplyForm";
-import { ForumPost, ForumReply } from "@/lib/types";
+import {
+  getCachedForumPost,
+  listCachedRepliesForPost,
+} from "@/lib/services/forum-service";
 import { getServerDictionary } from "@/lib/i18n/server";
 import { getCategoryLabel, formatDate, formatRelativeTime } from "@/lib/i18n";
 import { toFarsiDigits } from "@/lib/i18n/numbers";
@@ -25,16 +27,6 @@ export async function generateStaticParams() {
   return posts.map((post) => ({ id: String(post.id) }));
 }
 
-/**
- * Cached post lookup — shared between generateMetadata and the page render
- * so the row is fetched from SQLite only once per request.
- */
-const getPostById = cache(async (postId: number): Promise<ForumPost | undefined> => {
-  return db
-    .prepare("SELECT * FROM forum_posts WHERE id = ?")
-    .get(postId) as ForumPost | undefined;
-});
-
 export async function generateMetadata({
   params,
 }: {
@@ -42,7 +34,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { id } = await params;
   const postId = Number(id);
-  const post = Number.isInteger(postId) ? await getPostById(postId) : undefined;
+  const post = Number.isInteger(postId)
+    ? getCachedForumPost(postId)
+    : undefined;
 
   if (!post) {
     return { title: "پست یافت نشد" };
@@ -116,35 +110,25 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
   const isFa = locale === "fa";
   const formatCount = (n: number) => (isFa ? toFarsiDigits(n) : String(n));
 
-  const post = await getPostById(postId);
+  const post = getCachedForumPost(postId);
 
   if (!post) {
     notFound();
   }
 
-  // Paginated replies — avoids loading unbounded thread history at once
+  // Paginated replies — avoids loading unbounded thread history at once.
+  // Uses a single cached SQLite pass (window functions for total + admin count)
+  // instead of the 3 separate COUNT/SELECT queries previously run here.
   const replyParams = await searchParams;
   const replyPage = Math.max(1, parseInt(replyParams.replyPage || "1", 10) || 1);
   const replyOffset = (replyPage - 1) * REPLIES_PER_PAGE;
 
-  const totalReplies = (
-    db.prepare("SELECT COUNT(*) AS c FROM forum_replies WHERE post_id = ?").get(
-      postId
-    ) as { c: number }
-  ).c;
+  const { replies, total: totalReplies, adminCount } = listCachedRepliesForPost(
+    postId,
+    REPLIES_PER_PAGE,
+    replyOffset
+  );
   const totalReplyPages = Math.max(1, Math.ceil(totalReplies / REPLIES_PER_PAGE));
-
-  const replies = db
-    .prepare(
-      "SELECT * FROM forum_replies WHERE post_id = ? ORDER BY created_at ASC LIMIT ? OFFSET ?"
-    )
-    .all(postId, REPLIES_PER_PAGE, replyOffset) as ForumReply[];
-
-  const adminCount = (
-    db
-      .prepare("SELECT COUNT(*) AS c FROM forum_replies WHERE post_id = ? AND is_admin = 1")
-      .get(postId) as { c: number }
-  ).c;
 
   const qaJsonLd = qaPageSchema({
     title: post.title,

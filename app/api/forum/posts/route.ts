@@ -4,6 +4,7 @@ import { sanitizeContent, sanitizeText } from "@/lib/security/sanitize";
 import { validateForumPost } from "@/lib/validation/forum";
 import { getForumPosts, createForumPost } from "@/lib/services/forum-service";
 import { ApiError, withErrorHandling } from "@/lib/http/api-error";
+import { logger } from "@/lib/core/logger";
 
 // GET /api/forum/posts - List posts with pagination (optionally filter by category)
 export async function GET(request: NextRequest) {
@@ -35,7 +36,7 @@ export async function GET(request: NextRequest) {
       }
     );
   } catch (error) {
-    console.error("Error fetching forum posts:", error);
+    logger.error("Error fetching forum posts", { error: error });
     return NextResponse.json(
       { error: "Failed to fetch forum posts" },
       { status: 500 }

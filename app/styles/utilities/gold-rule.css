@@ -1,0 +1,16 @@
+/* Split from app/globals.css — see app/styles/README.md for the layout. */
+
+/* ─── Gold rule — visit-card motif ─── */
+.gold-rule {
+  display: inline-block;
+  height: 2px;
+  width: clamp(4rem, 10vw, 7rem);
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-gold) 25%,
+    var(--color-gold) 75%,
+    transparent
+  );
+}

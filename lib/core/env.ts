@@ -27,6 +27,16 @@ export function validateEnv(): { valid: boolean; errors: string[] } {
         "SESSION_SECRET must be at least 32 characters long for security."
       );
     }
+
+  }
+  // Warn on trivially weak passwords (the deployed .env used 123456)
+  if (process.env.ADMIN_PASSWORD) {
+    const trimmed = process.env.ADMIN_PASSWORD.trim();
+    if (trimmed.length < 8 || trimmed === "123456" || trimmed === "admin123") {
+      errors.push(
+        "ADMIN_PASSWORD is too weak. Use a long, random password (at least 8 characters)."
+      );
+    }
   }
 
   // Validate URL format if provided
@@ -39,6 +49,19 @@ export function validateEnv(): { valid: boolean; errors: string[] } {
         "NEXT_PUBLIC_APP_URL must be a valid URL (e.g., https://example.com)"
       );
     }
+  }
+
+  // Enforce production environment
+  if (process.env.NODE_ENV === "production") {
+    if (errors.length === 0 && !process.env.NEXT_PUBLIC_APP_URL) {
+      errors.push(
+        "NEXT_PUBLIC_APP_URL is required in production (it is used for canonical URLs, " +
+        "sitemap, RSS, and JSON-LD). Set it in your deployment environment.");
+    }
+  } else if (process.env.NODE_ENV !== "development") {
+    errors.push(
+      "NODE_ENV is set to a non-standard value. Expected 'development' or 'production'."
+    );
   }
 
   return { valid: errors.length === 0, errors };

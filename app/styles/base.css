@@ -1,0 +1,43 @@
+/* ═══════════════════════════════════════════════════════════════════
+   BASE — html, body, focus ring.
+   Global element resets; keep minimal.
+   ═══════════════════════════════════════════════════════════════════ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Disable smooth scrolling for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* Global kill-switch for decorative/infinite animations and transitions.
+     Near-zero durations still fire animationend/transitionend events, so
+     JS flows that wait on them (e.g. Preloader) keep working. */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  font-family: var(--font-vazirmatn), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  /* Smooth dark/light theme transitions without flashing */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Visible keyboard-focus ring for accessibility (mouse clicks excluded) */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+

@@ -9,11 +9,12 @@ import {
   listBlogComments,
   listPublishedBlogIds,
 } from "@/lib/services/blog-service";
+import { blogCache } from "@/lib/db/cache";
 import { getServerDictionary } from "@/lib/i18n/server";
 import { toFarsiDigits } from "@/lib/i18n/numbers";
 import { siteConfig } from "@/lib/seo/seo";
 import { articleSchema, breadcrumbSchema } from "@/lib/seo/json-ld";
-import { processArticleHtml } from "@/lib/utils/blog-html";
+import { processArticleHtml, type TocItem } from "@/lib/utils/blog-html";
 import JsonLdScript from "@/components/feedback/JsonLd";
 import ShareButtons from "@/components/feedback/ShareButtons";
 import ParticleBackground from "@/components/ui/ParticleBackground";
@@ -108,10 +109,17 @@ export default async function BlogPostPage({
   const comments = listBlogComments(post.id);
 
   // Sanitize + enrich the article body (heading anchors, lazy images)
-  // and extract the table of contents.
-  const { html: articleHtml, toc } = processArticleHtml(
-    isFa ? post.bodyFA : post.bodyEN || post.bodyFA,
-  );
+  // and extract the table of contents. Memoized via blogCache so the
+  // expensive `sanitize-html` pass runs only once per post+locale.
+  const articleKey = `blog:processed:${post.id}:${isFa ? "fa" : "en"}`;
+  let processed = blogCache.get(articleKey) as { html: string; toc: TocItem[] } | undefined;
+  if (!processed) {
+    processed = processArticleHtml(
+      isFa ? post.bodyFA : post.bodyEN || post.bodyFA,
+    );
+    blogCache.set(articleKey, processed);
+  }
+  const { html: articleHtml, toc } = processed;
 
   const articleJsonLd = articleSchema({
     title: isFa ? post.titleFA : post.titleEN || post.titleFA,

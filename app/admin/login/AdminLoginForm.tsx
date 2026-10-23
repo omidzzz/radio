@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useDictionary } from "@/lib/i18n/client";
+import { logger } from "@/lib/core/logger";
 
 export default function AdminLoginForm() {
   const router = useRouter();
@@ -43,7 +44,7 @@ export default function AdminLoginForm() {
       router.push("/admin");
       router.refresh();
     } catch (err) {
-      console.error("Error during login:", err);
+      logger.error("Error during login", { error: err });
       setError("An error occurred. Please try again.");
     } finally {
       setSubmitting(false);

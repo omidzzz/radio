@@ -1,0 +1,25 @@
+/* Split from app/globals.css — see app/styles/README.md for the layout. */
+
+/* ─── Mobile snap row (no carousel JS) ─── */
+/* Mobile snap row — shared by testimonials / galleries, no carousel JS */
+@media (max-width: 767px) {
+  .snap-row {
+    display: flex;
+    gap: 0.875rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1rem;
+    padding-inline: 1rem;
+    padding-bottom: 0.75rem;
+    margin-inline: -1rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .snap-row::-webkit-scrollbar {
+    display: none;
+  }
+  .snap-row > * {
+    scroll-snap-align: start;
+    flex: 0 0 min(84vw, 320px);
+  }
+}

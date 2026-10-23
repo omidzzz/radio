@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { logger } from "@/lib/core/logger";
 
 /**
  * Unified API error class for consistent error handling across routes.
@@ -65,7 +66,7 @@ export function withErrorHandling<T extends unknown[]>(
         );
       }
 
-      console.error("Unhandled API error:", error);
+      logger.error("Unhandled API error", { error: error });
       return NextResponse.json(
         { error: "Internal server error" },
         { status: 500 }

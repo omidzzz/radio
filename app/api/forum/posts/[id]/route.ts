@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getForumPostWithReplies } from "@/lib/services/forum-service";
+import { logger } from "@/lib/core/logger";
 
 type RouteContext = {
   params: Promise<{ id: string }>;
@@ -18,7 +19,7 @@ export async function GET(_request: NextRequest, { params }: RouteContext) {
 
     return NextResponse.json({ post, replies });
   } catch (error) {
-    console.error("Error fetching forum post:", error);
+    logger.error("Error fetching forum post", { error: error });
     return NextResponse.json(
       { error: "Failed to fetch post" },
       { status: 500 }

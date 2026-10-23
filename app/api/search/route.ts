@@ -3,6 +3,7 @@ import { z } from "zod";
 import { searchAll } from "@/lib/services/search-service";
 import { getServerLocale } from "@/lib/i18n/server";
 import { rateLimitByIp, getClientIp } from "@/lib/http/rate-limit";
+import { logger } from "@/lib/core/logger";
 
 // Input validation schema
 const SearchQuerySchema = z.object({
@@ -62,7 +63,7 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error("Error searching:", error);
+    logger.error("Error searching", { error: error });
     return NextResponse.json({
       query: q,
       results: [],

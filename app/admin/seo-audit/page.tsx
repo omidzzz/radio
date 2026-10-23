@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { logger } from "@/lib/core/logger";
 
 interface PageCheck {
   path: string;
@@ -107,7 +108,7 @@ export default function SeoAuditPage() {
 
       setResults(pageResults);
     } catch (error) {
-      console.error("Audit failed:", error);
+      logger.error("Audit failed", { error: error });
     } finally {
       setChecking(false);
     }

@@ -18,7 +18,7 @@ interface HeroProps {
 export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
   return (
     <section
-      className={`slide-entrance relative h-full min-h-[96vh] overflow-hidden bg-deep ${
+      className={`slide-entrance relative h-full min-h-[96vh] overflow-hidden bg-white/95 ${
         playAnim ? "slide-active" : ""
       }`}
     >
@@ -27,7 +27,6 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
 
       <div className="absolute inset-0 anim-fade-in">
         <Image
-          src="/images/home-hero.webp"
           alt="پرتودرمانی و تصویربرداری پیشرفته"
           fill
           priority
@@ -38,9 +37,9 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
           blurDataURL="data:image/webp;base64,UklGRl4AAABXRUJQVlA4TIL3AAAAAQCdASoUAAUABm6v2ztT0W0AAAAPABsAJQbZVgjirw8qCtvpqulCZgAAA"
           className="ken-burns object-cover object-center opacity-50"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-deep via-deep/90 to-deep/50" />
-        <div className="absolute inset-0 bg-gradient-to-t from-deep via-transparent to-deep/70" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent" />
+        
+        
+        
       </div>
 
       <div
@@ -209,7 +208,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
                   loading="lazy"
                   className="object-cover object-top transition-transform duration-700 hover:scale-105"
                 />
-                <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-deep/85 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-white|/85 to-transparentfrom-white|/85 to-transparent" />
                 <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-primary/10" />
                 {[
                   "left-3 top-3 border-l border-t",
@@ -236,7 +235,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
               <div className="float-bob pointer-events-none absolute -right-14 top-1/4 hidden h-60 w-60 rounded-full bg-primary/30 blur-3xl anim-fade-in delay-400 lg:block" />
               <div className="float-bob float-bob-delay-1 pointer-events-none absolute -left-20 bottom-1/4 hidden h-48 w-48 rounded-full bg-secondary-hover/20 blur-3xl anim-fade-in delay-500 lg:block" />
 
-              <div className="anim-fade-up delay-1000 absolute bottom-6 right-6 z-40 flex items-center gap-3.5 rounded-2xl border border-white/15 bg-deep/90 px-5 py-3.5 shadow-xl backdrop-blur-sm">
+              <div className="anim-fade-up delay-1000 absolute bottom-6 right-6 z-40 flex items-center gap-3.5 rounded-2xl border border-white/15 bg-white/90 px-5 py-3.5 shadow-xl backdrop-blur-sm">
                 <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary/25 text-accent">
                   <svg
                     className="h-5 w-5"

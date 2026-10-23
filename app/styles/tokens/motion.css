@@ -1,0 +1,16 @@
+/* Split from app/globals.css — see app/styles/README.md for the layout. */
+
+/* ─── Motion tokens — mirrors @theme so animations survive tree-shaking ─── */
+:root,
+[data-theme="light"] {
+/* Motion tokens (also exposed via @theme for utility generation, but
+     declared here as literals so they are never tree-shaken away —
+     an unresolved var inside `animation` would cancel the entrance
+     animations entirely). */
+  --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 150ms;
+  --dur-base: 250ms;
+  --dur-slow: 450ms;
+  --dur-entrance: 800ms;
+}

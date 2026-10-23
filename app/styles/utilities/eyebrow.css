@@ -1,0 +1,23 @@
+/* Split from app/globals.css — see app/styles/README.md for the layout. */
+
+/* ─── Eyebrow pill + dark variant + FA tracking ─── */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  border: 1px solid var(--color-gold);
+  background: var(--color-gold-soft);
+  border-radius: 999px;
+  padding: 0.4rem 0.85rem;
+}
+
+.eyebrow-on-dark {
+  color: var(--color-highlight);
+  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
+}

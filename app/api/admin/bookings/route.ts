@@ -6,6 +6,7 @@ import {
   getBookings,
   updateBookingStatus,
 } from "@/lib/services/booking-service";
+import { logger } from "@/lib/core/logger";
 
 function getStatusLabel(status: string) {
   const labels: Record<string, string> = {
@@ -27,7 +28,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ bookings });
   } catch (error) {
-    console.error("Error fetching bookings:", error);
+    logger.error("Error fetching bookings", { error: error });
     return NextResponse.json(
       { error: "Failed to fetch bookings" },
       { status: 500 }
@@ -68,7 +69,7 @@ export async function PATCH(request: NextRequest) {
       statusLabel: getStatusLabel(body.status),
     });
   } catch (error) {
-    console.error("Error updating booking:", error);
+    logger.error("Error updating booking", { error: error });
     return NextResponse.json(
       { error: "Failed to update booking" },
       { status: 500 }
@@ -96,7 +97,7 @@ export async function DELETE(request: NextRequest) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Error deleting booking:", error);
+    logger.error("Error deleting booking", { error: error });
     return NextResponse.json(
       { error: "Failed to delete booking" },
       { status: 500 }

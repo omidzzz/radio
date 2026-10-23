@@ -1,5 +1,6 @@
 // Rate limiter backed by SQLite for multi-instance support
 import db from "@/lib/db/db";
+import { logger } from "@/lib/core/logger";
 
 interface RateLimitEntry {
   count: number;
@@ -71,7 +72,7 @@ export function rateLimitByIp(
     return { success: true };
   } catch (error) {
     // If DB fails, fail open to avoid blocking legitimate requests
-    console.error("Rate limit DB error:", error);
+    logger.error("Rate limit DB error", { error: error });
     return { success: true };
   }
 }

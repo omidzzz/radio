@@ -1,0 +1,215 @@
+/* ═══════════════════════════════════════════
+   MINIMAL DESIGN SYSTEM — balance, FA rhythm, selection
+   Zero-JS. Respects both themes via var(--color-*).
+   ═══════════════════════════════════════════ */
+h1,
+h2 {
+  text-wrap: balance;
+  font-weight: 800;
+}
+article p,
+section p {
+  text-wrap: pretty;
+}
+/* Vazirmatn needs looser leading than latin tight tracking */
+html[lang="fa"] h1,
+html[lang="fa"] h2 {
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+html[lang="fa"] .tracking-tight,
+html[lang="fa"] .tracking-tighter {
+  letter-spacing: -0.005em;
+}
+::selection {
+  background: color-mix(in srgb, var(--color-primary) 28%, transparent);
+}
+:target {
+  scroll-margin-top: 88px;
+}
+section[id] {
+  scroll-margin-top: 84px;
+}
+/* Thin gold rule — visit-card motif used under display headings */
+.gold-rule {
+  display: inline-block;
+  height: 2px;
+  width: clamp(4rem, 10vw, 7rem);
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-gold) 25%,
+    var(--color-gold) 75%,
+    transparent
+  );
+}
+/* Shared eyebrow pill — gold voice from the visit card.
+   Ivory theme: gold border + soft gold wash + deep-green text so the
+   pill stays striking while meeting AA contrast. */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  border: 1px solid var(--color-gold);
+  background: var(--color-gold-soft);
+  border-radius: 999px;
+  padding: 0.4rem 0.85rem;
+}
+/* Eyebrow on dark bands (hero / testimonials / CTA) */
+.eyebrow-on-dark {
+  color: var(--color-highlight);
+  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
+}
+html[lang="fa"] .eyebrow {
+  /* Persian script + wide latin tracking looks scattered — tighten */
+  letter-spacing: 0.06em;
+}
+/* Reusable button sheen sweep — desktop hover only (touch has no hover) */
+@media (hover: hover) {
+  .btn-sheen {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .btn-sheen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    transform: translateX(-110%);
+    transition: transform 0.7s ease;
+    pointer-events: none;
+  }
+  .btn-sheen:hover::after {
+    transform: translateX(110%);
+  }
+  [dir="rtl"] .btn-sheen::after {
+    transform: translateX(110%);
+  }
+  [dir="rtl"] .btn-sheen:hover::after {
+    transform: translateX(-110%);
+  }
+}
+/* Hairline divider with center label — cheaper than animated scanline */
+.hairline-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--color-muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.hairline-label::before,
+.hairline-label::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-border),
+    transparent
+  );
+}
+html[lang="fa"] .hairline-label {
+  letter-spacing: 0.06em;
+}
+/* Mobile snap row — shared by testimonials / galleries, no carousel JS */
+@media (max-width: 767px) {
+  .snap-row {
+    display: flex;
+    gap: 0.875rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1rem;
+    padding-inline: 1rem;
+    padding-bottom: 0.75rem;
+    margin-inline: -1rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .snap-row::-webkit-scrollbar {
+    display: none;
+  }
+  .snap-row > * {
+    scroll-snap-align: start;
+    flex: 0 0 min(84vw, 320px);
+  }
+}
+/* Touch devices: kill lift + spotlight + magnetic transforms entirely */
+@media (hover: none) {
+  .no-lift-touch {
+    transform: none !important;
+  }
+  .spotlight-card::before {
+    opacity: 0 !important;
+  }
+}
+
+/* Fluid display heading — scales smoothly between breakpoints
+   instead of stepping at sm/lg/xl boundaries. */
+.fluid-display,
+.type-display {
+  font-size: clamp(2.25rem, 1.55rem + 2.7vw, 4.3rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+}
+
+/* Vazirmatn's 800/900 cuts grow tall — give Persian display room */
+html[lang="fa"] .fluid-display,
+html[lang="fa"] .type-display {
+  line-height: 1.5;
+  letter-spacing: 0;
+  font-weight: 800;
+}
+
+/* Section headings are set to 800 in the type-family block below */
+
+[dir="ltr"] body {
+  font-family: var(--font-outfit), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+}
+
+/* Persian body copy set in Vazirmatn reads cramped at Tailwind's default
+   1.5 line-height — open it up for paragraphs and list items. */
+html[lang="fa"] p,
+html[lang="fa"] li {
+  line-height: 1.85;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-vazirmatn), system-ui, sans-serif;
+  font-weight: 800;
+}
+
+/* Section ledes read with extra presence — medium weight, comfortable measure */
+.type-lede {
+  font-weight: 500;
+  max-width: 44rem;
+}
+
+/* Subsection headings (h3) — semibold is elegant enough below h2 */
+h3 {
+  font-weight: 700;
+}

@@ -1,0 +1,334 @@
+/* ═══════════════════════════════════════════
+   ANIMATIONS — Home page
+═══════════════════════════════════════════ */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes sweep {
+  0% {
+    transform: translateY(-120%);
+    opacity: 0;
+  }
+
+  12% {
+    opacity: .8;
+  }
+
+  88% {
+    opacity: .8;
+  }
+
+  100% {
+    transform: translateY(120%);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-ring {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: .6;
+  }
+
+  50% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes blink-dot {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: .25;
+  }
+}
+
+@keyframes gantry-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scan-beam {
+  0% {
+    transform: translateX(-30%);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.7;
+  }
+
+  85% {
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: translateX(130%);
+    opacity: 0;
+  }
+}
+
+@keyframes status-pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes table-glow {
+
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 0.85;
+  }
+}
+
+/* One-shot entrance animations — no persistent will-change, so finished
+   elements don't hold GPU layers forever. */
+.anim-fade-up {
+  opacity: 0;
+  animation: fade-up 0.8s var(--ease-brand) forwards;
+}
+
+.anim-fade-in {
+  opacity: 0;
+  animation: fade-in 1s ease-out forwards;
+}
+
+.anim-scale-in {
+  opacity: 0;
+  animation: scale-in 0.9s var(--ease-brand) forwards;
+}
+
+.anim-slide-right {
+  opacity: 0;
+  animation: slide-in-right 0.9s var(--ease-brand) forwards;
+}
+
+.anim-slide-left {
+  opacity: 0;
+  animation: slide-in-left 0.9s var(--ease-brand) forwards;
+}
+
+.hud-sweep {
+  animation: sweep 5.5s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.hud-pulse {
+  animation: pulse-ring 2.2s ease-out infinite;
+  will-change: transform, opacity;
+}
+
+.hud-blink {
+  animation: blink-dot 1.6s ease-in-out infinite;
+  will-change: opacity;
+}
+
+.gantry-spin {
+  transform-origin: 150px 140px;
+}
+/* Gantry rotation is a desktop-hover-capable enhancement only */
+@media (hover: hover) and (min-width: 1024px) {
+  .gantry-spin {
+    animation: gantry-spin 30s linear infinite;
+  }
+}
+
+.scan-beam {
+  animation: scan-beam 4s ease-in-out infinite;
+}
+
+.status-pulse {
+  animation: status-pulse 2s ease-in-out infinite;
+}
+/* Status/beam pulses are desktop-only; mobile keeps the static dot */
+@media (max-width: 1023px) {
+  .scan-beam,
+  .status-pulse,
+  .beam-on {
+    animation: none !important;
+  }
+}
+
+.table-glow {
+  animation: table-glow 3s ease-in-out infinite;
+  will-change: opacity;
+}
+
+.delay-100 {
+  animation-delay: 100ms;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.delay-400 {
+  animation-delay: 400ms;
+}
+
+.delay-450 {
+  animation-delay: 450ms;
+}
+
+.delay-500 {
+  animation-delay: 500ms;
+}
+
+.delay-600 {
+  animation-delay: 600ms;
+}
+
+.delay-700 {
+  animation-delay: 700ms;
+}
+
+.delay-800 {
+  animation-delay: 800ms;
+}
+
+.delay-900 {
+  animation-delay: 900ms;
+}
+
+.delay-1000 {
+  animation-delay: 1000ms;
+}
+
+.delay-1100 {
+  animation-delay: 1100ms;
+}
+
+.delay-1200 {
+  animation-delay: 1200ms;
+}
+
+/* Process section — spine keyframes kept for the static fallback;
+   the traveling .spine-dot animation was removed (static dot in JSX) */
+@keyframes spine-pulse {
+  0% {
+    top: -6%;
+    opacity: 0;
+  }
+
+  12% {
+    opacity: 1;
+  }
+
+  88% {
+    opacity: 1;
+  }
+
+  100% {
+    top: 106%;
+    opacity: 0;
+  }
+}
+
+@keyframes slow-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* card-sweep hover effect removed from Process cards — single definition kept */
+@keyframes card-sweep {
+  0% {
+    transform: translateX(-120%);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: .6;
+  }
+
+  85% {
+    opacity: .6;
+  }
+
+  100% {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+}

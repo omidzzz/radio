@@ -1,0 +1,19 @@
+/* ═══════════════════════════════════════════
+   SCROLL PROGRESS BAR — treatment-dose counter
+═══════════════════════════════════════════ */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 60;
+  pointer-events: none;
+  transform-origin: 0 0;
+  background: linear-gradient(90deg, #145c41, #4c9b7a, #c9a24b);
+  box-shadow: 0 0 12px rgba(26, 115, 82, 0.6);
+}
+
+[dir="rtl"] .scroll-progress {
+  transform-origin: 100% 0;
+}

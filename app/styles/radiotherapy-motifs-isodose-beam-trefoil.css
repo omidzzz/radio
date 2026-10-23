@@ -1,0 +1,170 @@
+/* ═══════════════════════════════════════════
+   RADIOTHERAPY MOTIFS — Isodose, beam, trefoil
+   Domain-specific decorative language
+═══════════════════════════════════════════ */
+@keyframes isodose-pulse {
+
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes beam-sweep {
+  0% {
+    transform: translateX(-120%) skewX(-12deg);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.6;
+  }
+
+  85% {
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: translateX(220%) skewX(-12deg);
+    opacity: 0;
+  }
+}
+
+@keyframes dose-fill {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes trefoil-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes beam-on {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(26, 115, 82, 0.5);
+  }
+
+  50% {
+    box-shadow: 0 0 0 6px rgba(26, 115, 82, 0);
+  }
+}
+
+@keyframes coord-flash {
+
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Isodose contour rings — concentric irregular dose lines */
+.isodose-ring {
+  animation: isodose-pulse 4s ease-in-out infinite;
+  will-change: opacity;
+}
+
+.isodose-ring-1 {
+  animation-delay: 0s;
+}
+
+.isodose-ring-2 {
+  animation-delay: 0.8s;
+}
+
+.isodose-ring-3 {
+  animation-delay: 1.6s;
+}
+
+.isodose-ring-4 {
+  animation-delay: 2.4s;
+}
+
+/* Treatment beam sweep — diagonal light sweep like a LINAC beam */
+.beam-sweep {
+  animation: beam-sweep 3.2s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* Dose accumulation progress bar */
+.dose-fill {
+  animation: dose-fill 2.5s var(--ease-brand) forwards;
+  will-change: width;
+}
+
+/* Radiation trefoil watermark — static by default. Rotation is a
+   desktop-only enhancement (see media query below) so mobile and
+   reduced-motion users never pay for an infinite paint. */
+.trefoil-static {
+  color: var(--color-primary);
+}
+@media (hover: hover) and (min-width: 1024px) {
+  .trefoil-spin {
+    animation: trefoil-spin 60s linear infinite;
+  }
+}
+
+/* Beam-on indicator — pulsing status light */
+.beam-on {
+  animation: beam-on 2s ease-out infinite;
+  will-change: box-shadow;
+}
+
+/* Coordinate readout — flashing monospace text */
+.coord-flash {
+  animation: coord-flash 2.4s ease-in-out infinite;
+  will-change: opacity;
+}
+
+/* Treatment planning grid — faint PACS-style crosshair grid */
+.planning-grid {
+  background-image:
+    linear-gradient(rgba(26, 115, 82, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26, 115, 82, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Consolidated ambient glow field for the footer — a single painted layer
+   (three radial gradients) instead of three blurred DOM nodes. Percent-based
+   positions keep it RTL-safe. */
+.footer-glow {
+  background:
+    radial-gradient(18rem 18rem at 8% 0%, rgba(26, 115, 82, 0.10), transparent 70%),
+    radial-gradient(16rem 16rem at 95% 100%, rgba(46, 125, 91, 0.08), transparent 70%),
+    radial-gradient(10rem 10rem at 50% 50%, rgba(76, 155, 122, 0.05), transparent 70%);
+}
+
+/* Theme-aware Google Maps embed: normal map in light theme,
+   inverted/desaturated to blend with the dark theme. */
+.map-embed iframe {
+  filter: grayscale(35%) contrast(95%);
+}
+
+[data-theme="dark"] .map-embed iframe {
+  filter: invert(90%) grayscale(45%) contrast(90%);
+}
+
+/* Dose-color gradient — blue → green → yellow → red (planning color-wash) */
+.dose-gradient {
+  background: linear-gradient(90deg, #145c41, #2e7d5b, #84cc16, #f59e0b, #ef4444);
+}

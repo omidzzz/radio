@@ -1,4 +1,4 @@
-import db, { prepare, syncBlogPostFts } from "@/lib/db/db";
+import db, { prepare } from "@/lib/db/db";
 import { blogCache } from "@/lib/db/cache";
 import { ApiError } from "@/lib/http/api-error";
 import type {
@@ -209,10 +209,19 @@ export function listBlogPostsForSitemap(): {
 /**
  * List the distinct categories that have at least one published post.
  */
+/** Cache key for blog categories. */
+const CATEGORIES_CACHE_KEY = "blog:categories";
+
+/** List the distinct categories that have at least one published post. */
 export function listBlogCategories(): {
   categoryFA: string;
   categoryEN?: string;
 }[] {
+  const cached = blogCache.get(CATEGORIES_CACHE_KEY) as
+    | { categoryFA: string; categoryEN?: string }[]
+    | undefined;
+  if (cached) return cached;
+
   const rows = db
     .prepare(
       `SELECT DISTINCT category_fa, category_en FROM blog_posts
@@ -220,10 +229,13 @@ export function listBlogCategories(): {
     )
     .all() as { category_fa: string; category_en: string | null }[];
 
-  return rows.map((row) => ({
+  const result = rows.map((row) => ({
     categoryFA: row.category_fa,
     categoryEN: row.category_en ?? undefined,
   }));
+
+  blogCache.set(CATEGORIES_CACHE_KEY, result);
+  return result;
 }
 
 /**
@@ -242,11 +254,18 @@ export function getBlogPostById(id: number): BlogPost | undefined {
  * The slug is the numeric post id, accepted as a string.
  */
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {
+  const cacheKey = `blog:post:${slug}`;
+  const cached = blogCache.get(cacheKey) as BlogPost | undefined;
+  if (cached) return cached;
+
   const row = prepare(
     `SELECT * FROM blog_posts
      WHERE (id = ? OR CAST(id AS TEXT) = ?) AND is_published = 1`
   ).get(slug, slug) as BlogPostRow | undefined;
-  return row ? formatBlogPost(row) : undefined;
+
+  const post = row ? formatBlogPost(row) : undefined;
+  if (post) blogCache.set(cacheKey, post);
+  return post;
 }
 
 /**
@@ -324,6 +343,10 @@ export function getRelatedBlogPosts(
   category: string,
   limit = 2
 ): BlogPostSummary[] {
+  const cacheKey = `blog:related:${postId}:${category}:${limit}`;
+  const cached = blogCache.get(cacheKey) as BlogPostSummary[] | undefined;
+  if (cached) return cached;
+
   const sameCategory = db
     .prepare(
       `SELECT ${SUMMARY_COLUMNS} FROM blog_posts
@@ -332,23 +355,27 @@ export function getRelatedBlogPosts(
     )
     .all(category, postId, limit) as BlogPostRow[];
 
+  let result: BlogPostSummary[];
   if (sameCategory.length >= limit) {
-    return sameCategory.map(formatBlogPostSummary);
+    result = sameCategory.map(formatBlogPostSummary);
+  } else {
+    const remaining = limit - sameCategory.length;
+    const excludedIds = [postId, ...sameCategory.map((p) => p.id)];
+    const placeholders = excludedIds.map(() => "?").join(", ");
+
+    const others = db
+      .prepare(
+        `SELECT ${SUMMARY_COLUMNS} FROM blog_posts
+         WHERE is_published = 1 AND id NOT IN (${placeholders})
+         ORDER BY published_at DESC LIMIT ?`
+      )
+      .all(...excludedIds, remaining) as BlogPostRow[];
+
+    result = [...sameCategory, ...others].map(formatBlogPostSummary);
   }
 
-  const remaining = limit - sameCategory.length;
-  const excludedIds = [postId, ...sameCategory.map((p) => p.id)];
-  const placeholders = excludedIds.map(() => "?").join(", ");
-
-  const others = db
-    .prepare(
-      `SELECT ${SUMMARY_COLUMNS} FROM blog_posts
-       WHERE is_published = 1 AND id NOT IN (${placeholders})
-       ORDER BY published_at DESC LIMIT ?`
-    )
-    .all(...excludedIds, remaining) as BlogPostRow[];
-
-  return [...sameCategory, ...others].map(formatBlogPostSummary);
+  blogCache.set(cacheKey, result);
+  return result;
 }
 
 /**
@@ -511,10 +538,7 @@ export function createBlogPost(input: {
     input.publishedAt ?? new Date().toISOString()
   );
 
-  // Sync the new post into the FTS5 index so search finds it immediately
-  syncBlogPostFts(Number(result.lastInsertRowid));
-
-  // Invalidate blog cache after insert
+   // Invalidate blog cache after insert
   blogCache.clear();
 
   const newPost = prepare("SELECT * FROM blog_posts WHERE id = ?").get(
@@ -596,10 +620,7 @@ export function updateBlogPost(
 
   if (result.changes === 0) return undefined;
 
-  // Sync the updated post into the FTS5 index
-  syncBlogPostFts(id);
-
-  // Invalidate blog cache after update
+   // Invalidate blog cache after update
   blogCache.clear();
 
   const updated = prepare(

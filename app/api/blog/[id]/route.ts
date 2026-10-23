@@ -6,6 +6,7 @@ import {
   updateBlogPost,
 } from "@/lib/services/blog-service";
 import { sanitizeContent, sanitizeText } from "@/lib/security/sanitize";
+import { logger } from "@/lib/core/logger";
 
 export async function GET(
   request: Request,
@@ -28,7 +29,7 @@ export async function GET(
       },
     });
   } catch (error) {
-    console.error("Error fetching blog post:", error);
+    logger.error("Error fetching blog post", { error: error });
     return NextResponse.json(
       { error: "Failed to fetch blog post" },
       { status: 500 }
@@ -104,7 +105,7 @@ export async function PATCH(
 
     return NextResponse.json(result);
   } catch (error) {
-    console.error("Error updating blog post:", error);
+    logger.error("Error updating blog post", { error: error });
     return NextResponse.json(
       { error: "Failed to update blog post" },
       { status: 500 }
@@ -132,7 +133,7 @@ export async function DELETE(
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Error deleting blog post:", error);
+    logger.error("Error deleting blog post", { error: error });
     return NextResponse.json(
       { error: "Failed to delete blog post" },
       { status: 500 }

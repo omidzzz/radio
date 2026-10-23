@@ -1,0 +1,75 @@
+/* ═══════════════════════════════════════════
+   POWER-ON GANTRY — equipment "boot-up" sequence
+   .powered-on is added by IntersectionObserver
+   when the gantry scrolls into view.
+═══════════════════════════════════════════ */
+@keyframes power-glow {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes power-sweep {
+  0% {
+    transform: translateX(-120%);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0.6;
+  }
+
+  80% {
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+}
+
+.power-on-gantry {
+  position: relative;
+}
+
+.power-on-gantry::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(circle at 50% 50%,
+      rgba(26, 115, 82, 0.18),
+      transparent 70%);
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+.power-on-gantry.powered-on::before {
+  opacity: 1;
+}
+
+.power-on-gantry::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(100deg,
+      transparent 20%,
+      rgba(76, 155, 122, 0.12) 50%,
+      transparent 80%);
+  transform: translateX(-120%);
+  opacity: 0;
+}
+
+.power-on-gantry.powered-on::after {
+  animation: power-sweep 1.6s ease-out forwards;
+}

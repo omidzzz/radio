@@ -3,6 +3,7 @@ import { writeFileSync, mkdirSync } from "fs";
 import path from "path";
 import crypto from "crypto";
 import { requireAdminWithCsrf } from "@/lib/security/auth";
+import { logger } from "@/lib/core/logger";
 import sharp from "sharp";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
@@ -139,7 +140,7 @@ export async function POST(request: NextRequest) {
           .toBuffer();
         finalBuffer = Buffer.from(optimized);
       } catch (err) {
-        console.error("Image optimization failed, using original:", err);
+        logger.error("Image optimization failed, using original", { error: err });
         finalBuffer = buffer;
       }
     }
@@ -151,7 +152,7 @@ export async function POST(request: NextRequest) {
     const publicUrl = `/uploads/${filename}`;
     return NextResponse.json({ url: publicUrl });
   } catch (error) {
-    console.error("Error uploading file:", error);
+    logger.error("Error uploading file", { error: error });
     return NextResponse.json({ error: "Failed to upload file" }, { status: 500 });
   }
 }

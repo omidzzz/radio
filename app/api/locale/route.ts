@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { LOCALE_COOKIE, Locale, isLocale } from "@/lib/i18n/config";
+import { logger } from "@/lib/core/logger";
 
 // GET /api/locale - Get current locale
 export async function GET(request: NextRequest) {
@@ -34,7 +35,7 @@ export async function POST(request: NextRequest) {
 
     return response;
   } catch (error) {
-    console.error("Error setting locale:", error);
+    logger.error("Error setting locale", { error: error });
     return NextResponse.json(
       { error: "Failed to set locale" },
       { status: 500 }

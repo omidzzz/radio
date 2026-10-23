@@ -6,6 +6,7 @@ import {
   createBlogComment,
   listBlogComments,
 } from "@/lib/services/blog-service";
+import { logger } from "@/lib/core/logger";
 
 // GET /api/blog/[id]/comments - List comments for a blog post
 export async function GET(
@@ -23,7 +24,7 @@ export async function GET(
       },
     });
   } catch (error) {
-    console.error("Error fetching comments:", error);
+    logger.error("Error fetching comments", { error: error });
     return NextResponse.json({ comments: [] });
   }
 }
@@ -92,7 +93,7 @@ export async function POST(
       { status: 201 }
     );
   } catch (error) {
-    console.error("Error creating comment:", error);
+    logger.error("Error creating comment", { error: error });
     return NextResponse.json(
       { error: "Failed to create comment" },
       { status: 500 }

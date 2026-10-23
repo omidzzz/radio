@@ -6,6 +6,7 @@ import {
 } from "@/lib/services/availability-service";
 import { getUnavailableSlotsForDate } from "@/lib/services/unavailable-slots";
 import { rateLimitByIp, getClientIp } from "@/lib/http/rate-limit";
+import { logger } from "@/lib/core/logger";
 
 // GET /api/availability - Get availability config and time slots
 // Query params:
@@ -37,7 +38,7 @@ export async function GET(request: NextRequest) {
     const data = getAvailability();
     return NextResponse.json(data);
   } catch (error) {
-    console.error("Error fetching availability:", error);
+    logger.error("Error fetching availability", { error: error });
     return NextResponse.json(
       { error: "Failed to fetch availability" },
       { status: 500 }

@@ -1,0 +1,14 @@
+/* ═══════════════════════════════════════════════════════════════════
+   DESIGN TOKEN UTILITIES
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Uniform vertical rhythm for page sections — pb can be tightened
+   per-section with .section-pad-tight (e.g. TrustStrip). */
+.section-pad {
+  padding-top: var(--section-y);
+  padding-bottom: var(--section-y);
+}
+.section-pad-tight {
+  padding-top: var(--section-y);
+  padding-bottom: 1rem;
+}

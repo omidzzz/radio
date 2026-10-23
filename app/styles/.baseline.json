@@ -1,0 +1,495 @@
+{
+  "files": {
+    "animations-forum.css": {
+      "sha1": "2a23ce1c83092604e47af7ad3034dd1deef55022",
+      "bytes": 1059,
+      "lines": 63
+    },
+    "animations-home.css": {
+      "sha1": "08a2be3dff5d4d597d5e0fbc039bde6b082103d7",
+      "bytes": 4641,
+      "lines": 335
+    },
+    "back-to-top-floating-ring-button.css": {
+      "sha1": "8b3ce241ea4bd1f441a7798fd8be0cfc8e9359c6",
+      "bytes": 3328,
+      "lines": 136
+    },
+    "band-dark.css": {
+      "sha1": "7d1e8056b6e08df49d6583f717e4b743e0272b68",
+      "bytes": 1690,
+      "lines": 50
+    },
+    "base.css": {
+      "sha1": "e952b11fcdc3ea1af414edf17911b750ab8a1184",
+      "bytes": 1574,
+      "lines": 44
+    },
+    "blog.css": {
+      "sha1": "a50fb59d9927bd86e94a5f53f1f9f68115f4442e",
+      "bytes": 8035,
+      "lines": 352
+    },
+    "conic-border-rotating-beam-around-ctas.css": {
+      "sha1": "368d6b85210eb2b389d42c0a782a7f6fee7d6638",
+      "bytes": 1051,
+      "lines": 39
+    },
+    "content-visibility.css": {
+      "sha1": "cc4a69f5a735ec8d742e9491540b279fa4e5f32f",
+      "bytes": 635,
+      "lines": 12
+    },
+    "cursor-glow-soft-tracking-light.css": {
+      "sha1": "3b205854d66b1cc80e6c4a47cd6032e6c7e9d632",
+      "bytes": 775,
+      "lines": 29
+    },
+    "dark-theme-palette.css": {
+      "sha1": "68dfe54c7315e968d1ca2083ed59290fc934966f",
+      "bytes": 2250,
+      "lines": 52
+    },
+    "float-bob-gently-drifting-decorative-orbs.css": {
+      "sha1": "953af3eac006b62fca3fe0959f5e3119e158e1da",
+      "bytes": 718,
+      "lines": 32
+    },
+    "fluid-type-scale-section-headers-stop-stepping-at-breakpoint.css": {
+      "sha1": "3908defbacefd4fd617054c1334a1464b0136b28",
+      "bytes": 787,
+      "lines": 25
+    },
+    "gradient-shimmer-animated-gradient-text.css": {
+      "sha1": "7d307da7f5bc3e1d8dd17098afe62902d89db549",
+      "bytes": 567,
+      "lines": 19
+    },
+    "grain.css": {
+      "sha1": "ea8c28eed6207ac6f0ee0236b3942e1bbee13baa",
+      "bytes": 915,
+      "lines": 14
+    },
+    "hero-entrance-staged-reveal-after-preloader.css": {
+      "sha1": "df1967960f225517e8b464d1bbb3bfb1d141ff84",
+      "bytes": 1530,
+      "lines": 47
+    },
+    "hero-slider-active-dot-autoplay-progress-fill.css": {
+      "sha1": "6c0cf2c452d3a699c6ba9f1f67d606910775ae84",
+      "bytes": 627,
+      "lines": 20
+    },
+    "ken-burns-slow-cinematic-hero-zoom.css": {
+      "sha1": "58848e3ab6109247ce8895066145e12854531638",
+      "bytes": 810,
+      "lines": 27
+    },
+    "minimal-design-system-balance-fa-rhythm-selection.css": {
+      "sha1": "37175200026c98715202d281ad77cb5baef8fc2e",
+      "bytes": 5298,
+      "lines": 216
+    },
+    "mobile-performance-reduce-expensive-effects.css": {
+      "sha1": "f8882d69200d37ff56dd2612202562794fdd8c5b",
+      "bytes": 2666,
+      "lines": 141
+    },
+    "phase1.css": {
+      "sha1": "5006be14ee4ccb20376812373fce436d1cc7ae23",
+      "bytes": 2313,
+      "lines": 79
+    },
+    "phase2.css": {
+      "sha1": "4be5b147252baeb86f7ec6874d4de3a575e9d96a",
+      "bytes": 6816,
+      "lines": 261
+    },
+    "platform-polish-print-contrast-scrollbars-blur-fallback.css": {
+      "sha1": "59b3c37ba16f1f34ca8f773086d0a2a7da70e535",
+      "bytes": 4484,
+      "lines": 192
+    },
+    "power-on-gantry-equipment-boot-up-sequence.css": {
+      "sha1": "8e07a07336560c753f00e8e35bc03ae1fd8ca348",
+      "bytes": 1492,
+      "lines": 76
+    },
+    "radiotherapy-motifs-isodose-beam-trefoil.css": {
+      "sha1": "07be24b9fa424ed480af3db5b63e005349a94b2b",
+      "bytes": 3656,
+      "lines": 171
+    },
+    "reduced-motion.css": {
+      "sha1": "09f7479051f4a133ca29647d32dadf5978f23d14",
+      "bytes": 1386,
+      "lines": 66
+    },
+    "scan-line-sweeping-ct-style-section-divider.css": {
+      "sha1": "dc7c54f9d4b3b894fa5f5e70695bf7fdf1682273",
+      "bytes": 645,
+      "lines": 28
+    },
+    "scroll-progress-bar-treatment-dose-counter.css": {
+      "sha1": "23c04df60ed61a521115b8b0938d2f39da450b52",
+      "bytes": 642,
+      "lines": 20
+    },
+    "scroll-reveal-intersectionobserver-driven.css": {
+      "sha1": "3b60c418ba44fedec814d8b8d3e8fdcc398c056a",
+      "bytes": 1376,
+      "lines": 49
+    },
+    "section-pad.css": {
+      "sha1": "b67ee64dbe7752fae4ab39893427b4a201873eb6",
+      "bytes": 750,
+      "lines": 15
+    },
+    "slider-slide-entrance-staged-per-element.css": {
+      "sha1": "28e8ce7419d3d7ce1bb42167d897941467043791",
+      "bytes": 1768,
+      "lines": 47
+    },
+    "spotlight-card-cursor-following-radial-glow.css": {
+      "sha1": "7f0f630c8821412cfe9f6101889a527ae22ce2c8",
+      "bytes": 969,
+      "lines": 29
+    },
+    "surface-primitives-one-card-treatment-for-every-content-card.css": {
+      "sha1": "6a6ed9c479d0a07276c1cea0a5b5282e2f23fa8d",
+      "bytes": 1708,
+      "lines": 49
+    },
+    "theme.css": {
+      "sha1": "99f6d8f94366fd94fee7ff2cfc041cd6e3a94561",
+      "bytes": 2889,
+      "lines": 54
+    },
+    "tilt-card-subtle-3d-perspective-tilt.css": {
+      "sha1": "ad981b6c2c1624d2ee54698931b293a153bd09fa",
+      "bytes": 644,
+      "lines": 16
+    },
+    "tokens.css": {
+      "sha1": "dc2648fbe7cdc89d847faaffef9b3b8e542ca3a4",
+      "bytes": 2504,
+      "lines": 68
+    }
+  },
+  "totalRules": 513,
+  "selectors": {},
+  "dupeSelectors": [
+    {
+      "sel": "to",
+      "files": [
+        "animations-forum.css",
+        "animations-forum.css",
+        "animations-home.css",
+        "animations-home.css",
+        "animations-home.css",
+        "animations-home.css",
+        "animations-home.css",
+        "animations-home.css",
+        "animations-home.css",
+        "back-to-top-floating-ring-button.css",
+        "blog.css",
+        "conic-border-rotating-beam-around-ctas.css",
+        "hero-slider-active-dot-autoplay-progress-fill.css",
+        "phase2.css",
+        "phase2.css",
+        "phase2.css",
+        "radiotherapy-motifs-isodose-beam-trefoil.css",
+        "radiotherapy-motifs-isodose-beam-trefoil.css"
+      ]
+    },
+    {
+      "sel": "0%",
+      "files": [
+        "animations-home.css",
+        "animations-home.css",
+        "animations-home.css",
+        "animations-home.css",
+        "back-to-top-floating-ring-button.css",
+        "gradient-shimmer-animated-gradient-text.css",
+        "ken-burns-slow-cinematic-hero-zoom.css",
+        "phase1.css",
+        "phase2.css",
+        "phase2.css",
+        "phase2.css",
+        "platform-polish-print-contrast-scrollbars-blur-fallback.css",
+        "power-on-gantry-equipment-boot-up-sequence.css",
+        "power-on-gantry-equipment-boot-up-sequence.css",
+        "radiotherapy-motifs-isodose-beam-trefoil.css",
+        "scan-line-sweeping-ct-style-section-divider.css"
+      ]
+    },
+    {
+      "sel": "100%",
+      "files": [
+        "animations-home.css",
+        "animations-home.css",
+        "animations-home.css",
+        "animations-home.css",
+        "back-to-top-floating-ring-button.css",
+        "gradient-shimmer-animated-gradient-text.css",
+        "ken-burns-slow-cinematic-hero-zoom.css",
+        "phase1.css",
+        "phase2.css",
+        "phase2.css",
+        "phase2.css",
+        "platform-polish-print-contrast-scrollbars-blur-fallback.css",
+        "power-on-gantry-equipment-boot-up-sequence.css",
+        "power-on-gantry-equipment-boot-up-sequence.css",
+        "radiotherapy-motifs-isodose-beam-trefoil.css",
+        "scan-line-sweeping-ct-style-section-divider.css"
+      ]
+    },
+    {
+      "sel": "from",
+      "files": [
+        "animations-forum.css",
+        "animations-forum.css",
+        "animations-home.css",
+        "animations-home.css",
+        "animations-home.css",
+        "animations-home.css",
+        "animations-home.css",
+        "animations-home.css",
+        "back-to-top-floating-ring-button.css",
+        "blog.css",
+        "hero-slider-active-dot-autoplay-progress-fill.css",
+        "phase2.css",
+        "phase2.css",
+        "radiotherapy-motifs-isodose-beam-trefoil.css",
+        "radiotherapy-motifs-isodose-beam-trefoil.css"
+      ]
+    },
+    {
+      "sel": "0%, 100%",
+      "files": [
+        "animations-forum.css",
+        "animations-home.css",
+        "animations-home.css",
+        "animations-home.css",
+        "animations-home.css",
+        "float-bob-gently-drifting-decorative-orbs.css",
+        "phase2.css",
+        "phase2.css",
+        "radiotherapy-motifs-isodose-beam-trefoil.css",
+        "radiotherapy-motifs-isodose-beam-trefoil.css",
+        "radiotherapy-motifs-isodose-beam-trefoil.css"
+      ]
+    },
+    {
+      "sel": "50%",
+      "files": [
+        "animations-forum.css",
+        "animations-home.css",
+        "animations-home.css",
+        "animations-home.css",
+        "animations-home.css",
+        "phase2.css",
+        "phase2.css",
+        "radiotherapy-motifs-isodose-beam-trefoil.css",
+        "radiotherapy-motifs-isodose-beam-trefoil.css",
+        "radiotherapy-motifs-isodose-beam-trefoil.css"
+      ]
+    },
+    {
+      "sel": "@media (prefers-reduced-motion: reduce)",
+      "files": [
+        "blog.css",
+        "phase2.css",
+        "phase2.css",
+        "phase2.css",
+        "phase2.css",
+        "phase2.css",
+        "phase2.css",
+        "platform-polish-print-contrast-scrollbars-blur-fallback.css",
+        "platform-polish-print-contrast-scrollbars-blur-fallback.css"
+      ]
+    },
+    {
+      "sel": "15%",
+      "files": [
+        "animations-home.css",
+        "animations-home.css",
+        "phase2.css",
+        "radiotherapy-motifs-isodose-beam-trefoil.css",
+        "scan-line-sweeping-ct-style-section-divider.css"
+      ]
+    },
+    {
+      "sel": "85%",
+      "files": [
+        "animations-home.css",
+        "animations-home.css",
+        "radiotherapy-motifs-isodose-beam-trefoil.css",
+        "scan-line-sweeping-ct-style-section-divider.css"
+      ]
+    },
+    {
+      "sel": "@media (hover: hover)",
+      "files": [
+        "blog.css",
+        "surface-primitives-one-card-treatment-for-every-content-card.css",
+        "surface-primitives-one-card-treatment-for-every-content-card.css"
+      ]
+    },
+    {
+      "sel": ".spotlight-card::before",
+      "files": [
+        "minimal-design-system-balance-fa-rhythm-selection.css",
+        "reduced-motion.css",
+        "spotlight-card-cursor-following-radial-glow.css"
+      ]
+    },
+    {
+      "sel": "12%",
+      "files": [
+        "animations-home.css",
+        "animations-home.css"
+      ]
+    },
+    {
+      "sel": "88%",
+      "files": [
+        "animations-home.css",
+        "animations-home.css"
+      ]
+    },
+    {
+      "sel": ".hud-sweep",
+      "files": [
+        "animations-home.css",
+        "mobile-performance-reduce-expensive-effects.css"
+      ]
+    },
+    {
+      "sel": ".gantry-spin",
+      "files": [
+        "animations-home.css",
+        "animations-home.css"
+      ]
+    },
+    {
+      "sel": ".scan-beam",
+      "files": [
+        "animations-home.css",
+        "mobile-performance-reduce-expensive-effects.css"
+      ]
+    },
+    {
+      "sel": ".status-pulse",
+      "files": [
+        "animations-home.css",
+        "mobile-performance-reduce-expensive-effects.css"
+      ]
+    },
+    {
+      "sel": ".table-glow",
+      "files": [
+        "animations-home.css",
+        "mobile-performance-reduce-expensive-effects.css"
+      ]
+    },
+    {
+      "sel": "@media (max-width: 767px)",
+      "files": [
+        "back-to-top-floating-ring-button.css",
+        "band-dark.css"
+      ]
+    },
+    {
+      "sel": "70%",
+      "files": [
+        "back-to-top-floating-ring-button.css",
+        "phase2.css"
+      ]
+    },
+    {
+      "sel": "html",
+      "files": [
+        "base.css",
+        "platform-polish-print-contrast-scrollbars-blur-fallback.css"
+      ]
+    },
+    {
+      "sel": ".blog-card-enter",
+      "files": [
+        "blog.css",
+        "blog.css"
+      ]
+    },
+    {
+      "sel": ".heading-anchor",
+      "files": [
+        "blog.css",
+        "blog.css"
+      ]
+    },
+    {
+      "sel": ".cursor-glow",
+      "files": [
+        "cursor-glow-soft-tracking-light.css",
+        "reduced-motion.css"
+      ]
+    },
+    {
+      "sel": ".trefoil-spin",
+      "files": [
+        "mobile-performance-reduce-expensive-effects.css",
+        "radiotherapy-motifs-isodose-beam-trefoil.css"
+      ]
+    },
+    {
+      "sel": "60%",
+      "files": [
+        "phase2.css",
+        "phase2.css"
+      ]
+    },
+    {
+      "sel": "20%",
+      "files": [
+        "phase2.css",
+        "power-on-gantry-equipment-boot-up-sequence.css"
+      ]
+    },
+    {
+      "sel": "80%",
+      "files": [
+        "phase2.css",
+        "power-on-gantry-equipment-boot-up-sequence.css"
+      ]
+    },
+    {
+      "sel": ".network-node",
+      "files": [
+        "phase2.css",
+        "phase2.css"
+      ]
+    },
+    {
+      "sel": ".network-link",
+      "files": [
+        "phase2.css",
+        "phase2.css"
+      ]
+    },
+    {
+      "sel": ".stagger-grid > *",
+      "files": [
+        "phase2.css",
+        "phase2.css"
+      ]
+    },
+    {
+      "sel": ":root, [data-theme=\"light\"]",
+      "files": [
+        "platform-polish-print-contrast-scrollbars-blur-fallback.css",
+        "tokens.css"
+      ]
+    }
+  ]
+}

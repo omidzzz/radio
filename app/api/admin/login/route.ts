@@ -8,6 +8,7 @@ import {
 } from "@/lib/security/auth";
 import { verifyTotp } from "@/lib/security/totp";
 import { rateLimitByIp, getClientIp } from "@/lib/http/rate-limit";
+import { logger } from "@/lib/core/logger";
 
 // POST /api/admin/login - Authenticate admin
 export async function POST(request: NextRequest) {
@@ -83,7 +84,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     const message = error instanceof Error ? error.message : "Login failed";
     const status = message.includes("required") ? 500 : 401;
-    console.error("Error during admin login:", error);
+    logger.error("Error during admin login", { error: error });
     return NextResponse.json({ error: message }, { status });
   }
 }

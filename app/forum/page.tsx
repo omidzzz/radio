@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import db from "@/lib/db/db";
 import NewPostForm from "@/components/forms/NewPostForm";
 import { getServerDictionary, getServerLocale } from "@/lib/i18n/server";
 import { getCategoryLabel, formatDate, formatRelativeTime } from "@/lib/i18n";
@@ -12,6 +11,7 @@ import RadiationEmblem from "@/components/ui/RadiationEmblem";
 import ParticleBackground from "@/components/ui/ParticleBackground";
 import PageHero from "@/components/ui/PageHero";
 import { getPageItems } from "@/lib/http/pagination";
+import { listForumPostSummaries } from "@/lib/services/forum-service";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { dict } = await getServerDictionary();
@@ -45,21 +45,6 @@ const CATEGORIES = ["all", "general", "treatment", "support", "other"] as const;
 const SORTS = ["newest", "replies"] as const;
 type Sort = (typeof SORTS)[number];
 
-/**
- * Lightweight list projection — avoids pulling the full post body for every
- * row when only a two-line excerpt is rendered.
- */
-interface ForumPostListItem {
-  id: number;
-  title: string;
-  category: string;
-  author_name: string;
-  created_at: string;
-  excerpt: string;
-  reply_count: number;
-  total_count: number;
-}
-
 export default async function ForumPage({
   searchParams,
 }: {
@@ -75,51 +60,19 @@ export default async function ForumPage({
   const sort: Sort = SORTS.includes(params.sort as Sort)
     ? (params.sort as Sort)
     : "newest";
-  const offset = (page - 1) * POSTS_PER_PAGE;
-
   // Validate category
   const validCategory = CATEGORIES.includes(category as (typeof CATEGORIES)[number])
     ? category
     : "all";
 
-  const orderBy =
-    sort === "replies"
-      ? `ORDER BY reply_count DESC, fp.created_at DESC`
-      : `ORDER BY fp.created_at DESC`;
-
-  // Query with category filter and pagination — selects only the columns the
-  // UI renders (plus a short excerpt) instead of the full post body.
-  const baseSelect = `
-    SELECT fp.id, fp.title, fp.category, fp.author_name, fp.created_at,
-           substr(fp.content, 1, 220) AS excerpt,
-           COUNT(fr.id) AS reply_count,
-           COUNT(*) OVER() AS total_count
-    FROM forum_posts fp
-    LEFT JOIN forum_replies fr ON fr.post_id = fp.id`;
-
-  const posts = (
-    validCategory !== "all"
-      ? db
-          .prepare(
-            `${baseSelect}
-             WHERE fp.category = ?
-             GROUP BY fp.id
-             ${orderBy}
-             LIMIT ? OFFSET ?`
-          )
-          .all(validCategory, POSTS_PER_PAGE, offset)
-      : db
-          .prepare(
-            `${baseSelect}
-             GROUP BY fp.id
-             ${orderBy}
-             LIMIT ? OFFSET ?`
-          )
-          .all(POSTS_PER_PAGE, offset)
-  ) as unknown as ForumPostListItem[];
-
-  const total = posts.length > 0 ? Number(posts[0].total_count) : 0;
-  const totalPages = Math.max(1, Math.ceil(total / POSTS_PER_PAGE));
+  // Delegate to the cached service query so repeated navigations hit
+  // forumCache instead of re-running the SQLite query each request.
+  const { posts, totalPages } = listForumPostSummaries({
+    category: validCategory,
+    page,
+    limit: POSTS_PER_PAGE,
+    sort,
+  });
 
   const breadcrumbs = breadcrumbSchema([
     { name: isFa ? "خانه" : "Home", path: "/" },

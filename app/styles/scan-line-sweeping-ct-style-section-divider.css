@@ -1,0 +1,27 @@
+/* ═══════════════════════════════════════════
+   SCAN LINE — sweeping CT-style section divider
+═══════════════════════════════════════════ */
+@keyframes scan-line-sweep {
+  0% {
+    transform: translateX(-120%);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.8;
+  }
+
+  85% {
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+}
+
+.scan-line>div {
+  animation: scan-line-sweep 3.5s ease-in-out infinite;
+  will-change: transform, opacity;
+}

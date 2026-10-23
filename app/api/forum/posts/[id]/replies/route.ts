@@ -4,6 +4,7 @@ import { sanitizeContent, sanitizeText } from "@/lib/security/sanitize";
 import { validateForumReply } from "@/lib/validation/forum";
 import { getForumReplies, createForumReply } from "@/lib/services/forum-service";
 import { ApiError, withErrorHandling } from "@/lib/http/api-error";
+import { logger } from "@/lib/core/logger";
 
 type RouteContext = {
   params: Promise<{ id: string }>;
@@ -22,7 +23,7 @@ export async function GET(_request: NextRequest, { params }: RouteContext) {
 
     return NextResponse.json({ replies });
   } catch (error) {
-    console.error("Error fetching forum replies:", error);
+    logger.error("Error fetching forum replies", { error: error });
     return NextResponse.json(
       { error: "Failed to fetch replies" },
       { status: 500 }

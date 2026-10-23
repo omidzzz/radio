@@ -2,10 +2,18 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
+import { useLocale } from "@/components/providers/LocaleProvider";
+import { dictionaries } from "@/lib/i18n";
 import LanguageToggle from "../LanguageToggle";
 import ThemeToggle from "../ui/ThemeToggle";
-import SearchDropdown from "../forms/SearchDropdown";
 import LiveSlotBadge from "@/components/ui/LiveSlotBadge";
+
+// Heavy, interactive search widget (Fuse-backed) — only needed when the user
+// opens the search overlay, so code-split it out of the shared Navbar bundle.
+const SearchDropdown = dynamic(() => import("../forms/SearchDropdown"), {
+  ssr: false,
+});
 
 export interface NavbarStrings {
   doctorName: string;
@@ -23,12 +31,17 @@ export interface NavbarStrings {
   };
 }
 
-interface NavbarProps {
-  strings: NavbarStrings;
-  isFa: boolean;
-}
+export default function Navbar() {
+  const { locale } = useLocale();
+  const dict = dictionaries[locale] || dictionaries.fa;
+  const strings: NavbarStrings = {
+    doctorName: dict.common.doctorName,
+    bookNow: dict.common.bookNow,
+    toggleMenu: dict.nav.toggleMenu,
+    nav: dict.nav,
+  };
+  const isFa = locale === "fa";
 
-export default function Navbar({ strings, isFa }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -44,15 +57,29 @@ export default function Navbar({ strings, isFa }: NavbarProps) {
     };
   }, [mobileOpen]);
 
+  // Build locale-aware hrefs. English-prefixed paths (`/en/...`) are
+  // rewritten internally by middleware.ts and pin the locale — giving each
+  // language its own crawlable URL for hreflang — while Persian uses the
+  // bare path. All nav hrefs flow through this single array so the desktop
+  // and mobile menus stay in sync with the active locale.
   const navLinks = [
-    { href: "/", label: strings.nav.home },
-    { href: "/about", label: strings.nav.about },
-    { href: "/services", label: strings.nav.services },
-    { href: "/blog", label: strings.nav.blog },
-    { href: "/forum", label: strings.nav.forum },
-    { href: "/booking", label: strings.nav.bookSession },
-    { href: "/contact", label: strings.nav.contact },
+    { href: isFa ? "/" : "/en", label: strings.nav.home },
+    { href: isFa ? "/about" : "/en/about", label: strings.nav.about },
+    { href: isFa ? "/services" : "/en/services", label: strings.nav.services },
+    { href: isFa ? "/blog" : "/en/blog", label: strings.nav.blog },
+    { href: isFa ? "/forum" : "/en/forum", label: strings.nav.forum },
+    { href: isFa ? "/booking" : "/en/booking", label: strings.nav.bookSession },
+    { href: isFa ? "/contact" : "/en/contact", label: strings.nav.contact },
   ];
+
+  function hrefFor(path: string): string {
+    if (isFa) return path;
+    const clean = path.replace(/^\/|\/$/g, "");
+    return clean ? `/en/${clean}` : "/en";
+  }
+  const homeHref = hrefFor("/");
+  const searchHref = hrefFor("/search");
+  const bookingHref = hrefFor("/booking");
 
   useEffect(() => {
     // rAF-throttled so we evaluate at most once per frame, and we only touch
@@ -109,7 +136,7 @@ export default function Navbar({ strings, isFa }: NavbarProps) {
 
         <nav className="relative mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6 lg:px-8">
           {/* Logo — glow only on hover so idle navbar stays cheap */}
-          <Link href="/" className="group flex shrink-0 items-center gap-3">
+          <Link href={homeHref} className="group flex shrink-0 items-center gap-3">
             <span className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-primary to-secondary text-lg font-bold text-on-primary transition-all duration-300 group-hover:scale-[1.04] group-hover:shadow-[0_0_28px_-4px_rgba(26,115,82,0.7)]">
               <span className="relative z-10">R</span>
               <span className="absolute inset-0 bg-gradient-to-tr from-white/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -175,7 +202,7 @@ export default function Navbar({ strings, isFa }: NavbarProps) {
             {/* Live next-slot badge — acts as the primary booking CTA */}
             <LiveSlotBadge
               isFa={isFa}
-              href="/booking"
+              href={bookingHref}
               primary
               className="hidden min-[1220px]:inline-flex mx-1"
             />
@@ -267,7 +294,7 @@ export default function Navbar({ strings, isFa }: NavbarProps) {
                 ))}
 
                 <Link
-                  href="/search"
+                  href={searchHref}
                   onClick={() => setMobileOpen(false)}
                   tabIndex={mobileOpen ? 0 : -1}
                   className="rounded-xl px-4 py-3 text-sm font-medium text-text-secondary transition-colors hover:bg-primary/12 hover:text-text-primary"
@@ -283,7 +310,7 @@ export default function Navbar({ strings, isFa }: NavbarProps) {
                     <LanguageToggle />
                   </div>
                   <Link
-                    href="/booking"
+                    href={bookingHref}
                     onClick={() => setMobileOpen(false)}
                     tabIndex={mobileOpen ? 0 : -1}
                     className="rounded-full bg-primary-fill px-6 py-3 text-center text-sm font-semibold text-on-primary transition-colors hover:bg-primary-fill-hover"

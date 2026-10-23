@@ -1,7 +1,14 @@
-import db, { prepare, syncForumPostFts } from "@/lib/db/db";
+import db, { prepare } from "@/lib/db/db";
 import { forumCache } from "@/lib/db/cache";
 import { ForumPostValues, ForumReplyValues } from "@/lib/validation/forum";
 import { ApiError } from "@/lib/http/api-error";
+import type { ForumPost, ForumReply } from "@/lib/types";
+
+/** `forum_posts` row augmented with the two aggregates `getForumPosts` computes. */
+type ForumPostWithCounts = ForumPost & {
+  reply_count: number;
+  total_count: number;
+};
 
 export function getForumPosts(options: {
   category?: string;
@@ -23,7 +30,7 @@ export function getForumPosts(options: {
          ORDER BY fp.created_at DESC
          LIMIT ? OFFSET ?`
       )
-      .all(category, limit, offset) as any[];
+      .all(category, limit, offset) as ForumPostWithCounts[];
 
     const total = rows.length > 0 ? Number(rows[0].total_count) : 0;
 
@@ -40,7 +47,7 @@ export function getForumPosts(options: {
        ORDER BY fp.created_at DESC
        LIMIT ? OFFSET ?`
     )
-    .all(limit, offset) as any[];
+    .all(limit, offset) as ForumPostWithCounts[];
 
   const total = rows.length > 0 ? Number(rows[0].total_count) : 0;
 
@@ -53,9 +60,6 @@ export function createForumPost(input: ForumPostValues) {
      VALUES (?, ?, ?, ?)`
   ).run(input.author_name, input.title, input.content, input.category);
 
-  // Sync the new post into the FTS5 index so search finds it immediately
-  syncForumPostFts(Number(result.lastInsertRowid));
-
   const post = prepare("SELECT * FROM forum_posts WHERE id = ?").get(
     result.lastInsertRowid
   );
@@ -64,6 +68,8 @@ export function createForumPost(input: ForumPostValues) {
     throw ApiError.internal("Failed to retrieve created post");
   }
 
+  // Invalidate cached post/reply lookups so the new thread is surfaced.
+  forumCache.clear();
   return post;
 }
 
@@ -119,6 +125,8 @@ export function deleteForumPost(id: number) {
   if (result.changes === 0) {
     throw ApiError.notFound("Post not found");
   }
+  // Invalidate cached post/reply lookups so deleted threads disappear.
+  forumCache.clear();
   return result;
 }
 
@@ -159,8 +167,97 @@ export function listRepliesForPost(postId: number, limit: number, offset: number
   return { replies: rows, total: total.c };
 }
 
+/**
+ * Cached single-post lookup (60s TTL via the global forumCache).
+ * Shared between `generateMetadata` and the page body so the row is read
+ * from SQLite at most once per request and reused across ISR revalidations.
+ */
+export function getCachedForumPost(postId: number): ForumPost | undefined {
+  const key = `post:${postId}`;
+  const cached = forumCache.get(key) as ForumPost | undefined;
+  if (cached) return cached;
+
+  const row = db
+    .prepare("SELECT * FROM forum_posts WHERE id = ?")
+    .get(postId) as ForumPost | undefined;
+
+  if (row) forumCache.set(key, row);
+  return row;
+}
+
+/**
+ * Cached reply window for a thread. Returns the paged replies together with
+ * the *total* reply count and the *admin* reply count in a single SQLite
+ * pass — the window functions (`COUNT(*) OVER()`, `SUM(...) OVER()`) run over
+ * the full partition, so LIMIT/OFFSET only slices the returned rows, not the
+ * aggregates. Eliminates the 3 separate db queries the page previously ran.
+ */
+export function listCachedRepliesForPost(
+  postId: number,
+  limit: number,
+  offset: number
+): { replies: ForumReply[]; total: number; adminCount: number } {
+  const key = `replies:${postId}:${limit}:${offset}`;
+  const cached = forumCache.get(key) as
+    | { replies: ForumReply[]; total: number; adminCount: number }
+    | undefined;
+  if (cached) return cached;
+
+  const rows = db
+    .prepare(
+      `SELECT fr.*,
+              COUNT(*) OVER() AS total_count,
+              SUM(CASE WHEN fr.is_admin = 1 THEN 1 ELSE 0 END) OVER() AS admin_count
+       FROM forum_replies fr
+       WHERE post_id = ?
+       ORDER BY created_at ASC
+       LIMIT ? OFFSET ?`
+    )
+    .all(postId, limit, offset) as Array<
+    ForumReply & { total_count: number; admin_count: number }
+  >;
+
+  const total = rows.length > 0 ? Number(rows[0].total_count) : 0;
+  const adminCount = rows.length > 0 ? Number(rows[0].admin_count) : 0;
+
+  // Window-function aggregates are constant across the partition; project
+  // only the canonical ForumReply columns so cached rows stay clean.
+  const replies: ForumReply[] = rows.map((r) => ({
+    id: r.id,
+    post_id: r.post_id,
+    author_name: r.author_name,
+    content: r.content,
+    is_admin: r.is_admin,
+    created_at: r.created_at,
+  }));
+
+  const result = { replies, total, adminCount };
+  forumCache.set(key, result);
+  return result;
+}
+
 /** Forum post summary list for the forum index page (lightweight). */
 export type ForumSort = "newest" | "replies";
+
+/** Lightweight list projection — only the columns the index renders. */
+export interface ForumPostSummary {
+  id: number;
+  title: string;
+  category: string;
+  author_name: string;
+  created_at: string;
+  excerpt: string;
+  reply_count: number;
+  total_count: number;
+}
+
+export interface ForumPostListResult {
+  posts: ForumPostSummary[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+}
 
 export function listForumPostSummaries(options: {
   category?: string;
@@ -169,6 +266,10 @@ export function listForumPostSummaries(options: {
   sort?: ForumSort;
 }) {
   const { category, page = 1, limit = 10, sort = "newest" } = options;
+  const cacheKey = `forum:summaries:${category ?? "all"}:${page}:${limit}:${sort}`;
+  const cached = forumCache.get(cacheKey) as ForumPostListResult | undefined;
+  if (cached) return cached;
+
   const offset = (page - 1) * limit;
   const orderBy =
     sort === "replies"
@@ -180,7 +281,7 @@ export function listForumPostSummaries(options: {
            COUNT(*) OVER() AS total_count
     FROM forum_posts fp
     LEFT JOIN forum_replies fr ON fr.post_id = fp.id`;
-  const rows = category && category !== "all"
+  const rows = (category && category !== "all"
     ? db
         .prepare(
           baseSelect +
@@ -192,10 +293,16 @@ export function listForumPostSummaries(options: {
           baseSelect +
             ` GROUP BY fp.id ${orderBy} LIMIT ? OFFSET ?`
         )
-        .all(limit, offset);
-  const total =
-    rows.length > 0
-      ? Number((rows[0] as { total_count: number }).total_count)
-      : 0;
-  return { posts: rows, total, page, limit, totalPages: Math.ceil(total / limit) };
+        .all(limit, offset)) as ForumPostSummary[];
+
+  const total = rows.length > 0 ? Number(rows[0].total_count) : 0;
+  const result: ForumPostListResult = {
+    posts: rows,
+    total,
+    page,
+    limit,
+    totalPages: Math.ceil(total / limit),
+  };
+  forumCache.set(cacheKey, result);
+  return result;
 }

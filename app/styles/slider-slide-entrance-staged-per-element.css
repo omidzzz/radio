@@ -1,0 +1,46 @@
+/* ═══════════════════════════════════════════
+   SLIDER SLIDE ENTRANCE — staged, per-element
+   reveals that REPLAY every time a slide becomes
+   active. The slider keeps .slide-active on a slide
+   throughout its fade-out crossfade, then removes it
+   so the next activation restarts the sequence.
+   Declared after .hero-entrance so these rules win
+   the cascade tie at equal specificity.
+═══════════════════════════════════════════ */
+.hero-entrance .slide-entrance .anim-fade-up,
+.hero-entrance .slide-entrance .anim-fade-in,
+.hero-entrance .slide-entrance .anim-scale-in,
+.hero-entrance .slide-entrance .anim-slide-right,
+.hero-entrance .slide-entrance .anim-slide-left {
+  animation: none;
+  opacity: 0;
+}
+
+.hero-entrance .slide-entrance.slide-active .anim-fade-up {
+  animation: fade-up 0.8s var(--ease-brand) forwards;
+}
+
+.hero-entrance .slide-entrance.slide-active .anim-fade-in {
+  animation: fade-in 1s ease-out forwards;
+}
+
+.hero-entrance .slide-entrance.slide-active .anim-scale-in {
+  animation: scale-in 0.9s var(--ease-brand) forwards;
+}
+
+.hero-entrance .slide-entrance.slide-active .anim-slide-right {
+  animation: slide-in-right 0.9s var(--ease-brand) forwards;
+}
+
+.hero-entrance .slide-entrance.slide-active .anim-slide-left {
+  animation: slide-in-left 0.9s var(--ease-brand) forwards;
+}
+
+/* RTL slides — directional entrances mirror naturally */
+[dir="rtl"] .hero-entrance .slide-entrance.slide-active .anim-slide-right {
+  animation-name: slide-in-left;
+}
+
+[dir="rtl"] .hero-entrance .slide-entrance.slide-active .anim-slide-left {
+  animation-name: slide-in-right;
+}

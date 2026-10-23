@@ -1,0 +1,38 @@
+/* ═══════════════════════════════════════════
+   CONIC BORDER — rotating beam around CTAs
+═══════════════════════════════════════════ */
+@keyframes conic-spin {
+  to {
+    --conic-angle: 360deg;
+  }
+}
+
+@property --conic-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.conic-border {
+  position: relative;
+}
+
+.conic-border::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  z-index: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(from var(--conic-angle),
+      transparent 0%,
+      rgba(26, 115, 82, 0.9) 12%,
+      rgba(76, 155, 122, 0.5) 20%,
+      transparent 32%,
+      transparent 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: conic-spin 4s linear infinite;
+  will-change: --conic-angle;
+}

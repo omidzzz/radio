@@ -1,0 +1,15 @@
+/* ═══════════════════════════════════════════
+   TILT CARD — subtle 3D perspective tilt
+   Set --tilt-x / --tilt-y (in deg) from JS
+═══════════════════════════════════════════ */
+.tilt-card {
+  transform-style: preserve-3d;
+  transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transition: transform 0.25s ease-out;
+  will-change: transform;
+}
+
+.tilt-card-inner {
+  transform: translateZ(28px);
+  transform-style: preserve-3d;
+}

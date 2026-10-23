@@ -5,6 +5,7 @@ import { useDictionary } from "@/lib/i18n/client";
 import { useForm } from "@/lib/hooks/useForm";
 import DatePicker from "./DatePicker";
 import Honeypot from "../Honeypot";
+import { logger } from "@/lib/core/logger";
 
 interface AvailabilitySettings {
   first_available_date: string;
@@ -246,7 +247,7 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
           setAvailability(data);
         }
       } catch (err) {
-        console.error("Failed to fetch availability:", err);
+        logger.error("Failed to fetch availability", { error: err });
       }
     }
     fetchAvailability();
@@ -290,7 +291,7 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
         }
       } catch (err) {
         if ((err as Error)?.name === "AbortError") return;
-        console.error("Failed to fetch time slots:", err);
+        logger.error("Failed to fetch time slots", { error: err });
         setTimeSlots([]);
       } finally {
         setLoadingSlots(false);

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/security/auth";
 import { getAdminAnalytics } from "@/lib/services/admin-service";
+import { logger } from "@/lib/core/logger";
 
 // GET /api/admin/analytics - Get analytics data for dashboard
 export async function GET(request: NextRequest) {
@@ -15,7 +16,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(data);
   } catch (error) {
-    console.error("Error fetching analytics:", error);
+    logger.error("Error fetching analytics", { error: error });
     return NextResponse.json(
       { error: "Failed to fetch analytics" },
       { status: 500 }

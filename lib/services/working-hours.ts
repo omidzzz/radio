@@ -1,4 +1,5 @@
 import { getAvailability, DaySlot } from "./availability-service";
+import { blogCache } from "@/lib/db/cache";
 import { toFarsiDigits } from "@/lib/i18n/numbers";
 
 export interface WorkingHoursEntry {
@@ -105,11 +106,13 @@ export function getOpenNowStatus(): { isOpen: boolean } {
   };
 }
 
-export function getWorkingHoursSummary(locale: string = "en"): {
-  label: string;
-  hours: string;
-  isClosed: boolean;
-}[] {
+export function getWorkingHoursSummary(locale: string = "en") {
+  const cacheKey = `working-hours:summary:${locale}`;
+  const cached = blogCache.get(cacheKey) as
+    | { label: string; hours: string; isClosed: boolean }[]
+    | undefined;
+  if (cached) return cached;
+
   const entries = getWorkingHours(locale);
   const groups: { label: string; hours: string; isClosed: boolean }[] = [];
 
@@ -137,5 +140,7 @@ export function getWorkingHoursSummary(locale: string = "en"): {
     i = end;
   }
 
-  return groups;
+  const result = groups;
+  blogCache.set(cacheKey, result);
+  return result;
 }

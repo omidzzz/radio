@@ -1,0 +1,65 @@
+/* ═══════════════════════════════════════════
+   REDUCED MOTION
+═══════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+
+  .anim-fade-up,
+  .anim-fade-in,
+  .anim-scale-in,
+  .anim-slide-right,
+  .anim-slide-left,
+  .hud-sweep,
+  .hud-pulse,
+  .hud-blink,
+  .gantry-spin,
+  .scan-beam,
+  .status-pulse,
+  .table-glow,
+  .spine-dot,
+  .ring-spin,
+  .card-sweep,
+  .fp-fade-up,
+  .fp-fade-in,
+  .fp-badge-pulse,
+  .isodose-ring,
+  .beam-sweep,
+  .dose-fill,
+  .trefoil-spin,
+  .beam-on,
+  .coord-flash,
+  .ken-burns,
+  .shimmer-text,
+  .float-bob,
+  .conic-border::before,
+  .hero-slider-progress,
+  .float-chat-btn,
+  .float-chat-btn::after,
+  .float-chat-btn::before {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    box-shadow: none !important;
+    background-position: initial !important;
+  }
+
+  .reveal,
+  .reveal-from-left,
+  .reveal-from-right,
+  .reveal-scale {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .tilt-card {
+    transform: none !important;
+  }
+
+  .spotlight-card::before {
+    display: none !important;
+  }
+
+  .cursor-glow {
+    display: none !important;
+  }
+}

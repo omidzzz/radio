@@ -4,6 +4,7 @@ import {
   deleteContactMessage,
   getContactMessages,
 } from "@/lib/services/contact-service";
+import { logger } from "@/lib/core/logger";
 
 // GET /api/admin/messages - List all contact messages
 export async function GET(request: NextRequest) {
@@ -15,7 +16,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ messages });
   } catch (error) {
-    console.error("Error fetching contact messages:", error);
+    logger.error("Error fetching contact messages", { error: error });
     return NextResponse.json(
       { error: "Failed to fetch messages" },
       { status: 500 }
@@ -43,7 +44,7 @@ export async function DELETE(request: NextRequest) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Error deleting contact message:", error);
+    logger.error("Error deleting contact message", { error: error });
     return NextResponse.json(
       { error: "Failed to delete message" },
       { status: 500 }

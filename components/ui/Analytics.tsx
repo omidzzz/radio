@@ -57,7 +57,7 @@ export default function Analytics() {
 
     // Defer analytics until the browser is idle (after first paint/hydration).
     // Fall back to a short timeout if requestIdleCallback is unavailable.
-    if ("requestIdleCallback" in window) {
+    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
       const id = (window as unknown as {
         requestIdleCallback: (cb: () => void, opts?: { timeout: number }) => number;
       }).requestIdleCallback(inject, { timeout: 2000 });
@@ -68,6 +68,7 @@ export default function Analytics() {
       };
     }
 
+    // Fall back to setTimeout after a short delay
     const timeoutId = globalThis.setTimeout(inject, 1000);
     return () => globalThis.clearTimeout(timeoutId);
   }, []);

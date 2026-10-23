@@ -1,6 +1,7 @@
 import Database from "better-sqlite3";
 import path from "path";
 import fs from "fs";
+import { logger } from "@/lib/core/logger";
 import { runMigrations } from "./migrations";
 import { blogCache, forumCache, statsCache } from "./cache";
 
@@ -208,7 +209,7 @@ if (!globalForDb.db) {
     db.exec("INSERT INTO forum_posts_fts(forum_posts_fts) VALUES('rebuild')");
   } catch (error) {
     // FTS5 might not be available in all SQLite builds
-    console.warn("FTS5 not available, falling back to LIKE search:", error);
+    logger.warn("FTS5 not available, falling back to LIKE search", { error });
   }
 
   // Run migrations synchronously at startup so no query can ever hit a
@@ -216,7 +217,7 @@ if (!globalForDb.db) {
   try {
     runMigrations(db);
   } catch (error) {
-    console.error("Failed to run migrations:", error);
+    logger.error("Failed to run migrations", { error });
   }
 } else {
   db = globalForDb.db;
@@ -236,48 +237,6 @@ export function prepare(sql: string): Database.Statement {
     stmtCache.set(sql, stmt);
   }
   return stmt;
-}
-
-/**
- * Invalidate cached query results for a table (call after INSERT/UPDATE/DELETE).
- *
- * NOTE: prepared statements are intentionally NOT cleared here — they are
- * table-agnostic and remain valid after writes. Only the result caches that
- * depend on the mutated table are cleared.
- */
-export function invalidateCache(table: string): void {
-  // cache.ts has no imports of its own, so a static import creates no cycle;
-  // the caches are always available here.
-  if (table === "blog_posts" || table === "blog_comments") {
-    blogCache.clear();
-  }
-  if (table === "forum_posts" || table === "forum_replies") {
-    forumCache.clear();
-  }
-  if (table === "bookings" || table === "contact_messages") {
-    statsCache.clear();
-  }
-}
-
-/**
- * Sync a blog post into the FTS5 index after insert/update.
- *
- * Kept as a compatibility no-op: FTS indexes are now maintained automatically
- * by triggers created at startup (see the trigger definitions above), which is
- * the reliable pattern for external-content FTS5 tables.
- */
-export function syncBlogPostFts(_postId: number): void {
-  // Handled by blog_posts_fts_* triggers.
-}
-
-/**
- * Sync a forum post into the FTS5 index after insert/update.
- *
- * Kept as a compatibility no-op: FTS indexes are now maintained automatically
- * by triggers created at startup (see the trigger definitions above).
- */
-export function syncForumPostFts(_postId: number): void {
-  // Handled by forum_posts_fts_* triggers.
 }
 
 export default db;

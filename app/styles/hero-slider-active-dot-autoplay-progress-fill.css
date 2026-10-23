@@ -1,0 +1,19 @@
+/* ═══════════════════════════════════════════
+   HERO SLIDER — active-dot autoplay progress fill
+   Duration is set via --hero-duration (matches
+   the slider auto-advance interval).
+═══════════════════════════════════════════ */
+@keyframes hero-slider-progress {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+.hero-slider-progress {
+  animation: hero-slider-progress var(--hero-duration, 8000ms) linear forwards;
+  will-change: width;
+}

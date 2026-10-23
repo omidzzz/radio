@@ -1,0 +1,140 @@
+/* ═══════════════════════════════════════════
+   MOBILE PERFORMANCE — Reduce expensive effects
+   on small screens where GPU/CPU are limited.
+   Desktop (md+) keeps the full visual experience.
+═══════════════════════════════════════════ */
+@media (max-width: 767px) {
+
+  /* Reduce blur radius on decorative elements — blur is very expensive on mobile GPUs */
+  .blur-3xl {
+    --tw-blur: blur(24px);
+  }
+
+  .blur-2xl {
+    --tw-blur: blur(16px);
+  }
+
+  .blur-xl {
+    --tw-blur: blur(12px);
+  }
+
+  .blur-lg {
+    --tw-blur: blur(8px);
+  }
+
+  .blur-md {
+    --tw-blur: blur(6px);
+  }
+
+  .blur-sm {
+    --tw-blur: blur(4px);
+  }
+
+  /* Cap arbitrary blur values used on ambient orbs (blur-[140px], blur-[120px], blur-[90px], etc.)
+     These are extremely expensive on mobile GPUs — cap at 40px max */
+  .blur-\[140px\] {
+    --tw-blur: blur(40px);
+  }
+
+  .blur-\[120px\] {
+    --tw-blur: blur(36px);
+  }
+
+  .blur-\[90px\] {
+    --tw-blur: blur(28px);
+  }
+
+  .blur-\[80px\] {
+    --tw-blur: blur(24px);
+  }
+
+  .blur-\[70px\] {
+    --tw-blur: blur(20px);
+  }
+
+  .blur-\[60px\] {
+    --tw-blur: blur(18px);
+  }
+
+  .blur-\[50px\] {
+    --tw-blur: blur(16px);
+  }
+
+  .blur-\[40px\] {
+    --tw-blur: blur(12px);
+  }
+
+  /* Slow down or pause non-critical infinite animations on mobile */
+  .float-bob,
+  .isodose-ring,
+  .coord-flash,
+  .shimmer-text {
+    animation: none !important;
+  }
+  .trefoil-spin {
+    animation: none !important;
+  }
+
+  .hud-sweep {
+    animation-duration: 8s;
+  }
+
+  .scan-beam {
+    animation-duration: 6s;
+  }
+
+  .card-sweep {
+    animation-duration: 3.5s;
+  }
+
+  .ring-spin {
+    animation-duration: 10s;
+  }
+
+  .spine-dot {
+    animation-duration: 6s;
+  }
+
+  .table-glow {
+    animation-duration: 4.5s;
+  }
+
+  .status-pulse {
+    animation-duration: 3s;
+  }
+
+  /* Slow down Tailwind's built-in infinite ping/pulse animations on mobile */
+  .animate-ping {
+    animation-duration: 2.5s;
+  }
+
+  .animate-pulse {
+    animation-duration: 3s;
+  }
+
+  /* Reduce particle/grain opacity on mobile to save GPU compositing */
+  .grain-pattern {
+    opacity: 0.12 !important;
+  }
+
+  /* Reduce backdrop-blur intensity on mobile — forces GPU layer per element */
+  .backdrop-blur-2xl {
+    --tw-backdrop-blur: blur(16px);
+  }
+
+  .backdrop-blur-xl {
+    --tw-backdrop-blur: blur(12px);
+  }
+
+  .backdrop-blur-lg {
+    --tw-backdrop-blur: blur(8px);
+  }
+
+  .backdrop-blur-md {
+    --tw-backdrop-blur: blur(6px);
+  }
+
+  .backdrop-blur-sm {
+    --tw-backdrop-blur: blur(4px);
+  }
+}

@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { useLocale } from "./providers/LocaleProvider";
-import { Locale } from "@/lib/i18n/config";
+import { Locale, LOCALE_COOKIE } from "@/lib/i18n/config";
 
 export default function LanguageToggle() {
   const { locale, setLocale } = useLocale();
@@ -10,11 +10,7 @@ export default function LanguageToggle() {
 
   const toggle = () => {
     const newLocale: Locale = locale === "fa" ? "en" : "fa";
-    setLocale(newLocale);
 
-    // Reflect the locale in the URL so each language has a distinct,
-    // shareable address (/en/... for English). The middleware rewrites
-    // /en/* internally and pins the locale cookie.
     const isPrefixed = pathname === "/en" || pathname.startsWith("/en/");
     let target: string;
     if (newLocale === "en") {
@@ -22,7 +18,23 @@ export default function LanguageToggle() {
     } else {
       target = isPrefixed ? pathname.slice(3) || "/" : pathname;
     }
-    window.history.replaceState(null, "", target);
+
+    // Persist cookie so SSR/middleware render the right language, and flip
+    // the client context (dir/lang) immediately.
+    document.cookie = `${LOCALE_COOKIE}=${newLocale}; path=/; max-age=${
+      60 * 60 * 24 * 365
+    }; samesite=lax${location.protocol === "https:" ? "; secure" : ""}`;
+    setLocale(newLocale);
+
+    // Client-side navigation via Next's router — fast, no reload, and
+    // ThemeProvider stays mounted so the theme does not flicker. Defer to a
+    // separate tick: calling replace() directly inside React's discrete
+    // onClick event is swallowed by Next (the original bug). A brief delay
+    // lets the router settle so the navigation fires on the first try.
+    setTimeout(() => {
+      const router = (window as unknown as { next?: { router?: { replace: (href: string) => Promise<boolean> } } }).next?.router;
+      if (router?.replace) router.replace(target);
+    }, 150);
   };
 
   return (

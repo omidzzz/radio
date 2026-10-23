@@ -1,0 +1,26 @@
+/* ═══════════════════════════════════════════
+   KEN BURNS — slow cinematic hero zoom
+═══════════════════════════════════════════ */
+@keyframes ken-burns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+
+  100% {
+    transform: scale(1.1) translate(-1.5%, 1%);
+  }
+}
+
+/* Ken Burns runs a single slow pass (~30s) instead of looping forever —
+   continuous compositing of the full-viewport LCP image is expensive,
+   especially on mobile. Disabled entirely below lg. */
+.ken-burns {
+  animation: ken-burns 30s ease-in-out 1 both;
+  will-change: transform;
+}
+
+@media (max-width: 1023px) {
+  .ken-burns {
+    animation: none;
+  }
+}

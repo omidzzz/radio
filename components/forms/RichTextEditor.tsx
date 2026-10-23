@@ -2,6 +2,7 @@
 
 import { useCallback, useState, useEffect, useRef } from "react";
 import { getCsrfToken } from "@/lib/http/csrf";
+import { logger } from "@/lib/core/logger";
 
 interface RichTextEditorProps {
   value: string;
@@ -44,11 +45,11 @@ export default function RichTextEditor({
         const data = await res.json();
         return data.url;
       } else {
-        console.error("Failed to upload image");
+        logger.error("Failed to upload image");
         return null;
       }
     } catch (error) {
-      console.error("Error uploading image:", error);
+      logger.error("Error uploading image", { error: error });
       return null;
     }
   }, []);

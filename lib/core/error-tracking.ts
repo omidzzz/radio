@@ -1,3 +1,5 @@
+import { logger } from "@/lib/core/logger";
+
 /**
  * Lightweight error tracking utility.
  * Logs errors to console in development and can be extended
@@ -17,7 +19,7 @@ export function trackError(error: unknown, context?: ErrorContext): void {
   const stack = error instanceof Error ? error.stack : undefined;
 
   // Always log to console for debugging
-  console.error("[Error]", message, { context, stack });
+  logger.error(message, { context, stack });
 
   // In production, send to error tracking service
   if (process.env.NODE_ENV === "production") {

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { readdirSync, statSync } from "fs";
 import path from "path";
 import { requireAdmin } from "@/lib/security/auth";
+import { logger } from "@/lib/core/logger";
 
 const IMAGE_EXT = new Set([".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg"]);
 
@@ -34,7 +35,7 @@ export async function GET(request: NextRequest) {
     files.sort((a, b) => b.modifiedAt.localeCompare(a.modifiedAt));
     return NextResponse.json({ files });
   } catch (error) {
-    console.error("Error listing media:", error);
+    logger.error("Error listing media", { error: error });
     return NextResponse.json({ error: "Failed to list media" }, { status: 500 });
   }
 }

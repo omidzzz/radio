@@ -1,0 +1,48 @@
+/* ═══════════════════════════════════════════
+   SCROLL REVEAL — IntersectionObserver driven
+   Element starts hidden; .is-revealed toggles in.
+   Configured via CSS custom properties for delay.
+═══════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(34px) scale(0.985);
+  transition:
+    opacity 0.85s var(--ease-brand),
+    transform 0.85s var(--ease-brand);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal-from-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition:
+    opacity 0.85s var(--ease-brand),
+    transform 0.85s var(--ease-brand);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal-from-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition:
+    opacity 0.85s var(--ease-brand),
+    transform 0.85s var(--ease-brand);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.92);
+  transition:
+    opacity 0.85s var(--ease-brand),
+    transform 0.85s var(--ease-brand);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.is-revealed,
+.reveal-from-left.is-revealed,
+.reveal-from-right.is-revealed,
+.reveal-scale.is-revealed {
+  opacity: 1;
+  transform: none;
+}

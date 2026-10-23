@@ -1,0 +1,53 @@
+/* ═══════════════════════════════════════════════════════════════════
+   @theme — Tailwind v4 design token bridge.
+   Exposes every CSS custom property to Tailwind's utility generator
+   (bg-bg, text-text-primary, font-vazir, rounded-card, …) so every
+   utility automatically picks up the current theme's values.
+   ═══════════════════════════════════════════════════════════════════ */
+@theme {
+  --color-deep: var(--color-deep);
+  --color-bg: var(--color-bg);
+  --color-surface: var(--color-surface);
+  --color-primary: var(--color-primary);
+  --color-primary-hover: var(--color-primary-hover);
+  --color-on-primary: var(--color-on-primary);
+  --color-primary-fill: var(--color-primary-fill);
+  --color-primary-fill-hover: var(--color-primary-hover);
+  --color-accent: var(--color-accent);
+  --color-highlight: var(--color-highlight);
+  --color-gold: var(--color-gold);
+  --color-gold-soft: var(--color-gold-soft);
+  --color-soft: var(--color-soft);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-on-dark: var(--color-text-on-dark);
+  --color-muted: var(--color-muted);
+  --color-border: var(--color-border);
+  --color-success: var(--color-success);
+  --color-danger: var(--color-danger);
+  --color-danger-soft: var(--color-danger-soft);
+  --color-positive: var(--color-positive);
+  --color-positive-soft: var(--color-positive-soft);
+  --color-secondary: var(--color-secondary);
+  --color-secondary-hover: var(--color-secondary-hover);
+  --color-blog-dark: var(--color-blog-dark);
+  /* Font aliases used by the font-vazir / font-outfit utilities */
+  --font-vazir: var(--font-vazirmatn), system-ui, sans-serif;
+  --font-outfit: var(--font-outfit), system-ui, sans-serif;
+
+  /* ── Motion tokens ───────────────────────────────────────────────
+     One source of truth for the site's timing so every transition and
+     entrance animation shares the same feel. */
+  --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 150ms;
+  --dur-base: 250ms;
+  --dur-slow: 450ms;
+  --dur-entrance: 800ms;
+
+  /* ── Radius tokens ───────────────────────────────────────────────
+     Cards and panels share two radii only: content cards and large
+     feature panels (blog cards, hero-side panels). */
+  --radius-card: 1.5rem;
+  --radius-panel: 1.7rem;
+}

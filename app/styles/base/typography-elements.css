@@ -1,0 +1,90 @@
+/* Split from app/globals.css — see app/styles/README.md for the layout. */
+
+/* ─── Element typography + FA rhythm (moved from minimal-design-system) ─── */
+
+h1,
+h2 {
+  text-wrap: balance;
+  font-weight: 800;
+}
+
+article p,
+section p {
+  text-wrap: pretty;
+}
+
+/* Vazirmatn needs looser leading than latin tight tracking */
+html[lang="fa"] h1,
+html[lang="fa"] h2 {
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+html[lang="fa"] .tracking-tight,
+html[lang="fa"] .tracking-tighter {
+  letter-spacing: -0.005em;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-primary) 28%, transparent);
+}
+
+:target {
+  scroll-margin-top: 88px;
+}
+
+section[id] {
+  scroll-margin-top: 84px;
+}
+
+/* Fluid display heading — scales smoothly between breakpoints
+   instead of stepping at sm/lg/xl boundaries. */
+.fluid-display,
+.type-display {
+  font-size: clamp(2.25rem, 1.55rem + 2.7vw, 4.3rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+}
+
+/* Vazirmatn's 800/900 cuts grow tall — give Persian display room */
+html[lang="fa"] .fluid-display,
+html[lang="fa"] .type-display {
+  line-height: 1.5;
+  letter-spacing: 0;
+  font-weight: 800;
+}
+
+/* Section headings are set to 800 in the type-family block below */
+
+[dir="ltr"] body {
+  font-family: var(--font-outfit), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+}
+
+/* Persian body copy set in Vazirmatn reads cramped at Tailwind's default
+   1.5 line-height — open it up for paragraphs and list items. */
+html[lang="fa"] p,
+html[lang="fa"] li {
+  line-height: 1.85;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-vazirmatn), system-ui, sans-serif;
+  font-weight: 800;
+}
+
+/* Section ledes read with extra presence — medium weight, comfortable measure */
+.type-lede {
+  font-weight: 500;
+  max-width: 44rem;
+}
+
+/* Subsection headings (h3) — semibold is elegant enough below h2 */
+h3 {
+  font-weight: 700;
+}

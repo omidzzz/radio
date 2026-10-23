@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { logger } from "@/lib/core/logger";
 import StateIllustration from "@/components/ui/StateIllustration";
 
 export default function Error({
@@ -12,7 +13,7 @@ export default function Error({
 }) {
   useEffect(() => {
     // Log the error to an error reporting service
-    console.error(error);
+    logger.error("Error rendering page", { error: error });
   }, [error]);
 
   return (

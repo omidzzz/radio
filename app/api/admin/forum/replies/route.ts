@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin, requireAdminWithCsrf } from "@/lib/security/auth";
 import { createAdminReply, deleteAdminReply } from "@/lib/services/admin-service";
+import { logger } from "@/lib/core/logger";
 
 // POST /api/admin/forum/replies - Admin posts a reply
 export async function POST(request: NextRequest) {
@@ -22,7 +23,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ reply: newReply }, { status: 201 });
   } catch (error) {
-    console.error("Error creating admin reply:", error);
+    logger.error("Error creating admin reply", { error: error });
     return NextResponse.json(
       { error: "Failed to create reply" },
       { status: 500 }
@@ -50,7 +51,7 @@ export async function DELETE(request: NextRequest) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Error deleting reply:", error);
+    logger.error("Error deleting reply", { error: error });
     return NextResponse.json(
       { error: "Failed to delete reply" },
       { status: 500 }

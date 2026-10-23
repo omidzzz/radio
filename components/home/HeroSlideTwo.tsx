@@ -37,7 +37,7 @@ export default function HeroSlideTwo({
 
   return (
     <section
-      className={`slide-entrance relative h-full min-h-[96vh] overflow-hidden bg-deep ${
+      className={`slide-entrance relative h-full min-h-[96vh] overflow-hidden bg-white/95 ${
         playAnim ? "slide-active" : ""
       }`}
     >
@@ -52,9 +52,6 @@ export default function HeroSlideTwo({
           sizes="100vw"
           className="object-cover object-center opacity-40"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-deep via-deep/90 to-deep/50" />
-        <div className="absolute inset-0 bg-gradient-to-t from-deep via-transparent to-deep/70" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-secondary/15 via-transparent to-transparent" />
       </div>
 
       <div className="grain-pattern pointer-events-none absolute inset-0 hidden opacity-[0.05] lg:block" />
@@ -115,7 +112,6 @@ export default function HeroSlideTwo({
                   sizes="(max-width: 1024px) 0vw, 45vw"
                   className="object-cover object-center"
                 />
-                <div className="absolute inset-0 rounded-full bg-gradient-to-t from-deep/60 via-transparent to-transparent" />
                 <div className="pointer-events-none absolute left-1/2 top-1/3 h-14 w-14 -translate-x-1/2 -translate-y-1/2">
                   <span className="hud-pulse absolute left-1/2 top-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full border border-secondary/70" />
                 </div>

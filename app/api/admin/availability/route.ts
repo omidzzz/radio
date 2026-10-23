@@ -5,6 +5,7 @@ import {
   updateAvailabilitySettings,
   updateDaySlot,
 } from "@/lib/services/availability-service";
+import { logger } from "@/lib/core/logger";
 
 // GET /api/admin/availability - Get current availability settings
 export async function GET(request: NextRequest) {
@@ -15,7 +16,7 @@ export async function GET(request: NextRequest) {
     const data = getAvailability();
     return NextResponse.json(data);
   } catch (error) {
-    console.error("Error fetching availability:", error);
+    logger.error("Error fetching availability", { error: error });
     return NextResponse.json(
       { error: "Failed to fetch availability settings" },
       { status: 500 }
@@ -58,7 +59,7 @@ export async function PATCH(request: NextRequest) {
 
     return NextResponse.json({ settings });
   } catch (error) {
-    console.error("Error updating availability:", error);
+    logger.error("Error updating availability", { error: error });
     const message =
       error instanceof Error ? error.message : "Failed to update availability settings";
     return NextResponse.json({ error: message }, { status: 400 });

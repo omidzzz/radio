@@ -9,6 +9,7 @@ import { formatDate } from "@/lib/i18n";
 import { csrfHeaders } from "@/lib/http/csrf";
 import AvailabilityManager from "@/components/admin/AvailabilityManager";
 import { toCsv, downloadCsv } from "@/lib/utils/csv";
+import { logger } from "@/lib/core/logger";
 
 interface Stats {
   totalBookings: number;
@@ -315,7 +316,7 @@ export default function AdminDashboardPage() {
         fetchPosts();
       }
     } catch (error) {
-      console.error("Error posting reply:", error);
+      logger.error("Error posting reply", { error: error });
     } finally {
       setSubmittingReply((prev) => ({ ...prev, [postId]: false }));
     }

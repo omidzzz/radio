@@ -1,0 +1,28 @@
+/* ═══════════════════════════════════════════
+   SPOTLIGHT CARD — cursor-following radial glow
+   Set --spot-x / --spot-y from JS (in px or %)
+   NOTE: no overflow:hidden here — the ::before glow is
+   self-bounded (inset:0 + border-radius:inherit), and
+   overflow would clip children that lift on hover.
+═══════════════════════════════════════════ */
+.spotlight-card {
+  position: relative;
+}
+
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  border-radius: inherit;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(480px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+      var(--spot-color, rgba(26, 115, 82, 0.14)),
+      transparent 65%);
+}
+
+.spotlight-card:hover::before {
+  opacity: 1;
+}

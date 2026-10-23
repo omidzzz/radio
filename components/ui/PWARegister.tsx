@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { logger } from "@/lib/core/logger";
 
 /**
  * Registers the service worker in production only.
@@ -18,7 +19,7 @@ export default function PWARegister() {
 
     const register = () => {
       navigator.serviceWorker.register("/sw.js").catch((error) => {
-        console.warn("Service worker registration failed:", error);
+        logger.warn("Service worker registration failed", { error: error });
       });
     };
 

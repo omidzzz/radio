@@ -1,0 +1,43 @@
+/* Split from app/globals.css — see app/styles/README.md for the layout. */
+
+.surface-card {
+  position: relative;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--elevation-card);
+  transition:
+    border-color var(--dur-base) var(--ease-soft),
+    box-shadow var(--dur-base) var(--ease-soft),
+    transform var(--dur-base) var(--ease-soft);
+}
+
+.surface-panel {
+  border-radius: var(--radius-panel);
+}
+
+@media (hover: hover) {
+  .surface-card:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--color-primary) 55%, transparent);
+    box-shadow: var(--elevation-card-hover);
+  }
+}
+
+/* Pill-shaped sibling of .surface-card (trust marks, certificate chips) */
+.surface-chip {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  box-shadow: var(--elevation-card);
+  transition:
+    border-color var(--dur-base) var(--ease-soft),
+    box-shadow var(--dur-base) var(--ease-soft);
+}
+
+@media (hover: hover) {
+  .surface-chip:hover {
+    border-color: color-mix(in srgb, var(--color-primary) 50%, transparent);
+    box-shadow: var(--elevation-card-hover);
+  }
+}

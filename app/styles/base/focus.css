@@ -1,0 +1,7 @@
+/* Split from app/globals.css — see app/styles/README.md for the layout. */
+
+/* ─── Keyboard focus ring ─── */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}

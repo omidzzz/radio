@@ -1,0 +1,191 @@
+/* ═══════════════════════════════════════════
+   PLATFORM POLISH — print, contrast, scrollbars, blur fallback
+   ═══════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  /* No lift, no jump — cards stay put instead of snapping into place */
+  .surface-card {
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ─── High-contrast requests ─── */
+@media (prefers-contrast: more) {
+
+  :root,
+  [data-theme="light"] {
+    --color-text-secondary: #1e293b;
+    --color-muted: #334155;
+    --color-border: #64748b;
+  }
+
+  [data-theme="dark"] {
+    --color-text-secondary: #e2e8f0;
+    --color-muted: #cbd5e1;
+    --color-border: #64748b;
+  }
+
+  .eyebrow {
+    border-width: 2px;
+  }
+
+  .surface-card,
+  .surface-chip {
+    border-width: 2px;
+  }
+
+  :focus-visible {
+    outline-width: 3px;
+  }
+}
+
+/* ─── Desktop scrollbar — thin and theme-aware ─── */
+@media (hover: hover) and (pointer: fine) {
+
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--color-primary) 40%, transparent) transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--color-primary) 35%, transparent);
+    background-clip: content-box;
+    border: 3px solid transparent;
+    border-radius: 999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in srgb, var(--color-primary) 60%, transparent);
+    background-clip: content-box;
+  }
+}
+
+/* ─── Backdrop-filter fallback ───
+   Without blur the translucent bars need more of their own background
+   to stay legible (older Firefox, reduced-transparency settings). */
+@supports not ((backdrop-filter: blur(4px)) or (-webkit-backdrop-filter: blur(4px))) {
+
+  .backdrop-blur-sm,
+  .backdrop-blur-md,
+  .backdrop-blur-lg,
+  .backdrop-blur-xl,
+  .backdrop-blur-2xl {
+    background-color: color-mix(in srgb, var(--color-bg) 94%, transparent);
+  }
+}
+
+/* ─── Theme cross-fade (View Transitions API) ───
+   The ThemeProvider wraps its toggle in startViewTransition where the API
+   exists; this only tunes the duration/easing of the snapshots. Browsers
+   without support simply swap instantly. */
+@supports (view-transition-name: none) {
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 220ms;
+    animation-timing-function: var(--ease-soft);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* ─── Route loading bar ───
+   One 1px bar sweeping across a track — cheaper than a spinner ring and
+   reads as a "dose" filling. Direction flips with the writing mode. */
+.dose-loading {
+  animation: dose-loading 1.6s var(--ease-soft) infinite;
+}
+
+[dir="rtl"] .dose-loading {
+  animation-direction: reverse;
+}
+
+@keyframes dose-loading {
+  0% {
+    transform: translateX(-130%);
+  }
+  100% {
+    transform: translateX(350%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dose-loading {
+    animation: none !important;
+    transform: none !important;
+    width: 100% !important;
+    opacity: 0.6;
+  }
+}
+
+/* ─── Print ───
+   Patients print directions, privacy and terms pages. Flatten the dark
+   bands (white text on white paper is invisible) and drop floating UI. */
+@media print {
+
+  html,
+  body {
+    background: #fff !important;
+    color: #0f172a !important;
+  }
+
+  .band-dark,
+  .bg-deep,
+  .bg-blog-dark {
+    background: #fff !important;
+  }
+
+  .band-dark *,
+  .bg-deep * {
+    color: #0f172a !important;
+    background-color: transparent !important;
+    border-color: #cbd5e1 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  .band-dark::before,
+  .band-dark::after,
+  .planning-grid,
+  .breathing-grid,
+  .grain-pattern,
+  .cursor-glow,
+  .scroll-progress,
+  .float-chat,
+  .back-to-top,
+  .reading-widget,
+  header {
+    display: none !important;
+  }
+
+  section {
+    break-inside: avoid;
+  }
+
+  img {
+    break-inside: avoid;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    word-break: break-all;
+  }
+}

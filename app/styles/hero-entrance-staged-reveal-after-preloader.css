@@ -1,0 +1,46 @@
+/* ═══════════════════════════════════════════
+   HERO ENTRANCE — staged reveal after preloader
+   Hero starts somewhat hidden; .hero-anim-ready
+   (added by HeroEntrance after the preloader)
+   cascades entrance animations to each child.
+═══════════════════════════════════════════ */
+.hero-entrance .anim-fade-up,
+.hero-entrance .anim-fade-in,
+.hero-entrance .anim-scale-in,
+.hero-entrance .anim-slide-right,
+.hero-entrance .anim-slide-left {
+  opacity: 0;
+}
+
+.hero-entrance.hero-anim-ready .anim-fade-up {
+  animation: fade-up 0.8s var(--ease-brand) forwards;
+}
+
+.hero-entrance.hero-anim-ready .anim-fade-in {
+  animation: fade-in 1s ease-out forwards;
+}
+
+.hero-entrance.hero-anim-ready .anim-scale-in {
+  animation: scale-in 0.9s var(--ease-brand) forwards;
+}
+
+.hero-entrance.hero-anim-ready .anim-slide-right {
+  animation: slide-in-right 0.9s var(--ease-brand) forwards;
+}
+
+.hero-entrance.hero-anim-ready .anim-slide-left {
+  animation: slide-in-left 0.9s var(--ease-brand) forwards;
+}
+
+/* RTL hero — images slide from the opposite side for natural direction */
+[dir="rtl"] .hero-entrance.hero-anim-ready .anim-slide-right {
+  animation-name: slide-in-left;
+}
+
+[dir="rtl"] .hero-entrance.hero-anim-ready .anim-slide-left {
+  animation-name: slide-in-right;
+}
+
+[dir="rtl"] .hero-entrance.hero-anim-ready .anim-fade-up {
+  transform-origin: right;
+}

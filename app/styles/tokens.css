@@ -1,0 +1,67 @@
+:root,
+[data-theme="light"] {
+  /* ── Ivory / forest-green / gold palette (from Dr. Ghadamgahi's card) ──
+     Refined for legibility: text tones verified against WCAG AA (4.5:1)
+     on the ivory background; borders carry a warm gold tint. */
+  --color-deep: #0b2e22;
+  --color-bg: #f8f5ee;
+  --color-surface: #fffdf9;
+  --color-gold: #c9a24b;
+  --color-gold-soft: #e9d4a3;
+  --color-highlight: #82621f;
+  --color-soft: #ece5d1;
+  --color-text-primary: #16281f;
+  --color-text-secondary: #3d5248;
+  --color-text-on-dark: #fffbf2;
+  --color-muted: #5d6f65;
+  --color-border: #ddd2b8;
+  --color-success: #16a34a;
+  --color-danger: #dc2626;
+  --color-danger-soft: #fef2f2;
+  --color-positive: #059669;
+  --color-positive-soft: #ecfdf5;
+  --color-secondary: #2e7d5b;
+  --color-secondary-hover: #3e9a74;
+  --color-blog-dark: #07211a;
+  --font-vazirmatn: var(--font-vazirmatn), system-ui, sans-serif;
+  --font-outfit: var(--font-outfit), system-ui, sans-serif;
+
+  /* Light theme — primary green is reserved for borders, accents, and
+     hover states. Component fills (buttons, pills, chips) are WHITE so
+     light mode stays paper-dominant; text on fills is dark green. */
+  --color-primary: #145c41;
+  --color-primary-hover: #1a7352;
+  --color-primary-fill: #ffffff;
+  --color-primary-fill-soft: #f4efe5;
+  /* Dark text on white fills (WCAG AA on white). */
+  --color-on-primary: #145c41;
+  /* Accent text for badges on green-tinted surfaces — deep green works in
+     light mode; dark theme keeps warm gold. */
+  --color-accent: #145c41;
+
+  /* Shared vertical rhythm for page sections — compact on mobile,
+     generous on desktop without extra utilities per section. */
+  --section-y: clamp(3.5rem, 6vw, 6rem);
+
+  /* Elevation — light theme: neutral, soft, paper-like depth */
+  --elevation-card: 0 1px 2px 0 rgba(11, 46, 34, 0.04),
+    0 1px 3px 0 rgba(11, 46, 34, 0.06);
+  --elevation-card-hover: 0 14px 34px -14px rgba(11, 46, 34, 0.2),
+    0 2px 6px -2px rgba(11, 46, 34, 0.06);
+
+  /* Motion tokens (also exposed via @theme for utility generation, but
+     declared here as literals so they are never tree-shaken away —
+     an unresolved var inside `animation` would cancel the entrance
+     animations entirely). */
+  --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 150ms;
+  --dur-base: 250ms;
+  --dur-slow: 450ms;
+  --dur-entrance: 800ms;
+
+  --radius-card: 1.5rem;
+  --radius-panel: 1.7rem;
+
+  color-scheme: light dark;
+}

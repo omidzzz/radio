@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import db from "@/lib/db/db";
+import { logger } from "@/lib/core/logger";
 
 const SESSION_COOKIE = "admin_session";
 const SESSION_DURATION_SECONDS = 60 * 60 * 8; // 8 hours
@@ -77,7 +78,7 @@ export function signSession(): string {
       "INSERT INTO admin_sessions (token_id, expires_at) VALUES (?, ?)"
     ).run(hashTokenId(parsed.jti), parsed.exp);
   } catch (error) {
-    console.error("Failed to persist admin session:", error);
+    logger.error("Failed to persist admin session", { error: error });
   }
 
   return `${Buffer.from(payload).toString("base64url")}.${signature}`;
@@ -147,7 +148,7 @@ export function revokeAllSessions(): void {
   try {
     db.prepare("DELETE FROM admin_sessions").run();
   } catch (error) {
-    console.error("Failed to revoke all admin sessions:", error);
+    logger.error("Failed to revoke all admin sessions", { error: error });
   }
 }
 

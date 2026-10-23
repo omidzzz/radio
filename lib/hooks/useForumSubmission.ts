@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { logger } from "@/lib/core/logger";
 
 interface UseForumSubmissionOptions<T extends Record<string, string>> {
   /** API endpoint to POST the form values to */
@@ -74,7 +75,7 @@ export function useForumSubmission<T extends Record<string, string>>({
       // Hide success message after 3 seconds
       setTimeout(() => setSuccess(""), 3000);
     } catch (err) {
-      console.error("Forum submission error:", err);
+      logger.error("Forum submission error", { error: err });
       setError("An error occurred. Please try again.");
     } finally {
       setSubmitting(false);

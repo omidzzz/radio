@@ -6,6 +6,7 @@ import { useDictionary } from "@/lib/i18n/client";
 import RichTextEditor from "@/components/forms/RichTextEditor";
 import MediaLibraryPicker from "@/components/ui/MediaLibraryPicker";
 import { csrfHeaders } from "@/lib/http/csrf";
+import { logger } from "@/lib/core/logger";
 
 export default function EditBlogPostPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
@@ -77,7 +78,7 @@ export default function EditBlogPostPage({ params }: { params: Promise<{ id: str
         alert("Failed to update post");
       }
     } catch (error) {
-      console.error("Error updating post:", error);
+      logger.error("Error updating post", { error: error });
       alert("Error updating post");
     } finally {
       setSubmitting(false);

@@ -150,22 +150,6 @@ export default async function RootLayout({
   const dir = localeDirs[locale];
   const dict = getDictionary(locale);
 
-  const navbarStrings = {
-    doctorName: dict.common.doctorName,
-    bookNow: dict.common.bookNow,
-    toggleMenu: dict.nav.toggleMenu,
-    nav: {
-      home: dict.nav.home,
-      about: dict.nav.about,
-      services: dict.nav.services,
-      blog: dict.nav.blog,
-      forum: dict.nav.forum,
-      bookSession: dict.nav.bookSession,
-      contact: dict.nav.contact,
-      search: dict.nav.search,
-    },
-  };
-
   const jsonLd = [
     websiteSchema(),
     sitePhysicianSchema(),
@@ -215,7 +199,7 @@ export default async function RootLayout({
         <ThemeProvider>
           <LocaleProvider initialLocale={locale}>
             <BookingModalProvider>
-              <Navbar strings={navbarStrings} isFa={locale === "fa"} />
+              <Navbar />
               <RootErrorBoundary>
                 <main id="main-content" className="flex-1">
                   {children}

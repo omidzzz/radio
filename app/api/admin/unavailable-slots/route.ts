@@ -5,6 +5,7 @@ import {
   addUnavailableSlot,
   removeUnavailableSlot,
 } from "@/lib/services/unavailable-slots";
+import { logger } from "@/lib/core/logger";
 
 // GET /api/admin/unavailable-slots - List all blocked time slots
 export async function GET(request: NextRequest) {
@@ -15,7 +16,7 @@ export async function GET(request: NextRequest) {
     const slots = getUnavailableSlots();
     return NextResponse.json({ slots });
   } catch (error) {
-    console.error("Error fetching unavailable slots:", error);
+    logger.error("Error fetching unavailable slots", { error: error });
     return NextResponse.json(
       { error: "Failed to fetch unavailable slots" },
       { status: 500 }
@@ -50,7 +51,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ slot }, { status: 201 });
   } catch (error) {
-    console.error("Error adding unavailable slot:", error);
+    logger.error("Error adding unavailable slot", { error: error });
     const message =
       error instanceof Error ? error.message : "Failed to block time slot";
     const status =
@@ -78,7 +79,7 @@ export async function DELETE(request: NextRequest) {
     removeUnavailableSlot(Number(id));
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Error removing unavailable slot:", error);
+    logger.error("Error removing unavailable slot", { error: error });
     const message =
       error instanceof Error ? error.message : "Failed to remove time slot";
     const status =

@@ -5,6 +5,7 @@ import {
   deleteComment,
   getPendingComments,
 } from "@/lib/services/admin-service";
+import { logger } from "@/lib/core/logger";
 
 /**
  * GET /api/admin/comments — list comments pending moderation
@@ -19,7 +20,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ comments: pending });
   } catch (error) {
-    console.error("Error fetching pending comments:", error);
+    logger.error("Error fetching pending comments", { error: error });
     return NextResponse.json(
       { error: "Failed to fetch pending comments" },
       { status: 500 }
@@ -45,7 +46,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Error approving comment:", error);
+    logger.error("Error approving comment", { error: error });
     return NextResponse.json(
       { error: "Failed to approve comment" },
       { status: 500 }
@@ -70,7 +71,7 @@ export async function DELETE(request: NextRequest) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Error deleting comment:", error);
+    logger.error("Error deleting comment", { error: error });
     return NextResponse.json(
       { error: "Failed to delete comment" },
       { status: 500 }

@@ -1,0 +1,12 @@
+/* Split from app/globals.css — see app/styles/README.md for the layout. */
+
+/* ─── Scroll behavior (+ reduced-motion override) ─── */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

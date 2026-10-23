@@ -4,6 +4,7 @@ import {
   deleteAdminForumPost,
   getAdminForumPosts,
 } from "@/lib/services/admin-service";
+import { logger } from "@/lib/core/logger";
 
 // GET /api/admin/forum - List all forum posts with replies
 export async function GET(request: NextRequest) {
@@ -15,7 +16,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ posts });
   } catch (error) {
-    console.error("Error fetching forum posts:", error);
+    logger.error("Error fetching forum posts", { error: error });
     return NextResponse.json(
       { error: "Failed to fetch forum posts" },
       { status: 500 }
@@ -43,7 +44,7 @@ export async function DELETE(request: NextRequest) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Error deleting forum post:", error);
+    logger.error("Error deleting forum post", { error: error });
     return NextResponse.json(
       { error: "Failed to delete forum post" },
       { status: 500 }

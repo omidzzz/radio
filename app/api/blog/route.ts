@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireAdminWithCsrf } from "@/lib/security/auth";
 import { sanitizeContent, sanitizeText } from "@/lib/security/sanitize";
 import { createBlogPost, listBlogPosts } from "@/lib/services/blog-service";
+import { logger } from "@/lib/core/logger";
 
 export async function GET(request: NextRequest) {
   try {
@@ -18,7 +19,7 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error("Error fetching blog posts:", error);
+    logger.error("Error fetching blog posts", { error: error });
     return NextResponse.json(
       { error: "Failed to fetch blog posts" },
       { status: 500 }
@@ -91,7 +92,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(post, { status: 201 });
   } catch (error) {
-    console.error("Error creating blog post:", error);
+    logger.error("Error creating blog post", { error: error });
     return NextResponse.json(
       { error: "Failed to create blog post" },
       { status: 500 }

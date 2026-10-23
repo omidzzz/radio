@@ -1,0 +1,45 @@
+/* Split from app/globals.css — see app/styles/README.md for the layout. */
+
+[data-theme="dark"] {
+  --color-deep: #04120d;
+  --color-bg: #071a13;
+  --color-surface: #0e2a1f;
+  --color-primary: #3dbe8b;
+  --color-primary-hover: #5fd3a6;
+  /* Dark theme keeps green fills */
+  --color-primary-fill: #3dbe8b;
+  --color-primary-fill-soft: rgba(61, 190, 139, 0.12);
+  --color-on-primary: #04120d;
+  /* Fill on primary — light green, matching the dark theme's brand */
+  --color-primary-fill: #3dbe8b;
+  /* On dark theme primary is a light green, so on-fill text flips to
+     near-black (8.2:1) — visually identical to the old text-deep. */
+  --color-on-primary: #04120d;
+  /* Accent on tints: gold on the dark green tint (matches old highlight). */
+  --color-accent: #e3c67e;
+  --color-gold: #d9b967;
+  --color-gold-soft: #2b2413;
+  --color-highlight: #e3c67e;
+  --color-soft: #0f2c21;
+  --color-text-primary: #eaf3ee;
+  --color-text-secondary: #a4bcb0;
+  --color-text-on-dark: #fffbf2;
+  --color-muted: #7e9689;
+  --color-border: #234434;
+  --color-success: #3dbe8b;
+  --color-danger: #f87171;
+  --color-danger-soft: rgba(248, 113, 113, 0.12);
+  --color-positive: #34d399;
+  --color-positive-soft: rgba(52, 211, 153, 0.12);
+  --color-secondary: #2fa377;
+  --color-secondary-hover: #5fd3a6;
+  --color-blog-dark: #04120d;
+
+  /* Elevation — dark theme: hairline + glow instead of diffuse shadow */
+  --elevation-card: 0 0 0 1px rgba(76, 155, 122, 0.05),
+    0 12px 32px -20px rgba(0, 0, 0, 0.9);
+  --elevation-card-hover: 0 0 0 1px rgba(76, 155, 122, 0.16),
+    0 18px 46px -22px rgba(0, 0, 0, 0.95),
+    0 0 34px -14px rgba(76, 155, 122, 0.3);
+}
+

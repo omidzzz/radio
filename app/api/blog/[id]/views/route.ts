@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { incrementBlogViews } from "@/lib/services/blog-service";
+import { logger } from "@/lib/core/logger";
 
 export const dynamic = "force-dynamic";
 
@@ -29,7 +30,7 @@ export async function POST(
 
     return NextResponse.json(result);
   } catch (error) {
-    console.error("Failed to increment blog views:", error);
+    logger.error("Failed to increment blog views", { error: error });
     return NextResponse.json(
       { error: "Failed to record view" },
       { status: 500 },

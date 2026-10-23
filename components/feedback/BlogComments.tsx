@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useLocale } from "../providers/LocaleProvider";
 import { formatDate } from "@/lib/i18n";
 import type { BlogComment } from "@/lib/types";
+import { logger } from "@/lib/core/logger";
 
 interface BlogCommentsProps {
   postId: number;
@@ -53,7 +54,7 @@ export default function BlogComments({
       );
       setTimeout(() => setSuccess(""), 6000);
     } catch (err) {
-      console.error("Error posting comment:", err);
+      logger.error("Error posting comment", { error: err });
       setError("An error occurred. Please try again.");
     } finally {
       setSubmitting(false);

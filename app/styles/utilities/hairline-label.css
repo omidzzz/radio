@@ -1,0 +1,29 @@
+/* Split from app/globals.css — see app/styles/README.md for the layout. */
+
+/* ─── Hairline divider with center label ─── */
+/* Hairline divider with center label — cheaper than animated scanline */
+.hairline-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--color-muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.hairline-label::before,
+.hairline-label::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-border),
+    transparent
+  );
+}
+html[lang="fa"] .hairline-label {
+  letter-spacing: 0.06em;
+}
