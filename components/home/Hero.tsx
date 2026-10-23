@@ -18,7 +18,7 @@ interface HeroProps {
 export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
   return (
     <section
-      className={`slide-entrance relative h-full min-h-[96vh] overflow-hidden bg-deep ${
+      className={`slide-entrance relative h-full min-h-[96vh] overflow-hidden bg-deep clip-path-lightbg ${
         playAnim ? "slide-active" : ""
       }`}
     >
