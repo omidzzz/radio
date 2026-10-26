@@ -92,7 +92,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
               </MagneticButton>
             </div>
 
-            <div className="anim-fade-up delay-600 mt-8 flex flex-wrap items-stretch gap-y-4 rounded-2xl border border-border/60 bg-surface/70 px-4 py-4 shadow-sm backdrop-blur-sm sm:mt-12 sm:gap-y-0 sm:divide-x sm:divide-border/60 sm:px-6 sm:py-5 sm:rtl:divide-x-reverse">
+            <div className="anim-fade-up delay-600 mt-8 flex flex-wrap items-stretch gap-y-4 rounded-2xl border border-border/60 bg-surface/70 px-4 py-4 shadow-sm backdrop-blur-sm sm:mt-12 sm:gap-y-0 sm:px-6 sm:py-5">
               {[
                 {
                   value: 15,
@@ -109,8 +109,11 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
                   suffix: "%",
                   label: isFa ? "دقت تشخیص" : "Diagnostic Accuracy",
                 },
-              ].map((stat) => (
-                <div key={stat.label} className="min-w-24 flex-1 px-2 first:ps-0 sm:px-5">
+              ].map((stat, i, arr) => (
+                <div
+                  key={stat.label}
+                  className={`min-w-24 flex-1 px-2 sm:px-5 sm:border-r sm:border-border/60 ${i === arr.length - 1 ? "sm:border-r-0" : ""} rtl:sm:border-l rtl:sm:border-border/60 ${i === 0 ? "rtl:sm:border-l-0" : ""}`}
+                >
                   <div className="text-2xl font-bold text-text-primary sm:text-3xl">
                     <CountUp end={stat.value} suffix={stat.suffix} useFarsiDigits={isFa} />
                   </div>
