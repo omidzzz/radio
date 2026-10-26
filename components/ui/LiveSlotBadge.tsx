@@ -29,11 +29,11 @@ export default function LiveSlotBadge({
     // sage. The non-primary variant renders on the always-dark hero, where
     // gold works in both themes.
     primary
-      ? "border border-primary/60 bg-primary/20 text-accent hover:border-primary hover:bg-primary/30"
-      : "border border-primary/30 bg-primary/10 text-gold hover:border-primary/70 hover:bg-primary/20"
+      ? "border border-primary bg-surface text-accent hover:border-primary hover:bg-surface btn-shadow-light"
+      : "border border-primary/50 bg-surface text-text-primary dark:text-text-primary hover:border-primary hover:bg-surface btn-shadow-light"
   } ${className}`;
 
-  const dotClass = primary ? "bg-accent" : "bg-gold";
+  const dotClass = primary ? "bg-accent" : "bg-primary";
 
   const content = (
     <>

@@ -66,8 +66,7 @@
 
   /* Slow down or pause non-critical infinite animations on mobile */
   .float-bob,
-  .isodose-ring,
-  .coord-flash,
+  .isodose-ring
   .shimmer-text {
     animation: none !important;
   }

@@ -135,13 +135,8 @@ export default function Navbar() {
       >
 
         <nav className="relative mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6 lg:px-8">
-          {/* Logo — glow only on hover so idle navbar stays cheap */}
-          <Link href={homeHref} className="group flex shrink-0 items-center gap-3">
-            <span className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-primary to-secondary text-lg font-bold text-on-primary transition-all duration-300 group-hover:scale-[1.04] group-hover:shadow-[0_0_28px_-4px_rgba(26,115,82,0.7)]">
-              <span className="relative z-10">R</span>
-              <span className="absolute inset-0 bg-gradient-to-tr from-white/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-            </span>
-            <span className="text-lg font-semibold tracking-tight text-text-primary transition-colors duration-300 group-hover:text-primary">
+          <Link href={homeHref} className="group flex min-w-0 shrink items-center">
+            <span className="truncate text-base font-semibold text-text-primary transition-colors duration-300 group-hover:text-primary sm:text-lg">
               {strings.doctorName}
             </span>
           </Link>
@@ -152,6 +147,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
+                prefetch={false}
                 className="group relative rounded-full px-3.5 py-2 text-sm font-medium text-text-secondary transition-colors duration-200 hover:text-text-primary"
               >
                 <span className="relative z-10">{link.label}</span>
@@ -285,6 +281,7 @@ export default function Navbar() {
                   <Link
                     key={link.href}
                     href={link.href}
+                    prefetch={false}
                     onClick={() => setMobileOpen(false)}
                     tabIndex={mobileOpen ? 0 : -1}
                     className="rounded-xl px-4 py-3 text-sm font-medium text-text-secondary transition-colors hover:bg-primary/12 hover:text-text-primary"
@@ -295,6 +292,7 @@ export default function Navbar() {
 
                 <Link
                   href={searchHref}
+                  prefetch={false}
                   onClick={() => setMobileOpen(false)}
                   tabIndex={mobileOpen ? 0 : -1}
                   className="rounded-xl px-4 py-3 text-sm font-medium text-text-secondary transition-colors hover:bg-primary/12 hover:text-text-primary"
@@ -311,6 +309,7 @@ export default function Navbar() {
                   </div>
                   <Link
                     href={bookingHref}
+                    prefetch={false}
                     onClick={() => setMobileOpen(false)}
                     tabIndex={mobileOpen ? 0 : -1}
                     className="rounded-full bg-primary-fill px-6 py-3 text-center text-sm font-semibold text-on-primary transition-colors hover:bg-primary-fill-hover"

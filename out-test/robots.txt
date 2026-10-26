@@ -1,0 +1,23 @@
+# robots.txt — Dr. Pari Ghadamgahi Radiotherapy Clinic
+# Generated for search engine crawlers.
+
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /login
+Disallow: /api/
+Disallow: /upload
+Disallow: /media
+
+# Let search engines index the public site but not the admin/privacy/terms
+# (those are still accessible; only restrict bot access where appropriate).
+Sitemap: https://yourdomain.com/sitemap.xml
+
+# Special directives for assistive crawlers / AI-moments
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# IMPORTANT: Update NEXT_PUBLIC_APP_URL in production!

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { getServerDictionary } from "@/lib/i18n/server";
+import { getDictionary, defaultLocale } from "@/lib/i18n/server";
 import { toFarsiDigits } from "@/lib/i18n/numbers";
 import { siteConfig } from "@/lib/seo/seo";
 import { breadcrumbSchema } from "@/lib/seo/json-ld";
@@ -32,15 +32,11 @@ const CATEGORY_LABELS: Record<string, { fa: string; en: string; icon: string }> 
   forum: { fa: "انجمن", en: "Forum", icon: "💬" },
 };
 
-export default async function SearchPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ q?: string }>;
-}) {
-  const { locale } = await getServerDictionary();
+export default async function SearchPage({}: { searchParams?: Promise<{ q?: string }> }) {
+  const locale = defaultLocale;
+  const dict = getDictionary(locale);
   const isFa = locale === "fa";
-  const params = await searchParams;
-  const q = (params.q || "").trim();
+  const q: string = "";
 
   let results: SearchResult[] = [];
 

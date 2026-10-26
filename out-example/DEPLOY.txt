@@ -1,0 +1,69 @@
+═══════════════════════════════════════════════════════════════
+ SINISTEROID — cPanel DEPLOYMENT
+═══════════════════════════════════════════════════════════════
+
+1) Fill in your database settings:
+   - Open  api/config.php.example
+   - Put your real cPanel MySQL host/db/user/pass + admin creds
+   - Rename it to  api/config.php
+   (Keep config.php OUT of version control.)
+
+2) Import your posts table into MySQL if not present:
+   - cPanel → phpMyAdmin → your DB → Import
+   - Use the JSON export from your host (posts table).
+   - Table name: posts  (columns: slug, status, title, date_published,
+     tags, featured_image, content_json, date_updated)
+
+3) Upload the CONTENTS of this folder to public_html:
+   - Everything here goes directly into public_html
+   - .htaccess must be uploaded (enable "show hidden files" in cPanel)
+   - ⚠ ⚠ CRITICAL — upload EVERYTHING, including the *.txt RSC payloads:
+       Next.js prefetches the per-route index.txt payloads (e.g.
+       en/blog/index.txt, en/blog/<slug>/index.txt) for instant client-side
+       navigation. If the browser does not find them it logs
+       "GET /en/blog/index.txt 404" in the console and navigation falls
+       back to a full page load.
+   - ⚠ If you previously uploaded with your FTP client set to "skip
+       existing files", the OLD en/blog and fa/blog folders on the server
+       will keep 404ing their payloads. Fix: delete the stale
+       public_html/en/blog and public_html/fa/blog folders on the server
+       BEFORE uploading this package (they contain only static export
+       files — no admin uploads live there), then upload fresh.
+   - ⚠ IMPORTANT: do NOT delete or overwrite the folder
+     public_html/api/uploads on the server — it contains the post
+     cover images (uploaded via the admin) and this package only
+     carries a small subset. Use plain "overwrite/merge" mode in
+     your FTP client, not "mirror/sync" (which can delete extra
+     server files).
+
+4) The blog now reads from MySQL live via /api/get_posts.php and
+   /api/get_post.php?slug=...
+   - Admin: /api/admin.php  (Basic Auth using config.php creds)
+   - The prerendered pages still load instantly for SEO, then hydrate
+     with the latest DB content.
+
+ ── SECURITY CHECKLIST (do these once per server) ────────────────────
+ - api/config.php must exist BEFORE the site goes live — admin.php
+   refuses to run without it (the sample fallback creds are never
+   valid, by design).
+ - Hash the admin password instead of storing it in plain text:
+       php -r "echo password_hash('YOUR-STRONG-PASSWORD', PASSWORD_DEFAULT), PHP_EOL;"
+   then in api/config.php define('ADMIN_PASS_HASH', '<hash>'); and
+   remove ADMIN_PASS. Login works exactly the same.
+ - The admin password is NOT your cPanel password. Make it long and
+   unique. Brute force is rate-limited (5 tries / 15 min / IP), but a
+   strong password is the real fix.
+ - Give the MySQL user LEAST PRIVILEGE (SELECT/INSERT/UPDATE/DELETE on
+   this one database only) — no DROP/ALTER/GRANT.
+ - api/uploads/.htaccess (included in this package) disables script
+   execution inside the uploads folder — upload it together with the
+   folder contents and never delete it on the server.
+ - The .htaccess in this package now forces HTTPS, sends a CSP, and
+   noindexes /api/*. Re-upload it on every deploy.
+ - Enable automated backups in cPanel for BOTH files and this MySQL
+   database — DB-only posts exist nowhere else until the next export.
+ - Never upload out.zip or the build/ folder to public_html; deploy
+   only the CONTENTS of this out/ folder.
+
+Done. Visit https://yourdomain.com
+═══════════════════════════════════════════════════════════════

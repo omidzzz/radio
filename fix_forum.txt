@@ -1,0 +1,4 @@
+$path = 'c:\Users\ghada\Desktop\Projects\radiotherapist-website\app\forum\[id]\page.tsx'
+Remove-Item -LiteralPath $path -Force
+git show HEAD:app/forum/[id]/page.tsx | Out-File -FilePath $path -Encoding utf8
+Get-ChildItem $path

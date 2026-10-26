@@ -3,6 +3,7 @@
 ## Implementation Checklist
 
 ### Phase 1: Critical Enhancements (High Priority)
+
 - [ ] Enhance lib/json-ld.ts with entity relationships
 - [ ] Add conversational content schema
 - [ ] Add authoritative source markers
@@ -11,6 +12,7 @@
 - [ ] Add HowTo schema for treatment processes
 
 ### Phase 2: Important Improvements (Medium Priority)
+
 - [ ] Add review/rating schema
 - [ ] Enhance medical clinic schema with local business data
 - [ ] Enhance article schema with speakable markup
@@ -19,6 +21,7 @@
 - [ ] Add breadcrumb schema to all pages
 
 ### Phase 3: Advanced Enhancements (Low Priority)
+
 - [ ] Add video schema support
 - [ ] Implement pagination in sitemap
 - [ ] Add speakable CSS selectors
@@ -26,6 +29,7 @@
 - [ ] Add AMP support (optional)
 
 ## Expected Outcomes
+
 - Better AI/LLM discoverability
 - Improved traditional SEO rankings
 - Enhanced rich snippet opportunities

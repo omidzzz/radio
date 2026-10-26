@@ -1,4 +1,4 @@
-﻿import type { Dictionary } from "@/lib/i18n";
+import type { Dictionary } from "@/lib/i18n";
 import Reveal from "@/components/ui/Reveal";
 import SpotLightCard from "@/components/ui/SpotLightCard";
 import SectionHeader from "@/components/ui/SectionHeader";
@@ -99,58 +99,39 @@ export default function AreasOfExpertise({ dict, isFa }: AreasOfExpertiseProps) 
           />
         </Reveal>
 
-        <div className="relative mt-14 grid gap-5 sm:mt-16 sm:grid-cols-2 md:gap-6 lg:grid-cols-4">
+        <div className="relative mt-10 grid grid-cols-1 gap-4 sm:mt-14 sm:grid-cols-2 sm:gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
           {expertise.items.map((site, i) => (
             <Reveal
               key={site.code}
               delay={i * 90}
-              className={i === 0 ? "sm:col-span-2" : undefined}
+              className="h-full"
             >
-              <SpotLightCard className="h-full rounded-3xl">
-                <div className="surface-card no-lift-touch group relative h-full overflow-hidden p-7">
-                  <div className="dose-gradient absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 opacity-80 transition-transform duration-500 group-hover:scale-x-100" />
+              <SpotLightCard className="h-full rounded-2xl border-2 border-border border-white/10 bg-white/[0.02] backdrop-blur xl:rounded-3xl">
+                <div className="dose-gradient absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 opacity-80 transition-transform duration-500 group-hover:scale-x-100" />
 
-                  <div className="relative flex items-center justify-between gap-3">
-                    <span className="rounded-full border border-primary/25 bg-primary/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+                  <div className="relative flex items-center justify-between gap-3 px-4 pt-4 sm:px-5">
+                    <span className="rounded-full border border-primary/25 bg-primary/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-primary group-hover:text-primary/90">
                       {site.code}
                     </span>
-                    <span className="text-muted" aria-hidden="true">
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        className="h-4 w-4"
-                        stroke="currentColor"
-                        strokeWidth={1.5}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M17 8l4 4m0 0l-4 4m4-4H3"
-                        />
-                      </svg>
-                    </span>
                   </div>
 
-                  <div className="relative mt-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-soft text-primary shadow-inner transition-colors duration-200 group-hover:bg-primary-fill group-hover:text-on-primary">
+                  <div className="relative mt-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-soft text-primary shadow-inner transition-colors duration-200 group-hover:bg-primary-fill group-hover:text-on-primary">
                     {siteSvgs[site.code] ?? siteSvgs.CNS}
                   </div>
-
-                  <h3 className="relative mt-5 text-lg font-semibold leading-snug text-text-primary transition-colors duration-200 group-hover:text-primary">
+                  <h3 className="relative mt-3 px-4 text-base font-semibold leading-snug text-text-primary transition-colors duration-200 group-hover:text-primary sm:px-5 sm:text-lg">
                     {site.title}
                   </h3>
-                  <p className="relative mt-2.5 text-base leading-relaxed text-text-secondary">
+                  <p className="relative mt-1.5 px-4 text-sm leading-relaxed text-text-secondary sm:px-5 sm:text-base">
                     {site.desc}
                   </p>
-
-                  <div className="relative mt-5 h-px w-10 bg-border transition-all duration-200 group-hover:w-20 group-hover:bg-highlight" />
-                </div>
+                  <div className="relative mx-4 mt-4 h-px bg-border transition-all duration-200 group-hover:bg-primary/5 sm:mx-5" />
               </SpotLightCard>
             </Reveal>
           ))}
         </div>
 
         <Reveal delay={200} className="mt-10 text-center">
-          <p className="text-base leading-relaxed text-muted">
+          <p className="text-base leading-relaxed text-text-muted">
             {isFa
               ? "در هر هفت حوزه، برنامه درمان بر اساس شرایط شما شخصی‌سازی می‌شود — تمرکز اصلی درمان‌ها بر این هفت حوزه توموری است؛ سایر نواحی نیز در جلسه مشاوره بررسی می‌شوند."
               : "In each area, the plan is personalized to your condition and your life — treatment focuses on these seven tumor-site areas; other sites are discussed during your consultation."}

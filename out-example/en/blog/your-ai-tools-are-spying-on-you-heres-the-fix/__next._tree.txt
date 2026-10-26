@@ -1,0 +1,5 @@
+:HL["/_next/static/css/f4a7f7a28239cae9.css","style"]
+:HL["/_next/static/css/f201c38a05109b36.css","style"]
+:HL["/_next/static/css/8747598ecf2bff48.css","style"]
+:HL["/_next/static/css/b5cea9707ffd55a3.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"(main)","param":null,"prefetchHints":4208,"slots":{"children":{"name":"locale","param":{"type":"d","key":"en","siblings":["_not-found","_global-error","blog","education","showcase","skills","work"]},"prefetchHints":4144,"slots":{"children":{"name":"blog","param":null,"prefetchHints":4160,"slots":{"children":{"name":"slug","param":{"type":"d","key":"your-ai-tools-are-spying-on-you-heres-the-fix","siblings":["live"]},"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}}}}}}}},"staleTime":300,"buildId":"bTdsImlrirV0yU_oDrH-R"}

@@ -66,12 +66,7 @@
   }
 }
 
-@keyframes coord-flash {
 
-  0%,
-  100% {
-    opacity: 0.4;
-  }
 
   50% {
     opacity: 1;
@@ -130,11 +125,7 @@
   will-change: box-shadow;
 }
 
-/* Coordinate readout — flashing monospace text */
-.coord-flash {
-  animation: coord-flash 2.4s ease-in-out infinite;
-  will-change: opacity;
-}
+
 
 /* Treatment planning grid — faint PACS-style crosshair grid */
 .planning-grid {

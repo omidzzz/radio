@@ -5,18 +5,21 @@ A complete business website foundation for a radiotherapist, built with Next.js 
 ## Features
 
 ### 📄 Standard Business Pages
+
 - **Home** — Hero section, highlights, and calls to action
 - **About** — Clinic mission, values, and team
 - **Services** — Comprehensive radiotherapy services overview
 - **Contact** — Contact form and clinic information
 
 ### 💬 Community Forum (No Login Required)
+
 - Users can post questions with just a name — **no account needed**
 - Categories: General, Treatment, Support, Other
 - Threaded discussions with replies
 - Reply count and timestamps on each post
 
 ### 📅 Session Booking
+
 - Booking request form with:
   - Patient name, email, phone
   - Session type selection (Consultation, Treatment Planning, Therapy, Follow-up, Second Opinion)
@@ -25,6 +28,7 @@ A complete business website foundation for a radiotherapist, built with Next.js 
 - Bookings stored with a reference number sent back to the user
 
 ### 🔐 Admin Panel (Password Protected)
+
 - **Login** at `/admin/login` (default password: `admin123`)
 - **Dashboard** at `/admin` with:
   - Overview stats (bookings, forum posts, messages)
@@ -35,14 +39,15 @@ A complete business website foundation for a radiotherapist, built with Next.js 
 - Change the password via the `ADMIN_PASSWORD` environment variable
 
 ### 🌐 Bilingual (Farsi Default + English)
+
 - **Language toggle** in the navbar — switch between فارسی and English
 - **Farsi is the default language** (RTL), with full RTL layout support
 - **English** switches to LTR, and all components flip horizontally
 - Translation keys in `lib/i18n/dictionaries/fa.ts` and `en.ts`
 - Language preference persisted in a cookie (1 year)
 - Server and client components both read the locale via `lib/i18n/server.ts` and `lib/i18n/client.ts`
-| Database | SQLite (better-sqlite3) |
-| Styling | Tailwind CSS |
+  | Database | SQLite (better-sqlite3) |
+  | Styling | Tailwind CSS |
 
 ## Project Structure
 
@@ -103,6 +108,7 @@ radiotherapist-website/
 ## Getting Started
 
 ### Prerequisites
+
 - Node.js 18.18+ or 20+
 - npm, yarn, or pnpm
 
@@ -142,24 +148,30 @@ Tables are created automatically on first startup. No configuration needed.
 ## Customization
 
 ### Clinic Information
+
 - Update the placeholder contact info (address, phone, email) in:
   - `components/Footer.tsx`
   - `app/booking/page.tsx`
   - `app/contact/page.tsx`
 
 ### Colors & Branding
+
 - The site uses a teal primary color (`teal-600`). Replace `teal-*` classes throughout or add a custom theme in `app/globals.css`.
 
 ### Team Members
+
 - Update team members in `app/about/page.tsx`.
 
 ### Services
+
 - Add/remove services in the `services` array in `app/services/page.tsx`.
 
 ### Booking Time Slots
+
 - Modify the `timeSlots` array in `components/BookingForm.tsx`.
 
 ### Forum Categories
+
 - Modify the `categories` array in:
   - `components/NewPostForm.tsx`
   - `app/forum/page.tsx` (labels)
@@ -172,12 +184,14 @@ Tables are created automatically on first startup. No configuration needed.
 This app is optimized for deployment on ParsWebServer Linux hosting (میزبانی وب لینوکس ایران).
 
 **Quick Deploy:**
+
 1. Upload project files to your server
 2. Run `chmod +x deploy.sh && ./deploy.sh`
 3. Configure `.env` with your admin password
 4. Set up Apache reverse proxy (see `README-PARSWEBSERVER.md`)
 
 **Features:**
+
 - ✅ SQLite database (persists on filesystem)
 - ✅ Local file uploads (public/uploads/)
 - ✅ PM2 process management

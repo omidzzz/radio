@@ -1,0 +1,419 @@
+- generic [active] [ref=e1]:
+  - link "پرش به محتوای اصلی" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - navigation [ref=e5]:
+        - link "R دکتر پری قدمگاهی" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e7]: R
+          - generic [ref=e10]: دکتر پری قدمگاهی
+        - generic [ref=e11]:
+          - button "جستجو" [ref=e12]
+          - button "تغییر منو" [ref=e15]
+      - navigation "تغییر منو":
+        - generic:
+          - generic:
+            - generic:
+              - link "خانه":
+                - /url: /
+              - link "درباره من":
+                - /url: /about
+              - link "خدمات":
+                - /url: /services
+              - link "بلاگ":
+                - /url: /blog
+              - link "انجمن":
+                - /url: /forum
+              - link "رزرو جلسه":
+                - /url: /booking
+              - link "تماس با ما":
+                - /url: /contact
+              - link "جستجو":
+                - /url: /search
+              - generic:
+                - generic:
+                  - button "Switch to dark mode"
+                  - button "Switch to English": EN
+                - link "رزرو نوبت":
+                  - /url: /booking
+  - main [ref=e19]:
+    - generic [ref=e20]:
+      - generic [ref=e22]:
+        - generic [ref=e24]:
+          - generic [aria-hidden]:
+            - generic: IMRT
+            - generic: 6 MV
+          - generic [ref=e27]:
+            - generic [ref=e28]: متخصص رادیوتراپی و آنکولوژی
+            - heading "دکتر پری قدمگاهی، رادیوتراپی و رادیوسرجری" [level=1] [ref=e32]
+            - paragraph [ref=e34]: با تمرکز بر همراهی شما در هر گام درمان — از مشاوره تا پیگیری. برنامه درمانی هر بیمار بر اساس شرایط او شخصی‌سازی می‌شود؛ متخصص رادیوتراپی و آنکولوژی در درمان تومورهای مغز و اعصاب (CNS)، سر و گردن، زنان (GYN)، گوارش (GI)، پستان، پروستات و ادراری-تناسلی (GU) با برنامه‌ریزی دقیق و فناوری در خدمت آرامش شما.
+            - button "رزرو نوبت بعدی" [ref=e36] [cursor=pointer]:
+              - text: "نوبت بعدی:"
+              - generic [ref=e40]: امروز ۱۴:۳۰
+            - generic [ref=e41]:
+              - link "رزرو مشاوره" [ref=e42] [cursor=pointer]:
+                - /url: /booking
+              - link "مشاهده خدمات" [ref=e45] [cursor=pointer]:
+                - /url: /services
+            - generic [ref=e47]:
+              - generic [ref=e48]:
+                - generic [ref=e49]: ۰+
+                - generic [ref=e51]: سال تجربه
+              - generic [ref=e52]:
+                - generic [ref=e53]: ۰/۷
+                - generic [ref=e55]: پشتیبانی
+              - generic [ref=e56]:
+                - generic [ref=e57]: ۰%
+                - generic [ref=e59]: دقت تشخیص
+        - generic:
+          - button "اسلاید قبلی" [ref=e60]
+          - button "اسلاید بعدی" [ref=e64]
+        - generic [ref=e68]:
+          - button "اسلاید 1" [ref=e69]
+          - button "اسلاید 2" [ref=e71]
+        - generic [ref=e73]:
+          - generic [ref=e74]: ۰
+          - generic [ref=e75]: /
+          - generic [ref=e76]: ۰۲
+      - generic [ref=e79]:
+        - generic [ref=e80]: مطابق استاندارد DICOM
+        - generic [ref=e90]: امنیت اطلاعات HIPAA
+        - generic [ref=e97]: تایید شده ACR
+        - generic [ref=e105]: ISO 9001:2015
+      - generic [ref=e114]:
+        - generic [ref=e116]:
+          - generic [ref=e117]: حوزه‌های تخصصی
+          - heading "تمرکز درمانی بر تومورهای منتخب" [level=2] [ref=e118]
+          - paragraph [ref=e120]: دکتر پری قدمگاهی بر هفت حوزه توموری کلیدی در پرتودرمانی متمرکز است — از مغز و اعصاب مرکزی تا پروستات.
+        - generic [ref=e121]:
+          - generic [ref=e124]:
+            - generic [ref=e125]: CNS
+            - heading "مغز و اعصاب مرکزی" [level=3] [ref=e133]
+            - paragraph [ref=e134]: تومورهای مغز و ستون فقرات با رادیوسرجری و پرتودرمانی هدفمند.
+          - generic [ref=e138]:
+            - generic [ref=e139]: H&N
+            - heading "سر و گردن" [level=3] [ref=e147]
+            - paragraph [ref=e148]: پرتودرمانی تومورهای حلق، حنجره و سایر نواحی سر و گردن.
+          - generic [ref=e152]:
+            - generic [ref=e153]: GYN
+            - heading "زنان (GYN)" [level=3] [ref=e161]
+            - paragraph [ref=e162]: سرطان‌های رحم، دهانه رحم و تخمدان، از جمله براکی‌تراپی.
+          - generic [ref=e166]:
+            - generic [ref=e167]: GI
+            - heading "گوارش (GI)" [level=3] [ref=e175]
+            - paragraph [ref=e176]: پرتودرمانی تومورهای مری، معده، روده بزرگ و مقعد.
+          - generic [ref=e180]:
+            - generic [ref=e181]: Breast
+            - heading "پستان" [level=3] [ref=e188]
+            - paragraph [ref=e189]: پرتودرمانی پس از جراحی با حفظ بافت و کاهش عوارض.
+          - generic [ref=e193]:
+            - generic [ref=e194]: Prostate
+            - heading "پروستات" [level=3] [ref=e202]
+            - paragraph [ref=e203]: پرتودرمانی و براکی‌تراپی با دقت بالا برای سرطان پروستات.
+          - generic [ref=e207]:
+            - generic [ref=e208]: GU
+            - heading "ادراری-تناسلی (GU)" [level=3] [ref=e216]
+            - paragraph [ref=e217]: سرطان‌های مثانه، کلیه و دستگاه ادراری-تناسلی.
+        - paragraph [ref=e220]: در هر هفت حوزه، برنامه درمان بر اساس شرایط شما شخصی‌سازی می‌شود — تمرکز اصلی درمان‌ها بر این هفت حوزه توموری است؛ سایر نواحی نیز در جلسه مشاوره بررسی می‌شوند.
+      - generic [ref=e222]:
+        - generic [ref=e224]:
+          - generic [ref=e225]: مراقبت بیمارمحور
+          - heading "چرا دکتر قدمگاهی؟" [level=2] [ref=e226]
+          - paragraph [ref=e228]: همراهی شما در هر گام درمان — فناوری پیشرفته در خدمت آرامش شما
+        - generic [ref=e229]:
+          - generic [ref=e232]:
+            - generic [ref=e233]:
+              - generic [ref=e234]: MRI
+              - generic [ref=e235]: تکنولوژی
+            - img [ref=e237]:
+              - generic [ref=e246]: 3.0T
+            - heading "همراهی از مشاوره تا پیگیری" [level=3] [ref=e247]
+            - paragraph [ref=e248]: درمان و برنامه‌ریزی مستقیم توسط دکتر پری قدمگاهی، متخصص رادیوتراپی و آنکولوژی؛ تصمیم‌ها با شما گرفته می‌شود، نه برای شما.
+          - generic [ref=e252]:
+            - generic [ref=e253]:
+              - generic [ref=e254]: CT
+              - generic [ref=e255]: تکنولوژی
+            - img [ref=e257]:
+              - generic [ref=e267]: SLICE
+            - heading "فناوری در خدمت آرامش شما" [level=3] [ref=e268]
+            - paragraph [ref=e269]: جدیدترین دستگاه‌های شتاب‌دهنده خطی با قابلیت IMRT، IGRT و SBRT؛ درمانی دقیق‌تر، با درد کمتر و جلسات کمتر — فناوری در خدمت آسایش شما.
+          - generic [ref=e273]:
+            - generic [ref=e274]:
+              - generic [ref=e275]: US
+              - generic [ref=e276]: تکنولوژی
+            - img [ref=e278]:
+              - generic [ref=e284]: DOPPLER
+            - heading "مراقبت بیمارمحور" [level=3] [ref=e285]
+            - paragraph [ref=e286]: تصمیم‌ها با شما گرفته می‌شود، نه برای شما؛ برنامه‌های درمانی شخصی‌سازی‌شده، تیم پشتیبانی اختصاصی و محیطی راحت متمرکز بر سلامتی شما.
+      - generic [ref=e288]:
+        - generic [ref=e290]:
+          - generic [ref=e292]:
+            - generic [ref=e293]: روند کار
+            - heading "از رزرو تا نتیجه، سه مرحله ساده" [level=2] [ref=e294]
+            - paragraph [ref=e295]: مسیری کوتاه و شفاف از اولین تماس تا دریافت گزارش.
+          - generic [ref=e297]:
+            - generic [ref=e299]:
+              - generic [ref=e301]:
+                - generic: ۰۱
+                - generic [ref=e302]: ۰۱
+              - generic [ref=e316]:
+                - generic [ref=e317]: FRAC / ۳۵
+                - heading "رزرو نوبت" [level=3] [ref=e320]
+                - paragraph [ref=e321]: نوبت خود را آنلاین یا با یک تماس، در کمتر از دو دقیقه رزرو کنید.
+            - generic [ref=e323]:
+              - generic [ref=e325]:
+                - generic: ۰۲
+                - generic [ref=e326]: ۰۲
+              - generic [ref=e336]:
+                - generic [ref=e337]: FRAC / ۳۵
+                - heading "انجام اسکن" [level=3] [ref=e340]
+                - paragraph [ref=e341]: یک تکنولوژیست دارای مجوز، شما را در تمام مراحل اسکن همراهی می‌کند.
+            - generic [ref=e343]:
+              - generic [ref=e345]:
+                - generic: ۰۳
+                - generic [ref=e346]: ۰۳
+              - generic [ref=e355]:
+                - generic [ref=e356]: FRAC / ۳۵
+                - heading "دریافت گزارش" [level=3] [ref=e359]
+                - paragraph [ref=e360]: رادیولوژیست تصاویر را بررسی می‌کند و پزشک شما ظرف ۲۴ ساعت نتیجه را دریافت می‌کند.
+        - generic [ref=e362]:
+          - img [ref=e368]:
+            - generic [ref=e405]: BEAM ON
+            - generic [ref=e408]: 3.0T WIDE-BORE MRI
+          - generic [ref=e409]:
+            - generic [ref=e411]:
+              - generic [ref=e412]: دستگاه‌های ما
+              - heading "فناوری که به آن اعتماد می‌کنید" [level=2] [ref=e413]
+              - paragraph [ref=e414]: دستگاه‌های ما استانداردهای بالینی روز دنیا را رعایت می‌کنند تا تصاویری واضح و قابل اتکا برای پزشک شما فراهم شود.
+            - generic [ref=e415]:
+              - generic [ref=e417]:
+                - term [ref=e418]: قدرت میدان مغناطیسی
+                - definition [ref=e419]: 3.0 T
+              - generic [ref=e421]:
+                - term [ref=e422]: قطر دهانه دستگاه
+                - definition [ref=e423]: ۷۰ سانتی‌متر
+              - generic [ref=e425]:
+                - term [ref=e426]: میانگین زمان اسکن
+                - definition [ref=e427]: ۱۸ تا ۳۵ دقیقه
+              - generic [ref=e429]:
+                - term [ref=e430]: دقت تفکیک برش
+                - definition [ref=e431]: ۰.۵ میلی‌متر
+            - list [ref=e433]:
+              - listitem [ref=e434]: MRI
+              - listitem [ref=e436]: CT اسکن
+              - listitem [ref=e438]: IMRT
+              - listitem [ref=e440]: LINAC
+              - listitem [ref=e442]: SBRT
+              - listitem [ref=e444]: IGRT
+              - listitem [ref=e446]: ماموگرافی
+              - listitem [ref=e448]: PET-CT
+              - listitem [ref=e450]: 3.0T MRI
+        - generic [ref=e453]:
+          - generic [ref=e455]:
+            - generic [ref=e456]:
+              - generic [ref=e457]: MOD / DOSE MAP
+              - generic [ref=e458]: IMRT · 6 MV
+            - img "نمای توزیع دوز در پلن درمانی" [ref=e460]
+            - list [ref=e721]:
+              - listitem [ref=e722]: ۹۵٪ ایزودوز
+              - listitem [ref=e724]: ۱۰۰٪ ایزودوز
+              - listitem [ref=e726]: نقاط داغ ۱۱۰٪
+          - generic [ref=e728]:
+            - generic [ref=e730]:
+              - generic [ref=e731]: دقت و ایمنی
+              - heading "هر میلی‌متر، برنامه‌ریزی‌شده" [level=2] [ref=e732]
+              - paragraph [ref=e733]: دوز درمانی دقیقاً به هدف می‌رسد و بافت سالم اطراف تا حد امکان حفظ می‌شود. این نتیجهٔ یک مسیر کنترل‌شده از شبیه‌سازی تا تایید نهایی است.
+            - generic [ref=e734]:
+              - generic [ref=e736]:
+                - term [ref=e737]: پوشش هدف
+                - definition [ref=e738]: ۹۶.۴٪
+              - generic [ref=e740]:
+                - term [ref=e741]: شاخص تطابق
+                - definition [ref=e742]: ۱.۰۲
+              - generic [ref=e744]:
+                - term [ref=e745]: دقت تنظیم بیمار
+                - definition [ref=e746]: ±۰.۵ میلی‌متر
+            - list [ref=e747]:
+              - listitem [ref=e749]:
+                - generic [ref=e753]: شبیه‌سازی و طراحی پلن بر پایه تصاویر CT
+              - listitem [ref=e755]:
+                - generic [ref=e759]: تایید روزانه موقعیت بیمار پیش از هر جلسه
+              - listitem [ref=e761]:
+                - generic [ref=e765]: کنترل مستقل صحت دوز پیش از شروع درمان
+        - generic [ref=e773]:
+          - generic [ref=e775]:
+            - generic [ref=e776]: نظرات بیماران
+            - heading "تجربه بیماران ما" [level=2] [ref=e777]
+          - generic [ref=e779]:
+            - generic: “
+            - generic [ref=e780]:
+              - figure "مریم احمدی بیمار تحت درمان" [ref=e781]:
+                - blockquote [ref=e782]: تیم درمان با دقت و مهربانی فوق‌العاده‌ای همراه من بودند. هر جلسه پرتودرمانی کاملاً برنامه‌ریزی‌شده و بدون استرس بود.
+                - generic [ref=e783]:
+                  - generic [ref=e784]: مریم احمدی
+                  - generic [ref=e785]: بیمار تحت درمان
+              - figure [aria-hidden]:
+                - blockquote: از رزرو آنلاین تا دریافت گزارش، همه‌چیز سریع و شفاف بود. پزشکم نتیجه را در کمتر از ۲۴ ساعت دریافت کرد.
+                - generic:
+                  - generic: رضا کریمی
+                  - generic: همراه بیمار
+              - figure [aria-hidden]:
+                - blockquote: دستگاه‌های پیشرفته و تیم مجرب باعث شد با اطمینان کامل درمانم را ادامه دهم. واقعاً از کلینیک سپاسگزارم.
+                - generic:
+                  - generic: سارا محمدی
+                  - generic: بیمار تحت درمان
+            - generic [ref=e786]:
+              - button "Testimonial 1" [ref=e787]
+              - button "Testimonial 2" [ref=e789]
+              - button "Testimonial 3" [ref=e791]
+        - generic [ref=e794]:
+          - generic [ref=e796]:
+            - generic [ref=e797]: اعتماد و کیفیت
+            - heading "اعتماد جهانی، مراقبت محلی" [level=2] [ref=e798]
+          - generic [ref=e799]:
+            - generic [ref=e801]:
+              - generic [ref=e808]:
+                - img [aria-hidden] [ref=e809]:
+                  - generic [ref=e812]: "0"
+                - generic [ref=e813]: 98%
+              - generic [ref=e814]: رضایت بیماران
+            - generic [ref=e816]:
+              - generic [ref=e823]:
+                - img [aria-hidden] [ref=e824]:
+                  - generic [ref=e827]: "0"
+                - generic [ref=e828]: 24h
+              - generic [ref=e829]: میانگین زمان تحویل گزارش
+            - generic [ref=e831]:
+              - generic [ref=e838]:
+                - img [aria-hidden] [ref=e839]:
+                  - generic [ref=e842]: "0"
+                - generic [ref=e843]: 100%
+              - generic [ref=e844]: دقت تشخیص
+        - generic [aria-hidden]:
+          - generic: برش ۰.۵ میلی‌متر
+        - generic [ref=e845]:
+          - generic [ref=e848]:
+            - generic [ref=e849]: گواهینامه‌ها و استانداردها
+            - heading "زیر نظر استانداردهای جهانی" [level=2] [ref=e850]
+            - paragraph [ref=e851]: هر فرآیند کلینیک — از تصویربرداری تا حفاظت اطلاعات بیمار — با یک استاندارد بین‌المللی سنجیده می‌شود.
+          - generic [ref=e853]:
+            - generic [ref=e861]:
+              - generic [ref=e862]: JCI
+              - generic [ref=e863]: اعتباربخشی بیمارستانی
+            - generic [ref=e872]:
+              - generic [ref=e873]: IAEA
+              - generic [ref=e874]: ایمنی پرتو
+            - generic [ref=e881]:
+              - generic [ref=e882]: ISO 27001
+              - generic [ref=e883]: امنیت اطلاعات
+            - generic [ref=e889]:
+              - generic [ref=e890]: ISO 45001
+              - generic [ref=e891]: ایمنی شغلی
+        - generic [ref=e893]:
+          - generic [ref=e894]:
+            - heading "سوالات متداول" [level=2] [ref=e895]
+            - paragraph [ref=e896]: پاسخ سوالات رایج بیماران درباره پرتودرمانی
+          - generic [ref=e897]:
+            - generic [ref=e898]:
+              - button "پرتودرمانی چیست؟" [expanded] [ref=e899]
+              - paragraph [ref=e906]: پرتودرمانی روشی برای درمان سرطان با استفاده از پرتوهای پرانرژی است که تومورها را کوچک کرده و سلول‌های سرطانی را از بین می‌برد. این روش یکی از مؤثرترین و رایج‌ترین روش‌های درمان سرطان است.
+            - generic [ref=e907]:
+              - button "آیا پرتودرمانی بی‌خطر است؟" [ref=e908]
+              - paragraph [ref=e913]: بله. پرتودرمانی مدرن بسیار دقیق است و تنها تومور را هدف قرار می‌دهد و آسیب به بافت سالم اطراف را به حداقل می‌رساند. تمام درمان‌ها توسط متخصصان پرتودرمانی با تجربه برنامه‌ریزی و نظارت می‌شود.
+            - generic [ref=e914]:
+              - button "هر جلسه درمان چقدر طول می‌کشد؟" [ref=e915]
+              - paragraph [ref=e920]: هر جلسه پرتودرمانی معمولاً بین ۱۵ تا ۳۰ دقیقه طول می‌کشد. خود پرتو فقط چند دقیقه است و بقیه زمان صرف تنظیم موقعیت بیمار و تأیید تصویربرداری می‌شود.
+            - generic [ref=e921]:
+              - button "چگونه نوبت رزرو کنم؟" [ref=e922]
+              - paragraph [ref=e927]: می‌توانید از طریق صفحه رزرو آنلاین یا با تماس تلفنی نوبت خود را رزرو کنید. اکثر نوبت‌های مشاوره در کمتر از دو دقیقه تأیید می‌شوند.
+        - generic [ref=e929]:
+          - generic [ref=e931]:
+            - heading "سؤالی درباره درمان دارید؟" [level=2] [ref=e932]
+            - paragraph [ref=e933]: مستقیم با دکتر پری قدمگاهی گفتگو کنید — به انجمن گفتگوی ما بپیوندید تا سؤالات خود را بپرسید، تجربیات خود را به اشتراک بگذارید و از متخصصان و سایر بیماران حمایت بگیرید.
+          - generic [ref=e935]:
+            - link "مشاهده انجمن" [ref=e936] [cursor=pointer]:
+              - /url: /forum
+            - link "تماس با ما" [ref=e939] [cursor=pointer]:
+              - /url: /contact
+  - contentinfo "Site footer" [ref=e941]:
+    - generic [ref=e946]:
+      - generic [ref=e947]:
+        - generic [ref=e948]:
+          - link "R دکتر پری قدمگاهی" [ref=e949] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e950]: R
+            - generic [ref=e953]: دکتر پری قدمگاهی
+          - paragraph [ref=e954]: مراقبت تخصصی و دلسوزانه در پرتودرمانی و رادیوسرجری، با تمرکز بر درمان دقیق و انسانی بیماران سرطانی. سلامت و آرامش شما اولویت من است.
+          - generic [ref=e955]:
+            - link "Telegram" [ref=e956] [cursor=pointer]:
+              - /url: https://t.me/radiotherapyclinic
+            - link "WhatsApp" [ref=e959] [cursor=pointer]:
+              - /url: https://wa.me/989124599949
+            - link "Instagram" [ref=e962] [cursor=pointer]:
+              - /url: https://instagram.com/radiotherapyclinic
+          - link "رزرو نوبت" [ref=e967] [cursor=pointer]:
+            - /url: /booking
+        - navigation "دسترسی سریع" [ref=e968]:
+          - heading "دسترسی سریع" [level=3] [ref=e969]
+          - list [ref=e971]:
+            - listitem [ref=e972]:
+              - link "درباره ما" [ref=e973] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=e975]:
+              - link "خدمات ما" [ref=e976] [cursor=pointer]:
+                - /url: /services
+            - listitem [ref=e978]:
+              - link "انجمن گفتگو" [ref=e979] [cursor=pointer]:
+                - /url: /forum
+            - listitem [ref=e981]:
+              - link "رزرو نوبت" [ref=e982] [cursor=pointer]:
+                - /url: /booking
+            - listitem [ref=e984]:
+              - link "بلاگ" [ref=e985] [cursor=pointer]:
+                - /url: /blog
+            - listitem [ref=e987]:
+              - link "تماس با ما" [ref=e988] [cursor=pointer]:
+                - /url: /contact
+        - generic [ref=e990]:
+          - heading "تماس" [level=3] [ref=e991]
+          - list [ref=e993]:
+            - listitem [ref=e994]:
+              - link "تهران، خیابان ولیعصر روبروی درب اورژانس بیمارستان دی، برج پزشکان دی طبقه دهم، واحد C" [ref=e996] [cursor=pointer]:
+                - /url: https://www.google.com/maps/dir/?api=1&destination=Day%20Hospital%2C%20Valiasr%20Street%2C%20Tehran
+                - text: تهران، خیابان ولیعصرروبروی درب اورژانس بیمارستان دی، برج پزشکان دیطبقه دهم، واحد C
+              - link "مسیریابی" [ref=e997] [cursor=pointer]:
+                - /url: https://www.google.com/maps/dir/?api=1&destination=Day%20Hospital%2C%20Valiasr%20Street%2C%20Tehran
+            - listitem [ref=e998]:
+              - link "۰۲۱ ۸۸۷۰ ۹۶۵۰" [ref=e999] [cursor=pointer]:
+                - /url: tel:02188709650
+            - listitem [ref=e1002]:
+              - link "info@radiotherapyclinic.com" [ref=e1003] [cursor=pointer]:
+                - /url: mailto:info@radiotherapyclinic.com
+        - generic [ref=e1008]:
+          - generic [ref=e1009]:
+            - heading "ساعات کاری" [level=3] [ref=e1010]
+            - generic [ref=e1012]: اکنون بسته است
+          - list [ref=e1015]:
+            - listitem [ref=e1016]:
+              - generic [ref=e1017]: شنبه – پنجشنبه
+              - generic [ref=e1018]: ۸:۰۰ صبح – ۵:۰۰ بعد از ظهر
+            - listitem [ref=e1019]:
+              - generic [ref=e1020]: جمعه
+              - generic [ref=e1021]: تعطیل
+          - link "ورود مدیریت" [ref=e1023] [cursor=pointer]:
+            - /url: /admin/login
+      - generic [ref=e1026]:
+        - generic [ref=e1027]:
+          - paragraph [ref=e1028]: © ۲۰۲۶ دکتر پری قدمگاهی. تمامی حقوق محفوظ است.
+          - paragraph [ref=e1029]:
+            - text: طراحی توسط
+            - link "sinisteroid" [ref=e1030] [cursor=pointer]:
+              - /url: https://sinisteroid.ir/
+        - generic [ref=e1031]:
+          - link "حریم خصوصی" [ref=e1032] [cursor=pointer]:
+            - /url: /privacy
+          - link "شرایط استفاده" [ref=e1034] [cursor=pointer]:
+            - /url: /terms
+          - link "بازگشت به بالا" [ref=e1036] [cursor=pointer]:
+            - /url: "#top"

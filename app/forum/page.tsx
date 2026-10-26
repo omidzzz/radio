@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import NewPostForm from "@/components/forms/NewPostForm";
-import { getServerDictionary, getServerLocale } from "@/lib/i18n/server";
+import { getDictionary, defaultLocale } from "@/lib/i18n/server";
 import { getCategoryLabel, formatDate, formatRelativeTime } from "@/lib/i18n";
 import { toFarsiDigits } from "@/lib/i18n/numbers";
 import { siteConfig } from "@/lib/seo/seo";
@@ -14,7 +14,8 @@ import { getPageItems } from "@/lib/http/pagination";
 import { listForumPostSummaries } from "@/lib/services/forum-service";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const { dict } = await getServerDictionary();
+  const locale = defaultLocale;
+  const dict = getDictionary(locale);
 
   return {
     title: dict.forum.title,
@@ -45,25 +46,15 @@ const CATEGORIES = ["all", "general", "treatment", "support", "other"] as const;
 const SORTS = ["newest", "replies"] as const;
 type Sort = (typeof SORTS)[number];
 
-export default async function ForumPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ page?: string; category?: string; sort?: string }>;
-}) {
-  const { dict } = await getServerDictionary();
-  const locale = await getServerLocale();
+export default async function ForumPage({}: { searchParams?: Promise<{ page?: string; category?: string; sort?: string }> }) {
+  const locale = defaultLocale;
+  const dict = getDictionary(locale);
   const isFa = locale === "fa";
 
-  const params = await searchParams;
-  const page = Math.max(1, parseInt(params.page || "1", 10) || 1);
-  const category = params.category || "all";
-  const sort: Sort = SORTS.includes(params.sort as Sort)
-    ? (params.sort as Sort)
-    : "newest";
-  // Validate category
-  const validCategory = CATEGORIES.includes(category as (typeof CATEGORIES)[number])
-    ? category
-    : "all";
+  const page = 1;
+  const category = "all";
+  const sort: Sort = "newest";
+  const validCategory = "all";
 
   // Delegate to the cached service query so repeated navigations hit
   // forumCache instead of re-running the SQLite query each request.

@@ -698,16 +698,6 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
             className="group relative inline-flex items-center gap-2 rounded-lg bg-primary-fill px-8 py-3 text-base font-semibold text-on-primary transition hover:bg-primary-fill-hover"
           >
             {dict.booking.wizardNext}
-            <svg
-              className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2.2}
-              aria-hidden="true"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5-5 5M6 7l5 5-5 5" />
-            </svg>
           </button>
         </div>
         </>

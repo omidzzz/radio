@@ -35,12 +35,21 @@
     border-width: 2px;
   }
 
-  :focus-visible {
-    outline-width: 3px;
+/* ─── Slider nav buttons — high contrast ─── */
+  .slider-nav-arrow {
+    border-width: 2px;
+  }
+
+  .slider-nav-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border: 2px solid;
+  }
+
+  .slider-nav-dot-active {
+    width: 1.5rem;
   }
 }
-
-/* ─── Desktop scrollbar — thin and theme-aware ─── */
 @media (hover: hover) and (pointer: fine) {
 
   html {

@@ -1,0 +1,200 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # ── Force HTTPS ───────────────────────────────────────────────────
+  # HSTS is only honoured AFTER the browser has seen one secure response;
+  # plain-HTTP requests must be redirected here. (If you serve the origin
+  # behind Cloudflare "Flexible" SSL, %{HTTPS} stays off server-side —
+  # switch to "Full" mode or remove this block to avoid a redirect loop.)
+  RewriteCond %{HTTPS} off
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+  # ── Collapse duplicate slashes in the path ──────────────────────────
+  # /en// and /fa// are answered with a 200 as duplicates of the locale
+  # roots (they used to be the canonical those pages advertised). Collapse
+  # one pair per pass; R=301 makes the client re-request until it is clean.
+  RewriteCond %{REQUEST_URI} ^(.*)//(.*)$
+  RewriteRule ^ %1/%2 [R=301,L]
+
+  # ── RSC payloads (index.txt) — if present, serve them untouched ──────
+  # Next.js prefetches these files for instant client-side navigation.
+  # This short-circuit guarantees a real payload is never swallowed by an
+  # older blog/DB rewrite rule, even on hosts with a stale .htaccess.
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteRule .txt$ - [L]
+
+  # ── Canonicalization: legacy ?lang= parameter ─────────────────────
+  # Old URLs like /blog/post?lang=fa or /education?lang=en are 301'd to
+  # the locale-prefixed canonical (/fa/blog/post/, /en/education/).
+  RewriteCond %{REQUEST_URI} !^/(en|fa)(/|$) [NC]
+  RewriteCond %{QUERY_STRING} ^lang=(fa|en) [NC]
+  RewriteRule ^$ /%2/ [R=301,L]
+  RewriteCond %{REQUEST_URI} !^/(en|fa)(/|$) [NC]
+  RewriteCond %{QUERY_STRING} ^lang=(fa|en) [NC]
+  RewriteRule ^(.+)$ /%2/$1 [R=301,L]
+
+  # ── Canonicalization: any other query string on page URLs ─────────
+  RewriteCond %{REQUEST_URI} !^/api/ [NC]
+  RewriteCond %{QUERY_STRING} !^$
+  RewriteRule ^(.*)$ /$1? [R=301,L]
+
+  # ── Bare URLs → canonical locale-prefixed 301s ────────────────────
+  # /blog, /showcase… and /blog/<slug> are NOT canonical anymore; they
+  # permanently redirect so Google consolidates them into /en/…
+  # (Persian reaches users via hreflang + the root language notice.)
+  RewriteRule ^(blog|work|skills|education|showcase)/?$ en/$1/ [R=301,L]
+  RewriteRule ^blog/([^/]+)/?$ en/blog/$1/ [R=301,L]
+
+  # ── Root: language-aware INTERNAL rewrite (no client roundtrip) ───
+  # The old external 301 added a full document roundtrip to every cold
+  # visit (Lighthouse: "Document request latency"). Serving the locale
+  # homepage AT the root URL with 200 removes it entirely — no duplicate-
+  # content risk either, because the served file already carries its own
+  # <link rel="canonical"> to /en/ or /fa/.
+  RewriteCond %{HTTP:Accept-Language} ^fa [NC]
+  RewriteRule ^$ fa/index.html [L]
+  RewriteRule ^$ en/index.html [L]
+
+  # ── Section pages without trailing slash → canonical slash 301 ────
+  # Fires ONLY for the section INDEX (en/blog, fa/work, …). Individual
+  # post URLs never get an external redirect here: a 301 in front of the
+  # dynamic renderer can resolve to a 404/500 (e.g. a post still a draft
+  # or not yet in MySQL when crawled) and Google records the whole crawl
+  # as a "Redirect error" — exactly what Search Console flagged for DB-only
+  # posts. Post URLs below are served with INTERNAL rewrites (200) only.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^(en|fa)/(blog|work|skills|education|showcase)$ $1/$2/ [R=301,L]
+
+  # ── Static blog post w/o trailing slash → serve index.html (200) ─
+  # Internal rewrite, not a redirect. The page ships its own
+  # <link rel="canonical"> in trailing-slash form, so Google still
+  # consolidates the no-slash and slash variants into one URL.
+  RewriteCond %{REQUEST_URI} ^/en/blog/([^/]+)$
+  RewriteCond %{DOCUMENT_ROOT}/en/blog/%1/index.html -f
+  RewriteRule ^ /en/blog/%1/index.html [L]
+  RewriteCond %{REQUEST_URI} ^/fa/blog/([^/]+)$
+  RewriteCond %{DOCUMENT_ROOT}/fa/blog/%1/index.html -f
+  RewriteRule ^ /fa/blog/%1/index.html [L]
+
+  # ── Locale section index — serve index.html (internal) ──────────
+  RewriteRule ^en/blog$ en/blog/index.html [L]
+  RewriteRule ^fa/blog$ fa/blog/index.html [L]
+  RewriteRule ^en/work$ en/work/index.html [L]
+  RewriteRule ^fa/work$ fa/work/index.html [L]
+  RewriteRule ^en/skills$ en/skills/index.html [L]
+  RewriteRule ^fa/skills$ fa/skills/index.html [L]
+  RewriteRule ^en/education$ en/education/index.html [L]
+  RewriteRule ^fa/education$ fa/education/index.html [L]
+  RewriteRule ^en/showcase$ en/showcase/index.html [L]
+  RewriteRule ^fa/showcase$ fa/showcase/index.html [L]
+
+  # ── DB-only posts → server-side PHP rendering ────────────────────
+  # Posts published via /api/admin.php exist only in MySQL until the
+  # next static export. When no pre-rendered folder exists for a slug,
+  # api/post.php renders the FULL article (HTML head, meta tags, JSON-LD,
+  # all content blocks) straight from the database — no rebuild needed.
+  # Existing folders are untouched (!-d guard).
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^(en|fa)/blog/([^/.]+)/?$ api/post.php?slug=$2&locale=$1 [QSA,L]
+
+  # ── Dynamic sitemap: all DB posts get indexed via sitemap.php ──────
+  # sitemap.xml is rewritten to sitemap.php which reads ALL published
+  # posts from MySQL, so new admin-published posts appear in the sitemap
+  # immediately and Google can discover/index them without a rebuild.
+  RewriteRule ^sitemap\.xml$ sitemap.php [L,QSA]
+  
+  # ── Protect sensitive files ──────────────────────────────────────
+  <FilesMatch "\.(env|sql|log|md)$">
+    Deny from all
+  </FilesMatch>
+  <FilesMatch "^(config\.php|config\.php\.example)$">
+    Deny from all
+  </FilesMatch>
+
+  # ── Mark /api/* so response headers can be scoped per-path ────────
+  <IfModule mod_setenvif.c>
+    SetEnvIf Request_URI "^/api/" SINISTEROID_API=1
+  </IfModule>
+
+  # ── API requests pass through to PHP (no rewrite needed) ────────
+  RewriteCond %{REQUEST_URI} ^/api/
+  RewriteRule ^ - [L]
+
+  # ── Existing files and directories are served directly ──────────
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set X-XSS-Protection "1; mode=block"
+  Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+  Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+
+  # ── Content-Security-Policy ──────────────────────────────────────
+  # 'unsafe-inline' for scripts/styles is required by design: the theme
+  # bootstrap <script> and all CSS are inlined into the HTML for LCP.
+  # Still blocks external/remote script injection, plugins, framing and
+  # form hijacking. Not applied to /api/* (the admin panel embeds its
+  # own inline app and is never a public page anyway).
+  # Google Analytics tag carve-outs (gated to Google's measurement
+  # domains only): script-src allows the gtag.js loader from
+  # googletagmanager.com; connect-src allows GA4 collect beacons from
+  # google-analytics.com / analytics.google.com (incl. EU region
+  # subdomains such as region1.* and the analytics.google.com apex).
+  # img-src covers GA4's image beacons as prescribed by Google's CSP
+  # guide: googletagmanager.com (the tag-diagnostics pixel /td) and
+  # *.google-analytics.com (the image fallback GA4 uses for /g/collect
+  # when sendBeacon/fetch keepalive is unavailable).
+  # Google's AD hosts stay out on purpose: GoogleTag.tsx sets
+  # allow_google_signals:false so a compliant tag never calls
+  # stats.g.doubleclick.net or www.google.<TLD>/ads/ga-audiences (those
+  # two were what the browser used to block here). The google.com /
+  # google.de img-src entries are the fallback pixels for regional
+  # audiences if Signals is ever re-enabled property-side.
+  Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.googletagmanager.com https://*.google-analytics.com https://*.google.com https://*.google.de; font-src 'self' data:; connect-src 'self' https://*.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://analytics.google.com https://www.google.com https://sinister-mu.vercel.app; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'" env=!SINISTEROID_API
+
+  # ── Keep the JSON endpoints out of search indexes ─────────────────
+  Header set X-Robots-Tag "noindex, nofollow" env=SINISTEROID_API
+  # ── Cache-Control: path-scoped, never content-hash by extension ──────
+  # The old "FilesMatch .(css|js|…)$ immutable" rule matched sw.js (so the
+  # service worker was frozen for a year — browsers cap SW refresh at ~24h,
+  # but every non-_next image/OG card was also immutable-in-place across
+  # rebuilds, which is exactly wrong for files that change per build).
+  # 1. _next/static/* is content-hashed per build → immutable for its lifetime.
+  Header set Cache-Control "public, max-age=31536000, immutable" "expr=%{REQUEST_URI} =~ m#^/_next/static/#"
+  # 2. The service worker is polled for updates — never cache it long or new
+  #    SW versions stall behind the browser's update cap.
+  Header set Cache-Control "no-cache, must-revalidate" "expr=%{REQUEST_URI} =~ m#^/sw\.js$#"
+  # 3. Manifest/feeds regenerate per build — short revalidate, no round-trip
+  #    on every page load.
+  Header set Cache-Control "public, max-age=300, must-revalidate" "expr=%{REQUEST_URI} =~ m#\.(webmanifest|xml|txt)$#"
+  # 4. Media OUTSIDE _next (hero image, project shots, generated OG cards,
+  #    uploads, favicon, fonts) is replaced by the next build: week-long cache
+  #    with revalidation — never immutable (old OG cards/live-index thumbnails
+  #    must update without a hard cache-busting rename).
+  Header set Cache-Control "public, max-age=604800, must-revalidate" "expr=%{REQUEST_URI} =~ m#\.(webp|png|jpe?g|gif|svg|ico|woff2?)$#"
+  # 5. API responses are live DB data — never reuse a stale JSON payload.
+  Header set Cache-Control "no-store" "expr=%{REQUEST_URI} =~ m#^/api/#"
+  # 6. HTML documents always revalidate (they embed the inline CSS + RSC shell).
+  Header set Cache-Control "public, max-age=0, must-revalidate" "expr=%{REQUEST_URI} =~ m#\.html$#"
+</IfModule>
+
+# ── Compression: smaller HTML/CSS/JS/JSON over the wire ──────────
+# PSI's throttled transfer directly reflects this: the inlined CSS makes
+# each HTML doc sizable, and get_posts.php JSON payloads compress ~80%.
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/css text/javascript application/javascript application/json image/svg+xml application/xml application/rss+xml
+</IfModule>
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript application/javascript application/json image/svg+xml application/xml application/rss+xml
+</IfModule>
+
+Options -Indexes
+
+ErrorDocument 404 /404.html

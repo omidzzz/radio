@@ -8,7 +8,7 @@ import {
   startTransition,
   ReactNode,
 } from "react";
-import { Locale, LOCALE_COOKIE } from "@/lib/i18n/config";
+import { Locale, LOCALE_COOKIE, isLocale } from "@/lib/i18n/config";
 
 interface LocaleContextValue {
   locale: Locale;
@@ -35,11 +35,28 @@ export function LocaleProvider({
 }) {
   const [locale, setLocaleState] = useState<Locale>(initialLocale);
 
-  // Apply dir to document on locale change
+  // On first load, detect locale from URL path prefix (/en or /fa) when no
+  // cookie is set. Static export has no middleware to strip the prefix, so
+  // the client handles it so the right dictionary renders.
   useEffect(() => {
+    if (typeof window === "undefined") return;
+    const hasCookie = document.cookie
+      .split(";")
+      .some((c) => c.trim().startsWith(`${LOCALE_COOKIE}=`));
+    if (!hasCookie) {
+      const match = window.location.pathname.match(/^\/([a-z]{2})(\/|$)/);
+      const urlLocale = match && isLocale(match[1]) ? match[1] : undefined;
+      if (urlLocale && urlLocale !== initialLocale) {
+        document.cookie = `${LOCALE_COOKIE}=${urlLocale}; path=/; max-age=${
+          60 * 60 * 24 * 365
+        }; samesite=lax${location.protocol === "https:" ? "; secure" : ""}`;
+        setLocaleState(urlLocale);
+      }
+    }
+    // Apply dir to document
     document.documentElement.dir = locale === "fa" ? "rtl" : "ltr";
     document.documentElement.lang = locale;
-  }, [locale]);
+  }, []);
 
   const setLocale = (newLocale: Locale) => {
     // Persist the cookie client-side so the server/middleware render the

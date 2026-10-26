@@ -22,7 +22,6 @@ import {
   MailIcon,
   ChatIcon,
   CareIcon,
-  ArrowIcon,
 } from "@/components/ui/icons";
 
 export const metadata: Metadata = {
@@ -48,7 +47,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 /** Hero feature bullets — icons reference shared components, labels come from i18n */
 const HERO_FEATURE_ICONS = [
@@ -113,10 +112,10 @@ export default async function ContactPage() {
               <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-primary/25 bg-primary/10 text-primary">
                 {HERO_FEATURE_ICONS[i]}
               </div>
-              <p className="text-sm font-medium leading-tight text-slate-200">
+              <p className="text-sm font-medium leading-tight text-text-on-dark">
                 {f.label}
               </p>
-              <p className="text-xs leading-tight text-slate-400">{f.sub}</p>
+              <p className="text-xs leading-tight text-text-secondary/90">{f.sub}</p>
             </div>
           ))}
         </div>
@@ -135,7 +134,6 @@ export default async function ContactPage() {
             className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-primary-fill px-6 py-2.5 text-sm font-semibold text-on-primary shadow-[0_0_28px_-4px_rgba(26,115,82,0.6)] transition-all hover:bg-primary-fill-hover hover:shadow-[0_0_36px_-4px_rgba(26,115,82,0.75)]"
           >
             <span className="relative z-10">{dict.contact.sendMessage}</span>
-            <ArrowIcon className="relative z-10 h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
           </a>
         </div>
       </PageHero>
@@ -334,7 +332,6 @@ export default async function ContactPage() {
                 className="group relative inline-flex shrink-0 items-center gap-2 overflow-hidden rounded-full bg-primary-fill px-6 py-2.5 text-sm font-semibold text-on-primary shadow-[0_0_26px_-5px_rgba(26,115,82,0.55)] transition-all hover:bg-primary-fill-hover hover:shadow-[0_0_34px_-4px_rgba(26,115,82,0.7)]"
               >
                 <span className="relative z-10">{dict.contact.visitForum}</span>
-                <ArrowIcon className="relative z-10 h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
               </Link>
             </div>
           </div>

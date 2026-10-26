@@ -124,7 +124,7 @@ export default function Precision({ isFa }: PrecisionProps) {
           </Reveal>
 
           {/* Plan metrics */}
-          <dl className="tnum mt-8 grid grid-cols-3 gap-4 border-t border-border pt-6">
+          <dl className="tnum mt-8 grid grid-cols-1 gap-3 border-t border-border pt-6 md:grid-cols-3 md:gap-4">
             {stats.map((s, i) => (
               <Reveal key={s.label} delay={i * 90}>
                 <div>

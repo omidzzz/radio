@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import db from "@/lib/db/db";
@@ -7,7 +7,7 @@ import {
   getCachedForumPost,
   listCachedRepliesForPost,
 } from "@/lib/services/forum-service";
-import { getServerDictionary } from "@/lib/i18n/server";
+import { getDictionary, defaultLocale } from "@/lib/i18n/server";
 import { getCategoryLabel, formatDate, formatRelativeTime } from "@/lib/i18n";
 import { toFarsiDigits } from "@/lib/i18n/numbers";
 import { siteConfig } from "@/lib/seo/seo";
@@ -67,7 +67,6 @@ export async function generateMetadata({
 
 interface PageProps {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ replyPage?: string }>;
 }
 
 function getInitials(name: string) {
@@ -97,7 +96,7 @@ function avatarGradient(name: string) {
   return AVATAR_GRADIENTS[hash % AVATAR_GRADIENTS.length];
 }
 
-export default async function ForumPostPage({ params, searchParams }: PageProps) {
+export default async function ForumPostPage({ params }: PageProps) {
   const { id } = await params;
   const postId = Number(id);
 
@@ -106,7 +105,9 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
     notFound();
   }
 
-  const { dict, locale } = await getServerDictionary();
+  const locale = defaultLocale;
+  const dir = locale === "fa" ? ("rtl" as const) : ("ltr" as const);
+  const dict = getDictionary(locale);
   const isFa = locale === "fa";
   const formatCount = (n: number) => (isFa ? toFarsiDigits(n) : String(n));
 
@@ -119,8 +120,7 @@ export default async function ForumPostPage({ params, searchParams }: PageProps)
   // Paginated replies — avoids loading unbounded thread history at once.
   // Uses a single cached SQLite pass (window functions for total + admin count)
   // instead of the 3 separate COUNT/SELECT queries previously run here.
-  const replyParams = await searchParams;
-  const replyPage = Math.max(1, parseInt(replyParams.replyPage || "1", 10) || 1);
+  const replyPage = 1;
   const replyOffset = (replyPage - 1) * REPLIES_PER_PAGE;
 
   const { replies, total: totalReplies, adminCount } = listCachedRepliesForPost(

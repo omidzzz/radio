@@ -246,7 +246,7 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 export default async function ServicesPage() {
   const { dict, locale } = await getServerDictionary();
@@ -490,7 +490,7 @@ export default async function ServicesPage() {
 
             {/* Text */}
             <div className="p-10 text-center sm:p-12 lg:p-14 lg:text-start">
-              <div className="mx-auto mb-5 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1 text-xs font-medium text-gold lg:mx-0">
+              <div className="mx-auto mb-5 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1 text-xs font-medium text-highlight lg:mx-0">
                 <span aria-hidden="true" className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary-fill motion-reduce:animate-none" />
                 {dict.services.ctaBadge}
               </div>
@@ -498,7 +498,7 @@ export default async function ServicesPage() {
               <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
                 {dict.services.ctaTitle}
               </h2>
-              <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-slate-300/90 lg:mx-0">
+              <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-text-on-dark/90 lg:mx-0">
                 {dict.services.ctaSubtitle}
               </p>
 
@@ -513,20 +513,6 @@ export default async function ServicesPage() {
                   />
                   <span className="relative flex items-center gap-2">
                     {dict.services.bookConsultation}
-                    <svg
-                      aria-hidden="true"
-                      className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2.5}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M17 8l4 4m0 0l-4 4m4-4H3"
-                      />
-                    </svg>
                   </span>
                 </Link>
                 <Link

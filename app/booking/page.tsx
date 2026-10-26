@@ -35,7 +35,7 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 export default async function BookingPage() {
   const { dict, locale } = await getServerDictionary();
@@ -253,19 +253,6 @@ export default async function BookingPage() {
                     <span className="relative z-10">
                       {dict.booking.visitForum}
                     </span>
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      className="relative z-10 h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5"
-                      stroke="currentColor"
-                      strokeWidth="2.2"
-                    >
-                      <path
-                        d="M5 12h14M13 6l6 6-6 6"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
                   </Link>
                 </div>
               </div>

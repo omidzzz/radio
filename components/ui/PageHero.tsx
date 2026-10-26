@@ -63,7 +63,7 @@ export default function PageHero({
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary-fill opacity-55" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-primary-fill" />
               </span>
-              <span className="text-sm font-medium tracking-wide text-gold">
+              <span className="text-sm font-medium tracking-wide text-highlight">
                 {badge}
               </span>
             </div>
@@ -74,7 +74,7 @@ export default function PageHero({
           </h1>
 
           {subtitle && (
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-slate-300/90">
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-text-on-dark/90">
               {subtitle}
             </p>
           )}

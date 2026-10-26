@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useId } from "react";
+import { memo, useMemo, useId } from "react";
 
 interface NodeNetworkProps {
   /** Number of nodes */
@@ -57,7 +57,7 @@ function mulberry32(seed: number) {
  * Pure CSS animation, GPU-accelerated.
  * Respects prefers-reduced-motion.
  */
-export default function NodeNetwork({
+export default memo(function NodeNetwork({
   nodeCount = 12,
   nodeRadius = 3,
   className = "",
@@ -206,4 +206,4 @@ export default function NodeNetwork({
       </g>
     </svg>
   );
-}
+});

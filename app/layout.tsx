@@ -7,6 +7,7 @@ import RootErrorBoundary from "@/components/ui/RootErrorBoundary";
 import { LocaleProvider } from "@/components/providers/LocaleProvider";
 import { getServerLocale, getDictionary } from "@/lib/i18n/server";
 import { localeDirs } from "@/lib/i18n/config";
+import { getWorkingHoursSummary, getOpenNowStatus } from "@/lib/services/working-hours";
 import { siteConfig } from "@/lib/seo/seo";
 import {
   websiteSchema,
@@ -102,20 +103,7 @@ export const metadata: Metadata = {
   },
   manifest: "/manifest.json",
   icons: {
-    icon: [
-      { url: "/images/icon.svg", type: "image/svg+xml" },
-      { url: "/images/icon-192.png", sizes: "192x192", type: "image/png" },
-      { url: "/images/icon-512.png", sizes: "512x512", type: "image/png" },
-    ],
-    // iOS cannot read SVG apple-touch-icons — PNG required here
-    apple: [
-      {
-        url: "/images/apple-touch-icon.png",
-        sizes: "180x180",
-        type: "image/png",
-      },
-    ],
-    shortcut: "/images/icon.svg",
+    icon: [{ url: "/images/icon-512.png" }],
   },
   appleWebApp: {
     capable: true,
@@ -149,6 +137,8 @@ export default async function RootLayout({
   const locale = await getServerLocale();
   const dir = localeDirs[locale];
   const dict = getDictionary(locale);
+  const workingHours = getWorkingHoursSummary(locale);
+  const { isOpen } = getOpenNowStatus();
 
   const jsonLd = [
     websiteSchema(),
@@ -205,7 +195,10 @@ export default async function RootLayout({
                   {children}
                 </main>
               </RootErrorBoundary>
-              <Footer />
+              <Footer
+                workingHours={workingHours}
+                isOpen={isOpen}
+              />
               <StickyBookingBar
                 label={dict.common.bookNow}
                 isFa={locale === "fa"}

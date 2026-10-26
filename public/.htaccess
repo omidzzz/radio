@@ -1,10 +1,19 @@
 # ─────────────────────────────────────────────
-# HTTPS & WWW Canonicalization
-# ⚠️ Replace yourdomain.com with your actual domain
+# Static HTML Export (`next export`) — Apache/cPanel
+# Deploy the entire `out/` folder — including this hidden .htaccess file —
+# to the domain's document root. Do NOT point this at a Node.js backend.
 # ─────────────────────────────────────────────
-# Force HTTPS
+# Force UTF-8 charset (fixes Persian/Arabic mojibake)
+AddDefaultCharset UTF-8
+<IfModule mod_mime.c>
+  AddCharset UTF-8 .html .css .js .json .xml .rss .txt
+</IfModule>
+
+DirectoryIndex index.html
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  Options +FollowSymLinks -Indexes
 
   # Force www → non-www (uncomment one of the two redirect blocks below)
   # Option A: Redirect www to non-www
@@ -20,13 +29,29 @@
   # RewriteCond %{HTTP:X-Forwarded-Proto} !https
   # RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 
-  # Allow direct access to existing files and directories
+  # Strip locale prefix (/en or /fa) for static export — serve underlying page
+  RewriteRule ^en/(.*)$ /$1 [L]
+  RewriteRule ^en$ / [L]
+  RewriteRule ^fa/(.*)$ /$1 [L]
+  RewriteRule ^fa$ / [L]
+
+  # Serve existing files and directories directly
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
 
-  # Proxy all other requests to Next.js server on port 3000
-  RewriteRule ^(.*)$ http://localhost:3000/$1 [P,L]
+  # No Node.js backend in static export → block API routes explicitly
+  RewriteRule ^api/ - [R=404,L]
+
+  # Favicon (actual file lives at /images/icon-512.png)
+  RewriteRule ^favicon\.ico$ /images/icon-512.png [L]
+
+  # Root path → index.html
+  RewriteRule ^$ /index.html [L]
+
+  # Client-side routes fall back to index.html (Next.js renders real 404s)
+  RewriteCond %{REQUEST_URI} !\.(?:css|js|jpg|jpeg|png|gif|svg|ico|woff|woff2|ttf|eot|webp|avif|json|xml|txt|html)$ [NC]
+  RewriteRule ^(.*)$ /index.html [L]
 </IfModule>
 
 # CORS headers (restricted - replace with your actual domain)

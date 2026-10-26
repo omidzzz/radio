@@ -22,7 +22,10 @@ export interface ScrollProgressInfo {
  */
 export function useScrollProgress(callback: (info: ScrollProgressInfo) => void) {
   const cbRef = useRef(callback);
-  cbRef.current = callback;
+
+  useEffect(() => {
+    cbRef.current = callback;
+  }, [callback]);
 
   useEffect(() => {
     let rafId = 0;

@@ -44,7 +44,6 @@ export function medicalClinicSchema(): JsonLd {
     "@id": `${siteConfig.url}/#organization`,
     name: siteConfig.name,
     url: siteConfig.url,
-    logo: `${siteConfig.url}/images/icon-192.png`,
     image: `${siteConfig.url}${siteConfig.defaultOgImage}`,
     description: siteConfig.description.fa,
     telephone: siteConfig.phone,
@@ -147,7 +146,7 @@ export function physicianSchema(
     name,
     jobTitle: role,
     description: bio,
-    image: image || `${siteConfig.url}/images/icon-192.png`,
+    ...(image ? { image } : {}),
     worksFor: {
       "@id": `${siteConfig.url}/#organization`,
     },
@@ -170,7 +169,6 @@ export function sitePhysicianSchema(): JsonLd {
     jobTitle: "متخصص رادیوتراپی و آنکولوژی",
     description: siteConfig.description.fa,
     url: siteConfig.url,
-    image: `${siteConfig.url}/images/icon-192.png`,
     telephone: siteConfig.phone,
     email: siteConfig.email,
     medicalSpecialty: ["Oncologic", "RadiationTherapy"],
@@ -480,7 +478,6 @@ export function reviewSchema(): JsonLd {
     "@type": "MedicalBusiness",
     "@id": `${siteConfig.url}/#review`,
     name: siteConfig.name,
-    image: `${siteConfig.url}${siteConfig.defaultOgImage}`,
     address: {
       "@type": "PostalAddress",
       streetAddress: siteConfig.address.street,

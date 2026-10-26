@@ -51,6 +51,14 @@ export function trackWebVital(
     console.debug(`[WebVital] ${name}: ${value} (${rating})`);
   }
 
+  // Static export (`output: "export"`) has no /api/web-vitals endpoint — the
+  // route was removed because Next.js cannot run API routes without a server.
+  // Only send metrics when explicitly enabled, so production hosts never hit
+  // a missing route (503/404) on every page load.
+  if (process.env.NEXT_PUBLIC_WEB_VITALS !== "true") {
+    return;
+  }
+
   const payload = JSON.stringify({ name, value, rating, path: location.pathname });
   try {
     if (typeof navigator !== "undefined" && navigator.sendBeacon) {

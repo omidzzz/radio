@@ -166,20 +166,6 @@ export default function ServiceCard({
             className="inline-flex items-center gap-2 rounded-lg text-sm font-semibold text-primary outline-none transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface hover:text-primary-hover"
           >
             <span>{ctaLabel}</span>
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              aria-hidden="true"
-              className="h-4 w-4 rtl:-scale-x-100"
-              stroke="currentColor"
-              strokeWidth={2.2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M17 8l4 4m0 0l-4 4m4-4H3"
-              />
-            </svg>
           </Link>
         </div>
       </div>

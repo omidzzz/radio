@@ -1,0 +1,134 @@
+"use client";
+
+import {
+  useRef,
+  type ReactNode,
+  type MouseEvent,
+  type ElementType,
+  type ComponentPropsWithoutRef,
+} from "react";
+
+type Variant = "primary" | "ghost" | "secondary" | "outline" | "text";
+
+type MagneticButtonProps<T extends ElementType = "span"> = {
+  children: ReactNode;
+  as?: T;
+  href?: string;
+  className?: string;
+  strength?: number;
+  variant?: Variant;
+  mode?: "follow" | "attract" | "repel";
+  ripple?: boolean;
+  glow?: boolean;
+} & Omit<ComponentPropsWithoutRef<T>, "children" | "className" | "href">;
+
+const VARIANTS: Record<Variant, string> = {
+  // Primary — solid, clean, subtle lift
+  primary: "bg-primary text-white border border-transparent hover:bg-primary-hover shadow-sm hover:shadow dark:bg-primary dark:text-on-primary dark:hover:bg-primary-hover",
+
+  // Ghost — hairline border, soft hover
+  ghost: "bg-transparent text-deep border border-border/60 hover:border-primary/50 hover:bg-primary/[0.03] hover:text-primary dark:text-primary dark:border-primary/25 dark:hover:bg-primary/[0.08] dark:hover:border-primary/50",
+
+  // Secondary — soft tint, almost borderless feel
+  secondary: "bg-secondary/8 text-secondary-dark border border-secondary/20 hover:bg-secondary/14 hover:border-secondary/35 dark:bg-secondary/10 dark:text-secondary-hover dark:border-secondary/20 dark:hover:bg-secondary/16",
+
+  // Outline — clear fill, colored border
+  outline: "bg-transparent text-primary border border-primary hover:bg-primary/[0.04] hover:text-primary-hover shadow-sm hover:shadow dark:border-primary/50 dark:hover:bg-primary/[0.08] dark:hover:text-primary-hover",
+
+  // Text — minimal, almost like a link
+  text: "text-primary underline-offset-4 hover:underline bg-transparent border-none shadow-none dark:text-primary-hover focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2",
+};
+
+const BASE =
+  "group relative inline-flex items-center justify-center gap-2 rounded-full cursor-pointer select-none transition-all duration-[var(--animation-speed-fast,200ms)] ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-40 disabled:pointer-events-none disabled:shadow-none";
+
+export default function MagneticButton<T extends ElementType = "span">({
+  children,
+  as: Tag = "span" as T,
+  href,
+  className = "",
+  strength = 0.2,
+  variant = "primary",
+  ...rest
+}: MagneticButtonProps<T>) {
+  const ref = useRef<HTMLElement | null>(null);
+  const [my, setMY] = useRefValue(0);
+  const [scale, setScale] = useRefValue(1);
+
+  const canMove = useCallback(() => {
+    if (typeof window === "undefined") return false;
+    return !window.matchMedia("(hover: none)").matches && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }, []);
+    
+    !window.matchMedia("(hover: none)").matches &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const handleMouseMove = useCallback(
+    (e: MouseEvent<HTMLElement>) => {
+      const el = ref.current;
+      if (!el || !canMove()) { setMX(0); setMY(0); setScale(1); return; }
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      const damping = 0.12;
+      setMX((x * strength * 25) * damping);
+      setMY((y * strength * 25) * damping);
+      const dist = Math.hypot(x, y);
+      setScale(Math.max(0.92, 1 - dist / 120 * 0.08));
+    },
+    [strength, canMove],
+  );
+    const el = ref.current;
+    if (!el || !canMove()) return;
+
+    const rect = el.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+
+    el.style.transition = "transform 100ms ease-out";
+    el.style.transform = `translate(${x * strength}px, ${
+      y * strength
+    }px) scale(var(--mb-scale, 1))`;
+  };
+
+  const handleMouseLeave = useCallback(() => {
+    const el = ref.current;
+    if (!el) return;
+    setMX(0); setMY(0); setScale(1);
+  }, []);
+    
+  };
+
+  const handleMouseDown = useCallback(() => {
+    const el = ref.current;
+    if (!el) return;
+    setScale(0.94);
+  }, []);
+
+  const handleMouseUp = useCallback(() => {
+    const el = ref.current;
+    if (!el) return;
+    setScale(1);
+  }, []);
+
+  return (
+    <Tag
+      ref={ref as never}
+      href={href}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      className={`${BASE} ${VARIANTS[variant] || VARIANTS.primary} ${className}`}
+      style={{ `--mb-strength`: strength, `--mb-scale`: scale, `--gx`: "50%", `--gy`: "50%" }}
+      {...rest}
+    >
+      {children}
+      {ripple && (
+        <span
+          className="absolute inset-0 rounded-full opacity-0 transition-opacity duration-200 bg-primary/[0.1] pointer-events-none"
+          style={{ transform: scale !== 1 ? "scale(1.25)" : "scale(1)" }}
+        />
+      )}
+    }
+  

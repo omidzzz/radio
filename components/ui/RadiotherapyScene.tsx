@@ -14,6 +14,19 @@ interface BeamPulse {
 
 export default function RadiotherapyScene() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const sceneRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const glowLeftRef = useRef<HTMLDivElement>(null);
+  const glowRightRef = useRef<HTMLDivElement>(null);
+  const reticleRef = useRef<HTMLDivElement>(null);
+  const coordinatesRef = useRef<HTMLSpanElement>(null);
+  const gantryRef = useRef<SVGTextElement>(null);
+  const hudGantryRef = useRef<HTMLDivElement>(null);
+  const hudCollimatorRef = useRef<HTMLDivElement>(null);
+  const sessionRef = useRef<HTMLDivElement>(null);
+  const elapsedRef = useRef(0);
+  const pointerFrameRef = useRef<number | null>(null);
+  const pointerPositionRef = useRef<{ x: number; y: number } | null>(null);
   const pulseIdRef = useRef(0);
   const beamPulseIdRef = useRef(0);
   const fireTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -21,9 +34,6 @@ export default function RadiotherapyScene() {
     null,
   );
 
-  const [tilt, setTilt] = useState({ rx: 0, ry: 0 });
-  const [pointer, setPointer] = useState<{ x: number; y: number } | null>(null);
-  const [elapsed, setElapsed] = useState(0);
   const [hot, setHot] = useState(false);
   const [firing, setFiring] = useState(false);
   const [pulses, setPulses] = useState<Pulse[]>([]);
@@ -31,8 +41,46 @@ export default function RadiotherapyScene() {
   const [mu, setMu] = useState(0);
 
   useEffect(() => {
-    const id = window.setInterval(() => setElapsed((e) => e + 1), 1000);
-    return () => window.clearInterval(id);
+    const scene = containerRef.current;
+    if (!scene) return;
+
+    let isVisible = false;
+    let timer: number | undefined;
+    const updateClock = () => {
+      elapsedRef.current += 1;
+      const elapsed = elapsedRef.current;
+      const mm = String(Math.floor(elapsed / 60)).padStart(2, "0");
+      const ss = String(elapsed % 60).padStart(2, "0");
+      const gantryAngle = String(Math.round((elapsed * 4.5) % 360)).padStart(3, "0");
+      const collimatorAngle = String(Math.round((elapsed * 2.7) % 360)).padStart(3, "0");
+      if (gantryRef.current) gantryRef.current.textContent = `${gantryAngle}°`;
+      if (hudGantryRef.current) hudGantryRef.current.textContent = `GANTRY ${gantryAngle}°`;
+      if (hudCollimatorRef.current) hudCollimatorRef.current.textContent = `COLL ${collimatorAngle}°`;
+      if (sessionRef.current) sessionRef.current.textContent = `SESSION ${mm}:${ss}`;
+    };
+    const syncActivity = () => {
+      const active = isVisible && document.visibilityState === "visible";
+      scene.classList.toggle("scene-paused", !active);
+      if (active && timer === undefined) {
+        timer = window.setInterval(updateClock, 1000);
+      } else if (!active && timer !== undefined) {
+        window.clearInterval(timer);
+        timer = undefined;
+      }
+    };
+    const observer = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+      syncActivity();
+    }, { threshold: 0.05 });
+
+    observer.observe(scene);
+    document.addEventListener("visibilitychange", syncActivity);
+    syncActivity();
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", syncActivity);
+      if (timer !== undefined) window.clearInterval(timer);
+    };
   }, []);
 
   useEffect(() => {
@@ -85,15 +133,52 @@ export default function RadiotherapyScene() {
     const rect = el.getBoundingClientRect();
     const px = (e.clientX - rect.left) / rect.width;
     const py = (e.clientY - rect.top) / rect.height;
-    setTilt({ rx: (0.5 - py) * 8, ry: (px - 0.5) * 12 });
-    setPointer({ x: px * 100, y: py * 100 });
+    pointerPositionRef.current = { x: px, y: py };
+    if (pointerFrameRef.current !== null) return;
+    pointerFrameRef.current = window.requestAnimationFrame(() => {
+      pointerFrameRef.current = null;
+      const position = pointerPositionRef.current;
+      if (!position) return;
+      const x = position.x * 100;
+      const y = position.y * 100;
+      sceneRef.current?.style.setProperty(
+        "transform",
+        `rotateX(${(0.5 - position.y) * 8}deg) rotateY(${(position.x - 0.5) * 12}deg)`,
+      );
+      if (gridRef.current) {
+        gridRef.current.style.transform = `translate(${-(position.x - 0.5) * 14}px, ${-(position.y - 0.5) * 14}px)`;
+      }
+      if (glowLeftRef.current) {
+        glowLeftRef.current.style.transform = `translate(${(position.x - 0.5) * 18}px, ${(position.y - 0.5) * 18}px)`;
+      }
+      if (glowRightRef.current) {
+        glowRightRef.current.style.transform = `translate(${(position.x - 0.5) * 22}px, ${(position.y - 0.5) * 22}px)`;
+      }
+      if (reticleRef.current) {
+        reticleRef.current.style.left = `${x}%`;
+        reticleRef.current.style.top = `${y}%`;
+        reticleRef.current.style.opacity = "1";
+      }
+      if (coordinatesRef.current) {
+        coordinatesRef.current.textContent = `X:${String(Math.round(x)).padStart(2, "0")} Y:${String(Math.round(y)).padStart(2, "0")}`;
+      }
+    });
   }, []);
 
   const handleEnter = useCallback(() => setHot(true), []);
   const handleLeave = useCallback(() => {
     setHot(false);
-    setPointer(null);
-    setTilt({ rx: 0, ry: 0 });
+    pointerPositionRef.current = null;
+    if (pointerFrameRef.current !== null) {
+      window.cancelAnimationFrame(pointerFrameRef.current);
+      pointerFrameRef.current = null;
+    }
+    if (sceneRef.current) sceneRef.current.style.transform = "rotateX(0deg) rotateY(0deg)";
+    if (gridRef.current) gridRef.current.style.transform = "translate(0, 0)";
+    if (glowLeftRef.current) glowLeftRef.current.style.transform = "translate(0, 0)";
+    if (glowRightRef.current) glowRightRef.current.style.transform = "translate(0, 0)";
+    if (reticleRef.current) reticleRef.current.style.opacity = "0";
+    if (coordinatesRef.current) coordinatesRef.current.textContent = "X:-- Y:--";
   }, []);
 
   const handleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
@@ -118,26 +203,6 @@ export default function RadiotherapyScene() {
     }, 1200);
   }, []);
 
-  const mm = String(Math.floor(elapsed / 60)).padStart(2, "0");
-  const ss = String(elapsed % 60).padStart(2, "0");
-  const gantryAngle = String(Math.round((elapsed * 4.5) % 360)).padStart(
-    3,
-    "0",
-  );
-  const collimatorAngle = String(Math.round((elapsed * 2.7) % 360)).padStart(
-    3,
-    "0",
-  );
-  const coordX = pointer
-    ? String(Math.round(pointer.x)).padStart(2, "0")
-    : "--";
-  const coordY = pointer
-    ? String(Math.round(pointer.y)).padStart(2, "0")
-    : "--";
-
-  const px = pointer ? pointer.x / 100 - 0.5 : 0;
-  const py = pointer ? pointer.y / 100 - 0.5 : 0;
-
   const getWavefrontRadius = (progress: number) => 8 + (progress / 100) * 80;
 
   return (
@@ -147,7 +212,7 @@ export default function RadiotherapyScene() {
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
       onClick={handleClick}
-      className="relative h-72 w-full cursor-crosshair select-none overflow-hidden bg-[#050d12] sm:h-96 lg:h-full lg:min-h-[420px]"
+      className="scene-paused relative h-72 w-full cursor-crosshair select-none overflow-hidden bg-[#050d12] sm:h-96 lg:h-full lg:min-h-[420px]"
       style={{ perspective: "1200px" }}
     >
       {/* === BACKGROUND === */}
@@ -157,23 +222,26 @@ export default function RadiotherapyScene() {
 
       {/* Parallax grid */}
       <div
+        ref={gridRef}
         className="absolute -inset-8 opacity-[0.06] transition-transform duration-300 ease-out"
         style={{
           backgroundImage:
             "linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)",
           backgroundSize: "30px 30px",
-          transform: `translate(${-px * 14}px, ${-py * 14}px)`,
+          transform: "translate(0, 0)",
         }}
       />
 
       {/* Ambient glow blobs */}
       <div
+        ref={glowLeftRef}
         className="absolute -left-20 -top-20 h-64 w-64 rounded-full bg-primary/15 blur-[100px] transition-transform duration-300 ease-out"
-        style={{ transform: `translate(${px * 18}px, ${py * 18}px)` }}
+        style={{ transform: "translate(0, 0)" }}
       />
       <div
+        ref={glowRightRef}
         className="absolute -bottom-20 -right-20 h-72 w-72 rounded-full bg-secondary/15 blur-[120px] transition-transform duration-300 ease-out"
-        style={{ transform: `translate(${px * 22}px, ${py * 22}px)` }}
+        style={{ transform: "translate(0, 0)" }}
       />
 
       {/* Scanlines */}
@@ -203,9 +271,10 @@ export default function RadiotherapyScene() {
 
       {/* ===== 3D SCENE ===== */}
       <div
+        ref={sceneRef}
         className="relative h-full w-full transition-transform duration-300 ease-out"
         style={{
-          transform: `rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg)`,
+          transform: "rotateX(0deg) rotateY(0deg)",
           transformStyle: "preserve-3d",
         }}
       >
@@ -483,6 +552,7 @@ export default function RadiotherapyScene() {
               strokeWidth="0.8"
             />
             <text
+              ref={gantryRef}
               x="385"
               y="247"
               fontSize="2.5"
@@ -660,7 +730,7 @@ export default function RadiotherapyScene() {
               textAnchor="middle"
               className="breathe"
             >
-              {gantryAngle}°
+              000°
             </text>
           </g>
 
@@ -1858,11 +1928,11 @@ export default function RadiotherapyScene() {
               <span className="text-amber-400/60 animate-pulse">●</span>
             )}
           </div>
-          <div className="mt-1.5 text-emerald-200/50">GANTRY {gantryAngle}°</div>
-          <div className="text-emerald-200/50">COLL {collimatorAngle}°</div>
+          <div ref={hudGantryRef} className="mt-1.5 text-emerald-200/50">GANTRY 000°</div>
+          <div ref={hudCollimatorRef} className="text-emerald-200/50">COLL 000°</div>
           <div className="text-emerald-200/40">ISO 100 cm</div>
           <div className="mt-1 text-emerald-200/40">
-            X:{coordX} Y:{coordY}
+            <span ref={coordinatesRef}>X:-- Y:--</span>
           </div>
           {firing && (
             <div className="mt-1 text-amber-300/80 font-bold">
@@ -1875,9 +1945,7 @@ export default function RadiotherapyScene() {
           dir="ltr"
           className="pointer-events-none absolute bottom-4 right-4 font-mono text-[10px] tracking-widest text-emerald-200/50 text-right"
         >
-          <div>
-            SESSION {mm}:{ss}
-          </div>
+          <div ref={sessionRef}>SESSION 00:00</div>
           <div className="mt-1.5 flex items-center justify-end gap-2">
             <span className="text-emerald-200/40">DOSE</span>
             <span className="relative h-1.5 w-20 overflow-hidden rounded-full bg-white/8">
@@ -1905,10 +1973,10 @@ export default function RadiotherapyScene() {
       ))}
 
       {/* === CURSOR RETICLE === */}
-      {pointer && (
         <div
+          ref={reticleRef}
           className="pointer-events-none absolute h-10 w-10 -translate-x-1/2 -translate-y-1/2 transition-opacity duration-150"
-          style={{ left: `${pointer.x}%`, top: `${pointer.y}%` }}
+          style={{ left: "50%", top: "50%", opacity: 0 }}
         >
           <svg
             viewBox="0 0 40 40"
@@ -1955,7 +2023,6 @@ export default function RadiotherapyScene() {
             />
           </svg>
         </div>
-      )}
 
       {/* === HINT LABEL === */}
       <div
@@ -1971,6 +2038,9 @@ export default function RadiotherapyScene() {
       <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-24 bg-gradient-to-l from-[#050d12]/0 to-transparent lg:block" />
 
       <style jsx>{`
+        :global(.scene-paused *) {
+          animation-play-state: paused !important;
+        }
         .spin-slow {
           animation: spin 28s linear infinite;
         }

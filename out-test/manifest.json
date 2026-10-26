@@ -1,0 +1,16 @@
+{
+  "name": "دکتر پری قدمگاهی | Dr. Pari Ghadamgahi",
+  "short_name": "دکتر پری قدمگاهی",
+  "description": "وب‌سایت دکتر پری قدمگاهی، متخصص رادیوتراپی و آنکولوژی — رزرو مشاوره، پرسش در انجمن و آشنایی با گزینه‌های درمانی.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b2e22",
+  "theme_color": "#145c41",
+  "dir": "rtl",
+  "lang": "fa",
+  "categories": [
+    "medical",
+    "health"
+  ],
+  "icons": []
+}

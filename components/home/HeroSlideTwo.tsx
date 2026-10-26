@@ -51,8 +51,6 @@ export default function HeroSlideTwo({
       {/* (Care-team readouts — desktop only) — removed decorative HUD elements */}
 
       {/* Floating ambient orbs — desktop only */}
-      <div className="float-bob pointer-events-none absolute left-[6%] top-[42%] hidden h-56 w-56 rounded-full bg-gold/20 dark:bg-primary/15 blur-3xl anim-fade-in delay-400 lg:block" />
-      <div className="float-bob float-bob-delay-1 pointer-events-none absolute right-[8%] top-[18%] hidden h-64 w-64 rounded-full bg-gold/10 dark:bg-primary/10 blur-3xl anim-fade-in delay-500 lg:block" />
 
       <div className="relative z-10 mx-auto flex h-full min-h-[calc(100svh-4rem)] max-w-7xl items-center px-4 pb-24 pt-8 sm:min-h-[96vh] sm:px-6 sm:py-20 lg:px-8">
         <div className="grid w-full items-center gap-7 sm:gap-12 md:grid-cols-12 md:gap-8 lg:gap-10">
@@ -108,8 +106,6 @@ export default function HeroSlideTwo({
               </div>
 
               {/* Ambient accents */}
-              <div className="float-bob pointer-events-none absolute -left-14 top-1/4 hidden h-52 w-52 rounded-full bg-gold/10 dark:bg-secondary/25 blur-3xl anim-fade-in delay-400 xl:block" />
-              <div className="float-bob float-bob-delay-1 pointer-events-none absolute -right-16 bottom-1/4 hidden h-44 w-44 rounded-full bg-sky-200/40 dark:bg-primary/15 blur-3xl anim-fade-in delay-500 xl:block" />
             </div>
           </div>
 

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getServerDictionary } from "@/lib/i18n/server";
+import { getDictionary, defaultLocale } from "@/lib/i18n/server";
 import { toFarsiDigits } from "@/lib/i18n/numbers";
 import {
   listBlogCategories,
@@ -39,14 +39,9 @@ function getPageRange(current: number, total: number): (number | "…")[] {
   return result;
 }
 
-export async function generateMetadata({
-  searchParams,
-}: {
-  searchParams: Promise<{ page?: string; category?: string }>;
-}): Promise<Metadata> {
-  const params = await searchParams;
-  const page = Math.max(1, Number.parseInt(params.page || "1", 10));
-  const category = params.category;
+export async function generateMetadata(): Promise<Metadata> {
+  const page = 1;
+  const category = undefined;
 
   const title = category
     ? `${category} — مقالات تخصصی`
@@ -80,17 +75,13 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ page?: string; category?: string }>;
-}) {
-  const { dict, locale } = await getServerDictionary();
+export default async function BlogPage({}: { searchParams?: Promise<{ page?: string; category?: string }> }) {
+  const locale = defaultLocale;
+  const dict = getDictionary(locale);
   const isFa = locale === "fa";
 
-  const params = await searchParams;
-  const page = Math.max(1, Number.parseInt(params.page || "1", 10));
-  const category = params.category || "all";
+  const page = 1;
+  const category = "all";
 
   // Get all unique categories for the filter
   const categories = listBlogCategories();

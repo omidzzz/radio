@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 /** Safe initials for avatars — handles ZWNJ artifacts and empty names */
 function getInitials(name: string): string {
@@ -53,11 +53,11 @@ function SectionBadge({ label, dark = false }: { label: string; dark?: boolean }
     <div
       className={`inline-flex items-center gap-2 rounded-full border px-3.5 py-1 text-xs font-medium ${
         dark
-          ? "border-primary/30 bg-primary/10 text-gold"
+          ? "border-primary/30 bg-primary/10 text-highlight"
           : "border-primary/25 bg-primary/10 text-primary"
       }`}
     >
-      <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-primary-fill-fill" />
+      <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-primary-fill" />
       {label}
     </div>
   );
@@ -464,7 +464,7 @@ export default async function AboutPage() {
           <Reveal delay={200}>
             <Link
               href="/booking"
-              className="group relative mt-10 inline-flex items-center justify-center overflow-hidden rounded-full bg-primary-fill-fill px-9 py-4 text-base font-semibold text-on-primary shadow-[0_0_35px_-8px_rgba(26,115,82,0.65)] transition-all duration-300 hover:bg-primary-fill-hover hover:shadow-[0_0_50px_-4px_rgba(26,115,82,0.9)] active:scale-[0.97]"
+              className="group relative mt-10 inline-flex items-center justify-center overflow-hidden rounded-full bg-primary-fill px-9 py-4 text-base font-semibold text-on-primary shadow-[0_0_35px_-8px_rgba(26,115,82,0.65)] transition-all duration-300 hover:bg-primary-fill-hover hover:shadow-[0_0_50px_-4px_rgba(26,115,82,0.9)] active:scale-[0.97]"
             >
               <span
                 aria-hidden="true"
@@ -472,20 +472,6 @@ export default async function AboutPage() {
               />
               <span className="relative flex items-center gap-2">
                 {dict.about.bookConsultation}
-                <svg
-                  aria-hidden="true"
-                  className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2.5}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  />
-                </svg>
               </span>
             </Link>
           </Reveal>

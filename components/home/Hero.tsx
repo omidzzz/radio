@@ -34,10 +34,6 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
 
       {/* (Coordinate readout — desktop only) — removed decorative HUD elements */}
 
-      {/* Floating ambient orbs — desktop only (2, was 3) */}
-      <div className="float-bob pointer-events-none absolute left-[5%] top-[40%] h-64 w-64 rounded-full bg-gold/10 dark:bg-primary/15 blur-3xl anim-fade-in delay-400 hidden lg:block" />
-      <div className="float-bob float-bob-delay-1 pointer-events-none absolute right-[8%] top-[20%] h-72 w-72 rounded-full bg-gold/20 dark:bg-primary/15 blur-3xl anim-fade-in delay-500 hidden lg:block" />
-
       <div className="relative z-10 mx-auto flex h-full min-h-[calc(100svh-4rem)] max-w-7xl items-center px-4 pb-24 pt-8 sm:min-h-[96vh] sm:px-6 sm:py-20 lg:px-8">
         <div className="grid w-full items-center gap-7 sm:gap-12 md:grid-cols-12 md:gap-8 lg:gap-10">
           <div className="order-2 md:order-1 md:col-span-7 xl:col-span-5">
@@ -154,7 +150,6 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
                   loading="eager"
                   className="object-cover object-top transition-transform duration-700 hover:scale-105"
                 />
-                <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-white/85 to-transparent" />
                 <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-primary/10" />
                 {[
                   "left-3 top-3 border-l border-t",
@@ -167,7 +162,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
                     className={`pointer-events-none absolute h-5 w-5 ${pos} border-highlight/70`}
                   />
                 ))}
-                <div className="pointer-events-none absolute left-1/2 top-[38%] h-14 w-14 -translate-x-1/2 -translate-y-1/2">
+                <div className="pointer-events-none absolute left-1/2 top-[38%] h-14 w-14 -translate-x-1/2 -translate-y-1/2 hidden sm:block">
                   <span className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-highlight/40" />
                   <span className="absolute top-1/2 left-0 h-px w-full -translate-y-1/2 bg-highlight/40" />
                   <span className="hud-pulse absolute left-1/2 top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-highlight" />
@@ -181,7 +176,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
               <div className="float-bob pointer-events-none absolute -right-14 top-1/4 hidden h-60 w-60 rounded-full bg-slate-400/30 blur-3xl anim-fade-in delay-400 lg:block" />
               <div className="float-bob float-bob-delay-1 pointer-events-none absolute -left-20 bottom-1/4 hidden h-48 w-48 rounded-full bg-gold/10 dark:bg-secondary-hover/20 blur-3xl anim-fade-in delay-500 lg:block" />
 
-              <div className="anim-fade-up delay-1000 absolute bottom-6 right-6 z-40 flex items-center gap-3.5 rounded-2xl border border-white/15 dark:border-border/40 bg-white/90 dark:bg-deep/90 px-5 py-3.5 shadow-xl backdrop-blur-sm">
+              <div className="anim-fade-up delay-1000 absolute bottom-6 left-6 z-40 sm:bottom-6 sm:right-6 sm:left-auto flex items-center gap-3.5 rounded-2xl border border-white/15 dark:border-border/40 bg-white/90 dark:bg-deep/90 px-5 py-3.5 shadow-xl backdrop-blur-sm">
                 <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary/25 text-accent">
                   <svg
                     className="h-5 w-5"

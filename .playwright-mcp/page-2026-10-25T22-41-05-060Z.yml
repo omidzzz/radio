@@ -1,0 +1,317 @@
+- generic [active] [ref=e1]:
+  - link "پرش به محتوای اصلی" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - navigation [ref=e5]:
+        - link "دکتر پری قدمگاهی" [ref=e6] [cursor=pointer]:
+          - /url: /
+        - generic [ref=e8]:
+          - button "جستجو" [ref=e9]
+          - button "تغییر منو" [ref=e12]
+      - navigation "تغییر منو":
+        - generic:
+          - generic:
+            - generic:
+              - link "خانه":
+                - /url: /
+              - link "درباره من":
+                - /url: /about
+              - link "خدمات":
+                - /url: /services
+              - link "بلاگ":
+                - /url: /blog
+              - link "انجمن":
+                - /url: /forum
+              - link "رزرو جلسه":
+                - /url: /booking
+              - link "تماس با ما":
+                - /url: /contact
+              - link "جستجو":
+                - /url: /search
+              - generic:
+                - generic:
+                  - button "Switch to dark mode"
+                  - button "Switch to English": EN
+                - link "رزرو نوبت":
+                  - /url: /booking
+  - main [ref=e16]:
+    - generic [ref=e17]:
+      - generic [ref=e20]:
+        - generic [ref=e21]: خدمات ما
+        - heading "خدمات ما" [level=1] [ref=e26]
+        - paragraph [ref=e27]: خدمات جامع پرتودرمانی با جدیدترین فناوری‌ها و رویکرد شخصی به مراقبت.
+        - generic [ref=e28]:
+          - generic [ref=e29]: درمان هدفمند با دقت بالا
+          - generic [ref=e38]: تکنولوژی‌های پیشرفته
+          - generic [ref=e47]: تیمی از متخصصان مجرب
+      - generic [ref=e92]:
+        - generic [ref=e93]: خدمات ما در یک نگاه
+        - generic [ref=e96]:
+          - generic [ref=e98]:
+            - definition [ref=e100]: ۰
+            - term [ref=e101]: حوزه تخصصی درمان
+          - generic [ref=e103]:
+            - definition [ref=e105]:
+              - generic [ref=e106]: ۰+
+            - term [ref=e107]: بیمار درمان‌شده
+          - generic [ref=e109]:
+            - definition [ref=e111]:
+              - generic [ref=e112]: ۰٪
+            - term [ref=e113]: رضایت بیماران
+          - generic [ref=e115]:
+            - definition [ref=e117]: ۰
+            - term [ref=e118]: دقیقه میانگین هر جلسه
+      - generic [ref=e121]:
+        - article [ref=e123]:
+          - generic [ref=e124]:
+            - generic [aria-hidden]: ۰۱
+            - heading "پرتودرمانی خارجی (EBRT)" [level=2] [ref=e133]
+            - list [ref=e134]:
+              - listitem [ref=e135]:
+                - generic [ref=e139]: پرتودرمانی سه‌بعدی (3D-CRT)
+              - listitem [ref=e140]:
+                - generic [ref=e144]: پرتودرمانی با شدت مدوله (IMRT)
+              - listitem [ref=e145]:
+                - generic [ref=e149]: پرتودرمانی تصویرمحور (IGRT)
+            - link "رزرو این خدمت" [ref=e151] [cursor=pointer]:
+              - /url: /booking
+        - article [ref=e154]:
+          - generic [ref=e155]:
+            - generic [aria-hidden]: ۰۲
+            - heading "رادیوسرجری استریوتاکتیک (SRS)" [level=2] [ref=e162]
+            - list [ref=e163]:
+              - listitem [ref=e164]:
+                - generic [ref=e168]: درمان تومورهای مغز و ستون فقرات
+              - listitem [ref=e169]:
+                - generic [ref=e173]: گزینه‌های تک‌جلسه‌ای و کسری
+              - listitem [ref=e174]:
+                - generic [ref=e178]: دقت زیر میلی‌متری
+            - link "رزرو این خدمت" [ref=e180] [cursor=pointer]:
+              - /url: /booking
+        - article [ref=e183]:
+          - generic [ref=e184]:
+            - generic [aria-hidden]: ۰۳
+            - heading "پرتودرمانی بدن استریوتاکتیک (SBRT)" [level=2] [ref=e190]
+            - list [ref=e191]:
+              - listitem [ref=e192]:
+                - generic [ref=e196]: تومورهای ریه، کبد و لوزالمعده
+              - listitem [ref=e197]:
+                - generic [ref=e201]: متاستازهای ستون فقرات و استخوان
+              - listitem [ref=e202]:
+                - generic [ref=e206]: جلسات درمانی کمتر
+            - link "رزرو این خدمت" [ref=e208] [cursor=pointer]:
+              - /url: /booking
+        - article [ref=e211]:
+          - generic [ref=e212]:
+            - generic [aria-hidden]: ۰۴
+            - heading "براکی‌تراپی" [level=2] [ref=e220]
+            - list [ref=e221]:
+              - listitem [ref=e222]:
+                - generic [ref=e226]: درمان سرطان پروستات
+              - listitem [ref=e227]:
+                - generic [ref=e231]: سرطان‌های زنان
+              - listitem [ref=e232]:
+                - generic [ref=e236]: براکی‌تراپی با نرخ دوز بالا (HDR)
+            - link "رزرو این خدمت" [ref=e238] [cursor=pointer]:
+              - /url: /booking
+        - article [ref=e241]:
+          - generic [ref=e242]:
+            - generic [aria-hidden]: ۰۵
+            - heading "پرتودرمانی تسکینی" [level=2] [ref=e251]
+            - list [ref=e252]:
+              - listitem [ref=e253]:
+                - generic [ref=e257]: مدیریت درد و علائم
+              - listitem [ref=e258]:
+                - generic [ref=e262]: تسکین متاستاز استخوان
+              - listitem [ref=e263]:
+                - generic [ref=e267]: برنامه‌های درمانی سریع
+            - link "رزرو این خدمت" [ref=e269] [cursor=pointer]:
+              - /url: /booking
+        - article [ref=e272]:
+          - generic [ref=e273]:
+            - generic [aria-hidden]: ۰۶
+            - heading "برنامه‌ریزی درمان و شبیه‌سازی" [level=2] [ref=e287]
+            - list [ref=e288]:
+              - listitem [ref=e289]:
+                - generic [ref=e293]: شبیه‌سازی CT و برنامه‌ریزی سه‌بعدی
+              - listitem [ref=e294]:
+                - generic [ref=e298]: تصویربرداری ترکیبی MRI و PET
+              - listitem [ref=e299]:
+                - generic [ref=e303]: دستگاه‌های بی‌حرکتی اختصاصی
+            - link "رزرو این خدمت" [ref=e305] [cursor=pointer]:
+              - /url: /booking
+      - generic [ref=e308]:
+        - generic [ref=e309]:
+          - generic [ref=e310]: مسیر درمان
+          - heading "سفر درمان شما در چهار گام" [level=2] [ref=e312]
+          - paragraph [ref=e313]: از اولین مشاوره تا پیگیری‌های پس از درمان، در هر مرحله کنار شما هستیم.
+        - generic [ref=e315]:
+          - generic [ref=e317]:
+            - generic [ref=e318]: ۰۱
+            - heading "مشاوره و ارزیابی" [level=3] [ref=e319]
+            - paragraph [ref=e320]: بررسی سوابق پزشکی و تصویربرداری‌ها توسط انکولوژیست پرتودرمانی برای انتخاب مناسب‌ترین گزینه درمانی.
+          - generic [ref=e322]:
+            - generic [ref=e323]: ۰۲
+            - heading "تصویربرداری و برنامه‌ریزی" [level=3] [ref=e324]
+            - paragraph [ref=e325]: شبیه‌سازی CT و تصویربرداری پیشرفته برای طراحی برنامه درمانی دقیق و کاملاً شخصی.
+          - generic [ref=e327]:
+            - generic [ref=e328]: ۰۳
+            - heading "جلسات درمان" [level=3] [ref=e329]
+            - paragraph [ref=e330]: جلسات کوتاه ۱۵ تا ۳۰ دقیقه‌ای با دستگاه‌های پیشرفته و نظارت مستمر تیم درمان.
+          - generic [ref=e332]:
+            - generic [ref=e333]: ۰۴
+            - heading "پیگیری و مراقبت" [level=3] [ref=e334]
+            - paragraph [ref=e335]: تصویربرداری کنترلی، بررسی پاسخ به درمان و پشتیبانی مستمر پس از پایان دوره.
+      - generic [ref=e338]:
+        - generic [ref=e339]:
+          - generic [ref=e346]:
+            - img [ref=e347]:
+              - generic [ref=e350]:
+                - generic [ref=e356]: "ON"
+                - generic [ref=e361]: RAD
+              - generic [ref=e364]:
+                - generic [ref=e436]: 0°
+                - generic [ref=e437]: 90°
+                - generic [ref=e438]: 180°
+                - generic [ref=e439]: 270°
+                - generic [ref=e445]: 000°
+              - generic [ref=e468]:
+                - generic [ref=e474]: WAVEGUIDE
+                - generic [ref=e478]: BEND
+                - generic [ref=e481]: TARGET
+                - generic [ref=e513]: MLC 120
+                - generic [ref=e520]: ☢
+                - generic [ref=e521]: RAD
+              - generic [ref=e529]:
+                - generic [ref=e534]: kV
+                - generic [ref=e538]: EPID
+              - generic [ref=e539]:
+                - generic [ref=e545]: "0"
+                - generic [ref=e546]: "5"
+                - generic [ref=e547]: "10"
+                - generic [ref=e548]: "15"
+                - generic [ref=e549]: "20"
+                - generic [ref=e550]: "25"
+                - generic [ref=e551]: "30"
+              - generic [ref=e553]: RESP OK
+              - generic [ref=e593]: RADIATION AREA
+              - generic [ref=e594]: ☢ KEEP CLEAR ☢
+            - generic:
+              - generic: STANDBY
+              - generic: GANTRY 000°
+              - generic: COLL 000°
+              - generic: ISO 100 cm
+              - generic: X:-- Y:--
+            - generic:
+              - generic: SESSION 00:00
+              - generic: DOSE
+              - generic: MLC 120 · 6 MV
+              - generic: BEAM OFF
+              - generic: "SYS: ONLINE"
+          - generic: برای شبیه‌سازی تابش کلیک کنید
+        - generic [ref=e595]:
+          - generic [ref=e596]: آماده برای شروع
+          - heading "مطمئن نیستید به کدام خدمت نیاز دارید؟" [level=2] [ref=e598]
+          - paragraph [ref=e599]: تیم ما می‌تواند به شما در درک گزینه‌هایتان کمک کند. مشاوره رزرو کنید یا در انجمن سؤال بپرسید.
+          - generic [ref=e600]:
+            - link "رزرو مشاوره" [ref=e601] [cursor=pointer]:
+              - /url: /booking
+            - link "سؤال در انجمن" [ref=e604] [cursor=pointer]:
+              - /url: /forum
+      - generic [ref=e606]:
+        - generic [ref=e607]:
+          - heading "پرسش‌های متداول درباره خدمات" [level=2] [ref=e608]
+          - paragraph [ref=e609]: پاسخ پرتکرارترین سؤالات بیماران درباره خدمات و روند درمان.
+        - generic [ref=e610]:
+          - generic [ref=e611]:
+            - button "چگونه بدانم کدام خدمت برای من مناسب است؟" [expanded] [ref=e612]
+            - paragraph [ref=e619]: در جلسه مشاوره اولیه، انکولوژیست پرتودرمانی با بررسی سوابق پزشکی و تصویربرداری‌های شما، مناسب‌ترین روش درمان را پیشنهاد می‌دهد. همچنین می‌توانید پرسش خود را در انجمن مطرح کنید.
+          - generic [ref=e620]:
+            - button "آیا همه این خدمات در همان محل ارائه می‌شود؟" [ref=e621]
+            - paragraph [ref=e626]: بله؛ از پرتودرمانی خارجی و رادیوسرجری تا براکی‌تراپی و برنامه‌ریزی درمان، همه خدمات در مطب و بدون نیاز به ارجاع به مرکز دیگر انجام می‌شود.
+          - generic [ref=e627]:
+            - button "برای شروع درمان چه مدارکی لازم است؟" [ref=e628]
+            - paragraph [ref=e633]: مدارک پزشکی، جواب بیوپسی و تصویربرداری‌های اخیر (CT، MRI یا PET) را همراه داشته باشید. در صورت نیاز، تصویربرداری تکمیلی در همان جلسه انجام می‌شود.
+          - generic [ref=e634]:
+            - button "تعداد جلسات درمان چگونه تعیین می‌شود؟" [ref=e635]
+            - paragraph [ref=e640]: تعداد جلسات بر اساس نوع و اندازه تومور، هدف درمان و وضعیت عمومی شما در برنامه درمانی شخصی مشخص می‌شود؛ از یک تا پنج جلسه در رادیوسرجری تا چند هفته در پرتودرمانی کسری.
+  - contentinfo "Site footer" [ref=e641]:
+    - generic [ref=e646]:
+      - generic [ref=e647]:
+        - generic [ref=e648]:
+          - link "دکتر پری قدمگاهی" [ref=e649] [cursor=pointer]:
+            - /url: /
+          - paragraph [ref=e651]: مراقبت تخصصی و دلسوزانه در پرتودرمانی و رادیوسرجری، با تمرکز بر درمان دقیق و انسانی بیماران سرطانی. سلامت و آرامش شما اولویت من است.
+          - generic [ref=e652]:
+            - link "Telegram" [ref=e653] [cursor=pointer]:
+              - /url: https://t.me/radiotherapyclinic
+            - link "WhatsApp" [ref=e656] [cursor=pointer]:
+              - /url: https://wa.me/989124599949
+            - link "Instagram" [ref=e659] [cursor=pointer]:
+              - /url: https://instagram.com/radiotherapyclinic
+          - link "رزرو نوبت" [ref=e664] [cursor=pointer]:
+            - /url: /booking
+        - navigation "دسترسی سریع" [ref=e665]:
+          - heading "دسترسی سریع" [level=3] [ref=e666]
+          - list [ref=e668]:
+            - listitem [ref=e669]:
+              - link "درباره ما" [ref=e670] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=e672]:
+              - link "خدمات ما" [ref=e673] [cursor=pointer]:
+                - /url: /services
+            - listitem [ref=e675]:
+              - link "انجمن گفتگو" [ref=e676] [cursor=pointer]:
+                - /url: /forum
+            - listitem [ref=e678]:
+              - link "رزرو نوبت" [ref=e679] [cursor=pointer]:
+                - /url: /booking
+            - listitem [ref=e681]:
+              - link "بلاگ" [ref=e682] [cursor=pointer]:
+                - /url: /blog
+            - listitem [ref=e684]:
+              - link "تماس با ما" [ref=e685] [cursor=pointer]:
+                - /url: /contact
+        - generic [ref=e687]:
+          - heading "تماس" [level=3] [ref=e688]
+          - list [ref=e690]:
+            - listitem [ref=e691]:
+              - link "تهران، خیابان ولیعصر روبروی درب اورژانس بیمارستان دی، برج پزشکان دی طبقه دهم، واحد C" [ref=e693] [cursor=pointer]:
+                - /url: https://www.google.com/maps/dir/?api=1&destination=Day%20Hospital%2C%20Valiasr%20Street%2C%20Tehran
+                - text: تهران، خیابان ولیعصرروبروی درب اورژانس بیمارستان دی، برج پزشکان دیطبقه دهم، واحد C
+              - link "مسیریابی" [ref=e694] [cursor=pointer]:
+                - /url: https://www.google.com/maps/dir/?api=1&destination=Day%20Hospital%2C%20Valiasr%20Street%2C%20Tehran
+            - listitem [ref=e695]:
+              - link "۰۲۱ ۸۸۷۰ ۹۶۵۰" [ref=e696] [cursor=pointer]:
+                - /url: tel:02188709650
+            - listitem [ref=e699]:
+              - link "info@radiotherapyclinic.com" [ref=e700] [cursor=pointer]:
+                - /url: mailto:info@radiotherapyclinic.com
+        - generic [ref=e705]:
+          - generic [ref=e706]:
+            - heading "ساعات کاری" [level=3] [ref=e707]
+            - generic [ref=e709]: اکنون بسته است
+          - list [ref=e712]:
+            - listitem [ref=e713]:
+              - generic [ref=e714]: شنبه – پنجشنبه
+              - generic [ref=e715]: ۸:۰۰ صبح – ۵:۰۰ بعد از ظهر
+            - listitem [ref=e716]:
+              - generic [ref=e717]: جمعه
+              - generic [ref=e718]: تعطیل
+          - link "ورود مدیریت" [ref=e720] [cursor=pointer]:
+            - /url: /admin/login
+      - generic [ref=e722]:
+        - generic [ref=e723]:
+          - paragraph [ref=e724]: © ۲۰۲۶ دکتر پری قدمگاهی. تمامی حقوق محفوظ است.
+          - paragraph [ref=e725]:
+            - text: طراحی توسط
+            - link "sinisteroid" [ref=e726] [cursor=pointer]:
+              - /url: https://sinisteroid.ir/
+        - generic [ref=e727]:
+          - link "حریم خصوصی" [ref=e728] [cursor=pointer]:
+            - /url: /privacy
+          - link "شرایط استفاده" [ref=e730] [cursor=pointer]:
+            - /url: /terms
+          - link "بازگشت به بالا" [ref=e732] [cursor=pointer]:
+            - /url: "#top"

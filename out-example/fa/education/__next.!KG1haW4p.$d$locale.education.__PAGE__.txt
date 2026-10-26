@@ -1,0 +1,46 @@
+1:"$Sreact.fragment"
+2:I[804,["5791","static/chunks/app/(main)/%5Blocale%5D/education/page-6dd6279f434d364c.js"],"default"]
+3:I[7518,["5791","static/chunks/app/(main)/%5Blocale%5D/education/page-6dd6279f434d364c.js"],"default"]
+4:I[484,[],"OutletBoundary"]
+5:"$Sreact.suspense"
+9:I[484,[],"ViewportBoundary"]
+a:I[484,[],"MetadataBoundary"]
+:HL["/_next/static/css/8b150a190372541b.css","style"]
+8:X
+24:X
+24:C
+0:{"buildId":"bTdsImlrirV0yU_oDrH-R","data":[{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"mx-auto max-w-6xl px-5 sm:px-8","children":[["$","$L2",null,{"children":[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"خانه\",\"item\":\"https://sinisteroid.ir/fa/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"تحصیلات\",\"item\":\"https://sinisteroid.ir/fa/education/\"}]}"}}],["$","div",null,{"className":"craft-page-hero","children":[["$","span",null,{"aria-hidden":true,"className":"craft-page-index","children":"۰۴"}],["$","p",null,{"className":"craft-eyebrow","children":"(۰۴) سوابق تحصیلی"}],["$","h1",null,{"className":"craft-title","children":[["$","span",null,{"className":"craft-hl","children":"تحصیلات"}],""]}],["$","p",null,{"className":"craft-intro","children":"مدارک دانشگاهی و یادگیری مداوم آنلاین."}],["$","div",null,{"className":"craft-stats","children":[["$","span","دوره",{"children":[["$","b",null,{"children":"3"}],"دوره"]}],["$","span","دانشگاه",{"children":[["$","b",null,{"children":"2"}],"دانشگاه"]}]]}]]}]]}],["$","div",null,{"className":"edu-deck","children":[["$","$L2","کارشناسی — مطالعات ترجمه",{"delay":0,"children":["$","$L3",null,{"maxTilt":6,"className":"h-full","children":["$","article",null,{"className":"edu-card","children":[["$","span",null,{"className":"edu-year","children":"۲۰۱۰ — ۲۰۱۴"}],["$","h2",null,{"className":"edu-degree","children":"کارشناسی — مطالعات ترجمه"}],["$","p",null,{"className":"edu-detail","children":"انگلیسی ↔ فارسی"}],["$","p",null,{"className":"edu-inst","children":"دانشگاه شهید چمران اهواز"}]]}]}]}],["$","$L2","کارشناسی ارشد — مطالعات ترجمه",{"delay":90,"children":["$","$L3",null,{"maxTilt":6,"className":"h-full","children":["$","article",null,{"className":"edu-card","children":[["$","span",null,{"className":"edu-year","children":"۲۰۱۵ — ۲۰۱۷"}],["$","h2",null,{"className":"edu-degree","children":"کارشناسی ارشد — مطالعات ترجمه"}],["$","p",null,{"className":"edu-detail","children":"۳ نیم‌سال گذرانده شده"}],["$","p",null,{"className":"edu-inst","children":"دانشگاه علامه طباطبایی"}]]}]}]}],["$","$L2","دوره‌های آنلاین و خودآموزی",{"delay":180,"children":["$","$L3",null,{"maxTilt":6,"className":"h-full","children":["$","article",null,{"className":"edu-card","children":[["$","span",null,{"className":"edu-year","children":"در جریان"}],["$","h2",null,{"className":"edu-degree","children":"دوره‌های آنلاین و خودآموزی"}],["$","p",null,{"className":"edu-detail","children":"پایتون، توسعه وب، فرانت‌اند خودآموخته"}],["$","p",null,{"className":"edu-inst","children":"یودمی · دکتر چاک سِورنس"}]]}]}]}]]}]]}],[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/8b150a190372541b.css","precedence":"next"}]],["$","$L4",null,{"children":["$","$5",null,{"name":"Next.MetadataOutlet","children":"$@6"}]}]]}],"isPartial":"$@7","staleTime":"$8","varyParams":null},{"rsc":["$","$1","h",{"children":[null,["$","$L9",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1, viewport-fit=cover"}],["$","meta","2",{"name":"theme-color","content":"#272727"}]]}],["$","div",null,{"hidden":true,"children":["$","$La",null,{"children":["$","$5",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Education & Certifications – امید"}],["$","meta","1",{"name":"description","content":"Education background and online learning achievements of Omid, including university degrees and programming courses."}],["$","meta","2",{"name":"author","content":"Omid"}],["$","link","3",{"rel":"manifest","href":"/manifest.json"}],["$","link","4",{"rel":"canonical","href":"https://sinisteroid.ir/fa/education/"}],["$","link","5",{"rel":"alternate","hrefLang":"en","href":"https://sinisteroid.ir/en/education/"}],["$","link","6",{"rel":"alternate","hrefLang":"fa","href":"https://sinisteroid.ir/fa/education/"}],["$","link","7",{"rel":"alternate","hrefLang":"x-default","href":"https://sinisteroid.ir/en/education/"}],["$","link","8",{"rel":"alternate","type":"application/rss+xml","href":"https://sinisteroid.ir/feed.xml"}],["$","link","9",{"rel":"alternate","type":"application/feed+json","href":"https://sinisteroid.ir/feed.json"}],["$","meta","10",{"property":"og:title","content":"Education & Certifications – امید"}],["$","meta","11",{"property":"og:description","content":"Education background and online learning achievements of Omid, including university degrees and programming courses."}],"$Lb","$Lc","$Ld","$Le","$Lf","$L10","$L11","$L12","$L13","$L14","$L15","$L16","$L17","$L18","$L19","$L1a","$L1b","$L1c","$L1d","$L1e","$L1f","$L20"]}]}]}],null]}],"isPartial":"$@21","staleTime":"$8","varyParams":null},{"rsc":"$L22","isPartial":"$@23","staleTime":"$8","varyParams":"$24"}],"isUpgradeableISRFallback":false,"a":"$@25","rootVaryParams":null,"needsRuntimeRequest":"$@26"}
+27:I[6869,[],"IconMark"]
+28:I[7121,[],""]
+29:I[4581,[],""]
+6:null
+b:["$","meta","12",{"property":"og:url","content":"https://sinisteroid.ir/fa/"}]
+c:["$","meta","13",{"property":"og:site_name","content":"Sinisteroid"}]
+d:["$","meta","14",{"property":"og:locale","content":"fa_IR"}]
+e:["$","meta","15",{"property":"og:image","content":"https://sinisteroid.ir/og-default.jpg"}]
+f:["$","meta","16",{"property":"og:image:width","content":"1200"}]
+10:["$","meta","17",{"property":"og:image:height","content":"630"}]
+11:["$","meta","18",{"property":"og:image:alt","content":"امید — توسعه‌دهنده فرانت‌اند: نمونه‌کار، نوشته‌ها و آزمایشگاه گرافیک"}]
+12:["$","meta","19",{"property":"og:locale:alternate","content":"en_US"}]
+13:["$","meta","20",{"property":"og:type","content":"website"}]
+14:["$","meta","21",{"name":"twitter:card","content":"summary_large_image"}]
+15:["$","meta","22",{"name":"twitter:site","content":"@sinisteroid"}]
+16:["$","meta","23",{"name":"twitter:creator","content":"@sinisteroid"}]
+17:["$","meta","24",{"name":"twitter:title","content":"Education & Certifications – امید"}]
+18:["$","meta","25",{"name":"twitter:description","content":"Education background and online learning achievements of Omid, including university degrees and programming courses."}]
+19:["$","meta","26",{"name":"twitter:image","content":"https://sinisteroid.ir/og-default.jpg"}]
+1a:["$","meta","27",{"name":"twitter:image:alt","content":"امید — توسعه‌دهنده فرانت‌اند: نمونه‌کار، نوشته‌ها و آزمایشگاه گرافیک"}]
+1b:["$","meta","28",{"name":"twitter:image:width","content":"1200"}]
+1c:["$","meta","29",{"name":"twitter:image:height","content":"630"}]
+1d:["$","link","30",{"rel":"icon","href":"/favicon.ico","sizes":"32x32"}]
+1e:["$","link","31",{"rel":"icon","href":"/logo192.png","type":"image/png","sizes":"192x192"}]
+1f:["$","link","32",{"rel":"apple-touch-icon","href":"/apple-touch-icon.png"}]
+20:["$","$L27","33",{}]
+22:["$","$1","c",{"children":[null,["$","$L28",null,{"parallelRouterKey":"children","template":["$","$L29",null,{}]}]]}]
+26:true
+8:300
+8:C
+25:0
+21:"$undefined"
+23:"$undefined"
+7:"$undefined"

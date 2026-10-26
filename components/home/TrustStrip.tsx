@@ -60,17 +60,16 @@ export default function TrustStrip({ isFa }: TrustStripProps) {
   return (
     <section className="content-visibility relative bg-bg section-pad-tight">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Static row on md+; single-line swipe on mobile (no Reveal stagger) */}
-        <div className="flex items-center justify-start gap-3 overflow-x-auto pb-1 sm:justify-center sm:overflow-visible sm:pb-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="flex flex-wrap items-center justify-center gap-3 pb-1 sm:pb-0">
           {trustMarks.map((mark) => (
             <div
               key={mark.key}
-              className="surface-chip group flex shrink-0 items-center gap-2.5 px-4 py-2.5"
+              className="surface-chip group inline-flex max-w-full items-center gap-2.5 px-4 py-2.5"
             >
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-soft text-primary transition-colors duration-200 group-hover:bg-primary-fill group-hover:text-on-primary">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-soft text-primary transition-colors duration-200 group-hover:bg-primary-fill group-hover:text-on-primary">
                 {mark.svg}
               </span>
-              <span className="whitespace-nowrap text-xs font-semibold uppercase tracking-wide text-text-secondary transition-colors duration-200 group-hover:text-text-primary">
+              <span className="whitespace-nowrap text-[10px] font-semibold uppercase tracking-wide text-text-secondary transition-colors duration-200 group-hover:text-text-primary sm:text-xs">
                 {mark.label(isFa)}
               </span>
             </div>

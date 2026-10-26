@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { memo, useState } from "react";
 
 type Palette = "brand" | "dose";
 
@@ -67,7 +67,7 @@ function canHover(): boolean {
  * hover-capable devices only; everything is pure CSS transitions, so the
  * component stays GPU-friendly and free of animation loops.
  */
-export default function HeatmapGrid({
+export default memo(function HeatmapGrid({
   cols = 12,
   rows = 8,
   cellSize = 12,
@@ -157,5 +157,5 @@ export default function HeatmapGrid({
       ))}
     </div>
   );
-}
+});
 

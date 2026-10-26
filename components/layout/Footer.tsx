@@ -1,15 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import type { ComponentType, ReactNode, SVGProps } from "react";
-import { getServerDictionary } from "@/lib/i18n/server";
-import { toFarsiDigits } from "@/lib/i18n/numbers";
+import { useDictionary, useFarsiDigits, useLocale } from "@/lib/i18n/client";
 import { siteConfig } from "@/lib/seo/seo";
 import {
-  getWorkingHoursSummary,
-  getOpenNowStatus,
-} from "@/lib/services/working-hours";
-import {
-  ArrowIcon,
-  ArrowUpIcon,
   InstagramIcon,
   MailIcon,
   PhoneIcon,
@@ -29,20 +24,26 @@ function FooterHeading({ children }: { children: ReactNode }) {
   );
 }
 
-export default async function Footer() {
-  const { dict, locale } = await getServerDictionary();
-  const workingHours = getWorkingHoursSummary(locale);
-  const closedLabel = dict.footer.closed;
-  const { isOpen } = getOpenNowStatus();
+export default function Footer({
+  workingHours,
+  isOpen,
+}: {
+  workingHours: Array<{ label: string; hours: string; isClosed: boolean }>;
+  isOpen: boolean;
+}) {
+  const currentDict = useDictionary();
+  const { locale } = useLocale();
+  const toFarsi = useFarsiDigits();
   const isFa = locale === "fa";
+  const closedLabel = currentDict.footer.closed;
 
   const quickLinks = [
-    { href: "/about", label: dict.footer.aboutUs },
-    { href: "/services", label: dict.footer.ourServices },
-    { href: "/forum", label: dict.footer.communityForum },
-    { href: "/booking", label: dict.footer.bookSession },
-    { href: "/blog", label: dict.nav?.blog || "Blog" },
-    { href: "/contact", label: dict.nav?.contact || "Contact" },
+    { href: "/about", label: currentDict.footer.aboutUs },
+    { href: "/services", label: currentDict.footer.ourServices },
+    { href: "/forum", label: currentDict.footer.communityForum },
+    { href: "/booking", label: currentDict.footer.bookSession },
+    { href: "/blog", label: currentDict.nav?.blog || "Blog" },
+    { href: "/contact", label: currentDict.nav?.contact || "Contact" },
   ];
 
   const socials: {
@@ -100,21 +101,17 @@ export default async function Footer() {
         <div className="absolute inset-x-0 -top-1 h-3 bg-gradient-to-r from-transparent via-primary/15 to-transparent blur-md" />
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
-        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-10">
+      <div className="relative mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
+        <div className="grid gap-8 sm:gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-10">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link href="/" className="group inline-flex items-center gap-3">
-              <span className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-primary to-secondary text-base font-bold text-on-primary transition-all duration-300 group-hover:shadow-[0_0_32px_-2px_rgba(26,115,82,0.85)] group-hover:scale-[1.04]">
-                <span className="relative z-10">R</span>
-                <span className="absolute inset-0 bg-gradient-to-tr from-white/25 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-              </span>
-              <span className="text-lg font-semibold tracking-tight text-white transition-colors group-hover:text-highlight">
-                {dict.common.doctorName}
+            <Link href="/" prefetch={false} className="group inline-flex max-w-full items-center">
+              <span className="text-lg font-semibold text-white transition-colors group-hover:text-highlight">
+                {currentDict.common.doctorName}
               </span>
             </Link>
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-slate-400">
-              {dict.footer.tagline}
+              {currentDict.footer.tagline}
             </p>
 
             {/* Social icons under brand */}
@@ -136,21 +133,22 @@ export default async function Footer() {
             {/* Primary conversion CTA */}
             <Link
               href="/booking"
+              prefetch={false}
               className="group mt-7 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary to-secondary px-5 py-2.5 text-sm font-semibold text-deep shadow-lg shadow-primary/25 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/40 focus-visible:ring-2 focus-visible:ring-highlight"
             >
-              {dict.footer.bookSession}
-              <ArrowIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
+              {currentDict.footer.bookSession}
             </Link>
           </div>
 
           {/* Quick Links */}
-          <nav aria-label={dict.footer.quickLinks}>
-            <FooterHeading>{dict.footer.quickLinks}</FooterHeading>
+          <nav aria-label={currentDict.footer.quickLinks}>
+            <FooterHeading>{currentDict.footer.quickLinks}</FooterHeading>
             <ul className="mt-5 space-y-2.5">
               {quickLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
+                    prefetch={false}
                     className="group inline-flex items-center gap-1.5 text-sm text-slate-400 transition-colors duration-200 hover:text-highlight"
                   >
                     {/* Persistent faint bullet that brightens + extends on hover */}
@@ -164,7 +162,7 @@ export default async function Footer() {
 
           {/* Contact */}
           <div>
-            <FooterHeading>{dict.footer.contact}</FooterHeading>
+            <FooterHeading>{currentDict.footer.contact}</FooterHeading>
             <ul className="mt-5 space-y-2.5 text-sm text-slate-400">
               <li>
                 {/* Semantic address element linked to Google Maps directions */}
@@ -175,11 +173,11 @@ export default async function Footer() {
                     rel="noopener noreferrer"
                     className="inline-flex flex-col transition-colors duration-300 hover:text-highlight"
                   >
-                    {dict.footer.addressLine1}
+                    {currentDict.footer.addressLine1}
                     <br />
-                    {dict.footer.addressLine2}
+                    {currentDict.footer.addressLine2}
                     <br />
-                    {dict.footer.addressLine3}
+                    {currentDict.footer.addressLine3}
                   </a>
                 </address>
                 <a
@@ -188,8 +186,7 @@ export default async function Footer() {
                   rel="noopener noreferrer"
                   className="mt-1.5 inline-flex items-center gap-1.5 text-xs font-medium text-primary/80 transition-colors duration-300 hover:text-highlight"
                 >
-                  <ArrowIcon className="h-3 w-3" />
-                  {dict.footer.getDirections}
+                  {currentDict.footer.getDirections}
                 </a>
               </li>
               <li>
@@ -199,7 +196,7 @@ export default async function Footer() {
                   className="inline-flex items-center gap-2 transition-colors duration-300 hover:text-highlight"
                 >
                   <PhoneIcon className="h-3.5 w-3.5 shrink-0 text-primary/70" />
-                  {isFa ? toFarsiDigits(siteConfig.phone) : siteConfig.phone}
+                  {isFa ? toFarsi(siteConfig.phone) : siteConfig.phone}
                 </a>
               </li>
               <li>
@@ -218,7 +215,7 @@ export default async function Footer() {
           {/* Hours */}
           <div>
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <FooterHeading>{dict.footer.officeHours}</FooterHeading>
+              <FooterHeading>{currentDict.footer.officeHours}</FooterHeading>
               {/* Live open/closed status computed in clinic timezone */}
               <span
                 className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-medium ${
@@ -237,7 +234,7 @@ export default async function Footer() {
                     }`}
                   />
                 </span>
-                {isOpen ? dict.contact.openNow : dict.contact.closedNow}
+                {isOpen ? currentDict.contact.openNow : currentDict.contact.closedNow}
               </span>
             </div>
             <ul className="mt-5 space-y-2.5 text-sm">
@@ -263,28 +260,28 @@ export default async function Footer() {
             <div className="mt-8">
               <Link
                 href="/admin/login"
+                prefetch={false}
                 className="text-xs text-slate-500 transition-colors duration-300 hover:text-primary"
               >
-                {dict.footer.adminLogin}
+                {currentDict.footer.adminLogin}
               </Link>
             </div>
           </div>
         </div>
 
-        {/* Bottom bar — gradient divider echoing the top energy line */}
-        <div className="relative mt-14 pt-8">
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <div>
+        {/* Bottom bar — redesigned utility row with visible back-to-top control */}
+        <div className="relative mt-10 border-t border-white/10 pt-5 sm:mt-12 sm:pt-6 lg:mt-14">
+          <div className="flex flex-col gap-4 sm:gap-5 lg:flex-row lg:items-center lg:justify-between">
+            <div className="text-center lg:text-left">
               <p className="text-sm text-slate-400">
                 &copy;{" "}
                 {isFa
-                  ? toFarsiDigits(new Date().getFullYear())
+                  ? toFarsi(new Date().getFullYear())
                   : new Date().getFullYear()}{" "}
-                {dict.common.doctorName}. {dict.footer.rightsReserved}
+                {currentDict.common.doctorName}. {currentDict.footer.rightsReserved}
               </p>
               <p className="mt-1 text-xs text-slate-500">
-                {dict.footer.designerBy}{" "}
+                {currentDict.footer.designerBy}{" "}
                 <a
                   href="https://sinisteroid.ir/"
                   target="_blank"
@@ -296,28 +293,40 @@ export default async function Footer() {
               </p>
             </div>
 
-            <div className="flex items-center gap-4 text-xs text-slate-400">
+            <div className="flex flex-wrap items-center justify-center gap-2.5 text-xs text-slate-400 sm:gap-3 lg:justify-end">
               <Link
                 href="/privacy"
-                className="transition-colors hover:text-slate-200"
+                prefetch={false}
+                className="rounded-full px-2 py-1 transition-colors hover:text-slate-200"
               >
-                {dict.footer.privacy}
+                {currentDict.footer.privacy}
               </Link>
-              <span className="h-1 w-1 rounded-full bg-slate-600" />
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary/70 shadow-[0_0_0_1px_rgba(255,255,255,0.12)] ring-1 ring-white/10 dark:bg-primary/80 dark:shadow-[0_0_0_1px_rgba(15,23,42,0.25)]" aria-hidden="true" />
               <Link
                 href="/terms"
-                className="transition-colors hover:text-slate-200"
+                prefetch={false}
+                className="rounded-full px-2 py-1 transition-colors hover:text-slate-200"
               >
-                {dict.footer.terms}
+                {currentDict.footer.terms}
               </Link>
-              <span className="h-1 w-1 rounded-full bg-slate-600" />
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary/70 shadow-[0_0_0_1px_rgba(255,255,255,0.12)] ring-1 ring-white/10 dark:bg-primary/80 dark:shadow-[0_0_0_1px_rgba(15,23,42,0.25)]" aria-hidden="true" />
               <a
                 href="#top"
-                aria-label={dict.footer.backToTop}
-                title={dict.footer.backToTop}
-                className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-400 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/50 hover:bg-primary/10 hover:text-highlight"
+                aria-label={currentDict.footer.backToTop}
+                title={currentDict.footer.backToTop}
+                className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[11px] font-medium text-slate-300 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/50 hover:bg-primary/10 hover:text-highlight"
               >
-                <ArrowUpIcon className="h-3.5 w-3.5" />
+                <svg
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  aria-hidden="true"
+                >
+                  <path d="M10 14.5V4.5M6 8.5l4-4 4 4" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span className="hidden sm:inline">{currentDict.footer.backToTop}</span>
               </a>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import { useId } from "react";
+import { memo, useId } from "react";
 
 interface MorphingBlobProps {
   /** Color of the blob (any CSS color value) */
@@ -25,7 +25,7 @@ interface MorphingBlobProps {
  * Pure CSS animation, GPU-accelerated.
  * Respects prefers-reduced-motion.
  */
-export default function MorphingBlob({
+export default memo(function MorphingBlob({
   color = "rgba(26, 115, 82, 0.06)",
   colorSecondary = "rgba(46, 125, 91, 0.04)",
   size = 300,
@@ -82,4 +82,4 @@ export default function MorphingBlob({
       />
     </div>
   );
-}
+});

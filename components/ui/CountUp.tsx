@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { toFarsiDigits } from "@/lib/i18n/numbers";
 
 interface CountUpProps {
@@ -14,7 +14,7 @@ interface CountUpProps {
   useFarsiDigits?: boolean;
 }
 
-export default function CountUp({
+export default memo(function CountUp({
   end,
   duration = 2,
   prefix = "",
@@ -81,4 +81,4 @@ export default function CountUp({
       {suffix}
     </span>
   );
-}
+});

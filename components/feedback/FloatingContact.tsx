@@ -121,8 +121,8 @@ export default function FloatingContact({
               transform="rotate(-90 24 24)"
             />
           </svg>
-          <span className="pointer-events-none absolute left-1/2 top-1/2 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-deep/90 text-gold shadow-lg backdrop-blur-sm transition-colors duration-300 hover:bg-primary-fill hover:text-on-primary">
-            <ArrowUpIcon className="h-4 w-4" />
+          <span className="pointer-events-none absolute left-1/2 top-1/2 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-surface text-primary shadow-lg transition-colors duration-300">
+            <ArrowUpIcon className="h-5 w-5" />
           </span>
         </button>
       )}

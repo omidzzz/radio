@@ -152,7 +152,7 @@ export default function Equipment({ isFa, modalities = [] }: EquipmentProps) {
             />
           </Reveal>
 
-          <dl className="mt-8 grid grid-cols-2 gap-6 border-t border-white/10 pt-8">
+          <dl className="mt-8 grid grid-cols-1 gap-4 border-t border-white/10 pt-8 sm:grid-cols-2 sm:gap-6">
             {specs.map((s, i) => (
               <Reveal key={s.label} delay={i * 100}>
                 <div className="cursor-default">

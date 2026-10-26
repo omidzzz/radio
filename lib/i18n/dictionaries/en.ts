@@ -363,7 +363,8 @@ const en = {
     process4Desc:
       "Control imaging, treatment response review, and ongoing support after your course is complete.",
     faqTitle: "Services FAQ",
-    faqSubtitle: "Answers to the most common patient questions about our services and the treatment process.",
+    faqSubtitle:
+      "Answers to the most common patient questions about our services and the treatment process.",
     faq: [
       {
         question: "How do I know which service is right for me?",
@@ -420,7 +421,8 @@ const en = {
     preferredTime: "Preferred Time *",
     selectTime: "Select a time",
     loadingSlots: "Loading available times…",
-    noSlots: "No available time slots on this date. Please choose another date.",
+    noSlots:
+      "No available time slots on this date. Please choose another date.",
     selectDateFirst: "Pick a date to see available times",
     nextAvailable: "Next available date",
     invalidName: "Please enter your full name.",
@@ -444,8 +446,7 @@ const en = {
     metaDescription:
       "Book your consultation or treatment session online. Choose your session type, date, and time in under two minutes.",
     notes: "Additional Notes (Optional)",
-    notesPlaceholder:
-      "Tell us anything we should know about your needs...",
+    notesPlaceholder: "Tell us anything we should know about your needs...",
     successMessage:
       "Your booking request has been submitted! You will be contacted to confirm your appointment.",
     referenceNumber: "Your booking reference number is #",
@@ -624,7 +625,8 @@ const en = {
     saveGlobalSettings: "Save Global Settings",
     saving: "Saving...",
     weeklySchedule: "Weekly Schedule",
-    weeklyScheduleHint: "Toggle which days are available and set working hours for each day.",
+    weeklyScheduleHint:
+      "Toggle which days are available and set working hours for each day.",
     closed: "Closed",
     start: "Start",
     end: "End",
