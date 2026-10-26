@@ -5755,14 +5755,14 @@ h3 {
 /* Shared curved edge treatment for every hero slide and theme. */
 .lightbg-clip {
   clip-path: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0 0H12C18 35 24 75 16 100H0Z' fill='%230e3a2d'/%3E%3Cpath d='M12 0C18 35 24 75 16 100' fill='none' stroke='%23c9a24b' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0 0H22C14 35 10 75 18 100H0Z' fill='%230e3a2d'/%3E%3Cpath d='M22 0C14 35 10 75 18 100' fill='none' stroke='%23c9a24b' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-size: 18% 100%;
+  background-size: 22% 100%;
   background-color: #f8f5ee;
 }
 
 [data-theme="dark"] .lightbg-clip {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0 0H12C18 35 24 75 16 100H0Z' fill='%23064e3b'/%3E%3Cpath d='M12 0C18 35 24 75 16 100' fill='none' stroke='%23c9a24b' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0 0H22C14 35 10 75 18 100H0Z' fill='%23064e3b'/%3E%3Cpath d='M22 0C14 35 10 75 18 100' fill='none' stroke='%23c9a24b' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
   background-color: #0e3a2d;
 }
 
