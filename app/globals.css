@@ -1,2878 +1,7 @@
-﻿@import "tailwindcss";
-
-/* Make all Tailwind `hover:` variants fire only on devices that truly
-   support hover (mouse/trackpad) â€” prevents sticky hover states on touch. */
-@custom-variant hover {
-  @media (hover: hover) {
-    &:hover {
-      @slot;
-    }
-  }
-}
-
-:root,
-[data-theme="light"] {
-  /* â”€â”€ Ivory / forest-green / gold palette (from Dr. Ghadamgahi's card) â”€â”€
-     Refined for legibility: text tones verified against WCAG AA (4.5:1)
-     on the ivory background; borders carry a warm gold tint. */
-  --color-deep: #0b2e22;
-  --color-bg: #f8f5ee;
-  --color-surface: #fffdf9;
-  --color-gold: #c9a24b;
-  --color-gold-soft: #e9d4a3;
-  --color-highlight: #82621f;
-  --color-soft: #ece5d1;
-  --color-text-primary: #16281f;
-  --color-text-secondary: #3d5248;
-  --color-text-on-dark: #fffbf2;
-  --color-muted: #5d6f65;
-  --color-border: #ddd2b8;
-  --color-success: #16a34a;
-  --color-danger: #dc2626;
-  --color-danger-soft: #fef2f2;
-  --color-positive: #059669;
-  --color-positive-soft: #ecfdf5;
-  --color-secondary: #2e7d5b;
-  --color-secondary-hover: #3e9a74;
-  --color-blog-dark: #07211a;
-  --font-vazirmatn: var(--font-vazirmatn), system-ui, sans-serif;
-  --font-outfit: var(--font-outfit), system-ui, sans-serif;
-
-  /* Light theme â€” primary green is reserved for borders, accents, and
-     hover states. Component fills (buttons, pills, chips) are WHITE so
-     light mode stays paper-dominant; text on fills is dark green. */
-  --color-primary: #145c41;
-  --color-primary-hover: #1a7352;
-  --color-primary-fill: #ffffff;
-  --color-primary-fill-soft: #f4efe5;
-  /* Dark text on white fills (WCAG AA on white). */
-  --color-on-primary: #145c41;
-  /* Accent text for badges on green-tinted surfaces â€” deep green works in
-     light mode; dark theme keeps warm gold. */
-  --color-accent: #145c41;
-
-  /* Shared vertical rhythm for page sections â€” compact on mobile,
-     generous on desktop without extra utilities per section. */
-  --section-y: clamp(3.5rem, 6vw, 6rem);
-
-  /* Elevation â€” light theme: neutral, soft, paper-like depth */
-  --elevation-card: 0 1px 2px 0 rgba(11, 46, 34, 0.04),
-    0 1px 3px 0 rgba(11, 46, 34, 0.06);
-  --elevation-card-hover: 0 14px 34px -14px rgba(11, 46, 34, 0.2),
-    0 2px 6px -2px rgba(11, 46, 34, 0.06);
-
-  /* Motion tokens (also exposed via @theme for utility generation, but
-     declared here as literals so they are never tree-shaken away â€”
-     an unresolved var inside `animation` would cancel the entrance
-     animations entirely). */
-  --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
-  --dur-fast: 150ms;
-  --dur-base: 250ms;
-  --dur-slow: 450ms;
-  --dur-entrance: 800ms;
-
-  --radius-card: 1.5rem;
-  --radius-panel: 1.7rem;
-
-  color-scheme: light dark;
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   DARK THEME PALETTE
-   Overrides the CSS custom properties when
-   <html data-theme="dark"> is set by ThemeProvider.
-   All Tailwind utilities (bg-bg, text-text-primary,
-   border-border, bg-surface, â€¦) automatically pick
-   up these values via var(--color-*).
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-[data-theme="dark"] {
-  --color-deep: #04120d;
-  --color-bg: #071a13;
-  --color-surface: #0e2a1f;
-  --color-primary: #3dbe8b;
-  --color-primary-hover: #5fd3a6;
-  /* Dark theme keeps green fills */
-  --color-primary-fill: #3dbe8b;
-  --color-primary-fill-soft: rgba(61, 190, 139, 0.12);
-  --color-on-primary: #04120d;
-  /* Fill on primary â€” light green, matching the dark theme's brand */
-  --color-primary-fill: #3dbe8b;
-  /* On dark theme primary is a light green, so on-fill text flips to
-     near-black (8.2:1) â€” visually identical to the old text-deep. */
-  --color-on-primary: #04120d;
-  /* Accent on tints: gold on the dark green tint (matches old highlight). */
-  --color-accent: #e3c67e;
-  --color-gold: #d9b967;
-  --color-gold-soft: #2b2413;
-  --color-highlight: #e3c67e;
-  --color-soft: #0f2c21;
-  --color-text-primary: #eaf3ee;
-  --color-text-secondary: #a4bcb0;
-  --color-text-on-dark: #fffbf2;
-  --color-muted: #7e9689;
-  --color-border: #234434;
-  --color-success: #3dbe8b;
-  --color-danger: #f87171;
-  --color-danger-soft: rgba(248, 113, 113, 0.12);
-  --color-positive: #34d399;
-  --color-positive-soft: rgba(52, 211, 153, 0.12);
-  --color-secondary: #2fa377;
-  --color-secondary-hover: #5fd3a6;
-  --color-blog-dark: #04120d;
-
-  /* Elevation â€” dark theme: hairline + glow instead of diffuse shadow */
-  --elevation-card: 0 0 0 1px rgba(76, 155, 122, 0.05),
-    0 12px 32px -20px rgba(0, 0, 0, 0.9);
-  --elevation-card-hover: 0 0 0 1px rgba(76, 155, 122, 0.16),
-    0 18px 46px -22px rgba(0, 0, 0, 0.95),
-    0 0 34px -14px rgba(76, 155, 122, 0.3);
-}
-
-@theme {
-  --color-deep: var(--color-deep);
-  --color-bg: var(--color-bg);
-  --color-surface: var(--color-surface);
-  --color-primary: var(--color-primary);
-  --color-primary-hover: var(--color-primary-hover);
-  --color-on-primary: var(--color-on-primary);
-  --color-primary-fill: var(--color-primary-fill);
-  --color-primary-fill-hover: var(--color-primary-hover);
-  --color-accent: var(--color-accent);
-  --color-highlight: var(--color-highlight);
-  --color-gold: var(--color-gold);
-  --color-gold-soft: var(--color-gold-soft);
-  --color-soft: var(--color-soft);
-  --color-text-primary: var(--color-text-primary);
-  --color-text-secondary: var(--color-text-secondary);
-  --color-text-on-dark: var(--color-text-on-dark);
-  --color-muted: var(--color-muted);
-  --color-border: var(--color-border);
-  --color-success: var(--color-success);
-  --color-danger: var(--color-danger);
-  --color-danger-soft: var(--color-danger-soft);
-  --color-positive: var(--color-positive);
-  --color-positive-soft: var(--color-positive-soft);
-  --color-secondary: var(--color-secondary);
-  --color-secondary-hover: var(--color-secondary-hover);
-  --color-blog-dark: var(--color-blog-dark);
-  /* Font aliases used by the font-vazir / font-outfit utilities */
-  --font-vazir: var(--font-vazirmatn), system-ui, sans-serif;
-  --font-outfit: var(--font-outfit), system-ui, sans-serif;
-
-  /* â”€â”€ Motion tokens â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-     One source of truth for the site's timing so every transition and
-     entrance animation shares the same feel. */
-  --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
-  --dur-fast: 150ms;
-  --dur-base: 250ms;
-  --dur-slow: 450ms;
-  --dur-entrance: 800ms;
-
-  /* â”€â”€ Radius tokens â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-     Cards and panels share two radii only: content cards and large
-     feature panels (blog cards, hero-side panels). */
-  --radius-card: 1.5rem;
-  --radius-panel: 1.7rem;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-/* Disable smooth scrolling for users who prefer reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  /* Global kill-switch for decorative/infinite animations and transitions.
-     Near-zero durations still fire animationend/transitionend events, so
-     JS flows that wait on them (e.g. Preloader) keep working. */
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-body {
-  font-family: var(--font-vazirmatn), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
-  background-color: var(--color-bg);
-  color: var(--color-text-primary);
-  /* Smooth dark/light theme transitions without flashing */
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Visible keyboard-focus ring for accessibility (mouse clicks excluded) */
-:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   DESIGN TOKEN UTILITIES
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-
-/* Uniform vertical rhythm for page sections â€” pb can be tightened
-   per-section with .section-pad-tight (e.g. TrustStrip). */
-.section-pad {
-  padding-top: var(--section-y);
-  padding-bottom: var(--section-y);
-}
-.section-pad-tight {
-  padding-top: var(--section-y);
-  padding-bottom: 1rem;
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   SURFACE PRIMITIVES â€” one card treatment for every content card.
-   Light theme: soft neutral elevation.
-   Dark theme: 1px cyan hairline + glow-first depth (see --elevation-*).
-   Hover lift is gated to true-hover devices and disabled for
-   reduced-motion users further down.
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-.surface-card {
-  position: relative;
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-card);
-  box-shadow: var(--elevation-card);
-  transition:
-    border-color var(--dur-base) var(--ease-soft),
-    box-shadow var(--dur-base) var(--ease-soft),
-    transform var(--dur-base) var(--ease-soft);
-}
-
-.surface-panel {
-  border-radius: var(--radius-panel);
-}
-
-@media (hover: hover) {
-  .surface-card:hover {
-    transform: translateY(-4px);
-    border-color: color-mix(in srgb, var(--color-primary) 55%, transparent);
-    box-shadow: var(--elevation-card-hover);
-  }
-}
-
-/* Pill-shaped sibling of .surface-card (trust marks, certificate chips) */
-.surface-chip {
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 999px;
-  box-shadow: var(--elevation-card);
-  transition:
-    border-color var(--dur-base) var(--ease-soft),
-    box-shadow var(--dur-base) var(--ease-soft);
-}
-
-@media (hover: hover) {
-  .surface-chip:hover {
-    border-color: color-mix(in srgb, var(--color-primary) 50%, transparent);
-    box-shadow: var(--elevation-card-hover);
-  }
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   BAND â€” DARK
-   Single treatment for the dark storytelling bands (equipment,
-   testimonials, closing CTA): deep base, one top + bottom glow and a
-   barely-there grain for materiality. No animation, no extra layers:
-   both decorations are pseudo-elements on the section itself.
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-.band-dark {
-  position: relative;
-  overflow: hidden;
-  background-color: var(--color-deep);
-}
-
-.band-dark::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(
-      70% 55% at 50% 0%,
-      color-mix(in srgb, var(--color-primary) 13%, transparent),
-      transparent 70%
-    ),
-    radial-gradient(
-      55% 45% at 50% 100%,
-      color-mix(in srgb, var(--color-secondary) 9%, transparent),
-      transparent 72%
-    );
-}
-
-.band-dark::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.05;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 170px 170px;
-}
-
-@media (max-width: 767px) {
-  /* Grain costs a full-section composite on mobile GPUs â€” barely visible there */
-  .band-dark::after {
-    opacity: 0.03;
-  }
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   FLUID TYPE SCALE â€” section headers stop stepping at breakpoints
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-.type-section {
-  font-size: clamp(1.75rem, 1.42rem + 1.3vw, 2.5rem);
-  line-height: 1.18;
-  letter-spacing: -0.015em;
-}
-
-.type-lede {
-  font-size: clamp(1rem, 0.98rem + 0.22vw, 1.125rem);
-  line-height: 1.75;
-}
-
-html[lang="fa"] .type-section {
-  line-height: 1.45;
-  letter-spacing: 0;
-}
-
-/* Locked-width digits â€” animated counters and timestamps never jitter */
-.tnum {
-  font-variant-numeric: tabular-nums;
-  font-feature-settings: "tnum" 1;
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   MINIMAL DESIGN SYSTEM â€” balance, FA rhythm, selection
-   Zero-JS. Respects both themes via var(--color-*).
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-h1,
-h2 {
-  text-wrap: balance;
-  font-weight: 800;
-}
-article p,
-section p {
-  text-wrap: pretty;
-}
-/* Vazirmatn needs looser leading than latin tight tracking */
-html[lang="fa"] h1,
-html[lang="fa"] h2 {
-  line-height: 1.45;
-  letter-spacing: 0;
-}
-html[lang="fa"] .tracking-tight,
-html[lang="fa"] .tracking-tighter {
-  letter-spacing: -0.005em;
-}
-::selection {
-  background: color-mix(in srgb, var(--color-primary) 28%, transparent);
-}
-:target {
-  scroll-margin-top: 88px;
-}
-section[id] {
-  scroll-margin-top: 84px;
-}
-/* Thin gold rule â€” visit-card motif used under display headings */
-.gold-rule {
-  display: inline-block;
-  height: 2px;
-  width: clamp(4rem, 10vw, 7rem);
-  border-radius: 999px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    var(--color-gold) 25%,
-    var(--color-gold) 75%,
-    transparent
-  );
-}
-/* Shared eyebrow pill â€” gold voice from the visit card.
-   Ivory theme: gold border + soft gold wash + deep-green text so the
-   pill stays striking while meeting AA contrast. */
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--color-primary);
-  border: 1px solid var(--color-gold);
-  background: var(--color-gold-soft);
-  border-radius: 999px;
-  padding: 0.4rem 0.85rem;
-}
-/* Eyebrow on dark bands (hero / testimonials / CTA) */
-.eyebrow-on-dark {
-  color: var(--color-highlight);
-  border-color: rgba(255, 255, 255, 0.15);
-  background: rgba(255, 255, 255, 0.05);
-}
-html[lang="fa"] .eyebrow {
-  /* Persian script + wide latin tracking looks scattered â€” tighten */
-  letter-spacing: 0.06em;
-}
-/* Reusable button sheen sweep â€” desktop hover only (touch has no hover) */
-@media (hover: hover) {
-  .btn-sheen {
-    position: relative;
-    overflow: hidden;
-    isolation: isolate;
-  }
-  .btn-sheen::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background: linear-gradient(
-      to right,
-      transparent,
-      rgba(255, 255, 255, 0.3),
-      transparent
-    );
-    transform: translateX(-110%);
-    transition: transform 0.7s ease;
-    pointer-events: none;
-  }
-  .btn-sheen:hover::after {
-    transform: translateX(110%);
-  }
-  [dir="rtl"] .btn-sheen::after {
-    transform: translateX(110%);
-  }
-  [dir="rtl"] .btn-sheen:hover::after {
-    transform: translateX(-110%);
-  }
-}
-/* Hairline divider with center label â€” cheaper than animated scanline */
-.hairline-label {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  color: var(--color-muted);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-.hairline-label::before,
-.hairline-label::after {
-  content: "";
-  height: 1px;
-  flex: 1;
-  background: linear-gradient(
-    to right,
-    transparent,
-    var(--color-border),
-    transparent
-  );
-}
-html[lang="fa"] .hairline-label {
-  letter-spacing: 0.06em;
-}
-/* Mobile snap row â€” shared by testimonials / galleries, no carousel JS */
-@media (max-width: 767px) {
-  .snap-row {
-    display: flex;
-    gap: 0.875rem;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: 1rem;
-    padding-inline: 1rem;
-    padding-bottom: 0.75rem;
-    margin-inline: -1rem;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  .snap-row::-webkit-scrollbar {
-    display: none;
-  }
-  .snap-row > * {
-    scroll-snap-align: start;
-    flex: 0 0 min(84vw, 320px);
-  }
-}
-/* Touch devices: kill lift + spotlight + magnetic transforms entirely */
-@media (hover: none) {
-  .no-lift-touch {
-    transform: none !important;
-  }
-  .spotlight-card::before {
-    opacity: 0 !important;
-  }
-}
-
-/* Fluid display heading â€” scales smoothly between breakpoints
-   instead of stepping at sm/lg/xl boundaries. */
-.fluid-display,
-.type-display {
-  font-size: clamp(2.25rem, 1.55rem + 2.7vw, 4.3rem);
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  font-weight: 800;
-}
-
-/* Vazirmatn's 800/900 cuts grow tall â€” give Persian display room */
-html[lang="fa"] .fluid-display,
-html[lang="fa"] .type-display {
-  line-height: 1.5;
-  letter-spacing: 0;
-  font-weight: 800;
-}
-
-/* Section headings are set to 800 in the type-family block below */
-
-[dir="ltr"] body {
-  font-family: var(--font-outfit), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    sans-serif;
-}
-
-/* Persian body copy set in Vazirmatn reads cramped at Tailwind's default
-   1.5 line-height â€” open it up for paragraphs and list items. */
-html[lang="fa"] p,
-html[lang="fa"] li {
-  line-height: 1.85;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-vazirmatn), system-ui, sans-serif;
-  font-weight: 800;
-}
-
-/* Section ledes read with extra presence â€” medium weight, comfortable measure */
-.type-lede {
-  font-weight: 500;
-  max-width: 44rem;
-}
-
-/* Subsection headings (h3) â€” semibold is elegant enough below h2 */
-h3 {
-  font-weight: 700;
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   ANIMATIONS â€” Home page
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-@keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(28px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes scale-in {
-  from {
-    opacity: 0;
-    transform: scale(0.92);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes slide-in-right {
-  from {
-    opacity: 0;
-    transform: translateX(40px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slide-in-left {
-  from {
-    opacity: 0;
-    transform: translateX(-40px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes sweep {
-  0% {
-    transform: translateY(-120%);
-    opacity: 0;
-  }
-
-  12% {
-    opacity: .8;
-  }
-
-  88% {
-    opacity: .8;
-  }
-
-  100% {
-    transform: translateY(120%);
-    opacity: 0;
-  }
-}
-
-@keyframes pulse-ring {
-
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: .6;
-  }
-
-  50% {
-    transform: scale(1.5);
-    opacity: 0;
-  }
-}
-
-@keyframes blink-dot {
-
-  0%,
-  100% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: .25;
-  }
-}
-
-@keyframes gantry-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes scan-beam {
-  0% {
-    transform: translateX(-30%);
-    opacity: 0;
-  }
-
-  15% {
-    opacity: 0.7;
-  }
-
-  85% {
-    opacity: 0.7;
-  }
-
-  100% {
-    transform: translateX(130%);
-    opacity: 0;
-  }
-}
-
-@keyframes status-pulse {
-
-  0%,
-  100% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0.35;
-  }
-}
-
-@keyframes table-glow {
-
-  0%,
-  100% {
-    opacity: 0.4;
-  }
-
-  50% {
-    opacity: 0.85;
-  }
-}
-
-/* One-shot entrance animations â€” no persistent will-change, so finished
-   elements don't hold GPU layers forever. */
-.anim-fade-up {
-  opacity: 0;
-  animation: fade-up 0.8s var(--ease-brand) forwards;
-}
-
-.anim-fade-in {
-  opacity: 0;
-  animation: fade-in 1s ease-out forwards;
-}
-
-.anim-scale-in {
-  opacity: 0;
-  animation: scale-in 0.9s var(--ease-brand) forwards;
-}
-
-.anim-slide-right {
-  opacity: 0;
-  animation: slide-in-right 0.9s var(--ease-brand) forwards;
-}
-
-.anim-slide-left {
-  opacity: 0;
-  animation: slide-in-left 0.9s var(--ease-brand) forwards;
-}
-
-.hud-sweep {
-  animation: sweep 5.5s ease-in-out infinite;
-  will-change: transform, opacity;
-}
-
-.hud-pulse {
-  animation: pulse-ring 2.2s ease-out infinite;
-  will-change: transform, opacity;
-}
-
-.hud-blink {
-  animation: blink-dot 1.6s ease-in-out infinite;
-  will-change: opacity;
-}
-
-.gantry-spin {
-  transform-origin: 150px 140px;
-}
-/* Gantry rotation is a desktop-hover-capable enhancement only */
-@media (hover: hover) and (min-width: 1024px) {
-  .gantry-spin {
-    animation: gantry-spin 30s linear infinite;
-  }
-}
-
-.scan-beam {
-  animation: scan-beam 4s ease-in-out infinite;
-}
-
-.status-pulse {
-  animation: status-pulse 2s ease-in-out infinite;
-}
-/* Status/beam pulses are desktop-only; mobile keeps the static dot */
-@media (max-width: 1023px) {
-  .scan-beam,
-  .status-pulse,
-  .beam-on {
-    animation: none !important;
-  }
-}
-
-.table-glow {
-  animation: table-glow 3s ease-in-out infinite;
-  will-change: opacity;
-}
-
-.delay-100 {
-  animation-delay: 100ms;
-}
-
-.delay-200 {
-  animation-delay: 200ms;
-}
-
-.delay-300 {
-  animation-delay: 300ms;
-}
-
-.delay-400 {
-  animation-delay: 400ms;
-}
-
-.delay-450 {
-  animation-delay: 450ms;
-}
-
-.delay-500 {
-  animation-delay: 500ms;
-}
-
-.delay-600 {
-  animation-delay: 600ms;
-}
-
-.delay-700 {
-  animation-delay: 700ms;
-}
-
-.delay-800 {
-  animation-delay: 800ms;
-}
-
-.delay-900 {
-  animation-delay: 900ms;
-}
-
-.delay-1000 {
-  animation-delay: 1000ms;
-}
-
-.delay-1100 {
-  animation-delay: 1100ms;
-}
-
-.delay-1200 {
-  animation-delay: 1200ms;
-}
-
-/* Process section â€” spine keyframes kept for the static fallback;
-   the traveling .spine-dot animation was removed (static dot in JSX) */
-@keyframes spine-pulse {
-  0% {
-    top: -6%;
-    opacity: 0;
-  }
-
-  12% {
-    opacity: 1;
-  }
-
-  88% {
-    opacity: 1;
-  }
-
-  100% {
-    top: 106%;
-    opacity: 0;
-  }
-}
-
-@keyframes slow-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* card-sweep hover effect removed from Process cards â€” single definition kept */
-@keyframes card-sweep {
-  0% {
-    transform: translateX(-120%);
-    opacity: 0;
-  }
-
-  15% {
-    opacity: .6;
-  }
-
-  85% {
-    opacity: .6;
-  }
-
-  100% {
-    transform: translateX(120%);
-    opacity: 0;
-  }
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   ANIMATIONS â€” Forum post page
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-@keyframes fp-fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fp-fade-in {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fp-badge-pulse {
-
-  0%,
-  100% {
-    box-shadow: 0 0 0 0 rgba(26, 115, 82, 0.35);
-  }
-
-  50% {
-    box-shadow: 0 0 0 6px rgba(26, 115, 82, 0);
-  }
-}
-
-.fp-fade-up {
-  opacity: 0;
-  animation: fp-fade-up 0.6s var(--ease-brand) forwards;
-}
-
-.fp-fade-in {
-  opacity: 0;
-  animation: fp-fade-in 0.7s ease-out forwards;
-}
-
-.fp-delay-1 {
-  animation-delay: 80ms;
-}
-
-.fp-delay-2 {
-  animation-delay: 160ms;
-}
-
-.fp-delay-3 {
-  animation-delay: 240ms;
-}
-
-.fp-badge-pulse {
-  animation: fp-badge-pulse 2.6s ease-out infinite;
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   GRAIN / NOISE BACKGROUND PATTERN
-   Extracted data-URI SVG grain used across pages
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-.grain-pattern {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 170px 170px;
-}
-
-.grain-masked {
-  -webkit-mask-image: linear-gradient(180deg, transparent, black 8%, black 92%, transparent);
-  mask-image: linear-gradient(180deg, transparent, black 8%, black 92%, transparent);
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   RADIOTHERAPY MOTIFS â€” Isodose, beam, trefoil
-   Domain-specific decorative language
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-@keyframes isodose-pulse {
-
-  0%,
-  100% {
-    opacity: 0.35;
-  }
-
-  50% {
-    opacity: 0.7;
-  }
-}
-
-@keyframes beam-sweep {
-  0% {
-    transform: translateX(-120%) skewX(-12deg);
-    opacity: 0;
-  }
-
-  15% {
-    opacity: 0.6;
-  }
-
-  85% {
-    opacity: 0.6;
-  }
-
-  100% {
-    transform: translateX(220%) skewX(-12deg);
-    opacity: 0;
-  }
-}
-
-@keyframes dose-fill {
-  from {
-    width: 0%;
-  }
-
-  to {
-    width: 100%;
-  }
-}
-
-@keyframes trefoil-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes beam-on {
-
-  0%,
-  100% {
-    box-shadow: 0 0 0 0 rgba(26, 115, 82, 0.5);
-  }
-
-  50% {
-    box-shadow: 0 0 0 6px rgba(26, 115, 82, 0);
-  }
-}
-
-@keyframes coord-flash {
-
-  0%,
-  100% {
-    opacity: 0.4;
-  }
-
-  50% {
-    opacity: 1;
-  }
-}
-
-/* Isodose contour rings â€” concentric irregular dose lines */
-.isodose-ring {
-  animation: isodose-pulse 4s ease-in-out infinite;
-  will-change: opacity;
-}
-
-.isodose-ring-1 {
-  animation-delay: 0s;
-}
-
-.isodose-ring-2 {
-  animation-delay: 0.8s;
-}
-
-.isodose-ring-3 {
-  animation-delay: 1.6s;
-}
-
-.isodose-ring-4 {
-  animation-delay: 2.4s;
-}
-
-/* Treatment beam sweep â€” diagonal light sweep like a LINAC beam */
-.beam-sweep {
-  animation: beam-sweep 3.2s ease-in-out infinite;
-  will-change: transform, opacity;
-}
-
-/* Dose accumulation progress bar */
-.dose-fill {
-  animation: dose-fill 2.5s var(--ease-brand) forwards;
-  will-change: width;
-}
-
-/* Radiation trefoil watermark â€” static by default. Rotation is a
-   desktop-only enhancement (see media query below) so mobile and
-   reduced-motion users never pay for an infinite paint. */
-.trefoil-static {
-  color: var(--color-primary);
-}
-@media (hover: hover) and (min-width: 1024px) {
-  .trefoil-spin {
-    animation: trefoil-spin 60s linear infinite;
-  }
-}
-
-/* Beam-on indicator â€” pulsing status light */
-.beam-on {
-  animation: beam-on 2s ease-out infinite;
-  will-change: box-shadow;
-}
-
-/* Coordinate readout â€” flashing monospace text */
-.coord-flash {
-  animation: coord-flash 2.4s ease-in-out infinite;
-  will-change: opacity;
-}
-
-/* Treatment planning grid â€” faint PACS-style crosshair grid */
-.planning-grid {
-  background-image:
-    linear-gradient(rgba(26, 115, 82, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(26, 115, 82, 0.06) 1px, transparent 1px);
-  background-size: 48px 48px;
-}
-
-/* Consolidated ambient glow field for the footer â€” a single painted layer
-   (three radial gradients) instead of three blurred DOM nodes. Percent-based
-   positions keep it RTL-safe. */
-.footer-glow {
-  background:
-    radial-gradient(18rem 18rem at 8% 0%, rgba(26, 115, 82, 0.10), transparent 70%),
-    radial-gradient(16rem 16rem at 95% 100%, rgba(46, 125, 91, 0.08), transparent 70%),
-    radial-gradient(10rem 10rem at 50% 50%, rgba(76, 155, 122, 0.05), transparent 70%);
-}
-
-/* Theme-aware Google Maps embed: normal map in light theme,
-   inverted/desaturated to blend with the dark theme. */
-.map-embed iframe {
-  filter: grayscale(35%) contrast(95%);
-}
-
-[data-theme="dark"] .map-embed iframe {
-  filter: invert(90%) grayscale(45%) contrast(90%);
-}
-
-/* Dose-color gradient â€” blue â†’ green â†’ yellow â†’ red (planning color-wash) */
-.dose-gradient {
-  background: linear-gradient(90deg, #145c41, #2e7d5b, #84cc16, #f59e0b, #ef4444);
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   SCROLL REVEAL â€” IntersectionObserver driven
-   Element starts hidden; .is-revealed toggles in.
-   Configured via CSS custom properties for delay.
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-.reveal {
-  opacity: 0;
-  transform: translateY(34px) scale(0.985);
-  transition:
-    opacity 0.85s var(--ease-brand),
-    transform 0.85s var(--ease-brand);
-  transition-delay: var(--reveal-delay, 0ms);
-}
-
-.reveal-from-left {
-  opacity: 0;
-  transform: translateX(-40px);
-  transition:
-    opacity 0.85s var(--ease-brand),
-    transform 0.85s var(--ease-brand);
-  transition-delay: var(--reveal-delay, 0ms);
-}
-
-.reveal-from-right {
-  opacity: 0;
-  transform: translateX(40px);
-  transition:
-    opacity 0.85s var(--ease-brand),
-    transform 0.85s var(--ease-brand);
-  transition-delay: var(--reveal-delay, 0ms);
-}
-
-.reveal-scale {
-  opacity: 0;
-  transform: scale(0.92);
-  transition:
-    opacity 0.85s var(--ease-brand),
-    transform 0.85s var(--ease-brand);
-  transition-delay: var(--reveal-delay, 0ms);
-}
-
-.reveal.is-revealed,
-.reveal-from-left.is-revealed,
-.reveal-from-right.is-revealed,
-.reveal-scale.is-revealed {
-  opacity: 1;
-  transform: none;
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   KEN BURNS â€” slow cinematic hero zoom
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-@keyframes ken-burns {
-  0% {
-    transform: scale(1) translate(0, 0);
-  }
-
-  100% {
-    transform: scale(1.1) translate(-1.5%, 1%);
-  }
-}
-
-/* Ken Burns runs a single slow pass (~30s) instead of looping forever â€”
-   continuous compositing of the full-viewport LCP image is expensive,
-   especially on mobile. Disabled entirely below lg. */
-.ken-burns {
-  animation: ken-burns 30s ease-in-out 1 both;
-  will-change: transform;
-}
-
-@media (max-width: 1023px) {
-  .ken-burns {
-    animation: none;
-  }
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   GRADIENT SHIMMER â€” animated gradient text
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-@keyframes shimmer-slide {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  100% {
-    background-position: 200% 50%;
-  }
-}
-
-.shimmer-text {
-  background-size: 200% auto;
-  animation: shimmer-slide 6s linear infinite;
-  will-change: background-position;
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   HERO SLIDER â€” active-dot autoplay progress fill
-   Duration is set via --hero-duration (matches
-   the slider auto-advance interval).
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-@keyframes hero-slider-progress {
-  from {
-    width: 0%;
-  }
-
-  to {
-    width: 100%;
-  }
-}
-
-.hero-slider-progress {
-  animation: hero-slider-progress var(--hero-duration, 8000ms) linear forwards;
-  will-change: width;
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   SPOTLIGHT CARD â€” cursor-following radial glow
-   Set --spot-x / --spot-y from JS (in px or %)
-   NOTE: no overflow:hidden here â€” the ::before glow is
-   self-bounded (inset:0 + border-radius:inherit), and
-   overflow would clip children that lift on hover.
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-.spotlight-card {
-  position: relative;
-}
-
-.spotlight-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0;
-  border-radius: inherit;
-  transition: opacity 0.4s ease;
-  background: radial-gradient(480px circle at var(--spot-x, 50%) var(--spot-y, 50%),
-      var(--spot-color, rgba(26, 115, 82, 0.14)),
-      transparent 65%);
-}
-
-.spotlight-card:hover::before {
-  opacity: 1;
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   TILT CARD â€” subtle 3D perspective tilt
-   Set --tilt-x / --tilt-y (in deg) from JS
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-.tilt-card {
-  transform-style: preserve-3d;
-  transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
-  transition: transform 0.25s ease-out;
-  will-change: transform;
-}
-
-.tilt-card-inner {
-  transform: translateZ(28px);
-  transform-style: preserve-3d;
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   CONIC BORDER â€” rotating beam around CTAs
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-@keyframes conic-spin {
-  to {
-    --conic-angle: 360deg;
-  }
-}
-
-@property --conic-angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
-
-.conic-border {
-  position: relative;
-}
-
-.conic-border::before {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  z-index: 0;
-  border-radius: inherit;
-  padding: 2px;
-  background: conic-gradient(from var(--conic-angle),
-      transparent 0%,
-      rgba(26, 115, 82, 0.9) 12%,
-      rgba(76, 155, 122, 0.5) 20%,
-      transparent 32%,
-      transparent 100%);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  animation: conic-spin 4s linear infinite;
-  will-change: --conic-angle;
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   FLOAT BOB â€” gently drifting decorative orbs
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-@keyframes float-bob {
-
-  0%,
-  100% {
-    transform: translateY(0) translateX(0);
-  }
-
-  33% {
-    transform: translateY(-18px) translateX(10px);
-  }
-
-  66% {
-    transform: translateY(10px) translateX(-8px);
-  }
-}
-
-.float-bob {
-  animation: float-bob 12s ease-in-out infinite;
-  will-change: transform;
-}
-
-.float-bob-delay-1 {
-  animation-delay: -4s;
-}
-
-.float-bob-delay-2 {
-  animation-delay: -8s;
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   SCAN LINE â€” sweeping CT-style section divider
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-@keyframes scan-line-sweep {
-  0% {
-    transform: translateX(-120%);
-    opacity: 0;
-  }
-
-  15% {
-    opacity: 0.8;
-  }
-
-  85% {
-    opacity: 0.8;
-  }
-
-  100% {
-    transform: translateX(120%);
-    opacity: 0;
-  }
-}
-
-.scan-line>div {
-  animation: scan-line-sweep 3.5s ease-in-out infinite;
-  will-change: transform, opacity;
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   POWER-ON GANTRY â€” equipment "boot-up" sequence
-   .powered-on is added by IntersectionObserver
-   when the gantry scrolls into view.
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-@keyframes power-glow {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes power-sweep {
-  0% {
-    transform: translateX(-120%);
-    opacity: 0;
-  }
-
-  20% {
-    opacity: 0.6;
-  }
-
-  80% {
-    opacity: 0.6;
-  }
-
-  100% {
-    transform: translateX(120%);
-    opacity: 0;
-  }
-}
-
-.power-on-gantry {
-  position: relative;
-}
-
-.power-on-gantry::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  border-radius: inherit;
-  background: radial-gradient(circle at 50% 50%,
-      rgba(26, 115, 82, 0.18),
-      transparent 70%);
-  opacity: 0;
-  transition: opacity 1.2s ease;
-}
-
-.power-on-gantry.powered-on::before {
-  opacity: 1;
-}
-
-.power-on-gantry::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  pointer-events: none;
-  border-radius: inherit;
-  background: linear-gradient(100deg,
-      transparent 20%,
-      rgba(76, 155, 122, 0.12) 50%,
-      transparent 80%);
-  transform: translateX(-120%);
-  opacity: 0;
-}
-
-.power-on-gantry.powered-on::after {
-  animation: power-sweep 1.6s ease-out forwards;
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   CURSOR GLOW â€” soft tracking light
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-.cursor-glow {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 340px;
-  height: 340px;
-  margin-left: -170px;
-  margin-top: -170px;
-  border-radius: 9999px;
-  pointer-events: none;
-  z-index: 5;
-  background: radial-gradient(circle,
-      rgba(26, 115, 82, 0.12),
-      rgba(76, 155, 122, 0.05) 40%,
-      transparent 70%);
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  will-change: transform;
-}
-
-@media (pointer: coarse) {
-  .cursor-glow {
-    display: none;
-  }
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   SCROLL PROGRESS BAR â€” treatment-dose counter
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-.scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  z-index: 60;
-  pointer-events: none;
-  transform-origin: 0 0;
-  background: linear-gradient(90deg, #145c41, #4c9b7a, #c9a24b);
-  box-shadow: 0 0 12px rgba(26, 115, 82, 0.6);
-}
-
-[dir="rtl"] .scroll-progress {
-  transform-origin: 100% 0;
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   BACK TO TOP â€” floating ring button
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-.back-to-top {
-  position: fixed;
-  /* Safe-area inset keeps the button clear of iOS home indicator */
-  bottom: calc(1.5rem + env(safe-area-inset-bottom));
-  z-index: 55;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 3.25rem;
-  height: 3.25rem;
-  transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
-}
-
-.back-to-top[hidden] {
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(16px);
-}
-
-.back-to-top svg.progress-ring {
-  width: 100%;
-  height: 100%;
-}
-
-.back-to-top svg.progress-ring circle {
-  transition: stroke-dashoffset 0.2s linear;
-}
-
-/* Floating contact bubble â€” lifted above the sticky booking bar on mobile */
-.float-chat {
-  position: fixed;
-  /* Safe-area inset keeps the bubbles clear of iOS home indicator */
-  bottom: calc(1.5rem + env(safe-area-inset-bottom));
-  z-index: 55;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-@media (max-width: 767px) {
-  .float-chat {
-    bottom: calc(5.5rem + env(safe-area-inset-bottom));
-  }
-
-  /* Same lift as the chat bubbles: the sticky booking bar occupies the
-     bottom ~4rem on mobile, so the ring button must sit above it. */
-  .back-to-top {
-    bottom: calc(5.5rem + env(safe-area-inset-bottom));
-  }
-}
-
-.float-chat-btn {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 3.25rem;
-  height: 3.25rem;
-  border-radius: 9999px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  /* Staggered entrance (second bubble follows slightly later) */
-  animation: float-chat-in 0.5s var(--ease-brand) backwards;
-}
-
-.float-chat-btn:nth-child(2) {
-  animation-delay: 90ms;
-}
-
-.float-chat-btn:hover {
-  transform: scale(1.08);
-}
-
-/* Hover/focus tooltip â€” label slides out toward page center.
-   Uses logical properties so it flips automatically in RTL. */
-.float-chat-btn::before {
-  content: attr(data-label);
-  position: absolute;
-  inset-inline-end: calc(100% + 0.75rem);
-  top: 50%;
-  padding: 0.4rem 0.8rem;
-  border-radius: 9999px;
-  background: rgb(2 6 23 / 0.92);
-  color: #e2e8f0;
-  font-size: 0.75rem;
-  line-height: 1;
-  white-space: nowrap;
-  box-shadow: 0 4px 14px -4px rgb(0 0 0 / 0.5);
-  opacity: 0;
-  scale: 0.92;
-  pointer-events: none;
-  transition: opacity 0.25s ease, scale 0.25s ease;
-}
-
-.float-chat-btn:hover::before,
-.float-chat-btn:focus-visible::before {
-  opacity: 1;
-  scale: 1;
-}
-
-.float-chat-btn::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  animation: float-chat-ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
-}
-
-@keyframes float-chat-ping {
-  0% {
-    /* Theme-aware ping color derived from --color-primary */
-    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-primary) 45%, transparent);
-  }
-
-  70% {
-    box-shadow: 0 0 0 14px transparent;
-  }
-
-  100% {
-    box-shadow: 0 0 0 0 transparent;
-  }
-}
-
-@keyframes float-chat-in {
-  from {
-    opacity: 0;
-    transform: translateY(16px) scale(0.9);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   HERO ENTRANCE â€” staged reveal after preloader
-   Hero starts somewhat hidden; .hero-anim-ready
-   (added by HeroEntrance after the preloader)
-   cascades entrance animations to each child.
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-.hero-entrance .anim-fade-up,
-.hero-entrance .anim-fade-in,
-.hero-entrance .anim-scale-in,
-.hero-entrance .anim-slide-right,
-.hero-entrance .anim-slide-left {
-  opacity: 0;
-}
-
-.hero-entrance.hero-anim-ready .anim-fade-up {
-  animation: fade-up 0.8s var(--ease-brand) forwards;
-}
-
-.hero-entrance.hero-anim-ready .anim-fade-in {
-  animation: fade-in 1s ease-out forwards;
-}
-
-.hero-entrance.hero-anim-ready .anim-scale-in {
-  animation: scale-in 0.9s var(--ease-brand) forwards;
-}
-
-.hero-entrance.hero-anim-ready .anim-slide-right {
-  animation: slide-in-right 0.9s var(--ease-brand) forwards;
-}
-
-.hero-entrance.hero-anim-ready .anim-slide-left {
-  animation: slide-in-left 0.9s var(--ease-brand) forwards;
-}
-
-/* RTL hero â€” images slide from the opposite side for natural direction */
-[dir="rtl"] .hero-entrance.hero-anim-ready .anim-slide-right {
-  animation-name: slide-in-left;
-}
-
-[dir="rtl"] .hero-entrance.hero-anim-ready .anim-slide-left {
-  animation-name: slide-in-right;
-}
-
-[dir="rtl"] .hero-entrance.hero-anim-ready .anim-fade-up {
-  transform-origin: right;
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   SLIDER SLIDE ENTRANCE â€” staged, per-element
-   reveals that REPLAY every time a slide becomes
-   active. The slider keeps .slide-active on a slide
-   throughout its fade-out crossfade, then removes it
-   so the next activation restarts the sequence.
-   Declared after .hero-entrance so these rules win
-   the cascade tie at equal specificity.
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-.hero-entrance .slide-entrance .anim-fade-up,
-.hero-entrance .slide-entrance .anim-fade-in,
-.hero-entrance .slide-entrance .anim-scale-in,
-.hero-entrance .slide-entrance .anim-slide-right,
-.hero-entrance .slide-entrance .anim-slide-left {
-  animation: none;
-  opacity: 0;
-}
-
-.hero-entrance .slide-entrance.slide-active .anim-fade-up {
-  animation: fade-up 0.8s var(--ease-brand) forwards;
-}
-
-.hero-entrance .slide-entrance.slide-active .anim-fade-in {
-  animation: fade-in 1s ease-out forwards;
-}
-
-.hero-entrance .slide-entrance.slide-active .anim-scale-in {
-  animation: scale-in 0.9s var(--ease-brand) forwards;
-}
-
-.hero-entrance .slide-entrance.slide-active .anim-slide-right {
-  animation: slide-in-right 0.9s var(--ease-brand) forwards;
-}
-
-.hero-entrance .slide-entrance.slide-active .anim-slide-left {
-  animation: slide-in-left 0.9s var(--ease-brand) forwards;
-}
-
-/* RTL slides â€” directional entrances mirror naturally */
-[dir="rtl"] .hero-entrance .slide-entrance.slide-active .anim-slide-right {
-  animation-name: slide-in-left;
-}
-
-[dir="rtl"] .hero-entrance .slide-entrance.slide-active .anim-slide-left {
-  animation-name: slide-in-right;
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   REDUCED MOTION
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-@media (prefers-reduced-motion: reduce) {
-
-  .anim-fade-up,
-  .anim-fade-in,
-  .anim-scale-in,
-  .anim-slide-right,
-  .anim-slide-left,
-  .hud-sweep,
-  .hud-pulse,
-  .hud-blink,
-  .gantry-spin,
-  .scan-beam,
-  .status-pulse,
-  .table-glow,
-  .spine-dot,
-  .ring-spin,
-  .card-sweep,
-  .fp-fade-up,
-  .fp-fade-in,
-  .fp-badge-pulse,
-  .isodose-ring,
-  .beam-sweep,
-  .dose-fill,
-  .trefoil-spin,
-  .beam-on,
-  .coord-flash,
-  .ken-burns,
-  .shimmer-text,
-  .float-bob,
-  .conic-border::before,
-  .hero-slider-progress,
-  .float-chat-btn,
-  .float-chat-btn::after,
-  .float-chat-btn::before {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-    box-shadow: none !important;
-    background-position: initial !important;
-  }
-
-  .reveal,
-  .reveal-from-left,
-  .reveal-from-right,
-  .reveal-scale {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-
-  .tilt-card {
-    transform: none !important;
-  }
-
-  .spotlight-card::before {
-    display: none !important;
-  }
-
-  .cursor-glow {
-    display: none !important;
-  }
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   RENDERING PERFORMANCE
-   content-visibility: auto lets the browser skip rendering,
-   painting and hit-testing of off-screen sections until they
-   scroll into view, cutting initial main-thread work on mobile.
-   contain-intrinsic-size reserves space to prevent scroll jumps.
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-.content-visibility {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 600px;
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   MOBILE PERFORMANCE â€” Reduce expensive effects
-   on small screens where GPU/CPU are limited.
-   Desktop (md+) keeps the full visual experience.
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-@media (max-width: 767px) {
-
-  /* Reduce blur radius on decorative elements â€” blur is very expensive on mobile GPUs */
-  .blur-3xl {
-    --tw-blur: blur(24px);
-  }
-
-  .blur-2xl {
-    --tw-blur: blur(16px);
-  }
-
-  .blur-xl {
-    --tw-blur: blur(12px);
-  }
-
-  .blur-lg {
-    --tw-blur: blur(8px);
-  }
-
-  .blur-md {
-    --tw-blur: blur(6px);
-  }
-
-  .blur-sm {
-    --tw-blur: blur(4px);
-  }
-
-  /* Cap arbitrary blur values used on ambient orbs (blur-[140px], blur-[120px], blur-[90px], etc.)
-     These are extremely expensive on mobile GPUs â€” cap at 40px max */
-  .blur-\[140px\] {
-    --tw-blur: blur(40px);
-  }
-
-  .blur-\[120px\] {
-    --tw-blur: blur(36px);
-  }
-
-  .blur-\[90px\] {
-    --tw-blur: blur(28px);
-  }
-
-  .blur-\[80px\] {
-    --tw-blur: blur(24px);
-  }
-
-  .blur-\[70px\] {
-    --tw-blur: blur(20px);
-  }
-
-  .blur-\[60px\] {
-    --tw-blur: blur(18px);
-  }
-
-  .blur-\[50px\] {
-    --tw-blur: blur(16px);
-  }
-
-  .blur-\[40px\] {
-    --tw-blur: blur(12px);
-  }
-
-  /* Slow down or pause non-critical infinite animations on mobile */
-  .float-bob,
-  .isodose-ring,
-  .coord-flash,
-  .shimmer-text {
-    animation: none !important;
-  }
-  .trefoil-spin {
-    animation: none !important;
-  }
-
-  .hud-sweep {
-    animation-duration: 8s;
-  }
-
-  .scan-beam {
-    animation-duration: 6s;
-  }
-
-  .card-sweep {
-    animation-duration: 3.5s;
-  }
-
-  .ring-spin {
-    animation-duration: 10s;
-  }
-
-  .spine-dot {
-    animation-duration: 6s;
-  }
-
-  .table-glow {
-    animation-duration: 4.5s;
-  }
-
-  .status-pulse {
-    animation-duration: 3s;
-  }
-
-  /* Slow down Tailwind's built-in infinite ping/pulse animations on mobile */
-  .animate-ping {
-    animation-duration: 2.5s;
-  }
-
-  .animate-pulse {
-    animation-duration: 3s;
-  }
-
-  /* Reduce particle/grain opacity on mobile to save GPU compositing */
-  .grain-pattern {
-    opacity: 0.12 !important;
-  }
-
-  /* Reduce backdrop-blur intensity on mobile â€” forces GPU layer per element */
-  .backdrop-blur-2xl {
-    --tw-backdrop-blur: blur(16px);
-  }
-
-  .backdrop-blur-xl {
-    --tw-backdrop-blur: blur(12px);
-  }
-
-  .backdrop-blur-lg {
-    --tw-backdrop-blur: blur(8px);
-  }
-
-  .backdrop-blur-md {
-    --tw-backdrop-blur: blur(6px);
-  }
-
-  .backdrop-blur-sm {
-    --tw-backdrop-blur: blur(4px);
-  }
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   BLOG â€” cards, article prose, reading widget
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-
-/* Staggered entrance for blog cards */
-@keyframes blog-card-in {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.blog-card-enter {
-  animation: blog-card-in 0.7s var(--ease-brand) both;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .blog-card-enter {
-    animation: none;
-  }
-}
-
-/* Gradient border sweep on card hover */
-.blog-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(
-    135deg,
-    rgba(76, 155, 122, 0.65),
-    transparent 40%,
-    transparent 60%,
-    rgba(46, 125, 91, 0.45)
-  );
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.group:hover .blog-card::before {
-  opacity: 1;
-}
-
-/* Heading anchor links inside the article (injected by lib/blog-html.ts) */
-.article-prose h2,
-.article-prose h3 {
-  position: relative;
-}
-
-.heading-anchor {
-  margin-inline-start: 0.5rem;
-  font-size: 0.75em;
-  font-weight: normal;
-  color: var(--color-primary);
-  text-decoration: none;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
-.article-prose h2:hover .heading-anchor,
-.article-prose h3:hover .heading-anchor,
-.article-prose h2:focus-within .heading-anchor,
-.article-prose h3:focus-within .heading-anchor {
-  opacity: 1;
-}
-
-@media (hover: none) {
-  .heading-anchor {
-    opacity: 0.35;
-  }
-}
-
-/* Pull-quote styling for blockquotes in the article body */
-.article-prose blockquote {
-  position: relative;
-  margin: 2rem 0;
-  padding: 1.25rem 1.75rem;
-  border-inline-start: 4px solid color-mix(in srgb, var(--color-primary) 55%, transparent);
-  border-radius: 1rem;
-  background: linear-gradient(
-    to bottom,
-    color-mix(in srgb, var(--color-primary) 7%, transparent),
-    color-mix(in srgb, var(--color-secondary) 5%, transparent)
-  );
-  font-style: italic;
-  font-size: 1.05em;
-  line-height: 1.8;
-  color: var(--color-text-secondary);
-}
-
-.article-prose blockquote::before {
-  content: "\201C";
-  position: absolute;
-  top: -0.35rem;
-  inset-inline-start: 0.9rem;
-  font-size: 3rem;
-  font-weight: bold;
-  font-style: normal;
-  line-height: 1;
-  color: color-mix(in srgb, var(--color-primary) 30%, transparent);
-  pointer-events: none;
-}
-
-/* â”€â”€â”€ Article body typography â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-   Hand-rolled prose styles. The article HTML is sanitized and injected
-   with dangerouslySetInnerHTML, and the Tailwind Typography plugin is
-   NOT part of this project â€” so every readable element gets its styling
-   from this block. Keep it complete.
-   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-
-.article-prose > * + * {
-  margin-top: 1.15rem;
-}
-
-.article-prose p {
-  line-height: 1.95;
-}
-
-/* Headings â€” clear hierarchy against the 15.5px body copy */
-.article-prose h2,
-.article-prose h3,
-.article-prose h4 {
-  color: var(--color-text-primary);
-  font-weight: 700;
-  text-wrap: balance;
-}
-
-.article-prose h2 {
-  font-size: clamp(1.3rem, 1.15rem + 0.6vw, 1.6rem);
-  line-height: 1.45;
-  margin-top: 2.75rem;
-}
-
-.article-prose h3 {
-  font-size: clamp(1.1rem, 1.02rem + 0.4vw, 1.28rem);
-  line-height: 1.5;
-  margin-top: 2.25rem;
-}
-
-.article-prose h4 {
-  font-size: 1.05rem;
-  margin-top: 1.75rem;
-}
-
-/* Links inside the body */
-.article-prose a {
-  color: var(--color-primary);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-thickness: 1px;
-  text-decoration-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
-  transition: color var(--dur-fast) var(--ease-soft),
-    text-decoration-color var(--dur-fast) var(--ease-soft);
-}
-
-@media (hover: hover) {
-  .article-prose a:hover {
-    color: var(--color-primary-hover);
-    text-decoration-color: currentColor;
-  }
-}
-
-.article-prose strong,
-.article-prose b {
-  color: var(--color-text-primary);
-  font-weight: 700;
-}
-
-.article-prose em,
-.article-prose i {
-  font-style: italic;
-}
-
-/* Lists â€” brand diamond markers instead of default bullets */
-.article-prose ul {
-  list-style: none;
-  padding-inline-start: 1.1rem;
-}
-
-.article-prose ul > li {
-  position: relative;
-}
-
-.article-prose ul > li::before {
-  content: "";
-  position: absolute;
-  inset-inline-start: -0.9rem;
-  top: 0.72em;
-  width: 0.4rem;
-  height: 0.4rem;
-  border-radius: 1px;
-  background: color-mix(in srgb, var(--color-primary) 70%, transparent);
-  transform: rotate(45deg);
-}
-
-.article-prose ol {
-  list-style: decimal;
-  padding-inline-start: 1.4rem;
-}
-
-.article-prose li + li {
-  margin-top: 0.5rem;
-}
-
-.article-prose li::marker {
-  color: var(--color-primary);
-  font-weight: 600;
-}
-
-/* Divider */
-.article-prose hr {
-  margin: 2.75rem 0;
-  border: 0;
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    var(--color-border),
-    transparent
-  );
-}
-
-/* Figures and images (alignment classes come from the editor) */
-.article-prose figure {
-  margin: 2rem 0;
-}
-
-.article-prose img {
-  border-radius: 1rem;
-  border: 1px solid var(--color-border);
-}
-
-.article-prose figcaption {
-  margin-top: 0.7rem;
-  font-size: 0.8rem;
-  line-height: 1.6;
-  color: var(--color-muted);
-  text-align: center;
-}
-
-/* Tables â€” clinical content often arrives as tables. The block display
-   lets wide tables scroll horizontally on phones instead of overflowing. */
-.article-prose table {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  overflow-x: auto;
-  border-collapse: collapse;
-  font-size: 0.9rem;
-}
-
-.article-prose th,
-.article-prose td {
-  border: 1px solid var(--color-border);
-  padding: 0.6rem 0.8rem;
-  text-align: start;
-  vertical-align: top;
-}
-
-.article-prose th {
-  background: color-mix(in srgb, var(--color-soft) 70%, transparent);
-  color: var(--color-text-primary);
-  font-weight: 600;
-}
-
-.article-prose tbody tr:nth-child(even) td {
-  background: color-mix(in srgb, var(--color-soft) 35%, transparent);
-}
-
-/* Inline code and preformatted blocks */
-.article-prose code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.875em;
-  padding: 0.15em 0.4em;
-  border-radius: 0.4rem;
-  background: color-mix(in srgb, var(--color-primary) 9%, transparent);
-  color: var(--color-text-primary);
-}
-
-.article-prose pre {
-  overflow-x: auto;
-  padding: 1rem 1.15rem;
-  border-radius: 1rem;
-  border: 1px solid var(--color-border);
-  background: var(--color-deep);
-  color: #e2e8f0;
-  font-size: 0.85rem;
-  line-height: 1.7;
-}
-
-.article-prose pre code {
-  background: transparent;
-  padding: 0;
-  color: inherit;
-}
-
-/* Anchor targets must clear the sticky navbar when jumped to from the TOC */
-.article-prose h2,
-.article-prose h3,
-.article-prose h4 {
-  scroll-margin-top: 6.5rem;
-}
-
-
-/* Reading progress widget visibility states (toggled via refs) */
-.reading-widget {
-  opacity: 0;
-  transform: translateY(-1rem);
-  pointer-events: none;
-  transition:
-    opacity 0.5s ease,
-    transform 0.5s ease;
-}
-
-.reading-widget.rp-visible {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
-/* Back-to-top button inside the widget â€” hidden until near page end */
-.rp-back-to-top {
-  width: 0;
-  height: 28px;
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
-  opacity: 0;
-  transition:
-    width 0.35s ease,
-    opacity 0.35s ease,
-    margin 0.35s ease;
-}
-
-.reading-widget.rp-near-end .rp-back-to-top {
-  width: 28px;
-  opacity: 1;
-  margin-inline-start: 0.375rem;
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   PHASE 1 â€” HIGH-IMPACT, PROFESSIONAL EFFECTS
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-
-/* â”€â”€â”€ Premium Elastic/Bounce Hover Scale with Glow â”€â”€â”€ */
-.elastic-hover {
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
-}
-.elastic-hover:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 30px -8px rgba(26, 115, 82, 0.25);
-}
-
-.elastic-hover-sm {
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
-}
-.elastic-hover-sm:hover {
-  transform: scale(1.03);
-  box-shadow: 0 4px 20px -6px rgba(26, 115, 82, 0.2);
-}
-
-.elastic-hover-lg {
-  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.45s ease;
-}
-.elastic-hover-lg:hover {
-  transform: scale(1.08);
-  box-shadow: 0 12px 40px -10px rgba(26, 115, 82, 0.35);
-}
-
-/* â”€â”€â”€ Premium Ripple Click Effect with Glow â”€â”€â”€ */
-.ripple {
-  position: relative;
-  overflow: hidden;
-}
-.ripple::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  height: 100%;
-  margin-top: -50%;
-  margin-left: -50%;
-  border-radius: 9999px;
-  background: radial-gradient(circle, rgba(26, 115, 82, 0.35) 0%, rgba(76, 155, 122, 0.15) 40%, transparent 70%);
-  transform: scale(0);
-  opacity: 0;
-  pointer-events: none;
-}
-.ripple:active::after {
-  animation: ripple-expand 0.6s ease-out;
-}
-@keyframes ripple-expand {
-  0% {
-    transform: scale(0);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(4);
-    opacity: 0;
-  }
-}
-
-/* â”€â”€â”€ PACS Grid wash â€” static (the infinite breathing keyframe was removed
-   for perf: a fullscreen opacity animation is never worth the cost) â”€â”€â”€ */
-.breathing-grid {
-  background-image:
-    linear-gradient(rgba(26, 115, 82, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(26, 115, 82, 0.06) 1px, transparent 1px);
-  background-size: 48px 48px;
-}
-
-.breathing-grid-dense {
-  background-image:
-    linear-gradient(rgba(26, 115, 82, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(26, 115, 82, 0.05) 1px, transparent 1px);
-  background-size: 28px 28px;
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   PHASE 2 â€” VISUAL WOW EFFECTS
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-
-/* â”€â”€â”€ Animated SVG Line Draw â”€â”€â”€ */
-.draw-icon path,
-.draw-icon circle,
-.draw-icon line,
-.draw-icon polyline,
-.draw-icon rect {
-  stroke-dasharray: var(--draw-length, 1000);
-  stroke-dashoffset: var(--draw-length, 1000);
-  fill-opacity: 0;
-}
-.draw-icon.is-visible path,
-.draw-icon.is-visible circle,
-.draw-icon.is-visible line,
-.draw-icon.is-visible polyline,
-.draw-icon.is-visible rect {
-  animation: draw-line 2s var(--ease-brand) forwards;
-}
-.draw-icon.is-visible path {
-  animation-name: draw-line-fill;
-  animation-duration: 2s;
-}
-@keyframes draw-line {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-@keyframes draw-line-fill {
-  0% {
-    stroke-dashoffset: var(--draw-length, 1000);
-    fill-opacity: 0;
-  }
-  70% {
-    stroke-dashoffset: 0;
-    fill-opacity: 0;
-  }
-  100% {
-    stroke-dashoffset: 0;
-    fill-opacity: 1;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .draw-icon path,
-  .draw-icon circle,
-  .draw-icon line,
-  .draw-icon polyline,
-  .draw-icon rect {
-    stroke-dashoffset: 0 !important;
-    fill-opacity: 1 !important;
-    animation: none !important;
-  }
-}
-
-/* â”€â”€â”€ Animated Counter Ring (SVG Progress Ring) â”€â”€â”€ */
-.counter-ring {
-  transform: rotate(-90deg);
-}
-.counter-ring circle.track {
-  fill: none;
-  stroke: rgba(26, 115, 82, 0.1);
-}
-.counter-ring circle.progress {
-  fill: none;
-  stroke: url(#ring-gradient);
-  stroke-linecap: round;
-  transition: stroke-dashoffset 1.5s var(--ease-brand);
-}
-.counter-ring-label {
-  transform: rotate(90deg);
-  transform-origin: center;
-}
-
-/* â”€â”€â”€ Text Mask Wipe Reveal â”€â”€â”€ */
-@keyframes text-wipe-in {
-  from {
-    clip-path: inset(0 100% 0 0);
-  }
-  to {
-    clip-path: inset(0 0 0 0);
-  }
-}
-
-.text-wipe {
-  opacity: 0;
-}
-.text-wipe.is-visible {
-  opacity: 1;
-  animation: text-wipe-in 0.8s var(--ease-brand) forwards;
-}
-
-.text-wipe-stagger > * {
-  opacity: 0;
-}
-.text-wipe-stagger.is-visible > * {
-  animation: text-wipe-in 0.7s var(--ease-brand) forwards;
-}
-.text-wipe-stagger.is-visible > *:nth-child(1) { animation-delay: 0ms; }
-.text-wipe-stagger.is-visible > *:nth-child(2) { animation-delay: 100ms; }
-.text-wipe-stagger.is-visible > *:nth-child(3) { animation-delay: 200ms; }
-.text-wipe-stagger.is-visible > *:nth-child(4) { animation-delay: 300ms; }
-.text-wipe-stagger.is-visible > *:nth-child(5) { animation-delay: 400ms; }
-
-@media (prefers-reduced-motion: reduce) {
-  .text-wipe,
-  .text-wipe-stagger > * {
-    opacity: 1 !important;
-    clip-path: none !important;
-    animation: none !important;
-  }
-}
-
-/* â”€â”€â”€ Morphing Blob Background â€” Premium Organic Shapes â”€â”€â”€ */
-@keyframes morph {
-  0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
-  15% { border-radius: 45% 55% 35% 65% / 55% 40% 60% 45%; }
-  30% { border-radius: 35% 65% 50% 50% / 45% 65% 35% 55%; }
-  45% { border-radius: 50% 50% 60% 40% / 40% 55% 45% 60%; }
-  60% { border-radius: 65% 35% 45% 55% / 60% 45% 55% 40%; }
-  75% { border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%; }
-  100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
-}
-
-@keyframes morph-slow {
-  0% { border-radius: 50% 50% 40% 60% / 50% 40% 60% 50%; }
-  20% { border-radius: 40% 60% 55% 45% / 45% 55% 45% 55%; }
-  40% { border-radius: 55% 45% 45% 55% / 60% 40% 60% 40%; }
-  60% { border-radius: 45% 55% 60% 40% / 40% 60% 40% 60%; }
-  80% { border-radius: 60% 40% 50% 50% / 55% 45% 55% 45%; }
-  100% { border-radius: 50% 50% 40% 60% / 50% 40% 60% 50%; }
-}
-
-.morphing-blob {
-  animation: morph 20s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-  will-change: border-radius, transform;
-}
-
-.morphing-blob-medium {
-  animation: morph-slow 14s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-  will-change: border-radius, transform;
-}
-
-.morphing-blob-fast {
-  animation: morph 10s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-  will-change: border-radius, transform;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .morphing-blob,
-  .morphing-blob-medium,
-  .morphing-blob-fast {
-    animation: none !important;
-    border-radius: 50% !important;
-  }
-}
-
-/* â”€â”€â”€ Node Network Pulse â”€â”€â”€ */
-@keyframes node-pulse {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.3); }
-}
-
-@keyframes link-pulse {
-  0%, 100% { opacity: 0.1; }
-  50% { opacity: 0.4; }
-}
-
-.network-node {
-  animation: node-pulse 2s ease-in-out infinite;
-  transform-origin: center;
-  will-change: transform, opacity;
-}
-
-.network-link {
-  animation: link-pulse 3s ease-in-out infinite;
-  will-change: opacity;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .network-node {
-    animation: none !important;
-    opacity: 0.6 !important;
-    transform: none !important;
-  }
-  .network-link {
-    animation: none !important;
-    opacity: 0.2 !important;
-  }
-}
-
-/* â”€â”€â”€ Dose Heatmap Cells â”€â”€â”€ */
-.heatmap-cell {
-  transition:
-    background-color 0.3s ease,
-    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-/* Elastic pop is a pointer affordance â€” touch devices get the static map */
-@media (hover: hover) and (pointer: fine) {
-  .heatmap-cell:hover {
-    transform: scale(1.15);
-    z-index: 2;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .heatmap-cell {
-    transition: none !important;
-    transform: none !important;
-  }
-}
-
-/* â”€â”€â”€ Scroll Parallax Layers â”€â”€â”€ */
-.parallax-container {
-  perspective: 1px;
-  overflow: hidden;
-}
-.parallax-layer {
-  will-change: transform;
-  transition: transform 0.1s linear;
-}
-
-/* â”€â”€â”€ Staggered Grid Reveal â”€â”€â”€ */
-@keyframes stagger-in {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.stagger-grid > * {
-  opacity: 0;
-}
-.stagger-grid.is-visible > * {
-  animation: stagger-in 0.6s var(--ease-brand) forwards;
-}
-.stagger-grid.is-visible > *:nth-child(1) { animation-delay: 0ms; }
-.stagger-grid.is-visible > *:nth-child(2) { animation-delay: 60ms; }
-.stagger-grid.is-visible > *:nth-child(3) { animation-delay: 120ms; }
-.stagger-grid.is-visible > *:nth-child(4) { animation-delay: 180ms; }
-.stagger-grid.is-visible > *:nth-child(5) { animation-delay: 240ms; }
-.stagger-grid.is-visible > *:nth-child(6) { animation-delay: 300ms; }
-.stagger-grid.is-visible > *:nth-child(7) { animation-delay: 360ms; }
-.stagger-grid.is-visible > *:nth-child(8) { animation-delay: 420ms; }
-.stagger-grid.is-visible > *:nth-child(9) { animation-delay: 480ms; }
-
-@media (prefers-reduced-motion: reduce) {
-  .stagger-grid > * {
-    opacity: 1 !important;
-    animation: none !important;
-    transform: none !important;
-  }
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   PLATFORM POLISH â€” print, contrast, scrollbars, blur fallback
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-
-@media (prefers-reduced-motion: reduce) {
-  /* No lift, no jump â€” cards stay put instead of snapping into place */
-  .surface-card {
-    transform: none !important;
-    transition: none !important;
-  }
-}
-
-/* â”€â”€â”€ High-contrast requests â”€â”€â”€ */
-@media (prefers-contrast: more) {
-
-  :root,
-  [data-theme="light"] {
-    --color-text-secondary: #1e293b;
-    --color-muted: #334155;
-    --color-border: #64748b;
-  }
-
-  [data-theme="dark"] {
-    --color-text-secondary: #e2e8f0;
-    --color-muted: #cbd5e1;
-    --color-border: #64748b;
-  }
-
-  .eyebrow {
-    border-width: 2px;
-  }
-
-  .surface-card,
-  .surface-chip {
-    border-width: 2px;
-  }
-
-  :focus-visible {
-    outline-width: 3px;
-  }
-}
-
-/* â”€â”€â”€ Desktop scrollbar â€” thin and theme-aware â”€â”€â”€ */
-@media (hover: hover) and (pointer: fine) {
-
-  html {
-    scrollbar-width: thin;
-    scrollbar-color: color-mix(in srgb, var(--color-primary) 40%, transparent) transparent;
-  }
-
-  ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: color-mix(in srgb, var(--color-primary) 35%, transparent);
-    background-clip: content-box;
-    border: 3px solid transparent;
-    border-radius: 999px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: color-mix(in srgb, var(--color-primary) 60%, transparent);
-    background-clip: content-box;
-  }
-}
-
-/* â”€â”€â”€ Backdrop-filter fallback â”€â”€â”€
-   Without blur the translucent bars need more of their own background
-   to stay legible (older Firefox, reduced-transparency settings). */
-@supports not ((backdrop-filter: blur(4px)) or (-webkit-backdrop-filter: blur(4px))) {
-
-  .backdrop-blur-sm,
-  .backdrop-blur-md,
-  .backdrop-blur-lg,
-  .backdrop-blur-xl,
-  .backdrop-blur-2xl {
-    background-color: color-mix(in srgb, var(--color-bg) 94%, transparent);
-  }
-}
-
-/* â”€â”€â”€ Theme cross-fade (View Transitions API) â”€â”€â”€
-   The ThemeProvider wraps its toggle in startViewTransition where the API
-   exists; this only tunes the duration/easing of the snapshots. Browsers
-   without support simply swap instantly. */
-@supports (view-transition-name: none) {
-
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation-duration: 220ms;
-    animation-timing-function: var(--ease-soft);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-
-  ::view-transition-group(*),
-  ::view-transition-old(*),
-  ::view-transition-new(*) {
-    animation: none !important;
-  }
-}
-
-/* â”€â”€â”€ Route loading bar â”€â”€â”€
-   One 1px bar sweeping across a track â€” cheaper than a spinner ring and
-   reads as a "dose" filling. Direction flips with the writing mode. */
-.dose-loading {
-  animation: dose-loading 1.6s var(--ease-soft) infinite;
-}
-
-[dir="rtl"] .dose-loading {
-  animation-direction: reverse;
-}
-
-@keyframes dose-loading {
-  0% {
-    transform: translateX(-130%);
-  }
-  100% {
-    transform: translateX(350%);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .dose-loading {
-    animation: none !important;
-    transform: none !important;
-    width: 100% !important;
-    opacity: 0.6;
-  }
-}
-
-/* â”€â”€â”€ Print â”€â”€â”€
-   Patients print directions, privacy and terms pages. Flatten the dark
-   bands (white text on white paper is invisible) and drop floating UI. */
-@media print {
-
-  html,
-  body {
-    background: #fff !important;
-    color: #0f172a !important;
-  }
-
-  .band-dark,
-  .bg-deep,
-  .bg-blog-dark {
-    background: #fff !important;
-  }
-
-  .band-dark *,
-  .bg-deep * {
-    color: #0f172a !important;
-    background-color: transparent !important;
-    border-color: #cbd5e1 !important;
-    box-shadow: none !important;
-    text-shadow: none !important;
-  }
-
-  .band-dark::before,
-  .band-dark::after,
-  .planning-grid,
-  .breathing-grid,
-  .grain-pattern,
-  .cursor-glow,
-  .scroll-progress,
-  .float-chat,
-  .back-to-top,
-  .reading-widget,
-  header {
-    display: none !important;
-  }
-
-  section {
-    break-inside: avoid;
-  }
-
-  img {
-    break-inside: avoid;
-  }
-
-  a[href^="http"]::after {
-    content: " (" attr(href) ")";
-    font-size: 0.85em;
-    word-break: break-all;
-  }
-}
-
 @import "tailwindcss";
 
 /* Make all Tailwind `hover:` variants fire only on devices that truly
-   support hover (mouse/trackpad) â€” prevents sticky hover states on touch. */
+   support hover (mouse/trackpad) — prevents sticky hover states on touch. */
 @custom-variant hover {
   @media (hover: hover) {
     &:hover {
@@ -2881,9 +10,11 @@ h3 {
   }
 }
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 :root,
 [data-theme="light"] {
-  /* â”€â”€ Ivory / forest-green / gold palette (from Dr. Ghadamgahi's card) â”€â”€
+  /* ── Ivory / forest-green / gold palette (from Dr. Ghadamgahi's card) ──
      Refined for legibility: text tones verified against WCAG AA (4.5:1)
      on the ivory background; borders carry a warm gold tint. */
   --color-deep: #0b2e22;
@@ -2909,31 +40,34 @@ h3 {
   --font-vazirmatn: var(--font-vazirmatn), system-ui, sans-serif;
   --font-outfit: var(--font-outfit), system-ui, sans-serif;
 
-  /* Light theme â€” primary green is reserved for borders, accents, and
+  /* Light theme — primary green is reserved for borders, accents, and
      hover states. Component fills (buttons, pills, chips) are WHITE so
      light mode stays paper-dominant; text on fills is dark green. */
   --color-primary: #145c41;
   --color-primary-hover: #1a7352;
   --color-primary-fill: #ffffff;
+  --color-button-fill: #ffffff;
+  --color-button-fill-hover: #1a7352;
+  --color-button-text: #145c41;
   --color-primary-fill-soft: #f4efe5;
   /* Dark text on white fills (WCAG AA on white). */
   --color-on-primary: #145c41;
-  /* Accent text for badges on green-tinted surfaces â€” deep green works in
+  /* Accent text for badges on green-tinted surfaces — deep green works in
      light mode; dark theme keeps warm gold. */
   --color-accent: #145c41;
 
-  /* Shared vertical rhythm for page sections â€” compact on mobile,
+  /* Shared vertical rhythm for page sections — compact on mobile,
      generous on desktop without extra utilities per section. */
   --section-y: clamp(3.5rem, 6vw, 6rem);
 
-  /* Elevation â€” light theme: neutral, soft, paper-like depth */
+  /* Elevation — light theme: neutral, soft, paper-like depth */
   --elevation-card: 0 1px 2px 0 rgba(11, 46, 34, 0.04),
     0 1px 3px 0 rgba(11, 46, 34, 0.06);
   --elevation-card-hover: 0 14px 34px -14px rgba(11, 46, 34, 0.2),
     0 2px 6px -2px rgba(11, 46, 34, 0.06);
 
   /* Motion tokens (also exposed via @theme for utility generation, but
-     declared here as literals so they are never tree-shaken away â€”
+     declared here as literals so they are never tree-shaken away —
      an unresolved var inside `animation` would cancel the entrance
      animations entirely). */
   --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
@@ -2949,28 +83,26 @@ h3 {
   color-scheme: light dark;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════
    DARK THEME PALETTE
    Overrides the CSS custom properties when
    <html data-theme="dark"> is set by ThemeProvider.
    All Tailwind utilities (bg-bg, text-text-primary,
-   border-border, bg-surface, â€¦) automatically pick
+   border-border, bg-surface, …) automatically pick
    up these values via var(--color-*).
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════ */
 [data-theme="dark"] {
   --color-deep: #04120d;
   --color-bg: #071a13;
   --color-surface: #0e2a1f;
   --color-primary: #3dbe8b;
   --color-primary-hover: #5fd3a6;
-  /* Dark theme keeps green fills */
+    /* Buttons stay forest green with ivory text in dark mode. */
   --color-primary-fill: #3dbe8b;
   --color-primary-fill-soft: rgba(61, 190, 139, 0.12);
-  --color-on-primary: #04120d;
-  /* Fill on primary â€” light green, matching the dark theme's brand */
-  --color-primary-fill: #3dbe8b;
-  /* On dark theme primary is a light green, so on-fill text flips to
-     near-black (8.2:1) â€” visually identical to the old text-deep. */
+    --color-button-fill: #145c41;
+    --color-button-fill-hover: #1a7352;
+    --color-button-text: #fffbf2;
   --color-on-primary: #04120d;
   /* Accent on tints: gold on the dark green tint (matches old highlight). */
   --color-accent: #e3c67e;
@@ -2992,7 +124,7 @@ h3 {
   --color-secondary-hover: #5fd3a6;
   --color-blog-dark: #04120d;
 
-  /* Elevation â€” dark theme: hairline + glow instead of diffuse shadow */
+  /* Elevation — dark theme: hairline + glow instead of diffuse shadow */
   --elevation-card: 0 0 0 1px rgba(76, 155, 122, 0.05),
     0 12px 32px -20px rgba(0, 0, 0, 0.9);
   --elevation-card-hover: 0 0 0 1px rgba(76, 155, 122, 0.16),
@@ -3008,6 +140,9 @@ h3 {
   --color-primary-hover: var(--color-primary-hover);
   --color-on-primary: var(--color-on-primary);
   --color-primary-fill: var(--color-primary-fill);
+  --color-button-fill: var(--color-button-fill);
+  --color-button-fill-hover: var(--color-button-fill-hover);
+  --color-button-text: var(--color-button-text, var(--color-on-primary));
   --color-primary-fill-hover: var(--color-primary-hover);
   --color-accent: var(--color-accent);
   --color-highlight: var(--color-highlight);
@@ -3031,7 +166,7 @@ h3 {
   --font-vazir: var(--font-vazirmatn), system-ui, sans-serif;
   --font-outfit: var(--font-outfit), system-ui, sans-serif;
 
-  /* â”€â”€ Motion tokens â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  /* ── Motion tokens ───────────────────────────────────────────────
      One source of truth for the site's timing so every transition and
      entrance animation shares the same feel. */
   --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
@@ -3041,7 +176,7 @@ h3 {
   --dur-slow: 450ms;
   --dur-entrance: 800ms;
 
-  /* â”€â”€ Radius tokens â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  /* ── Radius tokens ───────────────────────────────────────────────
      Cards and panels share two radii only: content cards and large
      feature panels (blog cards, hero-side panels). */
   --radius-card: 1.5rem;
@@ -3085,11 +220,11 @@ body {
   outline-offset: 2px;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════
    DESIGN TOKEN UTILITIES
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════ */
 
-/* Uniform vertical rhythm for page sections â€” pb can be tightened
+/* Uniform vertical rhythm for page sections — pb can be tightened
    per-section with .section-pad-tight (e.g. TrustStrip). */
 .section-pad {
   padding-top: var(--section-y);
@@ -3100,13 +235,13 @@ body {
   padding-bottom: 1rem;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   SURFACE PRIMITIVES â€” one card treatment for every content card.
+/* ═══════════════════════════════════════════
+   SURFACE PRIMITIVES — one card treatment for every content card.
    Light theme: soft neutral elevation.
    Dark theme: 1px cyan hairline + glow-first depth (see --elevation-*).
    Hover lift is gated to true-hover devices and disabled for
    reduced-motion users further down.
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════ */
 .surface-card {
   position: relative;
   background-color: var(--color-surface);
@@ -3149,17 +284,20 @@ body {
   }
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   BAND â€” DARK
+/* ═══════════════════════════════════════════
+   BAND — DARK
    Single treatment for the dark storytelling bands (equipment,
    testimonials, closing CTA): deep base, one top + bottom glow and a
    barely-there grain for materiality. No animation, no extra layers:
    both decorations are pseudo-elements on the section itself.
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════ */
 .band-dark {
   position: relative;
   overflow: hidden;
   background-color: var(--color-deep);
+  --color-text-primary: #f1f7f3;
+  --color-text-secondary: #b6c9bf;
+  --color-muted: #b6c9bf;
 }
 
 .band-dark::before {
@@ -3193,15 +331,15 @@ body {
 }
 
 @media (max-width: 767px) {
-  /* Grain costs a full-section composite on mobile GPUs â€” barely visible there */
+  /* Grain costs a full-section composite on mobile GPUs — barely visible there */
   .band-dark::after {
     opacity: 0.03;
   }
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   FLUID TYPE SCALE â€” section headers stop stepping at breakpoints
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ═══════════════════════════════════════════
+   FLUID TYPE SCALE — section headers stop stepping at breakpoints
+   ═══════════════════════════════════════════ */
 .type-section {
   font-size: clamp(1.75rem, 1.42rem + 1.3vw, 2.5rem);
   line-height: 1.18;
@@ -3218,16 +356,16 @@ html[lang="fa"] .type-section {
   letter-spacing: 0;
 }
 
-/* Locked-width digits â€” animated counters and timestamps never jitter */
+/* Locked-width digits — animated counters and timestamps never jitter */
 .tnum {
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum" 1;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   MINIMAL DESIGN SYSTEM â€” balance, FA rhythm, selection
+/* ═══════════════════════════════════════════
+   MINIMAL DESIGN SYSTEM — balance, FA rhythm, selection
    Zero-JS. Respects both themes via var(--color-*).
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════ */
 h1,
 h2 {
   text-wrap: balance;
@@ -3256,7 +394,7 @@ html[lang="fa"] .tracking-tighter {
 section[id] {
   scroll-margin-top: 84px;
 }
-/* Thin gold rule â€” visit-card motif used under display headings */
+/* Thin gold rule — visit-card motif used under display headings */
 .gold-rule {
   display: inline-block;
   height: 2px;
@@ -3270,7 +408,7 @@ section[id] {
     transparent
   );
 }
-/* Shared eyebrow pill â€” gold voice from the visit card.
+/* Shared eyebrow pill — gold voice from the visit card.
    Ivory theme: gold border + soft gold wash + deep-green text so the
    pill stays striking while meeting AA contrast. */
 .eyebrow {
@@ -3294,10 +432,10 @@ section[id] {
   background: rgba(255, 255, 255, 0.05);
 }
 html[lang="fa"] .eyebrow {
-  /* Persian script + wide latin tracking looks scattered â€” tighten */
+  /* Persian script + wide latin tracking looks scattered — tighten */
   letter-spacing: 0.06em;
 }
-/* Reusable button sheen sweep â€” desktop hover only (touch has no hover) */
+/* Reusable button sheen sweep — desktop hover only (touch has no hover) */
 @media (hover: hover) {
   .btn-sheen {
     position: relative;
@@ -3329,7 +467,7 @@ html[lang="fa"] .eyebrow {
     transform: translateX(-110%);
   }
 }
-/* Hairline divider with center label â€” cheaper than animated scanline */
+/* Hairline divider with center label — cheaper than animated scanline */
 .hairline-label {
   display: flex;
   align-items: center;
@@ -3355,7 +493,7 @@ html[lang="fa"] .eyebrow {
 html[lang="fa"] .hairline-label {
   letter-spacing: 0.06em;
 }
-/* Mobile snap row â€” shared by testimonials / galleries, no carousel JS */
+/* Mobile snap row — shared by testimonials / galleries, no carousel JS */
 @media (max-width: 767px) {
   .snap-row {
     display: flex;
@@ -3387,7 +525,7 @@ html[lang="fa"] .hairline-label {
   }
 }
 
-/* Fluid display heading â€” scales smoothly between breakpoints
+/* Fluid display heading — scales smoothly between breakpoints
    instead of stepping at sm/lg/xl boundaries. */
 .fluid-display,
 .type-display {
@@ -3397,7 +535,7 @@ html[lang="fa"] .hairline-label {
   font-weight: 800;
 }
 
-/* Vazirmatn's 800/900 cuts grow tall â€” give Persian display room */
+/* Vazirmatn's 800/900 cuts grow tall — give Persian display room */
 html[lang="fa"] .fluid-display,
 html[lang="fa"] .type-display {
   line-height: 1.5;
@@ -3413,7 +551,7 @@ html[lang="fa"] .type-display {
 }
 
 /* Persian body copy set in Vazirmatn reads cramped at Tailwind's default
-   1.5 line-height â€” open it up for paragraphs and list items. */
+   1.5 line-height — open it up for paragraphs and list items. */
 html[lang="fa"] p,
 html[lang="fa"] li {
   line-height: 1.85;
@@ -3429,20 +567,20 @@ h6 {
   font-weight: 800;
 }
 
-/* Section ledes read with extra presence â€” medium weight, comfortable measure */
+/* Section ledes read with extra presence — medium weight, comfortable measure */
 .type-lede {
   font-weight: 500;
   max-width: 44rem;
 }
 
-/* Subsection headings (h3) â€” semibold is elegant enough below h2 */
+/* Subsection headings (h3) — semibold is elegant enough below h2 */
 h3 {
   font-weight: 700;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   ANIMATIONS â€” Home page
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ═══════════════════════════════════════════
+   ANIMATIONS — Home page
+═══════════════════════════════════════════ */
 @keyframes fade-up {
   from {
     opacity: 0;
@@ -3601,7 +739,7 @@ h3 {
   }
 }
 
-/* One-shot entrance animations â€” no persistent will-change, so finished
+/* One-shot entrance animations — no persistent will-change, so finished
    elements don't hold GPU layers forever. */
 .anim-fade-up {
   opacity: 0;
@@ -3726,7 +864,7 @@ h3 {
   animation-delay: 1200ms;
 }
 
-/* Process section â€” spine keyframes kept for the static fallback;
+/* Process section — spine keyframes kept for the static fallback;
    the traveling .spine-dot animation was removed (static dot in JSX) */
 @keyframes spine-pulse {
   0% {
@@ -3754,7 +892,7 @@ h3 {
   }
 }
 
-/* card-sweep hover effect removed from Process cards â€” single definition kept */
+/* card-sweep hover effect removed from Process cards — single definition kept */
 @keyframes card-sweep {
   0% {
     transform: translateX(-120%);
@@ -3775,9 +913,9 @@ h3 {
   }
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   ANIMATIONS â€” Forum post page
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ═══════════════════════════════════════════
+   ANIMATIONS — Forum post page
+═══════════════════════════════════════════ */
 @keyframes fp-fade-up {
   from {
     opacity: 0;
@@ -3838,10 +976,10 @@ h3 {
   animation: fp-badge-pulse 2.6s ease-out infinite;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════
    GRAIN / NOISE BACKGROUND PATTERN
    Extracted data-URI SVG grain used across pages
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════ */
 .grain-pattern {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 170px 170px;
@@ -3852,10 +990,10 @@ h3 {
   mask-image: linear-gradient(180deg, transparent, black 8%, black 92%, transparent);
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   RADIOTHERAPY MOTIFS â€” Isodose, beam, trefoil
+/* ═══════════════════════════════════════════
+   RADIOTHERAPY MOTIFS — Isodose, beam, trefoil
    Domain-specific decorative language
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════ */
 @keyframes isodose-pulse {
 
   0%,
@@ -3919,7 +1057,6 @@ h3 {
     box-shadow: 0 0 0 6px rgba(26, 115, 82, 0);
   }
 }
-
 @keyframes coord-flash {
 
   0%,
@@ -3932,7 +1069,7 @@ h3 {
   }
 }
 
-/* Isodose contour rings â€” concentric irregular dose lines */
+/* Isodose contour rings — concentric irregular dose lines */
 .isodose-ring {
   animation: isodose-pulse 4s ease-in-out infinite;
   will-change: opacity;
@@ -3954,7 +1091,7 @@ h3 {
   animation-delay: 2.4s;
 }
 
-/* Treatment beam sweep â€” diagonal light sweep like a LINAC beam */
+/* Treatment beam sweep — diagonal light sweep like a LINAC beam */
 .beam-sweep {
   animation: beam-sweep 3.2s ease-in-out infinite;
   will-change: transform, opacity;
@@ -3966,7 +1103,7 @@ h3 {
   will-change: width;
 }
 
-/* Radiation trefoil watermark â€” static by default. Rotation is a
+/* Radiation trefoil watermark — static by default. Rotation is a
    desktop-only enhancement (see media query below) so mobile and
    reduced-motion users never pay for an infinite paint. */
 .trefoil-static {
@@ -3978,27 +1115,23 @@ h3 {
   }
 }
 
-/* Beam-on indicator â€” pulsing status light */
+/* Beam-on indicator — pulsing status light */
 .beam-on {
   animation: beam-on 2s ease-out infinite;
   will-change: box-shadow;
 }
 
-/* Coordinate readout â€” flashing monospace text */
-.coord-flash {
-  animation: coord-flash 2.4s ease-in-out infinite;
-  will-change: opacity;
-}
 
-/* Treatment planning grid â€” faint PACS-style crosshair grid */
+
+/* Treatment planning grid — faint PACS-style crosshair grid */
 .planning-grid {
   background-image:
-    linear-gradient(rgba(26, 115, 82, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(26, 115, 82, 0.06) 1px, transparent 1px);
+    linear-gradient(rgba(100, 116, 139, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(100, 116, 139, 0.08) 1px, transparent 1px);
   background-size: 48px 48px;
 }
 
-/* Consolidated ambient glow field for the footer â€” a single painted layer
+/* Consolidated ambient glow field for the footer — a single painted layer
    (three radial gradients) instead of three blurred DOM nodes. Percent-based
    positions keep it RTL-safe. */
 .footer-glow {
@@ -4018,16 +1151,16 @@ h3 {
   filter: invert(90%) grayscale(45%) contrast(90%);
 }
 
-/* Dose-color gradient â€” blue â†’ green â†’ yellow â†’ red (planning color-wash) */
+/* Dose-color gradient — blue → green → yellow → red (planning color-wash) */
 .dose-gradient {
   background: linear-gradient(90deg, #145c41, #2e7d5b, #84cc16, #f59e0b, #ef4444);
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   SCROLL REVEAL â€” IntersectionObserver driven
+/* ═══════════════════════════════════════════
+   SCROLL REVEAL — IntersectionObserver driven
    Element starts hidden; .is-revealed toggles in.
    Configured via CSS custom properties for delay.
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════ */
 .reveal {
   opacity: 0;
   transform: translateY(34px) scale(0.985);
@@ -4072,9 +1205,9 @@ h3 {
   transform: none;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   KEN BURNS â€” slow cinematic hero zoom
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ═══════════════════════════════════════════
+   KEN BURNS — slow cinematic hero zoom
+═══════════════════════════════════════════ */
 @keyframes ken-burns {
   0% {
     transform: scale(1) translate(0, 0);
@@ -4085,7 +1218,7 @@ h3 {
   }
 }
 
-/* Ken Burns runs a single slow pass (~30s) instead of looping forever â€”
+/* Ken Burns runs a single slow pass (~30s) instead of looping forever —
    continuous compositing of the full-viewport LCP image is expensive,
    especially on mobile. Disabled entirely below lg. */
 .ken-burns {
@@ -4099,9 +1232,9 @@ h3 {
   }
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   GRADIENT SHIMMER â€” animated gradient text
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ═══════════════════════════════════════════
+   GRADIENT SHIMMER — animated gradient text
+═══════════════════════════════════════════ */
 @keyframes shimmer-slide {
   0% {
     background-position: 0% 50%;
@@ -4118,11 +1251,21 @@ h3 {
   will-change: background-position;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   HERO SLIDER â€” active-dot autoplay progress fill
+.hero-title-accent {
+  color: transparent;
+  background-image: linear-gradient(to right, #705012, #82621f, #705012);
+  background-clip: text;
+}
+
+[data-theme="dark"] .hero-title-accent {
+  background-image: linear-gradient(to right, #c3a85e, #e3c67e, #c3a85e);
+}
+
+/* ═══════════════════════════════════════════
+   HERO SLIDER — active-dot autoplay progress fill
    Duration is set via --hero-duration (matches
    the slider auto-advance interval).
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════ */
 @keyframes hero-slider-progress {
   from {
     width: 0%;
@@ -4138,13 +1281,13 @@ h3 {
   will-change: width;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   SPOTLIGHT CARD â€” cursor-following radial glow
+/* ═══════════════════════════════════════════
+   SPOTLIGHT CARD — cursor-following radial glow
    Set --spot-x / --spot-y from JS (in px or %)
-   NOTE: no overflow:hidden here â€” the ::before glow is
+   NOTE: no overflow:hidden here — the ::before glow is
    self-bounded (inset:0 + border-radius:inherit), and
    overflow would clip children that lift on hover.
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════ */
 .spotlight-card {
   position: relative;
 }
@@ -4167,10 +1310,10 @@ h3 {
   opacity: 1;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   TILT CARD â€” subtle 3D perspective tilt
+/* ═══════════════════════════════════════════
+   TILT CARD — subtle 3D perspective tilt
    Set --tilt-x / --tilt-y (in deg) from JS
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════ */
 .tilt-card {
   transform-style: preserve-3d;
   transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
@@ -4183,9 +1326,9 @@ h3 {
   transform-style: preserve-3d;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   CONIC BORDER â€” rotating beam around CTAs
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ═══════════════════════════════════════════
+   CONIC BORDER — rotating beam around CTAs
+═══════════════════════════════════════════ */
 @keyframes conic-spin {
   to {
     --conic-angle: 360deg;
@@ -4222,9 +1365,9 @@ h3 {
   will-change: --conic-angle;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   FLOAT BOB â€” gently drifting decorative orbs
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ═══════════════════════════════════════════
+   FLOAT BOB — gently drifting decorative orbs
+═══════════════════════════════════════════ */
 @keyframes float-bob {
 
   0%,
@@ -4254,9 +1397,9 @@ h3 {
   animation-delay: -8s;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   SCAN LINE â€” sweeping CT-style section divider
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ═══════════════════════════════════════════
+   SCAN LINE — sweeping CT-style section divider
+═══════════════════════════════════════════ */
 @keyframes scan-line-sweep {
   0% {
     transform: translateX(-120%);
@@ -4282,11 +1425,11 @@ h3 {
   will-change: transform, opacity;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   POWER-ON GANTRY â€” equipment "boot-up" sequence
+/* ═══════════════════════════════════════════
+   POWER-ON GANTRY — equipment "boot-up" sequence
    .powered-on is added by IntersectionObserver
    when the gantry scrolls into view.
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════ */
 @keyframes power-glow {
   0% {
     opacity: 0;
@@ -4358,9 +1501,9 @@ h3 {
   animation: power-sweep 1.6s ease-out forwards;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   CURSOR GLOW â€” soft tracking light
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ═══════════════════════════════════════════
+   CURSOR GLOW — soft tracking light
+═══════════════════════════════════════════ */
 .cursor-glow {
   position: fixed;
   top: 0;
@@ -4387,9 +1530,9 @@ h3 {
   }
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   SCROLL PROGRESS BAR â€” treatment-dose counter
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ═══════════════════════════════════════════
+   SCROLL PROGRESS BAR — treatment-dose counter
+═══════════════════════════════════════════ */
 .scroll-progress {
   position: fixed;
   top: 0;
@@ -4407,9 +1550,9 @@ h3 {
   transform-origin: 100% 0;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   BACK TO TOP â€” floating ring button
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ═══════════════════════════════════════════
+   BACK TO TOP — floating ring button
+═══════════════════════════════════════════ */
 .back-to-top {
   position: fixed;
   /* Safe-area inset keeps the button clear of iOS home indicator */
@@ -4438,7 +1581,7 @@ h3 {
   transition: stroke-dashoffset 0.2s linear;
 }
 
-/* Floating contact bubble â€” lifted above the sticky booking bar on mobile */
+/* Floating contact bubble — lifted above the sticky booking bar on mobile */
 .float-chat {
   position: fixed;
   /* Safe-area inset keeps the bubbles clear of iOS home indicator */
@@ -4481,7 +1624,7 @@ h3 {
   transform: scale(1.08);
 }
 
-/* Hover/focus tooltip â€” label slides out toward page center.
+/* Hover/focus tooltip — label slides out toward page center.
    Uses logical properties so it flips automatically in RTL. */
 .float-chat-btn::before {
   content: attr(data-label);
@@ -4543,12 +1686,12 @@ h3 {
   }
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   HERO ENTRANCE â€” staged reveal after preloader
+/* ═══════════════════════════════════════════
+   HERO ENTRANCE — staged reveal after preloader
    Hero starts somewhat hidden; .hero-anim-ready
    (added by HeroEntrance after the preloader)
    cascades entrance animations to each child.
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════ */
 .hero-entrance .anim-fade-up,
 .hero-entrance .anim-fade-in,
 .hero-entrance .anim-scale-in,
@@ -4577,7 +1720,7 @@ h3 {
   animation: slide-in-left 0.9s var(--ease-brand) forwards;
 }
 
-/* RTL hero â€” images slide from the opposite side for natural direction */
+/* RTL hero — images slide from the opposite side for natural direction */
 [dir="rtl"] .hero-entrance.hero-anim-ready .anim-slide-right {
   animation-name: slide-in-left;
 }
@@ -4590,15 +1733,15 @@ h3 {
   transform-origin: right;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   SLIDER SLIDE ENTRANCE â€” staged, per-element
+/* ═══════════════════════════════════════════
+   SLIDER SLIDE ENTRANCE — staged, per-element
    reveals that REPLAY every time a slide becomes
    active. The slider keeps .slide-active on a slide
    throughout its fade-out crossfade, then removes it
    so the next activation restarts the sequence.
    Declared after .hero-entrance so these rules win
    the cascade tie at equal specificity.
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════ */
 .hero-entrance .slide-entrance .anim-fade-up,
 .hero-entrance .slide-entrance .anim-fade-in,
 .hero-entrance .slide-entrance .anim-scale-in,
@@ -4628,7 +1771,7 @@ h3 {
   animation: slide-in-left 0.9s var(--ease-brand) forwards;
 }
 
-/* RTL slides â€” directional entrances mirror naturally */
+/* RTL slides — directional entrances mirror naturally */
 [dir="rtl"] .hero-entrance .slide-entrance.slide-active .anim-slide-right {
   animation-name: slide-in-left;
 }
@@ -4637,9 +1780,9 @@ h3 {
   animation-name: slide-in-right;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════
    REDUCED MOTION
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
 
   .anim-fade-up,
@@ -4665,7 +1808,7 @@ h3 {
   .dose-fill,
   .trefoil-spin,
   .beam-on,
-  .coord-flash,
+
   .ken-burns,
   .shimmer-text,
   .float-bob,
@@ -4703,26 +1846,26 @@ h3 {
   }
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════
    RENDERING PERFORMANCE
    content-visibility: auto lets the browser skip rendering,
    painting and hit-testing of off-screen sections until they
    scroll into view, cutting initial main-thread work on mobile.
    contain-intrinsic-size reserves space to prevent scroll jumps.
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════ */
 .content-visibility {
   content-visibility: auto;
   contain-intrinsic-size: auto 600px;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   MOBILE PERFORMANCE â€” Reduce expensive effects
+/* ═══════════════════════════════════════════
+   MOBILE PERFORMANCE — Reduce expensive effects
    on small screens where GPU/CPU are limited.
    Desktop (md+) keeps the full visual experience.
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════ */
 @media (max-width: 767px) {
 
-  /* Reduce blur radius on decorative elements â€” blur is very expensive on mobile GPUs */
+  /* Reduce blur radius on decorative elements — blur is very expensive on mobile GPUs */
   .blur-3xl {
     --tw-blur: blur(24px);
   }
@@ -4748,7 +1891,7 @@ h3 {
   }
 
   /* Cap arbitrary blur values used on ambient orbs (blur-[140px], blur-[120px], blur-[90px], etc.)
-     These are extremely expensive on mobile GPUs â€” cap at 40px max */
+     These are extremely expensive on mobile GPUs — cap at 40px max */
   .blur-\[140px\] {
     --tw-blur: blur(40px);
   }
@@ -4784,7 +1927,7 @@ h3 {
   /* Slow down or pause non-critical infinite animations on mobile */
   .float-bob,
   .isodose-ring,
-  .coord-flash,
+
   .shimmer-text {
     animation: none !important;
   }
@@ -4834,7 +1977,7 @@ h3 {
     opacity: 0.12 !important;
   }
 
-  /* Reduce backdrop-blur intensity on mobile â€” forces GPU layer per element */
+  /* Reduce backdrop-blur intensity on mobile — forces GPU layer per element */
   .backdrop-blur-2xl {
     --tw-backdrop-blur: blur(16px);
   }
@@ -4856,9 +1999,9 @@ h3 {
   }
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   BLOG â€” cards, article prose, reading widget
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ═══════════════════════════════════════════
+   BLOG — cards, article prose, reading widget
+   ═══════════════════════════════════════════ */
 
 /* Staggered entrance for blog cards */
 @keyframes blog-card-in {
@@ -4971,12 +2114,12 @@ h3 {
   pointer-events: none;
 }
 
-/* â”€â”€â”€ Article body typography â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ─── Article body typography ───────────────────────────────────────
    Hand-rolled prose styles. The article HTML is sanitized and injected
    with dangerouslySetInnerHTML, and the Tailwind Typography plugin is
-   NOT part of this project â€” so every readable element gets its styling
+   NOT part of this project — so every readable element gets its styling
    from this block. Keep it complete.
-   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+   ──────────────────────────────────────────────────────────────── */
 
 .article-prose > * + * {
   margin-top: 1.15rem;
@@ -4986,7 +2129,7 @@ h3 {
   line-height: 1.95;
 }
 
-/* Headings â€” clear hierarchy against the 15.5px body copy */
+/* Headings — clear hierarchy against the 15.5px body copy */
 .article-prose h2,
 .article-prose h3,
 .article-prose h4 {
@@ -5041,7 +2184,7 @@ h3 {
   font-style: italic;
 }
 
-/* Lists â€” brand diamond markers instead of default bullets */
+/* Lists — brand diamond markers instead of default bullets */
 .article-prose ul {
   list-style: none;
   padding-inline-start: 1.1rem;
@@ -5108,7 +2251,7 @@ h3 {
   text-align: center;
 }
 
-/* Tables â€” clinical content often arrives as tables. The block display
+/* Tables — clinical content often arrives as tables. The block display
    lets wide tables scroll horizontally on phones instead of overflowing. */
 .article-prose table {
   display: block;
@@ -5188,7 +2331,7 @@ h3 {
   pointer-events: auto;
 }
 
-/* Back-to-top button inside the widget â€” hidden until near page end */
+/* Back-to-top button inside the widget — hidden until near page end */
 .rp-back-to-top {
   width: 0;
   height: 28px;
@@ -5208,11 +2351,11 @@ h3 {
   margin-inline-start: 0.375rem;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   PHASE 1 â€” HIGH-IMPACT, PROFESSIONAL EFFECTS
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ═══════════════════════════════════════════
+   PHASE 1 — HIGH-IMPACT, PROFESSIONAL EFFECTS
+   ═══════════════════════════════════════════ */
 
-/* â”€â”€â”€ Premium Elastic/Bounce Hover Scale with Glow â”€â”€â”€ */
+/* ─── Premium Elastic/Bounce Hover Scale with Glow ─── */
 .elastic-hover {
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
 }
@@ -5237,7 +2380,7 @@ h3 {
   box-shadow: 0 12px 40px -10px rgba(26, 115, 82, 0.35);
 }
 
-/* â”€â”€â”€ Premium Ripple Click Effect with Glow â”€â”€â”€ */
+/* ─── Premium Ripple Click Effect with Glow ─── */
 .ripple {
   position: relative;
   overflow: hidden;
@@ -5271,12 +2414,12 @@ h3 {
   }
 }
 
-/* â”€â”€â”€ PACS Grid wash â€” static (the infinite breathing keyframe was removed
-   for perf: a fullscreen opacity animation is never worth the cost) â”€â”€â”€ */
+/* ─── PACS Grid wash — static (the infinite breathing keyframe was removed
+   for perf: a fullscreen opacity animation is never worth the cost) ─── */
 .breathing-grid {
   background-image:
-    linear-gradient(rgba(26, 115, 82, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(26, 115, 82, 0.06) 1px, transparent 1px);
+    linear-gradient(rgba(100, 116, 139, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(100, 116, 139, 0.08) 1px, transparent 1px);
   background-size: 48px 48px;
 }
 
@@ -5287,11 +2430,11 @@ h3 {
   background-size: 28px 28px;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   PHASE 2 â€” VISUAL WOW EFFECTS
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ═══════════════════════════════════════════
+   PHASE 2 — VISUAL WOW EFFECTS
+   ═══════════════════════════════════════════ */
 
-/* â”€â”€â”€ Animated SVG Line Draw â”€â”€â”€ */
+/* ─── Animated SVG Line Draw ─── */
 .draw-icon path,
 .draw-icon circle,
 .draw-icon line,
@@ -5344,7 +2487,7 @@ h3 {
   }
 }
 
-/* â”€â”€â”€ Animated Counter Ring (SVG Progress Ring) â”€â”€â”€ */
+/* ─── Animated Counter Ring (SVG Progress Ring) ─── */
 .counter-ring {
   transform: rotate(-90deg);
 }
@@ -5363,7 +2506,7 @@ h3 {
   transform-origin: center;
 }
 
-/* â”€â”€â”€ Text Mask Wipe Reveal â”€â”€â”€ */
+/* ─── Text Mask Wipe Reveal ─── */
 @keyframes text-wipe-in {
   from {
     clip-path: inset(0 100% 0 0);
@@ -5402,7 +2545,7 @@ h3 {
   }
 }
 
-/* â”€â”€â”€ Morphing Blob Background â€” Premium Organic Shapes â”€â”€â”€ */
+/* ─── Morphing Blob Background — Premium Organic Shapes ─── */
 @keyframes morph {
   0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
   15% { border-radius: 45% 55% 35% 65% / 55% 40% 60% 45%; }
@@ -5446,7 +2589,7 @@ h3 {
   }
 }
 
-/* â”€â”€â”€ Node Network Pulse â”€â”€â”€ */
+/* ─── Node Network Pulse ─── */
 @keyframes node-pulse {
   0%, 100% { opacity: 0.3; transform: scale(1); }
   50% { opacity: 1; transform: scale(1.3); }
@@ -5480,14 +2623,14 @@ h3 {
   }
 }
 
-/* â”€â”€â”€ Dose Heatmap Cells â”€â”€â”€ */
+/* ─── Dose Heatmap Cells ─── */
 .heatmap-cell {
   transition:
     background-color 0.3s ease,
     transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Elastic pop is a pointer affordance â€” touch devices get the static map */
+/* Elastic pop is a pointer affordance — touch devices get the static map */
 @media (hover: hover) and (pointer: fine) {
   .heatmap-cell:hover {
     transform: scale(1.15);
@@ -5502,7 +2645,7 @@ h3 {
   }
 }
 
-/* â”€â”€â”€ Scroll Parallax Layers â”€â”€â”€ */
+/* ─── Scroll Parallax Layers ─── */
 .parallax-container {
   perspective: 1px;
   overflow: hidden;
@@ -5512,7 +2655,7 @@ h3 {
   transition: transform 0.1s linear;
 }
 
-/* â”€â”€â”€ Staggered Grid Reveal â”€â”€â”€ */
+/* ─── Staggered Grid Reveal ─── */
 @keyframes stagger-in {
   from {
     opacity: 0;
@@ -5548,19 +2691,19 @@ h3 {
   }
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   PLATFORM POLISH â€” print, contrast, scrollbars, blur fallback
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ═══════════════════════════════════════════
+   PLATFORM POLISH — print, contrast, scrollbars, blur fallback
+   ═══════════════════════════════════════════ */
 
 @media (prefers-reduced-motion: reduce) {
-  /* No lift, no jump â€” cards stay put instead of snapping into place */
+  /* No lift, no jump — cards stay put instead of snapping into place */
   .surface-card {
     transform: none !important;
     transition: none !important;
   }
 }
 
-/* â”€â”€â”€ High-contrast requests â”€â”€â”€ */
+/* ─── High-contrast requests ─── */
 @media (prefers-contrast: more) {
 
   :root,
@@ -5588,9 +2731,23 @@ h3 {
   :focus-visible {
     outline-width: 3px;
   }
-}
 
-/* â”€â”€â”€ Desktop scrollbar â€” thin and theme-aware â”€â”€â”€ */
+  /* --- Slider nav buttons � high contrast --- */
+  .slider-nav-arrow {
+    border-width: 2px;
+  }
+
+  .slider-nav-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border: 2px solid;
+  }
+
+  .slider-nav-dot-active {
+    width: 1.5rem;
+  }
+}
+/* ─── Desktop scrollbar — thin and theme-aware ─── */
 @media (hover: hover) and (pointer: fine) {
 
   html {
@@ -5620,7 +2777,7 @@ h3 {
   }
 }
 
-/* â”€â”€â”€ Backdrop-filter fallback â”€â”€â”€
+/* ─── Backdrop-filter fallback ───
    Without blur the translucent bars need more of their own background
    to stay legible (older Firefox, reduced-transparency settings). */
 @supports not ((backdrop-filter: blur(4px)) or (-webkit-backdrop-filter: blur(4px))) {
@@ -5634,7 +2791,7 @@ h3 {
   }
 }
 
-/* â”€â”€â”€ Theme cross-fade (View Transitions API) â”€â”€â”€
+/* ─── Theme cross-fade (View Transitions API) ───
    The ThemeProvider wraps its toggle in startViewTransition where the API
    exists; this only tunes the duration/easing of the snapshots. Browsers
    without support simply swap instantly. */
@@ -5656,8 +2813,8 @@ h3 {
   }
 }
 
-/* â”€â”€â”€ Route loading bar â”€â”€â”€
-   One 1px bar sweeping across a track â€” cheaper than a spinner ring and
+/* ─── Route loading bar ───
+   One 1px bar sweeping across a track — cheaper than a spinner ring and
    reads as a "dose" filling. Direction flips with the writing mode. */
 .dose-loading {
   animation: dose-loading 1.6s var(--ease-soft) infinite;
@@ -5685,7 +2842,7 @@ h3 {
   }
 }
 
-/* â”€â”€â”€ Print â”€â”€â”€
+/* ─── Print ───
    Patients print directions, privacy and terms pages. Flatten the dark
    bands (white text on white paper is invisible) and drop floating UI. */
 @media print {
@@ -5740,6 +2897,2925 @@ h3 {
   }
 }
 
-/* Hero slide clip-path — all modes; gradient background only in light mode */
-.lightbg-clip { clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%); }
-[data-theme="light"] .lightbg-clip { background: linear-gradient(to bottom, #ffffff 40%, var(--color-deep) 100%); }
+/* Make all Tailwind `hover:` variants fire only on devices that truly
+   support hover (mouse/trackpad) — prevents sticky hover states on touch. */
+@custom-variant hover {
+  @media (hover: hover) {
+    &:hover {
+      @slot;
+    }
+  }
+}
+
+:root,
+[data-theme="light"] {
+  /* ── Ivory / forest-green / gold palette (from Dr. Ghadamgahi's card) ──
+     Refined for legibility: text tones verified against WCAG AA (4.5:1)
+     on the ivory background; borders carry a warm gold tint. */
+  --color-deep: #0b2e22;
+  --color-bg: #f8f5ee;
+  --color-surface: #fffdf9;
+  --color-gold: #c9a24b;
+  --color-gold-soft: #e9d4a3;
+  --color-highlight: #82621f;
+  --color-soft: #ece5d1;
+  --color-text-primary: #16281f;
+  --color-text-secondary: #3d5248;
+  --color-text-on-dark: #fffbf2;
+  --color-muted: #5d6f65;
+  --color-border: #ddd2b8;
+  --color-success: #16a34a;
+  --color-danger: #dc2626;
+  --color-danger-soft: #fef2f2;
+  --color-positive: #059669;
+  --color-positive-soft: #ecfdf5;
+  --color-secondary: #2e7d5b;
+  --color-secondary-hover: #3e9a74;
+  --color-blog-dark: #07211a;
+  --font-vazirmatn: var(--font-vazirmatn), system-ui, sans-serif;
+  --font-outfit: var(--font-outfit), system-ui, sans-serif;
+
+  /* Light theme — primary green is reserved for borders, accents, and
+     hover states. Component fills (buttons, pills, chips) are WHITE so
+     light mode stays paper-dominant; text on fills is dark green. */
+  --color-primary: #145c41;
+  --color-primary-hover: #1a7352;
+  --color-primary-fill: #ffffff;
+  --color-primary-fill-soft: #f4efe5;
+  /* Dark text on white fills (WCAG AA on white). */
+  --color-on-primary: #145c41;
+  /* Accent text for badges on green-tinted surfaces — deep green works in
+     light mode; dark theme keeps warm gold. */
+  --color-accent: #145c41;
+
+  /* Shared vertical rhythm for page sections — compact on mobile,
+     generous on desktop without extra utilities per section. */
+  --section-y: clamp(3.5rem, 6vw, 6rem);
+
+  /* Elevation — light theme: neutral, soft, paper-like depth */
+  --elevation-card: 0 1px 2px 0 rgba(11, 46, 34, 0.04),
+    0 1px 3px 0 rgba(11, 46, 34, 0.06);
+  --elevation-card-hover: 0 14px 34px -14px rgba(11, 46, 34, 0.2),
+    0 2px 6px -2px rgba(11, 46, 34, 0.06);
+
+  /* Motion tokens (also exposed via @theme for utility generation, but
+     declared here as literals so they are never tree-shaken away —
+     an unresolved var inside `animation` would cancel the entrance
+     animations entirely). */
+  --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 150ms;
+  --dur-base: 250ms;
+  --dur-slow: 450ms;
+  --dur-entrance: 800ms;
+
+  --radius-card: 1.5rem;
+  --radius-panel: 1.7rem;
+
+  color-scheme: light dark;
+}
+
+/* ═══════════════════════════════════════════
+   DARK THEME PALETTE
+   Overrides the CSS custom properties when
+   <html data-theme="dark"> is set by ThemeProvider.
+   All Tailwind utilities (bg-bg, text-text-primary,
+   border-border, bg-surface, …) automatically pick
+   up these values via var(--color-*).
+   ═══════════════════════════════════════════ */
+[data-theme="dark"] {
+  --color-deep: #04120d;
+  --color-bg: #071a13;
+  --color-surface: #0e2a1f;
+  --color-primary: #3dbe8b;
+  --color-primary-hover: #5fd3a6;
+  /* Dark theme keeps green fills */
+  --color-primary-fill: #3dbe8b;
+  --color-primary-fill-soft: rgba(61, 190, 139, 0.12);
+  --color-on-primary: #04120d;
+  /* Fill on primary — light green, matching the dark theme's brand */
+  --color-primary-fill: #3dbe8b;
+  /* On dark theme primary is a light green, so on-fill text flips to
+     near-black (8.2:1) — visually identical to the old text-deep. */
+  --color-on-primary: #04120d;
+  /* Accent on tints: gold on the dark green tint (matches old highlight). */
+  --color-accent: #e3c67e;
+  --color-gold: #d9b967;
+  --color-gold-soft: #2b2413;
+  --color-highlight: #e3c67e;
+  --color-soft: #0f2c21;
+  --color-text-primary: #eaf3ee;
+  --color-text-secondary: #a4bcb0;
+  --color-text-on-dark: #fffbf2;
+  --color-muted: #7e9689;
+  --color-border: #234434;
+  --color-success: #3dbe8b;
+  --color-danger: #f87171;
+  --color-danger-soft: rgba(248, 113, 113, 0.12);
+  --color-positive: #34d399;
+  --color-positive-soft: rgba(52, 211, 153, 0.12);
+  --color-secondary: #2fa377;
+  --color-secondary-hover: #5fd3a6;
+  --color-blog-dark: #04120d;
+
+  /* Elevation — dark theme: hairline + glow instead of diffuse shadow */
+  --elevation-card: 0 0 0 1px rgba(76, 155, 122, 0.05),
+    0 12px 32px -20px rgba(0, 0, 0, 0.9);
+  --elevation-card-hover: 0 0 0 1px rgba(76, 155, 122, 0.16),
+    0 18px 46px -22px rgba(0, 0, 0, 0.95),
+    0 0 34px -14px rgba(76, 155, 122, 0.3);
+}
+
+@theme {
+  --color-deep: var(--color-deep);
+  --color-bg: var(--color-bg);
+  --color-surface: var(--color-surface);
+  --color-primary: var(--color-primary);
+  --color-primary-hover: var(--color-primary-hover);
+  --color-on-primary: var(--color-on-primary);
+  --color-primary-fill: var(--color-primary-fill);
+  --color-primary-fill-hover: var(--color-primary-hover);
+  --color-accent: var(--color-accent);
+  --color-highlight: var(--color-highlight);
+  --color-gold: var(--color-gold);
+  --color-gold-soft: var(--color-gold-soft);
+  --color-soft: var(--color-soft);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-on-dark: var(--color-text-on-dark);
+  --color-muted: var(--color-muted);
+  --color-border: var(--color-border);
+  --color-success: var(--color-success);
+  --color-danger: var(--color-danger);
+  --color-danger-soft: var(--color-danger-soft);
+  --color-positive: var(--color-positive);
+  --color-positive-soft: var(--color-positive-soft);
+  --color-secondary: var(--color-secondary);
+  --color-secondary-hover: var(--color-secondary-hover);
+  --color-blog-dark: var(--color-blog-dark);
+  /* Font aliases used by the font-vazir / font-outfit utilities */
+  --font-vazir: var(--font-vazirmatn), system-ui, sans-serif;
+  --font-outfit: var(--font-outfit), system-ui, sans-serif;
+
+  /* ── Motion tokens ───────────────────────────────────────────────
+     One source of truth for the site's timing so every transition and
+     entrance animation shares the same feel. */
+  --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 150ms;
+  --dur-base: 250ms;
+  --dur-slow: 450ms;
+  --dur-entrance: 800ms;
+
+  /* ── Radius tokens ───────────────────────────────────────────────
+     Cards and panels share two radii only: content cards and large
+     feature panels (blog cards, hero-side panels). */
+  --radius-card: 1.5rem;
+  --radius-panel: 1.7rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Disable smooth scrolling for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* Global kill-switch for decorative/infinite animations and transitions.
+     Near-zero durations still fire animationend/transitionend events, so
+     JS flows that wait on them (e.g. Preloader) keep working. */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  font-family: var(--font-vazirmatn), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  /* Smooth dark/light theme transitions without flashing */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Visible keyboard-focus ring for accessibility (mouse clicks excluded) */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ═══════════════════════════════════════════
+   DESIGN TOKEN UTILITIES
+   ═══════════════════════════════════════════ */
+
+/* Uniform vertical rhythm for page sections — pb can be tightened
+   per-section with .section-pad-tight (e.g. TrustStrip). */
+.section-pad {
+  padding-top: var(--section-y);
+  padding-bottom: var(--section-y);
+}
+.section-pad-tight {
+  padding-top: var(--section-y);
+  padding-bottom: 1rem;
+}
+
+/* ═══════════════════════════════════════════
+   SURFACE PRIMITIVES — one card treatment for every content card.
+   Light theme: soft neutral elevation.
+   Dark theme: 1px cyan hairline + glow-first depth (see --elevation-*).
+   Hover lift is gated to true-hover devices and disabled for
+   reduced-motion users further down.
+   ═══════════════════════════════════════════ */
+.surface-card {
+  position: relative;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--elevation-card);
+  transition:
+    border-color var(--dur-base) var(--ease-soft),
+    box-shadow var(--dur-base) var(--ease-soft),
+    transform var(--dur-base) var(--ease-soft);
+}
+
+.surface-panel {
+  border-radius: var(--radius-panel);
+}
+
+@media (hover: hover) {
+  .surface-card:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--color-primary) 55%, transparent);
+    box-shadow: var(--elevation-card-hover);
+  }
+}
+
+/* Pill-shaped sibling of .surface-card (trust marks, certificate chips) */
+.surface-chip {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  box-shadow: var(--elevation-card);
+  transition:
+    border-color var(--dur-base) var(--ease-soft),
+    box-shadow var(--dur-base) var(--ease-soft);
+}
+
+@media (hover: hover) {
+  .surface-chip:hover {
+    border-color: color-mix(in srgb, var(--color-primary) 50%, transparent);
+    box-shadow: var(--elevation-card-hover);
+  }
+}
+
+/* ═══════════════════════════════════════════
+   BAND — DARK
+   Single treatment for the dark storytelling bands (equipment,
+   testimonials, closing CTA): deep base, one top + bottom glow and a
+   barely-there grain for materiality. No animation, no extra layers:
+   both decorations are pseudo-elements on the section itself.
+   ═══════════════════════════════════════════ */
+.band-dark {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-deep);
+}
+
+.band-dark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      70% 55% at 50% 0%,
+      color-mix(in srgb, var(--color-primary) 13%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      55% 45% at 50% 100%,
+      color-mix(in srgb, var(--color-secondary) 9%, transparent),
+      transparent 72%
+    );
+}
+
+.band-dark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 170px 170px;
+}
+
+@media (max-width: 767px) {
+  /* Grain costs a full-section composite on mobile GPUs — barely visible there */
+  .band-dark::after {
+    opacity: 0.03;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   FLUID TYPE SCALE — section headers stop stepping at breakpoints
+   ═══════════════════════════════════════════ */
+.type-section {
+  font-size: clamp(1.75rem, 1.42rem + 1.3vw, 2.5rem);
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+}
+
+.type-lede {
+  font-size: clamp(1rem, 0.98rem + 0.22vw, 1.125rem);
+  line-height: 1.75;
+}
+
+html[lang="fa"] .type-section {
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
+/* Locked-width digits — animated counters and timestamps never jitter */
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* ═══════════════════════════════════════════
+   MINIMAL DESIGN SYSTEM — balance, FA rhythm, selection
+   Zero-JS. Respects both themes via var(--color-*).
+   ═══════════════════════════════════════════ */
+h1,
+h2 {
+  text-wrap: balance;
+  font-weight: 800;
+}
+article p,
+section p {
+  text-wrap: pretty;
+}
+/* Vazirmatn needs looser leading than latin tight tracking */
+html[lang="fa"] h1,
+html[lang="fa"] h2 {
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+html[lang="fa"] .tracking-tight,
+html[lang="fa"] .tracking-tighter {
+  letter-spacing: -0.005em;
+}
+::selection {
+  background: color-mix(in srgb, var(--color-primary) 28%, transparent);
+}
+:target {
+  scroll-margin-top: 88px;
+}
+section[id] {
+  scroll-margin-top: 84px;
+}
+/* Thin gold rule — visit-card motif used under display headings */
+.gold-rule {
+  display: inline-block;
+  height: 2px;
+  width: clamp(4rem, 10vw, 7rem);
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-gold) 25%,
+    var(--color-gold) 75%,
+    transparent
+  );
+}
+/* Shared eyebrow pill — gold voice from the visit card.
+   Ivory theme: gold border + soft gold wash + deep-green text so the
+   pill stays striking while meeting AA contrast. */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  border: 1px solid var(--color-gold);
+  background: var(--color-gold-soft);
+  border-radius: 999px;
+  padding: 0.4rem 0.85rem;
+}
+/* Eyebrow on dark bands (hero / testimonials / CTA) */
+.eyebrow-on-dark {
+  color: var(--color-highlight);
+  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
+}
+html[lang="fa"] .eyebrow {
+  /* Persian script + wide latin tracking looks scattered — tighten */
+  letter-spacing: 0.06em;
+}
+/* Reusable button sheen sweep — desktop hover only (touch has no hover) */
+@media (hover: hover) {
+  .btn-sheen {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .btn-sheen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    transform: translateX(-110%);
+    transition: transform 0.7s ease;
+    pointer-events: none;
+  }
+  .btn-sheen:hover::after {
+    transform: translateX(110%);
+  }
+  [dir="rtl"] .btn-sheen::after {
+    transform: translateX(110%);
+  }
+  [dir="rtl"] .btn-sheen:hover::after {
+    transform: translateX(-110%);
+  }
+}
+/* Hairline divider with center label — cheaper than animated scanline */
+.hairline-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--color-muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.hairline-label::before,
+.hairline-label::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-border),
+    transparent
+  );
+}
+html[lang="fa"] .hairline-label {
+  letter-spacing: 0.06em;
+}
+/* Mobile snap row — shared by testimonials / galleries, no carousel JS */
+@media (max-width: 767px) {
+  .snap-row {
+    display: flex;
+    gap: 0.875rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1rem;
+    padding-inline: 1rem;
+    padding-bottom: 0.75rem;
+    margin-inline: -1rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .snap-row::-webkit-scrollbar {
+    display: none;
+  }
+  .snap-row > * {
+    scroll-snap-align: start;
+    flex: 0 0 min(84vw, 320px);
+  }
+}
+/* Touch devices: kill lift + spotlight + magnetic transforms entirely */
+@media (hover: none) {
+  .no-lift-touch {
+    transform: none !important;
+  }
+  .spotlight-card::before {
+    opacity: 0 !important;
+  }
+}
+
+/* Fluid display heading — scales smoothly between breakpoints
+   instead of stepping at sm/lg/xl boundaries. */
+.fluid-display,
+.type-display {
+  font-size: clamp(2.25rem, 1.55rem + 2.7vw, 4.3rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+}
+
+/* Vazirmatn's 800/900 cuts grow tall — give Persian display room */
+html[lang="fa"] .fluid-display,
+html[lang="fa"] .type-display {
+  line-height: 1.5;
+  letter-spacing: 0;
+  font-weight: 800;
+}
+
+/* Section headings are set to 800 in the type-family block below */
+
+[dir="ltr"] body {
+  font-family: var(--font-outfit), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+}
+
+/* Persian body copy set in Vazirmatn reads cramped at Tailwind's default
+   1.5 line-height — open it up for paragraphs and list items. */
+html[lang="fa"] p,
+html[lang="fa"] li {
+  line-height: 1.85;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-vazirmatn), system-ui, sans-serif;
+  font-weight: 800;
+}
+
+/* Section ledes read with extra presence — medium weight, comfortable measure */
+.type-lede {
+  font-weight: 500;
+  max-width: 44rem;
+}
+
+/* Subsection headings (h3) — semibold is elegant enough below h2 */
+h3 {
+  font-weight: 700;
+}
+
+/* ═══════════════════════════════════════════
+   ANIMATIONS — Home page
+═══════════════════════════════════════════ */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes sweep {
+  0% {
+    transform: translateY(-120%);
+    opacity: 0;
+  }
+
+  12% {
+    opacity: .8;
+  }
+
+  88% {
+    opacity: .8;
+  }
+
+  100% {
+    transform: translateY(120%);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-ring {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: .6;
+  }
+
+  50% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes blink-dot {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: .25;
+  }
+}
+
+@keyframes gantry-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scan-beam {
+  0% {
+    transform: translateX(-30%);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.7;
+  }
+
+  85% {
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: translateX(130%);
+    opacity: 0;
+  }
+}
+
+@keyframes status-pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes table-glow {
+
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 0.85;
+  }
+}
+
+/* One-shot entrance animations — no persistent will-change, so finished
+   elements don't hold GPU layers forever. */
+.anim-fade-up {
+  opacity: 0;
+  animation: fade-up 0.8s var(--ease-brand) forwards;
+}
+
+.anim-fade-in {
+  opacity: 0;
+  animation: fade-in 1s ease-out forwards;
+}
+
+.anim-scale-in {
+  opacity: 0;
+  animation: scale-in 0.9s var(--ease-brand) forwards;
+}
+
+.anim-slide-right {
+  opacity: 0;
+  animation: slide-in-right 0.9s var(--ease-brand) forwards;
+}
+
+.anim-slide-left {
+  opacity: 0;
+  animation: slide-in-left 0.9s var(--ease-brand) forwards;
+}
+
+.hud-sweep {
+  animation: sweep 5.5s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.hud-pulse {
+  animation: pulse-ring 2.2s ease-out infinite;
+  will-change: transform, opacity;
+}
+
+.hud-blink {
+  animation: blink-dot 1.6s ease-in-out infinite;
+  will-change: opacity;
+}
+
+.gantry-spin {
+  transform-origin: 150px 140px;
+}
+/* Gantry rotation is a desktop-hover-capable enhancement only */
+@media (hover: hover) and (min-width: 1024px) {
+  .gantry-spin {
+    animation: gantry-spin 30s linear infinite;
+  }
+}
+
+.scan-beam {
+  animation: scan-beam 4s ease-in-out infinite;
+}
+
+.status-pulse {
+  animation: status-pulse 2s ease-in-out infinite;
+}
+/* Status/beam pulses are desktop-only; mobile keeps the static dot */
+@media (max-width: 1023px) {
+  .scan-beam,
+  .status-pulse,
+  .beam-on {
+    animation: none !important;
+  }
+}
+
+.table-glow {
+  animation: table-glow 3s ease-in-out infinite;
+  will-change: opacity;
+}
+
+.delay-100 {
+  animation-delay: 100ms;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.delay-400 {
+  animation-delay: 400ms;
+}
+
+.delay-450 {
+  animation-delay: 450ms;
+}
+
+.delay-500 {
+  animation-delay: 500ms;
+}
+
+.delay-600 {
+  animation-delay: 600ms;
+}
+
+.delay-700 {
+  animation-delay: 700ms;
+}
+
+.delay-800 {
+  animation-delay: 800ms;
+}
+
+.delay-900 {
+  animation-delay: 900ms;
+}
+
+.delay-1000 {
+  animation-delay: 1000ms;
+}
+
+.delay-1100 {
+  animation-delay: 1100ms;
+}
+
+.delay-1200 {
+  animation-delay: 1200ms;
+}
+
+/* Process section — spine keyframes kept for the static fallback;
+   the traveling .spine-dot animation was removed (static dot in JSX) */
+@keyframes spine-pulse {
+  0% {
+    top: -6%;
+    opacity: 0;
+  }
+
+  12% {
+    opacity: 1;
+  }
+
+  88% {
+    opacity: 1;
+  }
+
+  100% {
+    top: 106%;
+    opacity: 0;
+  }
+}
+
+@keyframes slow-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* card-sweep hover effect removed from Process cards — single definition kept */
+@keyframes card-sweep {
+  0% {
+    transform: translateX(-120%);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: .6;
+  }
+
+  85% {
+    opacity: .6;
+  }
+
+  100% {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   ANIMATIONS — Forum post page
+═══════════════════════════════════════════ */
+@keyframes fp-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fp-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fp-badge-pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(26, 115, 82, 0.35);
+  }
+
+  50% {
+    box-shadow: 0 0 0 6px rgba(26, 115, 82, 0);
+  }
+}
+
+.fp-fade-up {
+  opacity: 0;
+  animation: fp-fade-up 0.6s var(--ease-brand) forwards;
+}
+
+.fp-fade-in {
+  opacity: 0;
+  animation: fp-fade-in 0.7s ease-out forwards;
+}
+
+.fp-delay-1 {
+  animation-delay: 80ms;
+}
+
+.fp-delay-2 {
+  animation-delay: 160ms;
+}
+
+.fp-delay-3 {
+  animation-delay: 240ms;
+}
+
+.fp-badge-pulse {
+  animation: fp-badge-pulse 2.6s ease-out infinite;
+}
+
+/* ═══════════════════════════════════════════
+   GRAIN / NOISE BACKGROUND PATTERN
+   Extracted data-URI SVG grain used across pages
+═══════════════════════════════════════════ */
+.grain-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 170px 170px;
+}
+
+.grain-masked {
+  -webkit-mask-image: linear-gradient(180deg, transparent, black 8%, black 92%, transparent);
+  mask-image: linear-gradient(180deg, transparent, black 8%, black 92%, transparent);
+}
+
+/* ═══════════════════════════════════════════
+   RADIOTHERAPY MOTIFS — Isodose, beam, trefoil
+   Domain-specific decorative language
+═══════════════════════════════════════════ */
+@keyframes isodose-pulse {
+
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes beam-sweep {
+  0% {
+    transform: translateX(-120%) skewX(-12deg);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.6;
+  }
+
+  85% {
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: translateX(220%) skewX(-12deg);
+    opacity: 0;
+  }
+}
+
+@keyframes dose-fill {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes trefoil-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes beam-on {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(26, 115, 82, 0.5);
+  }
+
+  50% {
+    box-shadow: 0 0 0 6px rgba(26, 115, 82, 0);
+  }
+}
+
+
+
+/* Isodose contour rings — concentric irregular dose lines */
+.isodose-ring {
+  animation: isodose-pulse 4s ease-in-out infinite;
+  will-change: opacity;
+}
+
+.isodose-ring-1 {
+  animation-delay: 0s;
+}
+
+.isodose-ring-2 {
+  animation-delay: 0.8s;
+}
+
+.isodose-ring-3 {
+  animation-delay: 1.6s;
+}
+
+.isodose-ring-4 {
+  animation-delay: 2.4s;
+}
+
+/* Treatment beam sweep — diagonal light sweep like a LINAC beam */
+.beam-sweep {
+  animation: beam-sweep 3.2s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* Dose accumulation progress bar */
+.dose-fill {
+  animation: dose-fill 2.5s var(--ease-brand) forwards;
+  will-change: width;
+}
+
+/* Radiation trefoil watermark — static by default. Rotation is a
+   desktop-only enhancement (see media query below) so mobile and
+   reduced-motion users never pay for an infinite paint. */
+.trefoil-static {
+  color: var(--color-primary);
+}
+@media (hover: hover) and (min-width: 1024px) {
+  .trefoil-spin {
+    animation: trefoil-spin 60s linear infinite;
+  }
+}
+
+/* Beam-on indicator — pulsing status light */
+.beam-on {
+  animation: beam-on 2s ease-out infinite;
+  will-change: box-shadow;
+}
+
+
+
+/* Treatment planning grid — faint PACS-style crosshair grid */
+.planning-grid {
+  background-image:
+    linear-gradient(rgba(100, 116, 139, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(100, 116, 139, 0.08) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Consolidated ambient glow field for the footer — a single painted layer
+   (three radial gradients) instead of three blurred DOM nodes. Percent-based
+   positions keep it RTL-safe. */
+.footer-glow {
+  background:
+    radial-gradient(18rem 18rem at 8% 0%, rgba(26, 115, 82, 0.10), transparent 70%),
+    radial-gradient(16rem 16rem at 95% 100%, rgba(46, 125, 91, 0.08), transparent 70%),
+    radial-gradient(10rem 10rem at 50% 50%, rgba(76, 155, 122, 0.05), transparent 70%);
+}
+
+/* Theme-aware Google Maps embed: normal map in light theme,
+   inverted/desaturated to blend with the dark theme. */
+.map-embed iframe {
+  filter: grayscale(35%) contrast(95%);
+}
+
+[data-theme="dark"] .map-embed iframe {
+  filter: invert(90%) grayscale(45%) contrast(90%);
+}
+
+/* Dose-color gradient — blue → green → yellow → red (planning color-wash) */
+.dose-gradient {
+  background: linear-gradient(90deg, #145c41, #2e7d5b, #84cc16, #f59e0b, #ef4444);
+}
+
+/* ═══════════════════════════════════════════
+   SCROLL REVEAL — IntersectionObserver driven
+   Element starts hidden; .is-revealed toggles in.
+   Configured via CSS custom properties for delay.
+═══════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(34px) scale(0.985);
+  transition:
+    opacity 0.85s var(--ease-brand),
+    transform 0.85s var(--ease-brand);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal-from-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition:
+    opacity 0.85s var(--ease-brand),
+    transform 0.85s var(--ease-brand);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal-from-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition:
+    opacity 0.85s var(--ease-brand),
+    transform 0.85s var(--ease-brand);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.92);
+  transition:
+    opacity 0.85s var(--ease-brand),
+    transform 0.85s var(--ease-brand);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.is-revealed,
+.reveal-from-left.is-revealed,
+.reveal-from-right.is-revealed,
+.reveal-scale.is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* ═══════════════════════════════════════════
+   KEN BURNS — slow cinematic hero zoom
+═══════════════════════════════════════════ */
+@keyframes ken-burns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+
+  100% {
+    transform: scale(1.1) translate(-1.5%, 1%);
+  }
+}
+
+/* Ken Burns runs a single slow pass (~30s) instead of looping forever —
+   continuous compositing of the full-viewport LCP image is expensive,
+   especially on mobile. Disabled entirely below lg. */
+.ken-burns {
+  animation: ken-burns 30s ease-in-out 1 both;
+  will-change: transform;
+}
+
+@media (max-width: 1023px) {
+  .ken-burns {
+    animation: none;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   GRADIENT SHIMMER — animated gradient text
+═══════════════════════════════════════════ */
+@keyframes shimmer-slide {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+.shimmer-text {
+  background-size: 200% auto;
+  animation: shimmer-slide 6s linear infinite;
+  will-change: background-position;
+}
+
+/* ═══════════════════════════════════════════
+   HERO SLIDER — active-dot autoplay progress fill
+   Duration is set via --hero-duration (matches
+   the slider auto-advance interval).
+═══════════════════════════════════════════ */
+@keyframes hero-slider-progress {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+.hero-slider-progress {
+  animation: hero-slider-progress var(--hero-duration, 8000ms) linear forwards;
+  will-change: width;
+}
+
+/* ═══════════════════════════════════════════
+   SPOTLIGHT CARD — cursor-following radial glow
+   Set --spot-x / --spot-y from JS (in px or %)
+   NOTE: no overflow:hidden here — the ::before glow is
+   self-bounded (inset:0 + border-radius:inherit), and
+   overflow would clip children that lift on hover.
+═══════════════════════════════════════════ */
+.spotlight-card {
+  position: relative;
+}
+
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  border-radius: inherit;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(480px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+      var(--spot-color, rgba(26, 115, 82, 0.14)),
+      transparent 65%);
+}
+
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+/* ═══════════════════════════════════════════
+   TILT CARD — subtle 3D perspective tilt
+   Set --tilt-x / --tilt-y (in deg) from JS
+═══════════════════════════════════════════ */
+.tilt-card {
+  transform-style: preserve-3d;
+  transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transition: transform 0.25s ease-out;
+  will-change: transform;
+}
+
+.tilt-card-inner {
+  transform: translateZ(28px);
+  transform-style: preserve-3d;
+}
+
+/* ═══════════════════════════════════════════
+   CONIC BORDER — rotating beam around CTAs
+═══════════════════════════════════════════ */
+@keyframes conic-spin {
+  to {
+    --conic-angle: 360deg;
+  }
+}
+
+@property --conic-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.conic-border {
+  position: relative;
+}
+
+.conic-border::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  z-index: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(from var(--conic-angle),
+      transparent 0%,
+      rgba(26, 115, 82, 0.9) 12%,
+      rgba(76, 155, 122, 0.5) 20%,
+      transparent 32%,
+      transparent 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: conic-spin 4s linear infinite;
+  will-change: --conic-angle;
+}
+
+/* ═══════════════════════════════════════════
+   FLOAT BOB — gently drifting decorative orbs
+═══════════════════════════════════════════ */
+@keyframes float-bob {
+
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+
+  33% {
+    transform: translateY(-18px) translateX(10px);
+  }
+
+  66% {
+    transform: translateY(10px) translateX(-8px);
+  }
+}
+
+.float-bob {
+  animation: float-bob 12s ease-in-out infinite;
+  will-change: transform;
+}
+
+.float-bob-delay-1 {
+  animation-delay: -4s;
+}
+
+.float-bob-delay-2 {
+  animation-delay: -8s;
+}
+
+/* ═══════════════════════════════════════════
+   SCAN LINE — sweeping CT-style section divider
+═══════════════════════════════════════════ */
+@keyframes scan-line-sweep {
+  0% {
+    transform: translateX(-120%);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.8;
+  }
+
+  85% {
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+}
+
+.scan-line>div {
+  animation: scan-line-sweep 3.5s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* ═══════════════════════════════════════════
+   POWER-ON GANTRY — equipment "boot-up" sequence
+   .powered-on is added by IntersectionObserver
+   when the gantry scrolls into view.
+═══════════════════════════════════════════ */
+@keyframes power-glow {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes power-sweep {
+  0% {
+    transform: translateX(-120%);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0.6;
+  }
+
+  80% {
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+}
+
+.power-on-gantry {
+  position: relative;
+}
+
+.power-on-gantry::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(circle at 50% 50%,
+      rgba(26, 115, 82, 0.18),
+      transparent 70%);
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+.power-on-gantry.powered-on::before {
+  opacity: 1;
+}
+
+.power-on-gantry::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(100deg,
+      transparent 20%,
+      rgba(76, 155, 122, 0.12) 50%,
+      transparent 80%);
+  transform: translateX(-120%);
+  opacity: 0;
+}
+
+.power-on-gantry.powered-on::after {
+  animation: power-sweep 1.6s ease-out forwards;
+}
+
+/* ═══════════════════════════════════════════
+   CURSOR GLOW — soft tracking light
+═══════════════════════════════════════════ */
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 340px;
+  height: 340px;
+  margin-left: -170px;
+  margin-top: -170px;
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 5;
+  background: radial-gradient(circle,
+      rgba(26, 115, 82, 0.12),
+      rgba(76, 155, 122, 0.05) 40%,
+      transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  will-change: transform;
+}
+
+@media (pointer: coarse) {
+  .cursor-glow {
+    display: none;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   SCROLL PROGRESS BAR — treatment-dose counter
+═══════════════════════════════════════════ */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 60;
+  pointer-events: none;
+  transform-origin: 0 0;
+  background: linear-gradient(90deg, #145c41, #4c9b7a, #c9a24b);
+  box-shadow: 0 0 12px rgba(26, 115, 82, 0.6);
+}
+
+[dir="rtl"] .scroll-progress {
+  transform-origin: 100% 0;
+}
+
+/* ═══════════════════════════════════════════
+   BACK TO TOP — floating ring button
+═══════════════════════════════════════════ */
+.back-to-top {
+  position: fixed;
+  /* Safe-area inset keeps the button clear of iOS home indicator */
+  bottom: calc(1.5rem + env(safe-area-inset-bottom));
+  z-index: 55;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+}
+
+.back-to-top[hidden] {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px);
+}
+
+.back-to-top svg.progress-ring {
+  width: 100%;
+  height: 100%;
+}
+
+.back-to-top svg.progress-ring circle {
+  transition: stroke-dashoffset 0.2s linear;
+}
+
+/* Floating contact bubble — lifted above the sticky booking bar on mobile */
+.float-chat {
+  position: fixed;
+  /* Safe-area inset keeps the bubbles clear of iOS home indicator */
+  bottom: calc(1.5rem + env(safe-area-inset-bottom));
+  z-index: 55;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+@media (max-width: 767px) {
+  .float-chat {
+    bottom: calc(5.5rem + env(safe-area-inset-bottom));
+  }
+
+  /* Same lift as the chat bubbles: the sticky booking bar occupies the
+     bottom ~4rem on mobile, so the ring button must sit above it. */
+  .back-to-top {
+    bottom: calc(5.5rem + env(safe-area-inset-bottom));
+  }
+}
+
+.float-chat-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 9999px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  /* Staggered entrance (second bubble follows slightly later) */
+  animation: float-chat-in 0.5s var(--ease-brand) backwards;
+}
+
+.float-chat-btn:nth-child(2) {
+  animation-delay: 90ms;
+}
+
+.float-chat-btn:hover {
+  transform: scale(1.08);
+}
+
+/* Hover/focus tooltip — label slides out toward page center.
+   Uses logical properties so it flips automatically in RTL. */
+.float-chat-btn::before {
+  content: attr(data-label);
+  position: absolute;
+  inset-inline-end: calc(100% + 0.75rem);
+  top: 50%;
+  padding: 0.4rem 0.8rem;
+  border-radius: 9999px;
+  background: rgb(2 6 23 / 0.92);
+  color: #e2e8f0;
+  font-size: 0.75rem;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px -4px rgb(0 0 0 / 0.5);
+  opacity: 0;
+  scale: 0.92;
+  pointer-events: none;
+  transition: opacity 0.25s ease, scale 0.25s ease;
+}
+
+.float-chat-btn:hover::before,
+.float-chat-btn:focus-visible::before {
+  opacity: 1;
+  scale: 1;
+}
+
+.float-chat-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  animation: float-chat-ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes float-chat-ping {
+  0% {
+    /* Theme-aware ping color derived from --color-primary */
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-primary) 45%, transparent);
+  }
+
+  70% {
+    box-shadow: 0 0 0 14px transparent;
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+@keyframes float-chat-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ═══════════════════════════════════════════
+   HERO ENTRANCE — staged reveal after preloader
+   Hero starts somewhat hidden; .hero-anim-ready
+   (added by HeroEntrance after the preloader)
+   cascades entrance animations to each child.
+═══════════════════════════════════════════ */
+.hero-entrance .anim-fade-up,
+.hero-entrance .anim-fade-in,
+.hero-entrance .anim-scale-in,
+.hero-entrance .anim-slide-right,
+.hero-entrance .anim-slide-left {
+  opacity: 0;
+}
+
+.hero-entrance.hero-anim-ready .anim-fade-up {
+  animation: fade-up 0.8s var(--ease-brand) forwards;
+}
+
+.hero-entrance.hero-anim-ready .anim-fade-in {
+  animation: fade-in 1s ease-out forwards;
+}
+
+.hero-entrance.hero-anim-ready .anim-scale-in {
+  animation: scale-in 0.9s var(--ease-brand) forwards;
+}
+
+.hero-entrance.hero-anim-ready .anim-slide-right {
+  animation: slide-in-right 0.9s var(--ease-brand) forwards;
+}
+
+.hero-entrance.hero-anim-ready .anim-slide-left {
+  animation: slide-in-left 0.9s var(--ease-brand) forwards;
+}
+
+/* RTL hero — images slide from the opposite side for natural direction */
+[dir="rtl"] .hero-entrance.hero-anim-ready .anim-slide-right {
+  animation-name: slide-in-left;
+}
+
+[dir="rtl"] .hero-entrance.hero-anim-ready .anim-slide-left {
+  animation-name: slide-in-right;
+}
+
+[dir="rtl"] .hero-entrance.hero-anim-ready .anim-fade-up {
+  transform-origin: right;
+}
+
+/* ═══════════════════════════════════════════
+   SLIDER SLIDE ENTRANCE — staged, per-element
+   reveals that REPLAY every time a slide becomes
+   active. The slider keeps .slide-active on a slide
+   throughout its fade-out crossfade, then removes it
+   so the next activation restarts the sequence.
+   Declared after .hero-entrance so these rules win
+   the cascade tie at equal specificity.
+═══════════════════════════════════════════ */
+.hero-entrance .slide-entrance .anim-fade-up,
+.hero-entrance .slide-entrance .anim-fade-in,
+.hero-entrance .slide-entrance .anim-scale-in,
+.hero-entrance .slide-entrance .anim-slide-right,
+.hero-entrance .slide-entrance .anim-slide-left {
+  animation: none;
+  opacity: 0;
+}
+
+.hero-entrance .slide-entrance.slide-active .anim-fade-up {
+  animation: fade-up 0.8s var(--ease-brand) forwards;
+}
+
+.hero-entrance .slide-entrance.slide-active .anim-fade-in {
+  animation: fade-in 1s ease-out forwards;
+}
+
+.hero-entrance .slide-entrance.slide-active .anim-scale-in {
+  animation: scale-in 0.9s var(--ease-brand) forwards;
+}
+
+.hero-entrance .slide-entrance.slide-active .anim-slide-right {
+  animation: slide-in-right 0.9s var(--ease-brand) forwards;
+}
+
+.hero-entrance .slide-entrance.slide-active .anim-slide-left {
+  animation: slide-in-left 0.9s var(--ease-brand) forwards;
+}
+
+/* RTL slides — directional entrances mirror naturally */
+[dir="rtl"] .hero-entrance .slide-entrance.slide-active .anim-slide-right {
+  animation-name: slide-in-left;
+}
+
+[dir="rtl"] .hero-entrance .slide-entrance.slide-active .anim-slide-left {
+  animation-name: slide-in-right;
+}
+
+/* ═══════════════════════════════════════════
+   REDUCED MOTION
+═══════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+
+  .anim-fade-up,
+  .anim-fade-in,
+  .anim-scale-in,
+  .anim-slide-right,
+  .anim-slide-left,
+  .hud-sweep,
+  .hud-pulse,
+  .hud-blink,
+  .gantry-spin,
+  .scan-beam,
+  .status-pulse,
+  .table-glow,
+  .spine-dot,
+  .ring-spin,
+  .card-sweep,
+  .fp-fade-up,
+  .fp-fade-in,
+  .fp-badge-pulse,
+  .isodose-ring,
+  .beam-sweep,
+  .dose-fill,
+  .trefoil-spin,
+  .beam-on,
+
+  .ken-burns,
+  .shimmer-text,
+  .float-bob,
+  .conic-border::before,
+  .hero-slider-progress,
+  .float-chat-btn,
+  .float-chat-btn::after,
+  .float-chat-btn::before {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    box-shadow: none !important;
+    background-position: initial !important;
+  }
+
+  .reveal,
+  .reveal-from-left,
+  .reveal-from-right,
+  .reveal-scale {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .tilt-card {
+    transform: none !important;
+  }
+
+  .spotlight-card::before {
+    display: none !important;
+  }
+
+  .cursor-glow {
+    display: none !important;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   RENDERING PERFORMANCE
+   content-visibility: auto lets the browser skip rendering,
+   painting and hit-testing of off-screen sections until they
+   scroll into view, cutting initial main-thread work on mobile.
+   contain-intrinsic-size reserves space to prevent scroll jumps.
+═══════════════════════════════════════════ */
+.content-visibility {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
+
+/* ═══════════════════════════════════════════
+   MOBILE PERFORMANCE — Reduce expensive effects
+   on small screens where GPU/CPU are limited.
+   Desktop (md+) keeps the full visual experience.
+═══════════════════════════════════════════ */
+@media (max-width: 767px) {
+
+  /* Reduce blur radius on decorative elements — blur is very expensive on mobile GPUs */
+  .blur-3xl {
+    --tw-blur: blur(24px);
+  }
+
+  .blur-2xl {
+    --tw-blur: blur(16px);
+  }
+
+  .blur-xl {
+    --tw-blur: blur(12px);
+  }
+
+  .blur-lg {
+    --tw-blur: blur(8px);
+  }
+
+  .blur-md {
+    --tw-blur: blur(6px);
+  }
+
+  .blur-sm {
+    --tw-blur: blur(4px);
+  }
+
+  /* Cap arbitrary blur values used on ambient orbs (blur-[140px], blur-[120px], blur-[90px], etc.)
+     These are extremely expensive on mobile GPUs — cap at 40px max */
+  .blur-\[140px\] {
+    --tw-blur: blur(40px);
+  }
+
+  .blur-\[120px\] {
+    --tw-blur: blur(36px);
+  }
+
+  .blur-\[90px\] {
+    --tw-blur: blur(28px);
+  }
+
+  .blur-\[80px\] {
+    --tw-blur: blur(24px);
+  }
+
+  .blur-\[70px\] {
+    --tw-blur: blur(20px);
+  }
+
+  .blur-\[60px\] {
+    --tw-blur: blur(18px);
+  }
+
+  .blur-\[50px\] {
+    --tw-blur: blur(16px);
+  }
+
+  .blur-\[40px\] {
+    --tw-blur: blur(12px);
+  }
+
+  /* Slow down or pause non-critical infinite animations on mobile */
+  .float-bob,
+  .isodose-ring,
+
+  .shimmer-text {
+    animation: none !important;
+  }
+  .trefoil-spin {
+    animation: none !important;
+  }
+
+  .hud-sweep {
+    animation-duration: 8s;
+  }
+
+  .scan-beam {
+    animation-duration: 6s;
+  }
+
+  .card-sweep {
+    animation-duration: 3.5s;
+  }
+
+  .ring-spin {
+    animation-duration: 10s;
+  }
+
+  .spine-dot {
+    animation-duration: 6s;
+  }
+
+  .table-glow {
+    animation-duration: 4.5s;
+  }
+
+  .status-pulse {
+    animation-duration: 3s;
+  }
+
+  /* Slow down Tailwind's built-in infinite ping/pulse animations on mobile */
+  .animate-ping {
+    animation-duration: 2.5s;
+  }
+
+  .animate-pulse {
+    animation-duration: 3s;
+  }
+
+  /* Reduce particle/grain opacity on mobile to save GPU compositing */
+  .grain-pattern {
+    opacity: 0.12 !important;
+  }
+
+  /* Reduce backdrop-blur intensity on mobile — forces GPU layer per element */
+  .backdrop-blur-2xl {
+    --tw-backdrop-blur: blur(16px);
+  }
+
+  .backdrop-blur-xl {
+    --tw-backdrop-blur: blur(12px);
+  }
+
+  .backdrop-blur-lg {
+    --tw-backdrop-blur: blur(8px);
+  }
+
+  .backdrop-blur-md {
+    --tw-backdrop-blur: blur(6px);
+  }
+
+  .backdrop-blur-sm {
+    --tw-backdrop-blur: blur(4px);
+  }
+}
+
+/* ═══════════════════════════════════════════
+   BLOG — cards, article prose, reading widget
+   ═══════════════════════════════════════════ */
+
+/* Staggered entrance for blog cards */
+@keyframes blog-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.blog-card-enter {
+  animation: blog-card-in 0.7s var(--ease-brand) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blog-card-enter {
+    animation: none;
+  }
+}
+
+/* Gradient border sweep on card hover */
+.blog-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(76, 155, 122, 0.65),
+    transparent 40%,
+    transparent 60%,
+    rgba(46, 125, 91, 0.45)
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.group:hover .blog-card::before {
+  opacity: 1;
+}
+
+/* Heading anchor links inside the article (injected by lib/blog-html.ts) */
+.article-prose h2,
+.article-prose h3 {
+  position: relative;
+}
+
+.heading-anchor {
+  margin-inline-start: 0.5rem;
+  font-size: 0.75em;
+  font-weight: normal;
+  color: var(--color-primary);
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.article-prose h2:hover .heading-anchor,
+.article-prose h3:hover .heading-anchor,
+.article-prose h2:focus-within .heading-anchor,
+.article-prose h3:focus-within .heading-anchor {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .heading-anchor {
+    opacity: 0.35;
+  }
+}
+
+/* Pull-quote styling for blockquotes in the article body */
+.article-prose blockquote {
+  position: relative;
+  margin: 2rem 0;
+  padding: 1.25rem 1.75rem;
+  border-inline-start: 4px solid color-mix(in srgb, var(--color-primary) 55%, transparent);
+  border-radius: 1rem;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--color-primary) 7%, transparent),
+    color-mix(in srgb, var(--color-secondary) 5%, transparent)
+  );
+  font-style: italic;
+  font-size: 1.05em;
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+}
+
+.article-prose blockquote::before {
+  content: "\201C";
+  position: absolute;
+  top: -0.35rem;
+  inset-inline-start: 0.9rem;
+  font-size: 3rem;
+  font-weight: bold;
+  font-style: normal;
+  line-height: 1;
+  color: color-mix(in srgb, var(--color-primary) 30%, transparent);
+  pointer-events: none;
+}
+
+/* ─── Article body typography ───────────────────────────────────────
+   Hand-rolled prose styles. The article HTML is sanitized and injected
+   with dangerouslySetInnerHTML, and the Tailwind Typography plugin is
+   NOT part of this project — so every readable element gets its styling
+   from this block. Keep it complete.
+   ──────────────────────────────────────────────────────────────── */
+
+.article-prose > * + * {
+  margin-top: 1.15rem;
+}
+
+.article-prose p {
+  line-height: 1.95;
+}
+
+/* Headings — clear hierarchy against the 15.5px body copy */
+.article-prose h2,
+.article-prose h3,
+.article-prose h4 {
+  color: var(--color-text-primary);
+  font-weight: 700;
+  text-wrap: balance;
+}
+
+.article-prose h2 {
+  font-size: clamp(1.3rem, 1.15rem + 0.6vw, 1.6rem);
+  line-height: 1.45;
+  margin-top: 2.75rem;
+}
+
+.article-prose h3 {
+  font-size: clamp(1.1rem, 1.02rem + 0.4vw, 1.28rem);
+  line-height: 1.5;
+  margin-top: 2.25rem;
+}
+
+.article-prose h4 {
+  font-size: 1.05rem;
+  margin-top: 1.75rem;
+}
+
+/* Links inside the body */
+.article-prose a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
+  transition: color var(--dur-fast) var(--ease-soft),
+    text-decoration-color var(--dur-fast) var(--ease-soft);
+}
+
+@media (hover: hover) {
+  .article-prose a:hover {
+    color: var(--color-primary-hover);
+    text-decoration-color: currentColor;
+  }
+}
+
+.article-prose strong,
+.article-prose b {
+  color: var(--color-text-primary);
+  font-weight: 700;
+}
+
+.article-prose em,
+.article-prose i {
+  font-style: italic;
+}
+
+/* Lists — brand diamond markers instead of default bullets */
+.article-prose ul {
+  list-style: none;
+  padding-inline-start: 1.1rem;
+}
+
+.article-prose ul > li {
+  position: relative;
+}
+
+.article-prose ul > li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: -0.9rem;
+  top: 0.72em;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 1px;
+  background: color-mix(in srgb, var(--color-primary) 70%, transparent);
+  transform: rotate(45deg);
+}
+
+.article-prose ol {
+  list-style: decimal;
+  padding-inline-start: 1.4rem;
+}
+
+.article-prose li + li {
+  margin-top: 0.5rem;
+}
+
+.article-prose li::marker {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* Divider */
+.article-prose hr {
+  margin: 2.75rem 0;
+  border: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-border),
+    transparent
+  );
+}
+
+/* Figures and images (alignment classes come from the editor) */
+.article-prose figure {
+  margin: 2rem 0;
+}
+
+.article-prose img {
+  border-radius: 1rem;
+  border: 1px solid var(--color-border);
+}
+
+.article-prose figcaption {
+  margin-top: 0.7rem;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--color-muted);
+  text-align: center;
+}
+
+/* Tables — clinical content often arrives as tables. The block display
+   lets wide tables scroll horizontally on phones instead of overflowing. */
+.article-prose table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.article-prose th,
+.article-prose td {
+  border: 1px solid var(--color-border);
+  padding: 0.6rem 0.8rem;
+  text-align: start;
+  vertical-align: top;
+}
+
+.article-prose th {
+  background: color-mix(in srgb, var(--color-soft) 70%, transparent);
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+.article-prose tbody tr:nth-child(even) td {
+  background: color-mix(in srgb, var(--color-soft) 35%, transparent);
+}
+
+/* Inline code and preformatted blocks */
+.article-prose code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.875em;
+  padding: 0.15em 0.4em;
+  border-radius: 0.4rem;
+  background: color-mix(in srgb, var(--color-primary) 9%, transparent);
+  color: var(--color-text-primary);
+}
+
+.article-prose pre {
+  overflow-x: auto;
+  padding: 1rem 1.15rem;
+  border-radius: 1rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-deep);
+  color: #e2e8f0;
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+
+.article-prose pre code {
+  background: transparent;
+  padding: 0;
+  color: inherit;
+}
+
+/* Anchor targets must clear the sticky navbar when jumped to from the TOC */
+.article-prose h2,
+.article-prose h3,
+.article-prose h4 {
+  scroll-margin-top: 6.5rem;
+}
+
+
+/* Reading progress widget visibility states (toggled via refs) */
+.reading-widget {
+  opacity: 0;
+  transform: translateY(-1rem);
+  pointer-events: none;
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+.reading-widget.rp-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Back-to-top button inside the widget — hidden until near page end */
+.rp-back-to-top {
+  width: 0;
+  height: 28px;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    width 0.35s ease,
+    opacity 0.35s ease,
+    margin 0.35s ease;
+}
+
+.reading-widget.rp-near-end .rp-back-to-top {
+  width: 28px;
+  opacity: 1;
+  margin-inline-start: 0.375rem;
+}
+
+/* ═══════════════════════════════════════════
+   PHASE 1 — HIGH-IMPACT, PROFESSIONAL EFFECTS
+   ═══════════════════════════════════════════ */
+
+/* ─── Premium Elastic/Bounce Hover Scale with Glow ─── */
+.elastic-hover {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+}
+.elastic-hover:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 30px -8px rgba(26, 115, 82, 0.25);
+}
+
+.elastic-hover-sm {
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+}
+.elastic-hover-sm:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 20px -6px rgba(26, 115, 82, 0.2);
+}
+
+.elastic-hover-lg {
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.45s ease;
+}
+.elastic-hover-lg:hover {
+  transform: scale(1.08);
+  box-shadow: 0 12px 40px -10px rgba(26, 115, 82, 0.35);
+}
+
+/* ─── Premium Ripple Click Effect with Glow ─── */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+.ripple::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  margin-top: -50%;
+  margin-left: -50%;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(26, 115, 82, 0.35) 0%, rgba(76, 155, 122, 0.15) 40%, transparent 70%);
+  transform: scale(0);
+  opacity: 0;
+  pointer-events: none;
+}
+.ripple:active::after {
+  animation: ripple-expand 0.6s ease-out;
+}
+@keyframes ripple-expand {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* ─── PACS Grid wash — static (the infinite breathing keyframe was removed
+   for perf: a fullscreen opacity animation is never worth the cost) ─── */
+.breathing-grid {
+  background-image:
+    linear-gradient(rgba(100, 116, 139, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(100, 116, 139, 0.08) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.breathing-grid-dense {
+  background-image:
+    linear-gradient(rgba(26, 115, 82, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26, 115, 82, 0.05) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* ═══════════════════════════════════════════
+   PHASE 2 — VISUAL WOW EFFECTS
+   ═══════════════════════════════════════════ */
+
+/* ─── Animated SVG Line Draw ─── */
+.draw-icon path,
+.draw-icon circle,
+.draw-icon line,
+.draw-icon polyline,
+.draw-icon rect {
+  stroke-dasharray: var(--draw-length, 1000);
+  stroke-dashoffset: var(--draw-length, 1000);
+  fill-opacity: 0;
+}
+.draw-icon.is-visible path,
+.draw-icon.is-visible circle,
+.draw-icon.is-visible line,
+.draw-icon.is-visible polyline,
+.draw-icon.is-visible rect {
+  animation: draw-line 2s var(--ease-brand) forwards;
+}
+.draw-icon.is-visible path {
+  animation-name: draw-line-fill;
+  animation-duration: 2s;
+}
+@keyframes draw-line {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes draw-line-fill {
+  0% {
+    stroke-dashoffset: var(--draw-length, 1000);
+    fill-opacity: 0;
+  }
+  70% {
+    stroke-dashoffset: 0;
+    fill-opacity: 0;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    fill-opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .draw-icon path,
+  .draw-icon circle,
+  .draw-icon line,
+  .draw-icon polyline,
+  .draw-icon rect {
+    stroke-dashoffset: 0 !important;
+    fill-opacity: 1 !important;
+    animation: none !important;
+  }
+}
+
+/* ─── Animated Counter Ring (SVG Progress Ring) ─── */
+.counter-ring {
+  transform: rotate(-90deg);
+}
+.counter-ring circle.track {
+  fill: none;
+  stroke: rgba(26, 115, 82, 0.1);
+}
+.counter-ring circle.progress {
+  fill: none;
+  stroke: url(#ring-gradient);
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1.5s var(--ease-brand);
+}
+.counter-ring-label {
+  transform: rotate(90deg);
+  transform-origin: center;
+}
+
+/* ─── Text Mask Wipe Reveal ─── */
+@keyframes text-wipe-in {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.text-wipe {
+  opacity: 0;
+}
+.text-wipe.is-visible {
+  opacity: 1;
+  animation: text-wipe-in 0.8s var(--ease-brand) forwards;
+}
+
+.text-wipe-stagger > * {
+  opacity: 0;
+}
+.text-wipe-stagger.is-visible > * {
+  animation: text-wipe-in 0.7s var(--ease-brand) forwards;
+}
+.text-wipe-stagger.is-visible > *:nth-child(1) { animation-delay: 0ms; }
+.text-wipe-stagger.is-visible > *:nth-child(2) { animation-delay: 100ms; }
+.text-wipe-stagger.is-visible > *:nth-child(3) { animation-delay: 200ms; }
+.text-wipe-stagger.is-visible > *:nth-child(4) { animation-delay: 300ms; }
+.text-wipe-stagger.is-visible > *:nth-child(5) { animation-delay: 400ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .text-wipe,
+  .text-wipe-stagger > * {
+    opacity: 1 !important;
+    clip-path: none !important;
+    animation: none !important;
+  }
+}
+
+/* ─── Morphing Blob Background — Premium Organic Shapes ─── */
+@keyframes morph {
+  0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  15% { border-radius: 45% 55% 35% 65% / 55% 40% 60% 45%; }
+  30% { border-radius: 35% 65% 50% 50% / 45% 65% 35% 55%; }
+  45% { border-radius: 50% 50% 60% 40% / 40% 55% 45% 60%; }
+  60% { border-radius: 65% 35% 45% 55% / 60% 45% 55% 40%; }
+  75% { border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%; }
+  100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+}
+
+@keyframes morph-slow {
+  0% { border-radius: 50% 50% 40% 60% / 50% 40% 60% 50%; }
+  20% { border-radius: 40% 60% 55% 45% / 45% 55% 45% 55%; }
+  40% { border-radius: 55% 45% 45% 55% / 60% 40% 60% 40%; }
+  60% { border-radius: 45% 55% 60% 40% / 40% 60% 40% 60%; }
+  80% { border-radius: 60% 40% 50% 50% / 55% 45% 55% 45%; }
+  100% { border-radius: 50% 50% 40% 60% / 50% 40% 60% 50%; }
+}
+
+.morphing-blob {
+  animation: morph 20s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  will-change: border-radius, transform;
+}
+
+.morphing-blob-medium {
+  animation: morph-slow 14s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  will-change: border-radius, transform;
+}
+
+.morphing-blob-fast {
+  animation: morph 10s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  will-change: border-radius, transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .morphing-blob,
+  .morphing-blob-medium,
+  .morphing-blob-fast {
+    animation: none !important;
+    border-radius: 50% !important;
+  }
+}
+
+/* ─── Node Network Pulse ─── */
+@keyframes node-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+@keyframes link-pulse {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.4; }
+}
+
+.network-node {
+  animation: node-pulse 2s ease-in-out infinite;
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+.network-link {
+  animation: link-pulse 3s ease-in-out infinite;
+  will-change: opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .network-node {
+    animation: none !important;
+    opacity: 0.6 !important;
+    transform: none !important;
+  }
+  .network-link {
+    animation: none !important;
+    opacity: 0.2 !important;
+  }
+}
+
+/* ─── Dose Heatmap Cells ─── */
+.heatmap-cell {
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Elastic pop is a pointer affordance — touch devices get the static map */
+@media (hover: hover) and (pointer: fine) {
+  .heatmap-cell:hover {
+    transform: scale(1.15);
+    z-index: 2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heatmap-cell {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* ─── Scroll Parallax Layers ─── */
+.parallax-container {
+  perspective: 1px;
+  overflow: hidden;
+}
+.parallax-layer {
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
+/* ─── Staggered Grid Reveal ─── */
+@keyframes stagger-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stagger-grid > * {
+  opacity: 0;
+}
+.stagger-grid.is-visible > * {
+  animation: stagger-in 0.6s var(--ease-brand) forwards;
+}
+.stagger-grid.is-visible > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-grid.is-visible > *:nth-child(2) { animation-delay: 60ms; }
+.stagger-grid.is-visible > *:nth-child(3) { animation-delay: 120ms; }
+.stagger-grid.is-visible > *:nth-child(4) { animation-delay: 180ms; }
+.stagger-grid.is-visible > *:nth-child(5) { animation-delay: 240ms; }
+.stagger-grid.is-visible > *:nth-child(6) { animation-delay: 300ms; }
+.stagger-grid.is-visible > *:nth-child(7) { animation-delay: 360ms; }
+.stagger-grid.is-visible > *:nth-child(8) { animation-delay: 420ms; }
+.stagger-grid.is-visible > *:nth-child(9) { animation-delay: 480ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .stagger-grid > * {
+    opacity: 1 !important;
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   PLATFORM POLISH — print, contrast, scrollbars, blur fallback
+   ═══════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  /* No lift, no jump — cards stay put instead of snapping into place */
+  .surface-card {
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ─── High-contrast requests ─── */
+@media (prefers-contrast: more) {
+
+  :root,
+  [data-theme="light"] {
+    --color-text-secondary: #1e293b;
+    --color-muted: #334155;
+    --color-border: #64748b;
+  }
+
+  [data-theme="dark"] {
+    --color-text-secondary: #e2e8f0;
+    --color-muted: #cbd5e1;
+    --color-border: #64748b;
+  }
+
+  .eyebrow {
+    border-width: 2px;
+  }
+
+  .surface-card,
+  .surface-chip {
+    border-width: 2px;
+  }
+
+  :focus-visible {
+    outline-width: 3px;
+  }
+}
+
+/* ─── Desktop scrollbar — thin and theme-aware ─── */
+@media (hover: hover) and (pointer: fine) {
+
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--color-primary) 40%, transparent) transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--color-primary) 35%, transparent);
+    background-clip: content-box;
+    border: 3px solid transparent;
+    border-radius: 999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in srgb, var(--color-primary) 60%, transparent);
+    background-clip: content-box;
+  }
+}
+
+/* ─── Backdrop-filter fallback ───
+   Without blur the translucent bars need more of their own background
+   to stay legible (older Firefox, reduced-transparency settings). */
+@supports not ((backdrop-filter: blur(4px)) or (-webkit-backdrop-filter: blur(4px))) {
+
+  .backdrop-blur-sm,
+  .backdrop-blur-md,
+  .backdrop-blur-lg,
+  .backdrop-blur-xl,
+  .backdrop-blur-2xl {
+    background-color: color-mix(in srgb, var(--color-bg) 94%, transparent);
+  }
+}
+
+/* ─── Theme cross-fade (View Transitions API) ───
+   The ThemeProvider wraps its toggle in startViewTransition where the API
+   exists; this only tunes the duration/easing of the snapshots. Browsers
+   without support simply swap instantly. */
+@supports (view-transition-name: none) {
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 220ms;
+    animation-timing-function: var(--ease-soft);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* ─── Route loading bar ───
+   One 1px bar sweeping across a track — cheaper than a spinner ring and
+   reads as a "dose" filling. Direction flips with the writing mode. */
+.dose-loading {
+  animation: dose-loading 1.6s var(--ease-soft) infinite;
+}
+
+[dir="rtl"] .dose-loading {
+  animation-direction: reverse;
+}
+
+@keyframes dose-loading {
+  0% {
+    transform: translateX(-130%);
+  }
+  100% {
+    transform: translateX(350%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dose-loading {
+    animation: none !important;
+    transform: none !important;
+    width: 100% !important;
+    opacity: 0.6;
+  }
+}
+
+/* ─── Print ───
+   Patients print directions, privacy and terms pages. Flatten the dark
+   bands (white text on white paper is invisible) and drop floating UI. */
+@media print {
+
+  html,
+  body {
+    background: #fff !important;
+    color: #0f172a !important;
+  }
+
+  .band-dark,
+  .bg-deep,
+  .bg-blog-dark {
+    background: #fff !important;
+  }
+
+  .band-dark *,
+  .bg-deep * {
+    color: #0f172a !important;
+    background-color: transparent !important;
+    border-color: #cbd5e1 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  .band-dark::before,
+  .band-dark::after,
+  .planning-grid,
+  .breathing-grid,
+  .grain-pattern,
+  .cursor-glow,
+  .scroll-progress,
+  .float-chat,
+  .back-to-top,
+  .reading-widget,
+  header {
+    display: none !important;
+  }
+
+  section {
+    break-inside: avoid;
+  }
+
+  img {
+    break-inside: avoid;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    word-break: break-all;
+  }
+}
+
+/* Shared curved edge treatment for every hero slide and theme. */
+.lightbg-clip {
+  clip-path: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0 0H16C9 20 7 80 16 100H0Z' fill='%230e3a2d'/%3E%3Cpath d='M16 0C9 20 7 80 16 100' fill='none' stroke='%23f8f5ee' stroke-width='.8'/%3E%3Cpath d='M17 0C10 20 8 80 17 100' fill='none' stroke='%23c9a24b' stroke-width='.35'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g1' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%' stop-color='%2310b981'/%3E%3Cstop offset='100%' stop-color='%230b7a5d'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M0 0H18C9 22 7 80 16 100H0Z' fill='url(%23g1)'/%3E%3Cpath d='M0 0H18C9 22 7 80 16 100H0Z' fill='none' stroke='%2315f09b' stroke-width='2' opacity='0.6' stroke-linecap='round'/%3E%3Cpath d='M18 0C10 24 8 82 16 100' fill='none' stroke='%2315f09b' stroke-width='1' opacity='0.3' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 15% 100%;
+  background-color: transparent;
+}
+
+[data-theme="dark"] .lightbg-clip {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0 0H16C9 20 7 80 16 100H0Z' fill='%230e2a1f'/%3E%3Cpath d='M16 0C9 20 7 80 16 100' fill='none' stroke='%23f8f5ee' stroke-width='.8'/%3E%3Cpath d='M17 0C10 20 8 80 17 100' fill='none' stroke='%23d9b967' stroke-width='.35'/%3E%3C/svg%3E");
+  background-color: var(--color-deep);
+}
+
+.slide-frame-corner {
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  border-color: color-mix(in srgb, var(--color-gold) 62%, transparent);
+}
+
+.slide-frame-top-left {
+  top: 0;
+  left: 0;
+  border-top: 1px solid;
+  border-left: 1px solid;
+}
+
+.slide-frame-top-right {
+  top: 0;
+  right: 0;
+  border-top: 1px solid;
+  border-right: 1px solid;
+}
+
+.slide-frame-bottom-left {
+  bottom: 0;
+  left: 0;
+  border-bottom: 1px solid;
+  border-left: 1px solid;
+}
+
+.slide-frame-bottom-right {
+  right: 0;
+  bottom: 0;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+}
+
+.slide-frame-rule {
+  position: absolute;
+  left: 50%;
+  width: 3rem;
+  height: 1px;
+  background: color-mix(in srgb, var(--color-gold) 52%, transparent);
+  transform: translateX(-50%);
+}
+
+.slide-frame-rule-top {
+  top: 0;
+}
+
+.slide-frame-rule-bottom {
+  bottom: 0;
+}
+
