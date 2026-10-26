@@ -112,7 +112,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
               ].map((stat, i, arr) => (
                 <div
                   key={stat.label}
-                  className={`min-w-24 flex-1 px-2 sm:px-5 ltr:sm:border-r ltr:sm:border-border/60 ${i === arr.length - 1 ? "ltr:sm:border-r-0" : ""} rtl:sm:border-l rtl:sm:border-border/60 ${i === 0 ? "rtl:sm:border-l-0" : ""}`}
+                  className={`min-w-24 flex-1 px-2 sm:px-5 ltr:sm:border-r ltr:sm:border-border/60 ${i === arr.length - 1 ? "ltr:sm:border-r-0" : ""} rtl:sm:border-l rtl:sm:border-border/60 ${i === arr.length - 1 ? "rtl:sm:border-l-0" : ""}`}
                 >
                   <div className="text-2xl font-bold text-text-primary sm:text-3xl">
                     <CountUp end={stat.value} suffix={stat.suffix} useFarsiDigits={isFa} />
