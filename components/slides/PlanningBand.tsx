@@ -20,7 +20,7 @@ export default function PlanningBand({
 }: PlanningBandProps) {
   return (
     <div
-      className={`absolute inset-y-0 left-0 z-10 ${width} bg-[#0e3a2d] ${
+      className={`absolute inset-y-0 left-0 z-10 ${width} bg-transparent ${
         hideBorder ? "" : "border-r border-border"
       } pointer-events-none ${className}`.trim()}
     />
