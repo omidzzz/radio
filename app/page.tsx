@@ -1,5 +1,6 @@
 import { getServerDictionary } from "@/lib/i18n/server";
 import HeroSlider from "@/components/home/HeroSlider";
+import MriMachineIllustration from "@/components/ui/MriMachineIllustration";
 import TrustStrip from "@/components/home/TrustStrip";
 import AreasOfExpertise from "@/components/home/AreasOfExpertise";
 import Features from "@/components/home/Features";
@@ -63,7 +64,11 @@ export default async function HomePage() {
 
       {/* Hero slider — full-bleed immersive on load */}
       <HeroEntrance>
-        <HeroSlider dict={dict} isFa={isFa} />
+        <HeroSlider
+          dict={dict}
+          isFa={isFa}
+          heroGraphic={<MriMachineIllustration />}
+        />
       </HeroEntrance>
       <TrustStrip isFa={isFa} />
       <AreasOfExpertise dict={dict} isFa={isFa} />

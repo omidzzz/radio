@@ -5818,4 +5818,12 @@ h3 {
   bottom: 0;
 }
 
+/* Animated MRI illustration inlined into the hero slide — size the <svg>
+   (authored width="100%" height="100%") to its decorator wrapper. */
+.mri-illustration > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 
