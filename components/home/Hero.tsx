@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Dictionary } from "@/lib/i18n";
-import type { ReactNode } from "react";
+import MriMachineIllustration from "@/components/ui/MriMachineIllustration";
 import CountUp from "@/components/ui/CountUp";
 import CursorGlow from "@/components/ui/CursorGlow";
 import MagneticButton from "@/components/ui/MagneticButton";
@@ -15,14 +15,9 @@ interface HeroProps {
   isFa: boolean;
   /** When true, the slide plays its staged entrance animations. */
   playAnim?: boolean;
-  /**
-   * Optional decorative illustration for the equipment slot (e.g. the
-   * animated MRI SVG). Falls back to the static photograph when omitted.
-   */
-  graphic?: ReactNode;
 }
 
-export default function Hero({ dict, isFa, playAnim = true, graphic }: HeroProps) {
+export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
   return (
     <section
       className={`slide-entrance relative h-full min-h-[calc(100svh-4rem)] overflow-hidden bg-white text-slate-900 dark:bg-deep dark:text-text-primary sm:min-h-[96vh] ${
@@ -37,6 +32,11 @@ export default function Hero({ dict, isFa, playAnim = true, graphic }: HeroProps
 
       {/* Grain — same material treatment as slide two and the dark bands */}
       <div className="grain-pattern pointer-events-none absolute inset-0 hidden opacity-[0.05] lg:block" />
+
+      {/* Animated MRI scanner — subtle background texture behind the content */}
+      <div className="pointer-events-none absolute inset-0 z-0 hidden lg:block opacity-[0.03]">
+        <MriMachineIllustration className="absolute bottom-[5%] left-1/2 h-[480px] w-[480px] -translate-x-1/2" />
+      </div>
 
       {/* (Coordinate readout — desktop only) — removed decorative HUD elements */}
 
@@ -129,18 +129,14 @@ export default function Hero({ dict, isFa, playAnim = true, graphic }: HeroProps
           <div className="relative order-1 md:order-2 md:col-span-5 xl:col-span-7">
             <div className="relative mx-auto aspect-video w-full max-w-xl sm:aspect-[16/10] md:aspect-[4/5] xl:aspect-[4/5] xl:max-w-none">
               <div className="anim-slide-right delay-500 absolute bottom-[8%] left-0 z-20 h-[54%] w-[43%] overflow-hidden rounded-lg shadow-2xl shadow-primary/25 ring-1 ring-primary/30 transition-transform duration-500 will-change-transform hover:-translate-y-2 hover:-rotate-2 sm:bottom-[9%] sm:h-[58%] sm:w-[46%] xl:-left-8 xl:bottom-14 xl:h-[55%] xl:w-[48%] xl:rounded-xl xl:hover:-translate-y-4">
-                {graphic ? (
-                  <div className="absolute inset-0">{graphic}</div>
-                ) : (
-                  <Image
-                    src="/images/hero-radiology machine.webp"
-                    alt={isFa ? "تجهیزات پیشرفته رادیوتراپی" : "Advanced radiology equipment"}
-                    fill
-                    sizes="(max-width: 767px) 38vw, (max-width: 1279px) 20vw, 24vw"
-                    loading="eager"
-                    className="object-cover transition-transform duration-700 hover:scale-105"
-                  />
-                )}
+                <Image
+                  src="/images/hero-radiology machine.webp"
+                  alt={isFa ? "تجهیزات پیشرفته رادیوتراپی" : "Advanced radiology equipment"}
+                  fill
+                  sizes="(max-width: 767px) 38vw, (max-width: 1279px) 20vw, 24vw"
+                  loading="eager"
+                  className="object-cover transition-transform duration-700 hover:scale-105"
+                />
                 <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-primary/30" />
                 <div className="pointer-events-none absolute inset-0 overflow-hidden">
                   <div className="hud-sweep absolute inset-x-0 h-8 bg-gradient-to-b from-transparent via-highlight/30 to-transparent" />

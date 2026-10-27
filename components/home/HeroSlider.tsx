@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import type { ReactNode } from "react";
+import { useEffect, useState } from "react";
 import type { Dictionary } from "@/lib/i18n";
 import Hero from "@/components/home/Hero";
 import HeroSlideTwo from "@/components/home/HeroSlideTwo";
@@ -9,12 +8,6 @@ import HeroSlideTwo from "@/components/home/HeroSlideTwo";
 interface HeroSliderProps {
   dict: Dictionary;
   isFa: boolean;
-  /**
-   * Optional decorative illustration carried into the technology slide
-   * (Hero), e.g. the animated MRI machine SVG. When omitted, Hero falls
-   * back to its static equipment photograph.
-   */
-  heroGraphic?: ReactNode;
 }
 
 /**
@@ -28,7 +21,7 @@ const SLIDES = [
 
 const SLIDE_COUNT = SLIDES.length;
 
-export default function HeroSlider({ dict, isFa, heroGraphic }: HeroSliderProps) {
+export default function HeroSlider({ dict, isFa }: HeroSliderProps) {
   const [active, setActive] = useState(0);
 
   return (
@@ -49,20 +42,11 @@ export default function HeroSlider({ dict, isFa, heroGraphic }: HeroSliderProps)
           aria-roledescription={isFa ? "اسلاید" : "slide"}
           aria-label={`${i + 1} ${isFa ? "از" : "of"} ${SLIDE_COUNT}`}
         >
-          {id === "tech" ? (
-            <Hero
-              dict={dict}
-              isFa={isFa}
-              playAnim={active === i}
-              graphic={heroGraphic}
-            />
-          ) : (
-            <Component
-              dict={dict}
-              isFa={isFa}
-              playAnim={active === i}
-            />
-          )}
+          <Component
+            dict={dict}
+            isFa={isFa}
+            playAnim={active === i}
+          />
         </div>
       ))}
 
