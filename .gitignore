@@ -1,4 +1,4 @@
-# dependencies
+﻿# dependencies
 /node_modules
 
 # next.js
@@ -39,3 +39,9 @@ backups/
 # uploads (user-generated content)
 public/uploads/*
 !public/uploads/.gitkeep
+# uploads (user-generated content)
+public/uploads/*
+!public/uploads/.gitkeep
+
+# Lighthouse benchmark results (before/after reports)
+lh-results/
