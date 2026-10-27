@@ -1,5 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Vazirmatn, Outfit } from "next/font/google";
+import dynamic from "next/dynamic";
+
+const Analytics = dynamic(() => import("@/components/ui/Analytics"));
+const WebVitals = dynamic(() => import("@/components/ui/WebVitals"));
+const StickyBookingBar = dynamic(() => import("@/components/forms/StickyBookingBar"));
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -19,14 +24,11 @@ import {
   reviewSchema,
 } from "@/lib/seo/json-ld";
 import JsonLdScript from "@/components/feedback/JsonLd";
-import Analytics from "@/components/ui/Analytics";
 import ScrollProgress from "@/components/ui/ScrollProgress";
 import FloatingContactLazy from "@/components/feedback/FloatingContactLazy";
-import StickyBookingBar from "@/components/forms/StickyBookingBar";
 import Preloader from "@/components/ui/Preloader";
 import { BookingModalProvider } from "@/components/forms/BookingModalProvider";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import WebVitals from "@/components/ui/WebVitals";
 import PWARegister from "@/components/ui/PWARegister";
 
 const vazirmatn = Vazirmatn({

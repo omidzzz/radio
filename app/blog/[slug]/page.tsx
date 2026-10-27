@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -16,13 +17,13 @@ import { siteConfig } from "@/lib/seo/seo";
 import { articleSchema, breadcrumbSchema } from "@/lib/seo/json-ld";
 import { processArticleHtml, type TocItem } from "@/lib/utils/blog-html";
 import JsonLdScript from "@/components/feedback/JsonLd";
-import ShareButtons from "@/components/feedback/ShareButtons";
+const ShareButtons = dynamic(() => import("@/components/feedback/ShareButtons"));
 import ParticleBackground from "@/components/ui/ParticleBackground";
 import BlogReadingProgress from "@/components/ui/BlogReadingProgress";
 import BlogPostCard from "@/components/blog/BlogPostCard";
 import LazyComments from "@/components/blog/LazyComments";
-import TableOfContents from "@/components/blog/TableOfContents";
-import ViewCounter from "@/components/blog/ViewCounter";
+const TableOfContents = dynamic(() => import("@/components/blog/TableOfContents"));
+const ViewCounter = dynamic(() => import("@/components/blog/ViewCounter"));
 
 export const revalidate = 60;
 

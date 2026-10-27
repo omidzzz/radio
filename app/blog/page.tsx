@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { getDictionary, defaultLocale } from "@/lib/i18n/server";
 import { toFarsiDigits } from "@/lib/i18n/numbers";
@@ -13,7 +14,7 @@ import RadiationEmblem from "@/components/ui/RadiationEmblem";
 import ParticleBackground from "@/components/ui/ParticleBackground";
 import PageHero from "@/components/ui/PageHero";
 import BlogPostCard from "@/components/blog/BlogPostCard";
-import CategoryFilter from "@/components/blog/CategoryFilter";
+const CategoryFilter = dynamic(() => import("@/components/blog/CategoryFilter"));
 
 export const revalidate = 60;
 
