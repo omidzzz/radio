@@ -24,6 +24,16 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: 60 * 60 * 24 * 365,
     dangerouslyAllowSVG: true,
   },
+  webpack(config) {
+    // Allow importing SVG (or any file) as raw text via the ?raw suffix
+    // needed by MriMachineIllustration which inlines an animated SVG.
+    config.module.rules.push({
+      test: /\.svg$/i,
+      resourceQuery: /raw/,
+      type: "asset/source",
+    });
+    return config;
+  },
 };
 
 export default withBundleAnalyzer({ enabled: process.env.ANALYZE === "true" })(nextConfig);

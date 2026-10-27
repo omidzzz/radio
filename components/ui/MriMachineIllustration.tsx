@@ -50,7 +50,19 @@ const cleanSource = (src: string): string => {
   return next;
 };
 
-const CLEANED_SVG = cleanSource(mriSvgSource);
+/**
+ * The ?raw import may resolve to either the string content directly
+ * (webpack `asset/source` output) or a module object whose `default`
+ * property holds the string (es-module interop). Normalise to string.
+ */
+const svgSource: string =
+  typeof mriSvgSource === "string"
+    ? mriSvgSource
+    : typeof (mriSvgSource as unknown as { default?: string }).default === "string"
+    ? (mriSvgSource as { default: string }).default
+    : "";
+
+const CLEANED_SVG = cleanSource(svgSource);
 
 export type MriMachineIllustrationProps = HTMLAttributes<HTMLDivElement>;
 
