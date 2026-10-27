@@ -2,7 +2,9 @@ import type { Metadata, Viewport } from "next";
 import { Vazirmatn, Outfit } from "next/font/google";
 import dynamic from "next/dynamic";
 
-const Analytics = dynamic(() => import("@/components/ui/Analytics"));
+const Analytics = process.env.NEXT_PUBLIC_GA_ID
+  ? dynamic(() => import("@/components/ui/Analytics"))
+  : null;
 const WebVitals = dynamic(() => import("@/components/ui/WebVitals"));
 const StickyBookingBar = dynamic(() => import("@/components/forms/StickyBookingBar"));
 import "./globals.css";
@@ -170,6 +172,13 @@ export default async function RootLayout({
         />
         {/* llms.txt for AI crawlers */}
         <link rel="llms" href="/llms.txt" />
+        {/* LCP hero image — discovered before JS parses */}
+        <link
+          rel="preload"
+          as="image"
+          href="/images/hero-radiology%20machine.webp"
+          fetchPriority="high"
+        />
       </head>
       <body
         id="top"
@@ -183,7 +192,7 @@ export default async function RootLayout({
         >
           {locale === "fa" ? "پرش به محتوای اصلی" : "Skip to main content"}
         </a>
-        <Analytics />
+        {Analytics && <Analytics />}
         <WebVitals />
         <PWARegister />
         <Preloader />
