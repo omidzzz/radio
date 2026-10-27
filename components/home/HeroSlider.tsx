@@ -24,20 +24,6 @@ const SLIDE_COUNT = SLIDES.length;
 export default function HeroSlider({ dict, isFa }: HeroSliderProps) {
   const [active, setActive] = useState(0);
 
-  // Slide 2+ mounts lazily (deferred past LCP) so its images don't
-  // compete with the first slide's priority hero image. It mounts
-  // shortly after hydration so autoplay still works seamlessly.
-  const [mountedSlides, setMountedSlides] = useState<number[]>([0]);
-
-  useEffect(() => {
-    const t = setTimeout(() => {
-      setMountedSlides((prev) =>
-        prev.length === SLIDE_COUNT ? prev : Array.from({ length: SLIDE_COUNT }, (_, i) => i)
-      );
-    }, 2500);
-    return () => clearTimeout(t);
-  }, []);
-
   return (
     <div
       className="relative grid"
@@ -45,28 +31,24 @@ export default function HeroSlider({ dict, isFa }: HeroSliderProps) {
       aria-roledescription={isFa ? "اسلایدر" : "carousel"}
       aria-label={isFa ? "معرفی خدمات و مراقبت" : "Care and services introduction"}
     >
-      {SLIDES.map(({ id, Component }, i) => {
-        const isMounted = mountedSlides.includes(i);
-        if (!isMounted) return null;
-        return (
-          <div
-            key={id}
-            className={`[grid-area:1/1] transition-opacity duration-[800ms] ease-in-out ${
-              active === i ? "opacity-100" : "pointer-events-none opacity-0"
-            }`}
-            aria-hidden={active !== i}
-            role="group"
-            aria-roledescription={isFa ? "اسلاید" : "slide"}
-            aria-label={`${i + 1} ${isFa ? "از" : "of"} ${SLIDE_COUNT}`}
-          >
-            <Component
-              dict={dict}
-              isFa={isFa}
-              playAnim={active === i}
-            />
-          </div>
-        );
-      })}
+      {SLIDES.map(({ id, Component }, i) => (
+        <div
+          key={id}
+          className={`[grid-area:1/1] transition-opacity duration-[800ms] ease-in-out ${
+            active === i ? "opacity-100" : "hidden"
+          }`}
+          aria-hidden={active !== i}
+          role="group"
+          aria-roledescription={isFa ? "اسلاید" : "slide"}
+          aria-label={`${i + 1} ${isFa ? "از" : "of"} ${SLIDE_COUNT}`}
+        >
+          <Component
+            dict={dict}
+            isFa={isFa}
+            playAnim={active === i}
+          />
+        </div>
+      ))}
 
       {/* Navigation controls */}
       <SliderControls

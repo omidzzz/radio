@@ -68,9 +68,12 @@ export default async function HomePage() {
       <TrustStrip isFa={isFa} />
       <AreasOfExpertise dict={dict} isFa={isFa} />
       <Features dict={dict} isFa={isFa} />
-      {/* Below-the-fold sections skip offscreen rendering/painting until
-          scrolled into view (content-visibility: auto) */}
-      <div className="content-visibility">
+      {/* Below-the-fold sections — rendered inline; content-visibility
+          removed because contain-intrinsic-size (600px) was too small for
+          the actual below-fold content, causing a layout shift (CLS) when
+          the browser eventually paints off-screen sections, pushing the
+          footer down. */}
+      <div>
         <Process isFa={isFa} />
         <Equipment isFa={isFa} modalities={dict.home.modalities} />
         <Precision isFa={isFa} />
