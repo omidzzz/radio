@@ -80,7 +80,7 @@ export default function MriMachineIllustration({
 }: MriMachineIllustrationProps) {
   return (
     <div
-      className={`mri-illustration w-full h-full ${className}`}
+      className={`mri-illustration ${className}`}
       aria-hidden="true"
       {...rest}
       dangerouslySetInnerHTML={{ __html: CLEANED_SVG }}
