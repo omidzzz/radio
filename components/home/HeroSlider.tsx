@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import type { Dictionary } from "@/lib/i18n";
 import Hero from "@/components/home/Hero";
 import HeroSlideTwo from "@/components/home/HeroSlideTwo";
+import MriMachineIllustration from "@/components/ui/MriMachineIllustration";
 
 interface HeroSliderProps {
   dict: Dictionary;
@@ -49,6 +50,11 @@ export default function HeroSlider({ dict, isFa }: HeroSliderProps) {
           />
         </div>
       ))}
+
+      {/* Animated MRI scanner — subtle background texture, visible on all slides */}
+      <div className="pointer-events-none absolute top-0 right-0 z-0 hidden lg:block opacity-[0.02]">
+        <MriMachineIllustration className="absolute top-[12%] right-[8%] h-[420px] w-[420px]" />
+      </div>
 
       {/* Navigation controls */}
       <SliderControls

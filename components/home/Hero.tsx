@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Dictionary } from "@/lib/i18n";
-import MriMachineIllustration from "@/components/ui/MriMachineIllustration";
 import CountUp from "@/components/ui/CountUp";
 import CursorGlow from "@/components/ui/CursorGlow";
 import MagneticButton from "@/components/ui/MagneticButton";
@@ -18,6 +17,7 @@ interface HeroProps {
 }
 
 export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
+  const locale = isFa ? "fa" : "en";
   return (
     <section
       className={`slide-entrance relative h-full min-h-[calc(100svh-4rem)] overflow-hidden bg-white text-slate-900 dark:bg-deep dark:text-text-primary sm:min-h-[96vh] ${
@@ -32,11 +32,6 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
 
       {/* Grain — same material treatment as slide two and the dark bands */}
       <div className="grain-pattern pointer-events-none absolute inset-0 hidden opacity-[0.05] lg:block" />
-
-      {/* Animated MRI scanner — subtle background texture behind the content */}
-      <div className="pointer-events-none absolute inset-0 z-0 hidden lg:block opacity-[0.03]">
-        <MriMachineIllustration className="absolute bottom-[5%] left-1/2 h-[480px] w-[480px] -translate-x-1/2" />
-      </div>
 
       {/* (Coordinate readout — desktop only) — removed decorative HUD elements */}
 
@@ -61,21 +56,26 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
             </h1>
 
             <div className="text-panel-sm inline-block rounded-xl px-4 py-2 anim-fade-up delay-400 mt-6 max-w-lg">
-              <p className="text-lg leading-relaxed text-text-secondary dark:text-muted text-shadow-sm">{dict.home.heroSubtitle}</p>
+              <p className="text-lg leading-relaxed text-text-secondary dark:text-muted text-shadow-sm">
+                {dict.home.heroSubtitle}
+              </p>
             </div>
 
             {/* Live next-slot micro CTA — opens booking modal */}
             <div className="anim-fade-up delay-450 mt-5 inline-flex">
-              <LiveSlotBadge isFa={isFa} className="transition-all duration-300 hover:border-primary hover:bg-surface hover:shadow-[0_0_20px_-4px_rgba(26,115,82,0.5)]" />
+              <LiveSlotBadge
+                isFa={isFa}
+                className="transition-all duration-300 hover:border-primary hover:bg-surface hover:shadow-[0_0_20px_-4px_rgba(26,115,82,0.5)]"
+              />
             </div>
 
             <div className="anim-fade-up delay-500 mt-6 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-4">
-            <MagneticButton
-              as={Link}
-              href="/booking"
-              strength={0.2}
-              className="conic-border rounded-full"
-            >
+              <MagneticButton
+                as={Link}
+                href={`/​${locale}/booking`}
+                strength={0.2}
+                className="conic-border rounded-full"
+              >
                 <span className="btn-sheen group relative inline-flex min-h-12 w-full items-center justify-center overflow-hidden rounded-full bg-button-fill px-6 py-3.5 text-base font-semibold text-button-text shadow-[0_0_45px_-6px_rgba(26,115,82,0.75)] btn-shadow-light transition-colors duration-200 hover:bg-button-fill-hover hover:text-white dark:hover:text-button-text active:scale-[0.97] sm:w-auto sm:px-8">
                   <span className="relative flex items-center gap-2" dir="ltr">
                     {dict.home.bookConsultation}
@@ -84,7 +84,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
               </MagneticButton>
               <MagneticButton
                 as={Link}
-                href="/services"
+                href={`/​${locale}/services`}
                 strength={0.2}
                 className="inline-block"
               >
@@ -108,22 +108,33 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
                 },
                 {
                   value: 100,
-                  suffix: "%",
+                  suffix: isFa ? "" : "%",
+                  prefix: isFa ? "٪" : "",
                   label: isFa ? "دقت تشخیص" : "Diagnostic Accuracy",
                 },
               ].map((stat, i, arr) => (
                 <div
                   key={stat.label}
-                  className={`min-w-24 flex-1 px-2 sm:px-5 ltr:sm:border-r ltr:sm:border-border/60 ${i === arr.length - 1 ? "ltr:sm:border-r-0" : ""} rtl:sm:border-l rtl:sm:border-border/60 ${i === arr.length - 1 ? "rtl:sm:border-l-0" : ""}`}
+                  className={`min-w-24 flex-1 px-2 sm:px-5 ltr:sm:border-r ltr:sm:border-border/60 ${
+                    i === arr.length - 1 ? "ltr:sm:border-r-0" : ""
+                  } rtl:sm:border-l rtl:sm:border-border/60 ${
+                    i === arr.length - 1 ? "rtl:sm:border-l-0" : ""
+                  }`}
                 >
                   <div className="text-2xl font-bold text-text-primary sm:text-3xl">
-                    <CountUp end={stat.value} suffix={stat.suffix} useFarsiDigits={isFa} />
+                    <CountUp
+                      end={stat.value}
+                      suffix={stat.suffix}
+                      prefix={stat.prefix}
+                      useFarsiDigits={isFa}
+                    />
                   </div>
-                  <div className="mt-1 text-xs text-text-secondary sm:text-sm">{stat.label}</div>
+                  <div className="mt-1 text-xs text-text-secondary sm:text-sm">
+                    {stat.label}
+                  </div>
                 </div>
               ))}
             </div>
-
           </div>
 
           <div className="relative order-1 md:order-2 md:col-span-5 xl:col-span-7">
@@ -131,7 +142,11 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
               <div className="anim-slide-right delay-500 absolute bottom-[8%] left-0 z-20 h-[54%] w-[43%] overflow-hidden rounded-lg shadow-2xl shadow-primary/25 ring-1 ring-primary/30 transition-transform duration-500 will-change-transform hover:-translate-y-2 hover:-rotate-2 sm:bottom-[9%] sm:h-[58%] sm:w-[46%] xl:-left-8 xl:bottom-14 xl:h-[55%] xl:w-[48%] xl:rounded-xl xl:hover:-translate-y-4">
                 <Image
                   src="/images/hero-radiology machine.webp"
-                  alt={isFa ? "تجهیزات پیشرفته رادیوتراپی" : "Advanced radiology equipment"}
+                  alt={
+                    isFa
+                      ? "تجهیزات پیشرفته رادیوتراپی"
+                      : "Advanced radiology equipment"
+                  }
                   fill
                   sizes="(max-width: 767px) 38vw, (max-width: 1279px) 20vw, 24vw"
                   loading="eager"
@@ -150,7 +165,11 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
               <div className="anim-slide-right delay-700 absolute right-0 top-0 z-30 h-[92%] w-[68%] overflow-hidden rounded-xl shadow-2xl shadow-deep/70 ring-1 ring-white/15 transition-transform duration-500 will-change-transform hover:-translate-y-2 hover:rotate-1 sm:h-[90%] sm:w-[70%] xl:h-[88%] xl:w-[70%] xl:rounded-2xl xl:hover:-translate-y-4">
                 <Image
                   src="/images/home-radiologist.webp"
-                  alt={isFa ? "پزشک متخصص رادیوتراپی و آنکولوژی" : "Radiotherapy and oncology specialist"}
+                  alt={
+                    isFa
+                      ? "پزشک متخصص رادیوتراپی و آنکولوژی"
+                      : "Radiotherapy and oncology specialist"
+                  }
                   fill
                   sizes="(max-width: 767px) 60vw, (max-width: 1279px) 32vw, 38vw"
                   loading="eager"
@@ -202,7 +221,9 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
                   <div className="text-sm font-semibold hero-info-title text-shadow-sm text-black dark:text-white">
                     {isFa ? "تخصص تصویربرداری" : "Imaging Specialists"}
                   </div>
-                  <div className="text-xs hero-info-subtitle text-shadow-sm text-black/85 dark:text-white/90">MRI • CT • X-Ray</div>
+                  <div className="text-xs hero-info-subtitle text-shadow-sm text-black/85 dark:text-white/90">
+                    MRI • CT • X-Ray
+                  </div>
                 </div>
               </div>
             </div>
