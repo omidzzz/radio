@@ -1,6 +1,4 @@
 import type { NextConfig } from "next";
-import withBundleAnalyzer from "@next/bundle-analyzer";
-
 const isDev = process.env.NODE_ENV === "development";
 
 const scriptSrc = isDev
@@ -27,7 +25,9 @@ const nextConfig: NextConfig = {
   webpack(config) {
     // Allow importing SVG (or any file) as raw text via the ?raw suffix
     // needed by MriMachineIllustration which inlines an animated SVG.
-    config.module.rules.push({
+    // Put our raw-SVG rule BEFORE Next.js built-in SVG rules so ?raw imports
+    // resolve to plain text instead of being processed as image assets.
+    config.module.rules.unshift({
       test: /\.svg$/i,
       resourceQuery: /raw/,
       type: "asset/source",
@@ -36,4 +36,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withBundleAnalyzer({ enabled: process.env.ANALYZE === "true" })(nextConfig);
+export default nextConfig;
