@@ -53,7 +53,7 @@ export default function HeroSlider({ dict, isFa }: HeroSliderProps) {
 
       {/* Animated MRI scanner — subtle background texture, visible on all slides */}
       <div className="pointer-events-none absolute top-0 right-0 z-0 hidden lg:block h-full w-full opacity-[0.12]">
-        <MriMachineIllustration className="absolute top-[12%] right-[8%] h-[420px] w-[420px]" />
+        <MriMachineIllustration className="absolute top-[15%] right-[15%] h-[140px] w-[140px]" />
       </div>
 
       {/* Navigation controls */}
