@@ -57,25 +57,24 @@ export default function Navbar() {
     };
   }, [mobileOpen]);
 
-  // Build locale-aware hrefs. English-prefixed paths (`/en/...`) are
-  // rewritten internally by middleware.ts and pin the locale — giving each
-  // language its own crawlable URL for hreflang — while Persian uses the
-  // bare path. All nav hrefs flow through this single array so the desktop
-  // and mobile menus stay in sync with the active locale.
+  // Build locale-aware hrefs. Both locales now use prefix segments
+  // (/fa/... and /en/...) pre-generated as static pages by the
+  // [locale] segment + generateStaticParams. All nav hrefs flow through
+  // this single array so the desktop and mobile menus stay in sync.
+  const localePrefix = isFa ? "/fa" : "/en";
   const navLinks = [
-    { href: isFa ? "/" : "/en", label: strings.nav.home },
-    { href: isFa ? "/about" : "/en/about", label: strings.nav.about },
-    { href: isFa ? "/services" : "/en/services", label: strings.nav.services },
-    { href: isFa ? "/blog" : "/en/blog", label: strings.nav.blog },
-    { href: isFa ? "/forum" : "/en/forum", label: strings.nav.forum },
-    { href: isFa ? "/booking" : "/en/booking", label: strings.nav.bookSession },
-    { href: isFa ? "/contact" : "/en/contact", label: strings.nav.contact },
+    { href: `${localePrefix}`, label: strings.nav.home },
+    { href: `${localePrefix}/about`, label: strings.nav.about },
+    { href: `${localePrefix}/services`, label: strings.nav.services },
+    { href: `${localePrefix}/blog`, label: strings.nav.blog },
+    { href: `${localePrefix}/forum`, label: strings.nav.forum },
+    { href: `${localePrefix}/booking`, label: strings.nav.bookSession },
+    { href: `${localePrefix}/contact`, label: strings.nav.contact },
   ];
 
   function hrefFor(path: string): string {
-    if (isFa) return path;
     const clean = path.replace(/^\/|\/$/g, "");
-    return clean ? `/en/${clean}` : "/en";
+    return clean ? `${localePrefix}/${clean}` : localePrefix;
   }
   const homeHref = hrefFor("/");
   const searchHref = hrefFor("/search");
@@ -123,14 +122,14 @@ export default function Navbar() {
   }, [searchOpen]);
 
   return (
-    <header className="sticky top-0 z-50">
+    <header className="fixed top-0 inset-x-0 z-50">
       {/* Theme-aware bar: paper in light, deep in dark via --color-bg.
           Single hairline + one soft shadow when scrolled. */}
       <div
         className={`relative z-20 border-b transition-all duration-300 ${
           scrolled
             ? "border-primary/25 bg-bg/90 shadow-[0_8px_30px_-14px_rgba(2,6,23,0.35)] backdrop-blur-md min-[1220px]:backdrop-blur-xl"
-            : "border-border bg-bg/80 backdrop-blur-sm"
+            : "border-border bg-bg/80"
         }`}
       >
 
