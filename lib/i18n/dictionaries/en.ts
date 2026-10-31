@@ -36,7 +36,7 @@ const en = {
   },
   footer: {
     tagline:
-      "Specialist, compassionate radiotherapy and radiosurgery with a focus on precise, human-centred cancer care. Your health and comfort come first.",
+      "Specialist, compassionate radiotherapy and oncology with a focus on precise, human-centred cancer care. Your health and comfort come first.",
     quickLinks: "Quick Links",
     aboutUs: "About Us",
     ourServices: "Our Services",
@@ -61,9 +61,9 @@ const en = {
   },
   home: {
     heroTitle1: "Dr. Pari Ghadamgahi,",
-    heroTitle2: "Radiotherapy & Radiosurgery",
+    heroTitle2: "Radiotherapy & Oncology",
     heroSubtitle:
-      "With a focus on walking beside you at every step of treatment — every plan built around the person, not just the tumor. Specialist in radiotherapy and oncology for CNS, head and neck, gynecologic (GYN), gastrointestinal (GI), breast, prostate and genitourinary (GU) cancers, using precise planning and technology in service of your comfort.",
+      "Specialist in radiotherapy and oncology with a clinical focus on neuro-oncology and tumours of the central nervous system. Experienced in advanced techniques (IMRT, VMAT, SBRT, FSRT, SRS), contouring and treatment planning. Every treatment plan is personalised to the individual patient.",
     bookConsultation: "Book a Consultation",
     exploreServices: "Explore Services",
     heroSlide2: {
@@ -93,40 +93,47 @@ const en = {
       badge: "Areas of Expertise",
       title: "Focused Care Across Key Tumor Sites",
       subtitle:
-        "Dr. Pari Ghadamgahi focuses on seven key radiotherapy tumor-site areas — from the central nervous system to the prostate.",
+        "Dr. Pari Ghadamgahi focuses on key radiotherapy tumor-site areas, with particular clinical emphasis on neuro-oncology and tumours of the central nervous system.",
       items: [
         {
           code: "CNS",
+          icon: "🧠",
           title: "Brain & Central Nervous System",
-          desc: "Brain and spinal cord tumors treated with radiosurgery and targeted radiotherapy.",
+          desc: "Brain and spinal cord tumours treated with radiosurgery and targeted radiotherapy (primary clinical focus).",
         },
         {
           code: "H&N",
+          icon: "🩺",
           title: "Head & Neck",
-          desc: "Radiotherapy for tumors of the pharynx, larynx and other head and neck sites.",
+          desc: "Radiotherapy for tumours of the pharynx, larynx and other head and neck sites (topic of specialist thesis).",
         },
         {
           code: "GYN",
+          icon: "🏥",
           title: "Gynecologic (GYN)",
           desc: "Cancers of the uterus, cervix and ovary, including brachytherapy.",
         },
         {
           code: "GI",
+          icon: "🦠",
           title: "Gastrointestinal (GI)",
           desc: "Radiotherapy for oesophageal, gastric, colorectal and anal tumors.",
         },
         {
           code: "Breast",
+          icon: "🎀",
           title: "Breast",
           desc: "Post-surgical radiotherapy with tissue-sparing techniques and fewer side effects.",
         },
         {
           code: "Prostate",
+          icon: "🩰",
           title: "Prostate",
           desc: "High-precision radiotherapy and brachytherapy for prostate cancer.",
         },
         {
           code: "GU",
+          icon: "💧",
           title: "Genitourinary (GU)",
           desc: "Bladder, kidney and genitourinary tract cancers.",
         },
@@ -138,10 +145,10 @@ const en = {
       "Treatment and planning delivered directly by Dr. Pari Ghadamgahi, specialist in radiotherapy and oncology — decisions are made with you, not for you.",
     feature2Title: "Technology in service of your comfort",
     feature2Desc:
-      "Latest-generation linear accelerators with IMRT, IGRT, and SBRT capabilities; more precise treatment with less pain and fewer sessions — technology in service of your comfort.",
+      "Experience with IMRT, VMAT, SBRT, FSRT, SRS and related advanced radiotherapy techniques — more precise treatment with fewer side effects.",
     feature3Title: "Patient-Centered Care",
     feature3Desc:
-      "Decisions are made with you, not for you — personalized treatment plans, dedicated support staff, and a comfortable environment focused on your wellbeing.",
+      "Decisions are made with you, not for you — personalized treatment plans and a clinical focus on neuro-oncology and CNS tumours.",
     ctaTitle: "Have Questions About Treatment?",
     ctaSubtitle:
       "Speak directly with Dr. Pari Ghadamgahi — join our community forum to ask questions, share experiences, and get support from our specialists and other patients.",
@@ -186,12 +193,12 @@ const en = {
   about: {
     title: "About Dr. Pari Ghadamgahi",
     subtitle:
-      "Specialist in radiotherapy and oncology — committed to precise, transparent and compassionate care.",
+      "Specialist in radiotherapy and oncology — committed to precise, transparent and compassionate care, with a clinical focus on neuro-oncology and tumours of the central nervous system.",
     missionTitle: "My Approach",
     missionText1:
       "My mission is to deliver the highest quality radiation therapy in a compassionate, supportive environment. I believe every patient deserves personalised care, clear communication, and access to the most advanced treatment options available.",
     missionText2:
-      "Every treatment plan is built around the individual — the tumour type, stage and overall condition — selected in close collaboration with the patient and the wider medical team.",
+      "Every treatment plan is built around the individual — the tumour type, stage and overall condition — selected in close collaboration with the patient and the wider medical team. My clinical focus is neuro-oncology and CNS tumours.",
     valuesTitle: "My Values",
     values: [
       "Compassion in every interaction",
@@ -204,18 +211,18 @@ const en = {
     teamTitle: "The Care Team",
     teamSubtitle:
       "Dr. Ghadamgahi works alongside medical physicists, radiation therapists and experienced clinical staff.",
-    teamMember1Name: "Dr. Sarah Mitchell",
-    teamMember1Role: "Chief Radiation Oncologist",
+    teamMember1Name: "Medical Physicist",
+    teamMember1Role: "Treatment Planning & Quality Assurance",
     teamMember1Bio:
-      "20+ years of experience in radiation oncology with a focus on breast and lung cancer treatment.",
-    teamMember2Name: "Dr. James Chen",
-    teamMember2Role: "Medical Physicist",
+      "Collaborates on treatment-plan design and quality assurance for advanced radiotherapy techniques.",
+    teamMember2Name: "Radiation Therapist",
+    teamMember2Role: "Treatment Delivery",
     teamMember2Bio:
-      "Specializes in treatment planning and quality assurance for advanced radiotherapy techniques.",
-    teamMember3Name: "Dr. Emily Rodriguez",
-    teamMember3Role: "Radiation Oncologist",
+      "Delivers precise treatment sessions on advanced linear accelerators under specialist supervision.",
+    teamMember3Name: "Clinical Support Team",
+    teamMember3Role: "Patient Care",
     teamMember3Bio:
-      "Expert in stereotactic radiosurgery and pediatric radiation therapy.",
+      "Provides support throughout the treatment journey and follow-up.",
     ctaTitle: "Ready to Start Your Journey?",
     ctaSubtitle:
       "Schedule a consultation with Dr. Ghadamgahi to discuss your treatment options and create a plan that works for you.",
@@ -225,51 +232,121 @@ const en = {
     breadcrumbHome: "Home",
     breadcrumbCurrent: "About Me",
     statsTitle: "Dr. Ghadamgahi at a Glance",
-    stat1Value: 20,
+    stat1Value: 6,
     stat1Suffix: "+",
-    stat1Label: "Years of Experience",
-    stat2Value: 5000,
+    stat1Label: "Years of Specialist Experience",
+    stat2Value: 2500,
     stat2Suffix: "+",
-    stat2Label: "Patients Treated",
+    stat2Label: "Patients Cared For",
     stat3Value: 98,
     stat3Suffix: "%",
     stat3Label: "Patient Satisfaction",
     stat4Value: 6,
     stat4Suffix: "",
     stat4Label: "Advanced Treatment Technologies",
-    techTitle: "Treatment Technologies",
+    techTitle: "Treatment Technologies & Skills",
     techItems: [
       "Intensity-Modulated Radiation Therapy (IMRT)",
-      "Image-Guided Radiation Therapy (IGRT)",
       "Volumetric Modulated Arc Therapy (VMAT)",
-      "Stereotactic Radiosurgery (SRS)",
-      "3D Conformal Radiation Therapy (3D-CRT)",
-      "Brachytherapy",
+      "Stereotactic Body Radiation Therapy (SBRT)",
+      "Stereotactic Radiosurgery (SRS) & FSRT",
+      "Contouring & Treatment Planning",
+      "Image-Guided Radiation Therapy (IGRT)",
     ],
     timelineTitle: "Career Journey",
     timelineSubtitle:
-      "From early practice to today — a continuous commitment to better care.",
-    milestone1Year: "2005",
-    milestone1Title: "Entered Specialist Practice",
-    milestone1Desc:
-      "Began practice in radiation oncology with a commitment to compassionate, precise care.",
-    milestone2Year: "2012",
-    milestone2Title: "Technology Upgrade",
+      "From medical school to specialist practice in neuro-oncology — a continuous commitment to better care.",
+    milestone1Year: "2011",
+    milestone1Title: "Doctor of Medicine (MD)",
+    milestone1Desc: "Graduated from Tehran University of Medical Sciences.",
+    milestone2Year: "2020",
+    milestone2Title: "Specialty in Radiotherapy & Oncology",
     milestone2Desc:
-      "Added IMRT and IGRT capabilities for more precise treatments with fewer side effects.",
-    milestone3Year: "2018",
-    milestone3Title: "Radiosurgery Program",
+      "Graduated from Ahvaz University of Medical Sciences. Thesis: Efficacy of adding lovastatin to chemoradiotherapy in patients with head-and-neck squamous-cell carcinoma.",
+    milestone3Year: "2021",
+    milestone3Title: "Specialist Clinical Practice",
     milestone3Desc:
-      "Launched our stereotactic radiosurgery program for brain and body tumors.",
-    milestone4Year: "2023",
-    milestone4Title: "Digital Patient Journey",
+      "Began clinical work at Omid Cancer Center, Ahvaz, with a focus on neuro-oncology and tumours of the central nervous system.",
+    milestone4Year: "2024–2025",
+    milestone4Title: "Scientific & Teaching Activities",
     milestone4Desc:
-      "Online booking, digital follow-ups, and passing the five-thousand-patient milestone.",
+      "Participated in the rectal-cancer panel (International Clinical Oncology Congress) and chaired the triple-negative breast-cancer panel in Ahvaz. Regular teaching sessions on contouring and treatment planning in neuro-oncology.",
+    milestone5Year: "2025",
+    milestone5Title: "International Congress Panels",
+    milestone5Desc:
+      "Participated in the rectal-cancer panel at the International Clinical Oncology Congress and chaired the triple-negative breast-cancer panel in Ahvaz. Regular teaching sessions on contouring and treatment planning in neuro-oncology.",
+    publications: {
+      heading: "Publications",
+      items: [
+        {
+          year: "2015",
+          title: "Comparison of Demographic and Diagnostic Characteristics of Iranian Inpatients With Bipolar I Disorder to Western Counterparts.",
+          journal: "Iranian Journal of Psychiatry and Behavioral Sciences",
+          details: "2015;9(2):e839",
+          doi: "10.17795/ijpbs839",
+        },
+        {
+          year: "2016",
+          title: "Demographic and Diagnostic Features of 3147 Inpatients With Mood Disorders in Iran.",
+          journal: "Iranian Journal of Psychiatry and Behavioral Sciences",
+          details: "2016;10(3):e2298",
+          doi: "10.17795/ijpbs-2298",
+        },
+        {
+          year: "2022",
+          title: "A Phase III Randomized Clinical Trial Study of Chemoradiation using Lovastatin/Cisplatin in Patients with Head and Neck Squamous Cell Carcinoma.",
+          journal: "Middle East Journal of Cancer",
+          details: "2022;13(1):120–127",
+          doi: "10.30476/mejc.2021.87318.1407",
+        },
+      ],
+    },
+    publicationsCTA: "View all publications",
+    professionalMemberships: {
+      heading: "Professional Memberships & Language",
+      items: [
+        {
+          type: "professional_membership",
+          name: "Iranian Society of Radiotherapy and Oncology",
+          description: "Member of the Iranian Society of Radiotherapy and Oncology.",
+        },
+        {
+          type: "professional_membership",
+          name: "European Society for Radiotherapy and Oncology",
+          abbreviation: "ESTRO",
+          description: "Member of the European Society for Radiotherapy and Oncology (ESTRO).",
+        },
+        {
+          type: "professional_membership",
+          name: "European Association of Neuro-Oncology",
+          abbreviation: "EANO",
+          description: "Member of the European Association of Neuro-Oncology (EANO).",
+        },
+        {
+          type: "language",
+          name: "English",
+          proficiency: "C1 level",
+        },
+      ],
+    },
+    membershipsCTA: "View full affiliations",
+    specializedCourses: {
+      heading: "Specialized Courses",
+      items: [
+        "Online radiosurgery course, organized by ESTRO.",
+        "IMRT training course, Istanbul, Turkey.",
+      ],
+    },
+    coursesCTA: "View full training history",
+    thesisSupervisors: [
+      "Dr. Sasan Zarmoju",
+      "Dr. Hojat-ollah Shahprian",
+    ],
   },
   services: {
     title: "Our Services",
     subtitle:
-      "Comprehensive radiation therapy services delivered with the latest technology and a personalized approach to care.",
+      "Comprehensive radiation therapy services delivered with the latest technology and a personalized approach to care, with particular expertise in neuro-oncology.",
     service1Title: "External Beam Radiation Therapy (EBRT)",
     service1Desc:
       "The most common form of radiation therapy, delivering high-energy X-ray beams from outside the body to precisely target tumors while sparing surrounding healthy tissue.",
@@ -283,7 +360,7 @@ const en = {
       "A non-surgical procedure that delivers highly precise, high-dose radiation to small tumors in the brain and other areas, typically completed in one to five sessions.",
     service2Features: [
       "Brain and spine tumor treatment",
-      "Single-session and fractionated options",
+      "Single-session and fractionated options (FSRT)",
       "Sub-millimeter precision",
     ],
     service3Title: "Stereotactic Body Radiation Therapy (SBRT)",
@@ -312,7 +389,7 @@ const en = {
     ],
     service6Title: "Treatment Planning & Simulation",
     service6Desc:
-      "Comprehensive planning services using advanced imaging (CT, MRI, PET) to create personalized, precise treatment plans for each patient.",
+      "Comprehensive planning services using advanced imaging (CT, MRI, PET) to create personalized, precise treatment plans — including contouring and plan design.",
     service6Features: [
       "CT simulation and 3D planning",
       "MRI and PET fusion imaging",
@@ -337,9 +414,9 @@ const en = {
     stat1Value: 6,
     stat1Suffix: "",
     stat1Label: "Specialized treatment areas",
-    stat2Value: 5000,
+    stat2Value: 2500,
     stat2Suffix: "+",
-    stat2Label: "Patients treated",
+    stat2Label: "Patients cared for",
     stat3Value: 98,
     stat3Suffix: "%",
     stat3Label: "Patient satisfaction",
@@ -355,7 +432,7 @@ const en = {
       "A radiation oncologist reviews your medical history and imaging to determine the most suitable treatment option.",
     process2Title: "Imaging & Planning",
     process2Desc:
-      "CT simulation and advanced imaging create a precise, fully personalized treatment plan.",
+      "CT simulation and advanced imaging create a precise, fully personalized treatment plan (contouring and plan design).",
     process3Title: "Treatment Sessions",
     process3Desc:
       "Short 15–30 minute sessions on state-of-the-art equipment with continuous monitoring by our team.",
@@ -391,7 +468,7 @@ const en = {
   booking: {
     title: "Book a Session",
     subtitle:
-      "Schedule your consultation or treatment session with Dr. Ghadamgahi. We'll get back to you promptly to confirm your appointment.",
+      "Schedule your consultation or treatment session with Dr. Pari Ghadamgahi. We'll get back to you promptly to confirm your appointment.",
     formTitle: "Book Your Session",
     formSubtitle:
       "Fill out the form below and you will be contacted to confirm your appointment.",
@@ -501,7 +578,7 @@ const en = {
     feature3Label: "Easy Booking",
     feature3Sub: "Online & by phone",
     consultTitle: "Need Specialist Consultation?",
-    consultText: "Dr. Ghadamgahi is ready to answer your questions.",
+    consultText: "Dr. Pari Ghadamgahi is ready to answer your questions.",
     consultCta: "Online Consultation",
     openNow: "Open now",
     closedNow: "Closed now",
@@ -577,7 +654,7 @@ const en = {
       "Default password: admin123 — set ADMIN_PASSWORD in your environment to change it.",
     invalidPassword: "Invalid password",
     dashboard: "Admin Dashboard",
-    clinicManagement: "Practice Management",
+    clinicManagement: "Practice Management – Dr. Pari Ghadamgahi",
     overview: "Overview",
     analytics: "Analytics",
     bookings: "Bookings",
