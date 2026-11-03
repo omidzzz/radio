@@ -439,42 +439,46 @@ export default async function ServicesPage() {
       ══════════════════════════════════════════════════════════════ */}
       <section className="relative z-10 overflow-hidden py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Reveal className="text-center">
-            <div className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-3.5 py-1 text-xs font-medium text-primary">
+          <Reveal className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-3.5 py-1 text-xs font-medium text-text-primary">
               <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-primary-fill" />
               {dict.services.processBadge}
             </div>
-            <h2 className="mt-5 text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
-              {dict.services.processTitle}
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-text-secondary">
+            <div className="mt-5 grid gap-4 sm:grid-cols-[1fr_auto] sm:items-end">
+              <h2 className="text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
+                {dict.services.processTitle}
+              </h2>
+              <span aria-hidden="true" className="hidden font-mono text-xs tracking-widest text-text-secondary/70 sm:block">
+                01 <span className="text-primary">/</span> 04
+              </span>
+            </div>
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-text-secondary sm:text-lg">
               {dict.services.processSubtitle}
             </p>
           </Reveal>
 
-          <div className="relative mt-14">
-            {/* Connecting line (desktop only) */}
-            <div
-              aria-hidden="true"
-              className="absolute inset-x-16 top-7 hidden h-px bg-gradient-to-r from-transparent via-primary/35 to-transparent lg:block"
-            />
-            <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+          <div className="relative mt-10 md:mt-14">
+            <div aria-hidden="true" className="absolute bottom-8 top-8 start-[21px] w-px bg-border/70 md:bottom-auto md:start-[12.5%] md:end-[12.5%] md:top-[21px] md:h-px md:w-auto" />
+            <ol dir={isFa ? "rtl" : "ltr"} className="relative grid gap-7 md:grid-cols-4 md:gap-0">
               {processSteps.map((step, i) => (
-                <Reveal key={step.title} delay={i * 130}>
-                  <div className="relative flex flex-col items-center text-center">
-                    <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full border border-primary/30 bg-surface text-lg font-extrabold text-primary shadow-lg shadow-primary/20 ring-1 ring-primary/20">
-                      {ordinal(i + 1)}
+                <li key={step.title} className="relative flex gap-5 md:flex-col md:items-center md:gap-0 md:px-4 md:text-center">
+                    <span className="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-bg font-mono text-sm font-semibold text-primary">
+                      {isFa ? toFarsiDigits(i + 1) : i + 1}
+                    </span>
+                    <div className="min-w-0 flex-1 border-b border-border/60 pb-6 md:mt-6 md:flex-none md:border-0 md:pb-0">
+                      <span className="font-mono text-[11px] tracking-widest text-primary/75">
+                        {isFa ? "مرحله" : "STEP"} {isFa ? toFarsiDigits(String(i + 1).padStart(2, "0")) : String(i + 1).padStart(2, "0")}
+                      </span>
+                      <h3 className="mt-2 text-lg font-semibold leading-snug text-text-primary sm:text-xl">
+                        {step.title}
+                      </h3>
+                      <p className="mt-2 max-w-sm text-sm leading-relaxed text-text-secondary md:mx-auto">
+                        {step.desc}
+                      </p>
                     </div>
-                    <h3 className="mt-5 text-lg font-semibold text-text-primary">
-                      {step.title}
-                    </h3>
-                    <p className="mt-2.5 max-w-xs text-sm leading-relaxed text-text-secondary">
-                      {step.desc}
-                    </p>
-                  </div>
-                </Reveal>
+                  </li>
               ))}
-            </div>
+            </ol>
           </div>
         </div>
       </section>
@@ -538,3 +542,4 @@ export default async function ServicesPage() {
     </div>
   );
 }
+

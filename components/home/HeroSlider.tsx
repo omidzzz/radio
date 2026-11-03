@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { Dictionary } from "@/lib/i18n";
 import Hero from "@/components/home/Hero";
 import HeroSlideTwo from "@/components/home/HeroSlideTwo";
-import MriMachineIllustration from "@/components/ui/MriMachineIllustration";
 
 interface HeroSliderProps {
   dict: Dictionary;
@@ -30,31 +29,24 @@ export default function HeroSlider({ dict, isFa }: HeroSliderProps) {
       className="relative grid"
       role="region"
       aria-roledescription={isFa ? "اسلایدر" : "carousel"}
-      aria-label={isFa ? "معرفی خدمات و مراقبت" : "Care and services introduction"}
+      aria-label={
+        isFa ? "معرفی خدمات و مراقبت" : "Care and services introduction"
+      }
     >
       {SLIDES.map(({ id, Component }, i) => (
         <div
           key={id}
           className={`[grid-area:1/1] transition-opacity duration-[800ms] ease-in-out ${
-            active === i ? "opacity-100" : "hidden"
+            active === i ? "opacity-100" : "opacity-0 pointer-events-none"
           }`}
           aria-hidden={active !== i}
           role="group"
           aria-roledescription={isFa ? "اسلاید" : "slide"}
           aria-label={`${i + 1} ${isFa ? "از" : "of"} ${SLIDE_COUNT}`}
         >
-          <Component
-            dict={dict}
-            isFa={isFa}
-            playAnim={active === i}
-          />
+          <Component dict={dict} isFa={isFa} playAnim={active === i} />
         </div>
       ))}
-
-      {/* Animated MRI scanner — subtle background texture, visible on all slides */}
-      <div className="pointer-events-none absolute top-0 right-0 z-0 hidden lg:block h-full w-full opacity-[0.12]">
-        <MriMachineIllustration className="absolute top-[15%] right-[15%] h-[280px] w-[280px]" />
-      </div>
 
       {/* Navigation controls */}
       <SliderControls
@@ -91,15 +83,28 @@ function SliderControls({
           className="slider-nav-arrow group pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border-2 border-border bg-surface text-text-primary transition-all duration-300 hover:border-text-primary hover:bg-text-primary hover:text-surface active:scale-95"
         >
           <svg
-            className={`h-5 w-5 transition-transform duration-300 ease-out group-hover:-translate-x-0.5 ${isFa ? "rotate-180" : ""}`}
+            className={`h-5 w-5 transition-transform duration-300 ease-out group-hover:-translate-x-0.5 ${
+              isFa ? "rotate-180" : ""
+            }`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
             strokeWidth={2.2}
             aria-hidden="true"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" stroke="currentColor" d="M15 19l-7-7 7-7" />
-            <path strokeLinecap="round" strokeLinejoin="round" stroke="currentColor" opacity="0.45" d="M19 19l-7-7 7-7" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              stroke="currentColor"
+              d="M15 19l-7-7 7-7"
+            />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              stroke="currentColor"
+              opacity="0.45"
+              d="M19 19l-7-7 7-7"
+            />
           </svg>
         </button>
         <button
@@ -109,15 +114,28 @@ function SliderControls({
           className="slider-nav-arrow group pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border-2 border-border bg-surface text-text-primary transition-all duration-300 hover:border-text-primary hover:bg-text-primary hover:text-surface active:scale-95"
         >
           <svg
-            className={`h-5 w-5 transition-transform duration-300 ease-out group-hover:translate-x-0.5 ${isFa ? "rotate-180" : ""}`}
+            className={`h-5 w-5 transition-transform duration-300 ease-out group-hover:translate-x-0.5 ${
+              isFa ? "rotate-180" : ""
+            }`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
             strokeWidth={2.2}
             aria-hidden="true"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" stroke="currentColor" d="M9 5l7 7-7 7" />
-            <path strokeLinecap="round" strokeLinejoin="round" stroke="currentColor" opacity="0.45" d="M5 5l7 7-7 7" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              stroke="currentColor"
+              d="M9 5l7 7-7 7"
+            />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              stroke="currentColor"
+              opacity="0.45"
+              d="M5 5l7 7-7 7"
+            />
           </svg>
         </button>
       </div>
@@ -174,7 +192,9 @@ function SliderControls({
         <span>/</span>
         <span>
           {isFa
-            ? String(count).padStart(2, "0").replace(/\d/g, (d) => faDigits[Number(d)])
+            ? String(count)
+                .padStart(2, "0")
+                .replace(/\d/g, (d) => faDigits[Number(d)])
             : String(count).padStart(2, "0")}
         </span>
       </div>

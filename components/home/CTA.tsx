@@ -5,9 +5,11 @@ import SectionHeader from "@/components/ui/SectionHeader";
 
 interface CTAProps {
   dict: any;
+  isFa: boolean;
 }
 
-export default function CTA({ dict }: CTAProps) {
+export default function CTA({ dict, isFa }: CTAProps) {
+  const locale = isFa ? "fa" : "en";
   return (
     <section className="band-dark">
       <div className="section-pad relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
@@ -19,7 +21,7 @@ export default function CTA({ dict }: CTAProps) {
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <MagneticButton
               as={Link}
-              href="/forum"
+              href={`/${locale}/forum`}
               strength={0.2}
               className="conic-border rounded-full"
             >
@@ -29,7 +31,7 @@ export default function CTA({ dict }: CTAProps) {
             </MagneticButton>
             <MagneticButton
               as={Link}
-              href="/contact"
+              href={`/${locale}/contact`}
               strength={0.2}
               className="inline-block"
             >

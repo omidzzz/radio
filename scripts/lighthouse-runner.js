@@ -2,40 +2,31 @@
  * Local before/after Lighthouse measurement runner.
  *
  * Workflow:
- *   1. `npm run build` (production static export)
- *   2. Serve the `out/` directory on a local HTTP server
- *   3. Run Lighthouse headless against the server
- *   4. Print a compact score/metrics summary
+ *   1. `npm run build` (production build, server-rendered output)
+ *   2. Start `next start` on a local HTTP server
+ *   3. Run Lighthouse headless against the server (desktop + mobile)
+ *   4. Print a compact score/metrics summary with comparison
  *   5. Cleanup: terminate the server
  *
  * Usage: node scripts/lighthouse-runner.js
  *
- * Requires Chrome/Chromium/Edge to be installed locally (or a Chrome binary
- * discoverable by `chrome-launcher`). For a CI-only run see
- * `test:lighthouse:ci` (which uses `lhci` + `lighthouserc.js`).
+ * Requires Chrome/Chromium/Edge to be installed locally (discoverable by
+ * `chrome-launcher`). For a CI-only run see `test:lighthouse:ci` (lhci).
  */
 'use strict';
 
-const { execSync } = require('child_process');
+const { execSync, spawn } = require('child_process');
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const { spawn } = require('child_process');
 
 const ROOT = path.resolve(__dirname, '..');
-const OUT_DIR = path.join(ROOT, 'out');
 const LH_DIR = path.join(ROOT, 'lh-results');
 const PORT = Number(process.env.LH_PORT) || (3456 + (Date.now() % 10000));
-const LH_BIN = path.resolve(ROOT, 'node_modules', '.bin', 'lighthouse');
-const LH_RESULTS = path.join(LH_DIR, 'latest');
+const LH_BIN = path.resolve(ROOT, 'node_modules', 'lighthouse', 'cli', 'index.js');
 
 if (!fs.existsSync(LH_BIN)) {
   console.error('[lighthouse] Lighthouse CLI not found. Run: npm install');
-  process.exit(1);
-}
-
-if (!fs.existsSync(OUT_DIR)) {
-  console.error('[lighthouse] out/ missing. Run: npm run build');
   process.exit(1);
 }
 
@@ -45,9 +36,13 @@ function build() {
 }
 
 function startServer() {
-  return spawn('node', [path.join(ROOT, 'scripts', 'serve-static.js'), OUT_DIR, String(PORT)], {
+  // Start Next.js production server on the specified port
+  // shell: true needed for .cmd batch files on Windows
+  return spawn(path.join(ROOT, 'node_modules', '.bin', 'next.cmd'), ['start', '-p', String(PORT)], {
     stdio: ['ignore', 'pipe', 'pipe'],
     detached: true,
+    shell: true,
+    env: { ...process.env, PORT: String(PORT), NODE_ENV: 'production' },
   });
 }
 
@@ -62,88 +57,92 @@ function stopServer(proc) {
   });
 }
 
-/**
- * Poll the server until it responds 200 or the timeout elapses.
- */
-function waitReady(callback, timeoutMs = 15000) {
-  let timedOut = false;
-  const timer = setInterval(() => {
-    http.get({ host: 'localhost', port: PORT, path: '/' }, (res) => {
-      if (res.statusCode === 200) {
-        clearInterval(timer);
-        if (!timedOut) callback();
+function waitForServer(port, timeoutMs = 30000) {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error('server did not become ready')), timeoutMs);
+    const req = http.get(`http://localhost:${port}/`, (res) => {
+      clearTimeout(timer);
+      if (res.statusCode === 200) resolve();
+      else res.resume();
+    });
+    req.on('error', () => {
+      clearTimeout(timer);
+      setTimeout(() => waitForServer(port, timeoutMs).then(resolve, reject), 300);
+    });
+  });
+}
+
+function runLighthouse(url, preset, label, isMobile = false) {
+  return new Promise((resolve, reject) => {
+    const outPath = path.join(LH_DIR, `run-${Date.now()}-${label}.json`);
+    const args = [
+      url,
+      '--preset=' + preset,
+      '--output=json',
+      '--output-path=' + outPath,
+      '--chrome-flags=--headless --no-sandbox --disable-gpu',
+    ];
+    if (isMobile) {
+      args.push('--emulated-form-factor=mobile');
+    }
+    console.log(`[lighthouse] running ${label} against ${url}...`);
+    const proc = spawn('node', [LH_BIN, ...args], { stdio: ['ignore', 'pipe', 'pipe'] });
+    let stdout = '', stderr = '';
+    proc.stdout.on('data', (d) => (stdout += d.toString()));
+    proc.stderr.on('data', (d) => (stderr += d.toString()));
+    proc.on('close', (code) => {
+      if (code !== 0) {
+        console.error(`[lighthouse] ${label} exited with code ${code}`);
+        console.error(stderr.slice(-2000));
+        return reject(new Error(`lighthouse ${label} failed`));
       }
-    }).on('error', () => {});
-  }, 300);
-  setTimeout(() => {
-    timedOut = true;
-    clearInterval(timer);
-  }, timeoutMs);
+      try {
+        const result = JSON.parse(fs.readFileSync(outPath, 'utf8'));
+        resolve({ label, result, outPath });
+      } catch (e) {
+        reject(e);
+      }
+    });
+  });
 }
 
-function runLighthouse(outDir) {
-  // --output-path is a FILE (not a directory) in this Lighthouse version,
-  // so write the JSON report inside the run directory.
-  const cmd = [
-    LH_BIN,
-    `http://localhost:${PORT}`,
-    '--preset=desktop',
-    '--quiet',
-    '--output=json',
-    `--output-path=${path.join(outDir, 'json-report.json')}`,
-  ].join(' ');
-  const result = execSync(cmd, { encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'] });
-  return { outputDir: outDir, raw: result };
+function summarize(result, label) {
+  const cats = result.categories || {};
+  const audits = result.audits || {};
+  const lines = [`\n=== ${label} Lighthouse Results ===`];
+  for (const [cat, val] of Object.entries(cats)) {
+    lines.push(`  ${cat}: ${Math.round((val.score || 0) * 100)}/100`);
+  }
+  const key = [
+    'first-contentful-paint', 'largest-contentful-paint', 'cumulative-layout-shift',
+    'total-blocking-time', 'speed-index', 'interactive',
+  ];
+  for (const a of key) {
+    const au = audits[a];
+    if (au) lines.push(`  ${a}: ${au.displayValue || au.numericValue} (score ${Math.round((au.score || 0) * 100)})`);
+  }
+  console.log(lines.join('\n'));
 }
 
-function summarize(report) {
-  const json = typeof report === 'string' ? JSON.parse(report) : report;
-  const c = json.categories?.performance || {};
-  const audits = json.audits || {};
-  return {
-    score: c.score ? Math.round(c.score * 100) : null,
-    lcp: audits['largest-contentful-paint'] ? Math.round(audits['largest-contentful-paint'].numericValue) : null,
-    cls: audits['cumulative-layout-shift'] ? Number((audits['cumulative-layout-shift'].numericValue || 0).toFixed(3)) : null,
-    fcp: audits['first-contentful-paint'] ? Math.round(audits['first-contentful-paint'].numericValue) : null,
-    ttfb: audits['server-response-time'] ? Math.round(audits['server-response-time'].numericValue) : null,
-    firstContentfulPaint: audits['first-contentful-paint'] ? Math.round(audits['first-contentful-paint'].numericValue) : null,
-    totalBlockingTime: audits['total-blocking-time'] ? Math.round(audits['total-blocking-time'].numericValue) : null,
-    bootupTime: audits['bootup-time'] ? Math.round(audits['bootup-time'].numericValue) : null,
-  };
-}
-
-async function main() {
-  build();
+(async () => {
   fs.mkdirSync(LH_DIR, { recursive: true });
+  build();
   const server = startServer();
-  server.stdout.on('data', (d) => process.stdout.write(d));
-  server.stderr.on('data', (d) => process.stderr.write(d));
-
-  await new Promise((resolve) => waitReady(resolve));
-  console.log(`[lighthouse] server ready at http://localhost:${PORT}`);
-
-  const outDir = path.join(LH_DIR, `run-${Date.now()}`);
-  fs.mkdirSync(outDir, { recursive: true });
-  const { outputDir, raw } = runLighthouse(outDir);
-  console.log(`[lighthouse] report written to ${outputDir}`);
-
-  let report = raw;
-  try { report = fs.readFileSync(path.join(outputDir, 'json-report.json'), 'utf8'); } catch {}
-  const summary = summarize(report);
-  console.log('\n=== Lighthouse before/after summary ===');
-  console.log(JSON.stringify(summary, null, 2));
-  console.log('========================================\n');
-
-  // Persist the latest JSON for comparison.
-  fs.mkdirSync(path.join(LH_DIR, 'latest'), { recursive: true });
-  try { fs.writeFileSync(path.join(LH_DIR, 'latest.json'), report); } catch {}
-  fs.writeFileSync(path.join(LH_DIR, 'latest', 'json-report.json'), report);
-  fs.writeFileSync(path.join(LH_DIR, 'latest', 'report.json'), raw);
-
-  await stopServer(server);
-}
-
-main().catch((err) => {
-  console.error('[lighthouse] FAILED:', err.message);
+  try {
+    await waitForServer(PORT);
+    const url = `http://localhost:${PORT}/`;
+    const desktop = await runLighthouse(url, 'desktop', 'desktop');
+    summarize(desktop.result, 'Desktop');
+    const mobile = await runLighthouse(url, 'perf', 'mobile', true);
+    summarize(mobile.result, 'Mobile');
+    fs.writeFileSync(path.join(LH_DIR, 'latest-desktop.json'), JSON.stringify(desktop.result, null, 2));
+    fs.writeFileSync(path.join(LH_DIR, 'latest-mobile.json'), JSON.stringify(mobile.result, null, 2));
+    fs.writeFileSync(path.join(LH_DIR, 'latest.json'), JSON.stringify(desktop.result, null, 2));
+    console.log('\n[lighthouse] results saved to', LH_DIR);
+  } finally {
+    await stopServer(server);
+  }
+})().catch((err) => {
+  console.error('[lighthouse] error:', err.message);
   process.exit(1);
 });

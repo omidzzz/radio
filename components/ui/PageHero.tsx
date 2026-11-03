@@ -54,8 +54,8 @@ export default function PageHero({
         </div>
       )}
 
-      {/* Main content */}
-      <div className="relative mx-auto flex max-w-7xl flex-col items-center gap-12 px-4 pb-16 pt-16 text-center sm:px-6 lg:flex-row lg:justify-between lg:pb-20 lg:pt-20 lg:text-left rtl:lg:text-right">
+      {/* The locale layout reserves the fixed navbar height above this hero. */}
+      <div className="relative mx-auto flex max-w-7xl flex-col items-center gap-12 px-4 pb-16 pt-6 text-center sm:px-6 lg:flex-row lg:justify-between lg:pb-20 lg:pt-6 lg:text-left rtl:lg:text-right">
         <div className="max-w-2xl">
           {badge && (
             <div className="inline-flex items-center gap-2.5 rounded-full border border-primary/40 bg-primary/10 px-4 py-1.5 backdrop-blur-md">

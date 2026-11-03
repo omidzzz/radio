@@ -1,20 +1,9 @@
-import type { Metadata, Viewport } from "next";
+﻿import type { Metadata, Viewport } from "next";
 import { Vazirmatn, Outfit } from "next/font/google";
 import dynamic from "next/dynamic";
-
-const Analytics = process.env.NEXT_PUBLIC_GA_ID
-  ? dynamic(() => import("@/components/ui/Analytics"))
-  : null;
-const WebVitals = dynamic(() => import("@/components/ui/WebVitals"));
-const StickyBookingBar = dynamic(() => import("@/components/forms/StickyBookingBar"));
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import RootErrorBoundary from "@/components/ui/RootErrorBoundary";
-import { LocaleProvider } from "@/components/providers/LocaleProvider";
-import { getServerLocale, getDictionary } from "@/lib/i18n/server";
-import { localeDirs } from "@/lib/i18n/config";
-import { getWorkingHoursSummary, getOpenNowStatus } from "@/lib/services/working-hours";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { BookingModalProvider } from "@/components/forms/BookingModalProvider";
 import { siteConfig } from "@/lib/seo/seo";
 import {
   websiteSchema,
@@ -27,28 +16,40 @@ import {
 } from "@/lib/seo/json-ld";
 import JsonLdScript from "@/components/feedback/JsonLd";
 import ScrollProgress from "@/components/ui/ScrollProgress";
-import FloatingContactLazy from "@/components/feedback/FloatingContactLazy";
-import Preloader from "@/components/ui/Preloader";
-import { BookingModalProvider } from "@/components/forms/BookingModalProvider";
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import PWARegister from "@/components/ui/PWARegister";
+import { defaultLocale, localeDirs } from "@/lib/i18n/config";
+
+const Analytics = process.env.NEXT_PUBLIC_GA_ID
+  ? dynamic(() => import("@/components/ui/Analytics"))
+  : null;
+const WebVitals = dynamic(() => import("@/components/ui/WebVitals"));
 
 const vazirmatn = Vazirmatn({
   subsets: ["arabic"],
-  variable: "--font-vazirmatn",
-  display: "optional",
-  // Full range: body 400-500, ledes 500-600, headings up to 900
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-vazirmatn-next",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
 const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-outfit",
+  variable: "--font-outfit-next",
   display: "optional",
-  // 700/800 give latin headings and display numerals real weight
-  weight: ["400", "500", "600", "700", "800"],
-  preload: false,
+  weight: ["400", "500", "600", "700"],
+  // Preload the font for better LCP on first paint
+  // Only preload on first visit, swap on subsequent visits
+  preload: true,
 });
+
+const jsonLd = [
+  websiteSchema(),
+  sitePhysicianSchema(),
+  medicalClinicSchema(),
+  treatmentProcessSchema(),
+  conversationalContentSchema(),
+  authoritativeSourceSchema(),
+  reviewSchema(),
+];
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -62,11 +63,11 @@ export const metadata: Metadata = {
   creator: siteConfig.name,
   publisher: siteConfig.name,
   alternates: {
-    canonical: "/",
+    canonical: "/fa",
     languages: {
-      "fa-IR": "/",
-      "en-US": "/en",
-      "x-default": "/",
+      "fa-IR": `${siteConfig.url}/fa`,
+      "en-US": `${siteConfig.url}/en`,
+      "x-default": `${siteConfig.url}/fa`,
     },
   },
   openGraph: {
@@ -76,7 +77,7 @@ export const metadata: Metadata = {
     locale: siteConfig.locale,
     alternateLocale: siteConfig.alternateLocale,
     siteName: siteConfig.name,
-    url: siteConfig.url,
+    url: `${siteConfig.url}/fa`,
     images: [
       {
         url: siteConfig.defaultOgImage,
@@ -102,10 +103,8 @@ export const metadata: Metadata = {
       follow: true,
       "max-image-preview": "large",
       "max-snippet": -1,
-      "max-video-preview": -1,
     },
   },
-  manifest: "/manifest.json",
   icons: {
     icon: [{ url: "/images/icon-512.png" }],
   },
@@ -115,12 +114,9 @@ export const metadata: Metadata = {
     statusBarStyle: "black-translucent",
   },
   category: "medical",
-  verification: {
-    // Add your Google Search Console verification code here
-    // google: "your-google-verification-code",
-    // Add your Bing Webmaster Tools verification code here
-    // bing: "your-bing-verification-code",
-  },
+  verification: {},
+  // Web performance optimizations
+  // prefetch controls lazy-loaded below
 };
 
 export const viewport: Viewport = {
@@ -133,51 +129,66 @@ export const viewport: Viewport = {
   maximumScale: 5,
 };
 
+/** Root layout — renders the HTML shell, fonts, and non-locale-specific
+ * providers. Locale-aware components (Navbar, Footer, Preloader, etc.)
+ * live in app/[locale]/layout.tsx so every pre-rendered static page
+ * gets its own translated version.
+ */
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const locale = await getServerLocale();
-  const dir = localeDirs[locale];
-  const dict = getDictionary(locale);
-  const workingHours = getWorkingHoursSummary(locale);
-  const { isOpen } = getOpenNowStatus();
-
-  const jsonLd = [
-    websiteSchema(),
-    sitePhysicianSchema(),
-    medicalClinicSchema(),
-    treatmentProcessSchema(),
-    conversationalContentSchema(),
-    authoritativeSourceSchema(),
-    reviewSchema(),
-  ];
+  const dir = localeDirs[defaultLocale];
 
   return (
     <html
-      lang={locale}
+      lang={defaultLocale}
       dir={dir}
+      suppressHydrationWarning
       className={`${vazirmatn.variable} ${outfit.variable}`}
       data-scroll-behavior="smooth"
     >
       <head>
         <JsonLdScript data={jsonLd} />
-        {/* RSS feed */}
         <link
           rel="alternate"
           type="application/rss+xml"
           title="RSS Feed"
           href="/rss.xml"
         />
-        {/* llms.txt for AI crawlers */}
         <link rel="llms" href="/llms.txt" />
-        {/* LCP hero image — discovered before JS parses */}
+        {/* Preconnect to Google Fonts for faster font resource loading */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        {/* Preload hero image for LCP optimization - desktop */}
         <link
           rel="preload"
           as="image"
           href="/images/hero-radiology%20machine.webp"
           fetchPriority="high"
+        />
+        {/* Preload mobile hero portrait for LCP on phones */}
+        <link
+          rel="preload"
+          as="image"
+          href="/images/doctor-portrait-mobile.webp"
+          fetchPriority="high"
+          media="(max-width: 767px)"
+        />
+        {/* Preload hero image for LCP on print */}
+        <link
+          rel="preload"
+          as="image"
+          href="/images/hero-radiology%20machine.webp"
+          fetchPriority="high"
+          media="print"
+        />
+        {/* Set lang/dir based on URL locale */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "(function() { var locale = window.location.pathname.split('/')[1]; if (locale === 'fa' || locale === 'en') { document.documentElement.lang = locale; document.documentElement.dir = locale === 'fa' ? 'rtl' : 'ltr'; } })();",
+          }}
         />
       </head>
       <body
@@ -185,38 +196,12 @@ export default async function RootLayout({
         className="font-vazir antialiased"
         suppressHydrationWarning
       >
-        {/* Skip-to-content link for keyboard/screen-reader users */}
-        <a
-          href="#main-content"
-          className="sr-only z-[100] rounded-lg bg-primary-fill px-4 py-2 text-sm font-semibold text-on-primary focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
-        >
-          {locale === "fa" ? "پرش به محتوای اصلی" : "Skip to main content"}
-        </a>
         {Analytics && <Analytics />}
         <WebVitals />
         <PWARegister />
-        <Preloader />
         <ScrollProgress />
         <ThemeProvider>
-          <LocaleProvider initialLocale={locale}>
-            <BookingModalProvider>
-              <Navbar />
-              <RootErrorBoundary>
-                <main id="main-content" className="flex-1">
-                  {children}
-                </main>
-              </RootErrorBoundary>
-              <Footer
-                workingHours={workingHours}
-                isOpen={isOpen}
-              />
-              <StickyBookingBar
-                label={dict.common.bookNow}
-                isFa={locale === "fa"}
-              />
-              <FloatingContactLazy labels={dict.floating} />
-            </BookingModalProvider>
-          </LocaleProvider>
+          <BookingModalProvider>{children}</BookingModalProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -29,11 +29,9 @@ DirectoryIndex index.html
   # RewriteCond %{HTTP:X-Forwarded-Proto} !https
   # RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 
-  # Strip locale prefix (/en or /fa) for static export — serve underlying page
-  RewriteRule ^en/(.*)$ /$1 [L]
-  RewriteRule ^en$ / [L]
-  RewriteRule ^fa/(.*)$ /$1 [L]
-  RewriteRule ^fa$ / [L]
+  # Locale-prefixed routes serve pre-built static HTML directly
+  # /fa/* and /en/* have pre-built static pages at these paths
+  # (no rewrite needed — files exist where they're requested)
 
   # Serve existing files and directories directly
   RewriteCond %{REQUEST_FILENAME} -f [OR]
@@ -46,12 +44,14 @@ DirectoryIndex index.html
   # Favicon (actual file lives at /images/icon-512.png)
   RewriteRule ^favicon\.ico$ /images/icon-512.png [L]
 
-  # Root path → index.html
-  RewriteRule ^$ /index.html [L]
+  # Root path → redirect to default locale (fa)
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^$ /fa/ [R=301,L]
 
-  # Client-side routes fall back to index.html (Next.js renders real 404s)
+  # No SPA fallback needed with static export — 404 for unknown routes
   RewriteCond %{REQUEST_URI} !\.(?:css|js|jpg|jpeg|png|gif|svg|ico|woff|woff2|ttf|eot|webp|avif|json|xml|txt|html)$ [NC]
-  RewriteRule ^(.*)$ /index.html [L]
+  RewriteRule ^(.*)$ /fa/404.html [L]
 </IfModule>
 
 # CORS headers (restricted - replace with your actual domain)

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTransition } from "react";
+import { useLocale } from "@/components/providers/LocaleProvider";
 
 interface CategoryFilterProps {
   categories: { value: string; label: string }[];
@@ -16,6 +17,7 @@ interface CategoryFilterProps {
 export default function CategoryFilter({ categories, active }: CategoryFilterProps) {
   const router = useRouter();
   const pathname = usePathname();
+  const { locale } = useLocale();
   const [isPending, startTransition] = useTransition();
 
   const select = (value: string) => {
@@ -55,7 +57,7 @@ export default function CategoryFilter({ categories, active }: CategoryFilterPro
         </button>
       ))}
       {/* Keep a crawlable link for SEO while buttons handle the UX */}
-      <Link href="/blog" className="sr-only">
+      <Link href={`/${locale}/blog`} className="sr-only">
         همه مقالات
       </Link>
     </div>

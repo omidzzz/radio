@@ -15,6 +15,7 @@ interface ServiceCardProps {
   numberLabel: string;
   ctaLabel: string;
   featured?: boolean;
+  locale?: string;
 }
 
 /**
@@ -66,6 +67,7 @@ export default function ServiceCard({
   numberLabel,
   ctaLabel,
   featured = false,
+  locale = "fa",
 }: ServiceCardProps) {
   const cardRef = useRef<HTMLDivElement | null>(null);
   const accent = accents[index % 2 === 0 ? "primary" : "secondary"];
@@ -162,7 +164,7 @@ export default function ServiceCard({
 
         <div className="mt-6 border-t border-border pt-5">
           <Link
-            href="/booking"
+            href={`/${locale}/booking`}
             className="inline-flex items-center gap-2 rounded-lg text-sm font-semibold text-primary outline-none transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface hover:text-primary-hover"
           >
             <span>{ctaLabel}</span>

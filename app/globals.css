@@ -22,7 +22,7 @@
   --color-surface: #fffdf9;
   --color-gold: #c9a24b;
   --color-gold-soft: #e9d4a3;
-  --color-highlight: #82621f;
+  --color-highlight: #e3c67e;
   --color-soft: #ece5d1;
   --color-text-primary: #16281f;
   --color-text-secondary: #3d5248;
@@ -37,8 +37,8 @@
   --color-secondary: #2e7d5b;
   --color-secondary-hover: #3e9a74;
   --color-blog-dark: #07211a;
-  --font-vazirmatn: var(--font-vazirmatn), system-ui, sans-serif;
-  --font-outfit: var(--font-outfit), system-ui, sans-serif;
+  --font-vazirmatn: var(--font-vazirmatn-next), system-ui, sans-serif;
+  --font-outfit: var(--font-outfit-next), system-ui, sans-serif;
 
   /* Light theme — primary green is reserved for borders, accents, and
      hover states. Component fills (buttons, pills, chips) are WHITE so
@@ -95,7 +95,7 @@
   --color-deep: #04120d;
   --color-bg: #071a13;
   --color-surface: #0e2a1f;
-  --color-primary: #3dbe8b;
+  
   --color-primary-hover: #5fd3a6;
     /* Buttons stay forest green with ivory text in dark mode. */
   --color-primary-fill: #3dbe8b;
@@ -140,6 +140,7 @@
   --color-primary-hover: var(--color-primary-hover);
   --color-on-primary: var(--color-on-primary);
   --color-primary-fill: var(--color-primary-fill);
+  --color-primary-fill-soft: var(--color-primary-fill-soft);
   --color-button-fill: var(--color-button-fill);
   --color-button-fill-hover: var(--color-button-fill-hover);
   --color-button-text: var(--color-button-text, var(--color-on-primary));
@@ -163,8 +164,8 @@
   --color-secondary-hover: var(--color-secondary-hover);
   --color-blog-dark: var(--color-blog-dark);
   /* Font aliases used by the font-vazir / font-outfit utilities */
-  --font-vazir: var(--font-vazirmatn), system-ui, sans-serif;
-  --font-outfit: var(--font-outfit), system-ui, sans-serif;
+  --font-vazir: var(--font-vazirmatn-next), system-ui, sans-serif;
+  --font-outfit: var(--font-outfit-next), system-ui, sans-serif;
 
   /* ── Motion tokens ───────────────────────────────────────────────
      One source of truth for the site's timing so every transition and
@@ -565,6 +566,15 @@ h5,
 h6 {
   font-family: var(--font-vazirmatn), system-ui, sans-serif;
   font-weight: 800;
+}
+
+html[lang="en"] h1,
+html[lang="en"] h2,
+html[lang="en"] h3,
+html[lang="en"] h4,
+html[lang="en"] h5,
+html[lang="en"] h6 {
+  font-family: var(--font-outfit), system-ui, sans-serif;
 }
 
 /* Section ledes read with extra presence — medium weight, comfortable measure */
@@ -1281,6 +1291,19 @@ h3 {
   will-change: width;
 }
 
+
+/* ════════════════════════════════════════════════════════════════════
+   HERO MOBILE — full-height hero replacing the slider below `sm`.
+   Desktop slider (HeroSlider) is intentionally not touched.
+   ════════════════════════════════════════════════════════════════════ */
+.hero-mobile {
+  min-height: 100svh;
+}
+
+.debug-border {
+}
+
+
 /* ═══════════════════════════════════════════
    SPOTLIGHT CARD — cursor-following radial glow
    Set --spot-x / --spot-y from JS (in px or %)
@@ -1618,6 +1641,49 @@ h3 {
 
 .float-chat-btn:nth-child(2) {
   animation-delay: 90ms;
+}
+
+.float-chat-btn:nth-child(3) {
+  animation-delay: 180ms;
+}
+
+.float-hours-btn {
+  border: 1px solid rgb(226 198 126 / 0.65);
+  background: linear-gradient(145deg, rgb(20 92 65 / 0.96), rgb(2 6 23 / 0.96));
+  color: #f3d994;
+  box-shadow: 0 8px 24px -8px rgb(2 6 23 / 0.8), 0 0 18px -8px rgb(201 162 75 / 0.8);
+}
+
+.float-hours-btn:hover {
+  background: linear-gradient(145deg, rgb(26 115 82), rgb(20 92 65));
+  box-shadow: 0 10px 28px -8px rgb(2 6 23 / 0.8), 0 0 22px -6px rgb(201 162 75 / 0.9);
+}
+
+.float-hours-control {
+  position: relative;
+}
+
+.float-hours-panel {
+  position: absolute;
+  inset-inline-end: calc(100% + 0.75rem);
+  bottom: 0;
+  width: min(19rem, calc(100vw - 6rem));
+  padding: 1rem;
+  border: 1px solid rgb(201 162 75 / 0.35);
+  border-radius: 0.875rem;
+  background: color-mix(in srgb, var(--color-surface) 94%, transparent);
+  box-shadow: 0 18px 48px -16px rgb(2 6 23 / 0.55), 0 0 22px -12px rgb(201 162 75 / 0.45);
+  backdrop-filter: blur(18px);
+  animation: float-chat-in 0.2s var(--ease-brand) both;
+}
+
+@media (max-width: 767px) {
+  .float-hours-panel {
+    inset-inline-end: 0;
+    inset-inline-start: auto;
+    width: min(19rem, calc(100vw - 2rem));
+    bottom: calc(100% + 0.75rem);
+  }
 }
 
 .float-chat-btn:hover {
@@ -2917,7 +2983,7 @@ h3 {
   --color-surface: #fffdf9;
   --color-gold: #c9a24b;
   --color-gold-soft: #e9d4a3;
-  --color-highlight: #82621f;
+  --color-highlight: #e3c67e;
   --color-soft: #ece5d1;
   --color-text-primary: #16281f;
   --color-text-secondary: #3d5248;
@@ -2932,8 +2998,8 @@ h3 {
   --color-secondary: #2e7d5b;
   --color-secondary-hover: #3e9a74;
   --color-blog-dark: #07211a;
-  --font-vazirmatn: var(--font-vazirmatn), system-ui, sans-serif;
-  --font-outfit: var(--font-outfit), system-ui, sans-serif;
+  --font-vazirmatn: var(--font-vazirmatn-next), system-ui, sans-serif;
+  --font-outfit: var(--font-outfit-next), system-ui, sans-serif;
 
   /* Light theme — primary green is reserved for borders, accents, and
      hover states. Component fills (buttons, pills, chips) are WHITE so
@@ -2987,7 +3053,7 @@ h3 {
   --color-deep: #04120d;
   --color-bg: #071a13;
   --color-surface: #0e2a1f;
-  --color-primary: #3dbe8b;
+  
   --color-primary-hover: #5fd3a6;
   /* Dark theme keeps green fills */
   --color-primary-fill: #3dbe8b;
@@ -3054,8 +3120,8 @@ h3 {
   --color-secondary-hover: var(--color-secondary-hover);
   --color-blog-dark: var(--color-blog-dark);
   /* Font aliases used by the font-vazir / font-outfit utilities */
-  --font-vazir: var(--font-vazirmatn), system-ui, sans-serif;
-  --font-outfit: var(--font-outfit), system-ui, sans-serif;
+  --font-vazir: var(--font-vazirmatn-next), system-ui, sans-serif;
+  --font-outfit: var(--font-outfit-next), system-ui, sans-serif;
 
   /* ── Motion tokens ───────────────────────────────────────────────
      One source of truth for the site's timing so every transition and
@@ -5826,4 +5892,12 @@ h3 {
   height: 100%;
 }
 
+/* ── Mobile: prevent horizontal overflow/scroll ──
+   Stops the menu or page content from sliding past the viewport edge on
+   small screens. Applied here (late in the cascade) so it overrides any
+   earlier declarations without touching theme tokens. */
+html,
+body {
+  overflow-x: hidden;
+}
 

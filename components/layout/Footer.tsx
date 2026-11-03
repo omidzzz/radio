@@ -35,15 +35,16 @@ export default function Footer({
   const { locale } = useLocale();
   const toFarsi = useFarsiDigits();
   const isFa = locale === "fa";
+  const localePrefix = `/${locale}`;
   const closedLabel = currentDict.footer.closed;
 
   const quickLinks = [
-    { href: "/about", label: currentDict.footer.aboutUs },
-    { href: "/services", label: currentDict.footer.ourServices },
-    { href: "/forum", label: currentDict.footer.communityForum },
-    { href: "/booking", label: currentDict.footer.bookSession },
-    { href: "/blog", label: currentDict.nav?.blog || "Blog" },
-    { href: "/contact", label: currentDict.nav?.contact || "Contact" },
+    { href: `${localePrefix}/about`, label: currentDict.footer.aboutUs },
+    { href: `${localePrefix}/services`, label: currentDict.footer.ourServices },
+    { href: `${localePrefix}/forum`, label: currentDict.footer.communityForum },
+    { href: `${localePrefix}/booking`, label: currentDict.footer.bookSession },
+    { href: `${localePrefix}/blog`, label: currentDict.nav?.blog || "Blog" },
+    { href: `${localePrefix}/contact`, label: currentDict.nav?.contact || "Contact" },
   ];
 
   const socials: {
@@ -105,7 +106,7 @@ export default function Footer({
         <div className="grid gap-8 sm:gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-10">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link href="/" prefetch={false} className="group inline-flex max-w-full items-center">
+            <Link href={localePrefix} prefetch={false} className="group inline-flex max-w-full items-center">
               <span className="text-lg font-semibold text-white transition-colors group-hover:text-highlight">
                 {currentDict.common.doctorName}
               </span>
@@ -132,7 +133,7 @@ export default function Footer({
 
             {/* Primary conversion CTA */}
             <Link
-              href="/booking"
+              href={`${localePrefix}/booking`}
               prefetch={false}
               className="group mt-7 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary to-secondary px-5 py-2.5 text-sm font-semibold text-deep shadow-lg shadow-primary/25 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/40 focus-visible:ring-2 focus-visible:ring-highlight"
             >
@@ -259,7 +260,7 @@ export default function Footer({
 
             <div className="mt-8">
               <Link
-                href="/admin/login"
+                href={`${localePrefix}/admin/login`}
                 prefetch={false}
                 className="text-xs text-slate-500 transition-colors duration-300 hover:text-primary"
               >
@@ -295,7 +296,7 @@ export default function Footer({
 
             <div className="flex flex-wrap items-center justify-center gap-2.5 text-xs text-slate-400 sm:gap-3 lg:justify-end">
               <Link
-                href="/privacy"
+                href={`${localePrefix}/privacy`}
                 prefetch={false}
                 className="rounded-full px-2 py-1 transition-colors hover:text-slate-200"
               >
@@ -303,7 +304,7 @@ export default function Footer({
               </Link>
               <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary/70 shadow-[0_0_0_1px_rgba(255,255,255,0.12)] ring-1 ring-white/10 dark:bg-primary/80 dark:shadow-[0_0_0_1px_rgba(15,23,42,0.25)]" aria-hidden="true" />
               <Link
-                href="/terms"
+                href={`${localePrefix}/terms`}
                 prefetch={false}
                 className="rounded-full px-2 py-1 transition-colors hover:text-slate-200"
               >

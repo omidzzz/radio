@@ -9,8 +9,6 @@ interface HeatmapGridProps {
   cols?: number;
   /** Number of rows */
   rows?: number;
-  /** Cell size in pixels */
-  cellSize?: number;
   /** Gap between cells in pixels */
   gap?: number;
   /** "brand" = single cyan hue, "dose" = treatment-planning colour wash */
@@ -46,8 +44,8 @@ function doseColor(t: number): string {
 }
 
 /**
- * Hover support is probed once — touch devices skip the highlight
- * entirely instead of paying a re-render per tap.
+ * Hover support is probed once so touch devices can use tap selection
+ * without mouse hover events overriding the selected cell.
  */
 let hoverSupport: boolean | null = null;
 function canHover(): boolean {
@@ -70,7 +68,6 @@ function canHover(): boolean {
 export default memo(function HeatmapGrid({
   cols = 12,
   rows = 8,
-  cellSize = 12,
   gap = 3,
   palette = "brand",
   label = "Dose distribution heatmap",
@@ -128,10 +125,12 @@ export default memo(function HeatmapGrid({
 
   return (
     <div
-      className={`inline-grid ${className}`}
+      className={`grid w-full ${className}`}
       style={{
-        gridTemplateColumns: `repeat(${cols}, ${cellSize}px)`,
+        gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
+        gridTemplateRows: `repeat(${rows}, minmax(0, 1fr))`,
         gap: `${gap}px`,
+        aspectRatio: `${cols} / ${rows}`,
       }}
       role="img"
       aria-label={label}
@@ -139,10 +138,8 @@ export default memo(function HeatmapGrid({
       {cells.map((cell) => (
         <div
           key={cell.index}
-          className="heatmap-cell rounded-sm"
+          className="heatmap-cell aspect-square w-full rounded-sm"
           style={{
-            width: cellSize,
-            height: cellSize,
             backgroundColor: cellColor(cell.index),
           }}
           onMouseEnter={() => {
@@ -152,6 +149,12 @@ export default memo(function HeatmapGrid({
           onMouseLeave={() => {
             if (!canHover()) return;
             setHoveredCell(null);
+          }}
+          onClick={() => {
+            if (canHover()) return;
+            setHoveredCell((current) =>
+              current === cell.index ? null : cell.index
+            );
           }}
         />
       ))}

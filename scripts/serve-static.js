@@ -12,6 +12,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const zlib = require('zlib');
 
 const root = path.resolve(process.argv[2] || 'out');
 const port = Number(process.argv[3]) || 3000;
@@ -38,6 +39,27 @@ const EXT_TYPES = {
   '.wasm': 'application/wasm',
 };
 
+// MIME types that benefit from compression
+const COMPRESSIBLE_TYPES = new Set([
+  'text/html', 'text/css', 'text/javascript', 'application/javascript',
+  'application/json', 'application/xml', 'text/xml', 'text/plain',
+  'image/svg+xml',
+]);
+
+function compress(data, encoding) {
+  if (encoding === 'br') return zlib.brotliCompressSync(data, { level: 11 });
+  if (encoding === 'gzip') return zlib.gzipSync(data, { level: 9 });
+  return data;
+}
+
+function acceptsEncoding(acceptEncodingHeader) {
+  if (!acceptEncodingHeader) return null;
+  const parts = acceptEncodingHeader.split(',').map(p => p.trim().split(';')[0]);
+  if (parts.includes('br')) return 'br';
+  if (parts.includes('gzip')) return 'gzip';
+  return null;
+}
+
 const server = http.createServer((req, res) => {
   // Normalise the request path.
   let urlPath = decodeURIComponent(req.url.split('?')[0]);
@@ -55,12 +77,25 @@ const server = http.createServer((req, res) => {
       return;
     }
     const ext = path.extname(filePath).toLowerCase();
-    res.writeHead(200, {
-      'Content-Type': EXT_TYPES[ext] || 'application/octet-stream',
+    const contentType = EXT_TYPES[ext] || 'application/octet-stream';
+    const isCompressible = COMPRESSIBLE_TYPES.has(contentType.split(';')[0].trim());
+
+    const encoding = acceptsEncoding(req.headers['accept-encoding']);
+    let body = data;
+    const headers = {
+      'Content-Type': contentType,
       // Long-lived immutable cache for versioned assets.
       'Cache-Control': 'public, max-age=31536000, immutable',
-    });
-    res.end(data);
+    };
+
+    if (isCompressible && encoding && ext !== '.woff2' && ext !== '.woff') {
+      body = compress(data, encoding);
+      headers['Content-Encoding'] = encoding;
+      headers['Vary'] = 'Accept-Encoding';
+    }
+
+    res.writeHead(200, headers);
+    res.end(body);
   });
 });
 

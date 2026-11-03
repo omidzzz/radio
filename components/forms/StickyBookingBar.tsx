@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useBookingModal } from "@/components/forms/BookingModalProvider";
+import { useLocale } from "@/components/providers/LocaleProvider";
 
 /**
  * StickyBookingBar — single conversion CTA after the hero on small screens.
@@ -19,6 +20,8 @@ export default function StickyBookingBar({
 }) {
   const [visible, setVisible] = useState(false);
   const { isOpen: modalOpen } = useBookingModal();
+  const { locale } = useLocale();
+  const bookingHref = `/${locale}/booking`;
 
   useEffect(() => {
     let ticking = false;
@@ -57,7 +60,7 @@ export default function StickyBookingBar({
       aria-hidden={!show}
     >
       <Link
-        href="/booking"
+        href={bookingHref}
         tabIndex={show ? 0 : -1}
         className="btn-sheen flex min-h-[52px] items-center justify-center gap-2 rounded-2xl border border-primary/40 bg-bg/92 text-base font-bold text-text-primary shadow-[0_-8px_30px_-10px_rgba(2,6,23,0.5)] backdrop-blur-md active:scale-[0.98]"
       >

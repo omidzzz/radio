@@ -1,70 +1,45 @@
 import { NextRequest, NextResponse } from "next/server";
-import { LOCALE_COOKIE, defaultLocale, isLocale } from "@/lib/i18n/config";
-
-const COOKIE_OPTS = {
-  path: "/",
-  maxAge: 60 * 60 * 24 * 365, // 1 year
-  httpOnly: false,
-  sameSite: "lax" as const,
-};
 
 /**
- * Path-based locale routing:
+ * Path-based locale routing for static export:
  *
- *   /en        → serves "/" rendered in English
- *   /en/blog/3 → serves "/blog/3" rendered in English
+ *   /fa        → serves /fa/ (Persian, default)
+ *   /en        → serves /en/ (English)
  *
- * The /en prefix gives each language distinct, crawlable URLs (proper
- * hreflang targets) while the app itself stays single-segment — the
- * middleware rewrites internally and pins the locale cookie so server
- * components render the right dictionary.
+ * Both locales are now pre-rendered as static pages via the [locale]
+ * segment + generateStaticParams. No cookie-based locale detection
+ * is needed — the locale is always derived from the URL path.
+ *
+ * This middleware is only active in development (`next dev`).
+ * For production static exports, Next.js generates static HTML at
+ * build time and the middleware does not run.
  */
-function handlePrefixedLocale(request: NextRequest): NextResponse {
+function handleTrailingSlash(request: NextRequest): NextResponse | null {
   const { pathname } = request.nextUrl;
 
-  // Strip the /en prefix to find the inner route ("/en" → "/")
-  const innerPath = pathname === "/en" ? "/" : pathname.slice(3);
+  // Redirect /fa and /en without trailing slash to their slashed versions
+  // Only redirect if not already has a trailing slash to avoid redirect loop
+  if ((pathname === "/fa" || pathname === "/en") && !pathname.endsWith("/")) {
+    return NextResponse.redirect(new URL(`${pathname}/`, request.url), 308);
+  }
 
-  // Pin the locale on BOTH the incoming request (so SSR renders English
-  // for this very request) and the response (so it persists).
-  request.cookies.set(LOCALE_COOKIE, "en");
-  const response = NextResponse.rewrite(new URL(innerPath, request.url));
-  response.cookies.set(LOCALE_COOKIE, "en", COOKIE_OPTS);
-  return response;
+  return null;
 }
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // English-prefixed URLs always render in English
-  if (pathname === "/en" || pathname.startsWith("/en/")) {
-    return handlePrefixedLocale(request);
+  // Redirect root path to default locale
+  if (pathname === "/" || pathname === "") {
+    return NextResponse.redirect(new URL("/fa/", request.url), 308);
   }
 
-  const response = NextResponse.next();
+  // Trailing slash redirects are now handled by Next.js (trailingSlash: true).
+  // This middleware only handles the root path redirect to the default locale.
+  const slashRedirect = handleTrailingSlash(request);
+  if (slashRedirect) return slashRedirect;
 
-  // If no locale cookie is set, detect from Accept-Language header.
-  // English browsers land on the Persian default but can switch via the
-  // toggle or by visiting /en directly.
-  const cookieLocale = request.cookies.get(LOCALE_COOKIE)?.value;
-  if (!isLocale(cookieLocale)) {
-    const acceptLanguage = request.headers.get("accept-language") || "";
-    const detected = acceptLanguage
-      .split(",")
-      .map((lang) => lang.split(";")[0].trim().toLowerCase())
-      .find((lang) => lang.startsWith("fa") || lang.startsWith("en"));
-
-    const locale = isLocale(detected) ? detected : defaultLocale;
-    response.cookies.set(LOCALE_COOKIE, locale, COOKIE_OPTS);
-  }
-
-  // NOTE: No Cache-Control headers are set here. HTML pages use ISR
-  // (`export const revalidate`) and depend on the locale cookie, so caching
-  // them at the edge with s-maxage caused stale-locale responses. Static
-  // assets (/images, /uploads) are excluded by the matcher below and get
-  // long-lived immutable headers from next.config.ts instead.
-
-  return response;
+  return NextResponse.next();
 }
 
 export const config = {

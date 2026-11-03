@@ -1,13 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Dictionary } from "@/lib/i18n";
-import CountUp from "@/components/ui/CountUp";
 import CursorGlow from "@/components/ui/CursorGlow";
 import MagneticButton from "@/components/ui/MagneticButton";
 import LiveSlotBadge from "@/components/ui/LiveSlotBadge";
 import HeroBottomDivider from "@/components/home/HeroBottomDivider";
 import SlideBackground from "@/components/slides/SlideBackground";
-import { toFarsiDigits } from "@/lib/i18n/numbers";
 
 interface HeroProps {
   dict: Dictionary;
@@ -94,47 +92,6 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
               </MagneticButton>
             </div>
 
-            <div className="anim-fade-up delay-600 mt-8 flex flex-wrap items-stretch gap-y-4 rounded-2xl border border-border/60 bg-surface/70 px-4 py-4 shadow-sm backdrop-blur-sm sm:mt-12 sm:gap-y-0 sm:px-6 sm:py-5">
-              {[
-                {
-                  value: 15,
-                  suffix: "+",
-                  label: isFa ? "سال تجربه" : "Years Experience",
-                },
-                {
-                  value: 24,
-                  suffix: isFa ? toFarsiDigits("/7") : "/7",
-                  label: isFa ? "پشتیبانی" : "Support",
-                },
-                {
-                  value: 100,
-                  suffix: isFa ? "" : "%",
-                  prefix: isFa ? "٪" : "",
-                  label: isFa ? "دقت تشخیص" : "Diagnostic Accuracy",
-                },
-              ].map((stat, i, arr) => (
-                <div
-                  key={stat.label}
-                  className={`min-w-24 flex-1 px-2 sm:px-5 ltr:sm:border-r ltr:sm:border-border/60 ${
-                    i === arr.length - 1 ? "ltr:sm:border-r-0" : ""
-                  } rtl:sm:border-l rtl:sm:border-border/60 ${
-                    i === arr.length - 1 ? "rtl:sm:border-l-0" : ""
-                  }`}
-                >
-                  <div className="text-2xl font-bold text-text-primary sm:text-3xl">
-                    <CountUp
-                      end={stat.value}
-                      suffix={stat.suffix}
-                      prefix={stat.prefix}
-                      useFarsiDigits={isFa}
-                    />
-                  </div>
-                  <div className="mt-1 text-xs text-text-secondary sm:text-sm">
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
 
           <div className="relative order-1 md:order-2 md:col-span-5 xl:col-span-7">
@@ -149,7 +106,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
                   }
                   fill
                   sizes="(max-width: 767px) 38vw, (max-width: 1279px) 20vw, 24vw"
-                  loading="eager"
+                  loading="lazy"
                   className="object-cover transition-transform duration-700 hover:scale-105"
                 />
                 <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-primary/30" />
@@ -172,7 +129,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
                   }
                   fill
                   sizes="(max-width: 767px) 60vw, (max-width: 1279px) 32vw, 38vw"
-                  loading="eager"
+                  loading="lazy"
                   className="object-cover object-top transition-transform duration-700 hover:scale-105"
                 />
                 <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-primary/10" />

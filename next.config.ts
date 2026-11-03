@@ -7,8 +7,15 @@ const scriptSrc = isDev
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  output: "export",
+  // `output: "export"` (static HTML export) is incompatible with Next.js
+  // middleware: the dev server cannot run middleware in this output mode,
+  // which causes the dev server to restart in a loop and the page to keep
+  // refreshing. The static export is only needed at production build time,
+  // so keep it there and run the full server rendering during development
+  // so middleware (locale routing) works correctly and the page does not loop.
+  ...(process.env.NODE_ENV === "production" ? { output: "export" } : {}),
   trailingSlash: true,
+
   poweredByHeader: false,
   compress: true,
   eslint: {

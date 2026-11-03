@@ -34,12 +34,16 @@ function isLowCapabilityDevice(): boolean {
     return true;
   }
 
+  // Mobile / coarse-pointer devices: keep decorative ambient layers off by
+  // default to protect scrolling and battery on phones.
+  if (window.matchMedia("(max-width: 767px)").matches) return true;
+  if (window.matchMedia("(pointer: coarse)").matches) return true;
+
   const nav = navigator as Navigator & { deviceMemory?: number };
   const cores = nav.hardwareConcurrency ?? 8;
   const memory = nav.deviceMemory ?? 8;
   return cores <= 4 || memory <= 4;
 }
-
 interface AmbientFxProps {
   children: ReactNode;
   /** Cheap static stand-in rendered on constrained devices */

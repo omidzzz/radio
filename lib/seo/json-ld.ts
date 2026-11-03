@@ -53,12 +53,16 @@ export function medicalClinicSchema(): JsonLd {
     knowsAbout: [
       "Radiotherapy",
       "Radiation Oncology",
+      "Neuro-Oncology",
+      "Central Nervous System Tumours",
       "Cancer Treatment",
-      "MRI",
-      "CT Scan",
-      "Diagnostic Imaging",
       "Treatment Planning",
-      "Radiation Therapy",
+      "Contouring",
+      "IMRT",
+      "VMAT",
+      "SBRT",
+      "SRS",
+      "FSRT",
     ],
     makesOffer: [
       {
@@ -435,7 +439,7 @@ export function conversationalContentSchema(): JsonLd {
     },
     potentialAnswer: {
       "@type": "Answer",
-      text: "Dr. Pari Ghadamgahi is a specialist in radiotherapy and oncology in Tehran, providing radiotherapy and radiosurgery with a focus on CNS, head and neck, gynecologic, gastrointestinal, breast, prostate and genitourinary cancers, together with treatment planning, patient support, and follow-up care.",
+      text: "Dr. Pari Ghadamgahi is a specialist in radiotherapy and oncology in Tehran, providing radiotherapy with a focus on neuro-oncology and tumours of the central nervous system (CNS), together with treatment planning, contouring, and patient support and follow-up care.",
     },
     mainEntity: {
       "@type": "Physician",

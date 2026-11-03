@@ -39,7 +39,7 @@ type MagneticButtonProps<T extends ElementType = "span"> = {
 
 const VARIANTS: Record<Variant, string> = {
   // Primary — solid, clean, subtle lift
-  primary: "bg-primary text-white border border-transparent hover:bg-primary-hover shadow-sm hover:shadow dark:bg-button-fill dark:text-button-text dark:hover:bg-button-fill-hover",
+  primary: "bg-primary text-primary border border-transparent hover:bg-primary-hover shadow-sm hover:shadow dark:bg-button-fill dark:text-button-text dark:hover:bg-button-fill-hover",
 
   // Ghost — hairline border, soft hover
   ghost: "bg-surface text-text-primary border border-border hover:border-primary hover:bg-surface dark:text-text-primary dark:border-border dark:hover:border-primary",

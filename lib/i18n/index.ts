@@ -15,6 +15,16 @@ export function getDictionary(locale: Locale): Dictionary {
   return dictionaries[locale] || fa;
 }
 
+/**
+ * Prefix a bare path with the given locale segment.
+ * e.g. localePath("en", "/about") → "/en/about"
+ *      localePath("fa", "/")      → "/fa"
+ */
+export function localePath(locale: Locale, path: string): string {
+  const clean = path.replace(/^\/|\/$/g, "");
+  return clean ? `/${locale}/${clean}` : `/${locale}`;
+}
+
 export function getCategoryLabel(
   category: string,
   dict: Dictionary

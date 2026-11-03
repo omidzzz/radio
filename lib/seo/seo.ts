@@ -3,7 +3,7 @@
 // Identity data sourced from Dr. Ghadamgahi's visit card.
 
 export const siteConfig = {
-  name: "دکتر پری قدمگاهی | Dr. Pari Ghadamgahi",
+  name: "دکتر پری قدمگاهی ",
   shortName: "دکتر پری قدمگاهی",
   // Page <title> strings per locale (used in metadata templates)
   title: {
@@ -11,19 +11,19 @@ export const siteConfig = {
     en: "Dr. Pari Ghadamgahi | Radiotherapy & Oncology Specialist",
   },
   description: {
-    fa: "وب‌سایت دکتر پری قدمگاهی، متخصص رادیوتراپی و آنکولوژی — پرتودرمانی و رادیوسرجری با تمرکز بر تومورهای مغز و اعصاب (CNS)، سر و گردن، زنان، گوارش، پستان، پروستات و ادراری-تناسلی. رزرو مشاوره، پرسش در انجمن گفتگو و آشنایی با گزینه‌های درمانی.",
-    en: "The website of Dr. Pari Ghadamgahi, specialist in radiotherapy and oncology — radiotherapy and radiosurgery focused on CNS, head and neck, gynecologic, gastrointestinal, breast, prostate and genitourinary cancers. Book a consultation, ask questions in the forum, and learn about treatment options.",
+    fa: "وب‌سایت دکتر پری قدمگاهی، متخصص رادیوتراپی و آنکولوژی — پرتودرمانی با تمرکز بر نوروانکولوژی و تومورهای سیستم عصبی مرکزی (CNS). رزرو مشاوره، پرسش در انجمن گفتگو و آشنایی با گزینه‌های درمانی.",
+    en: "The website of Dr. Pari Ghadamgahi, specialist in radiotherapy and oncology — radiotherapy with a focus on neuro-oncology and tumours of the central nervous system (CNS). Book a consultation, ask questions in the forum, and learn about treatment options.",
   },
   url: process.env.NEXT_PUBLIC_APP_URL || "https://yourdomain.com",
   locale: "fa_IR",
   alternateLocale: "en_US",
   defaultOgImage: "/images/og-default.jpg",
   twitterHandle: "@radiotherapyclinic",
-  phone: "021 8870 9650",
-  phoneHref: "tel:02188709650",
-  mobile: "0912 459 9949",
-  mobileHref: "tel:09124599949",
-  email: "info@radiotherapyclinic.com",
+  phone: "09125044953",
+  phoneHref: "tel:09125044953",
+  mobile: "09125044953",
+  mobileHref: "tel:09125044953",
+  email: "dr.pghadamgahi@gmail.com",
   mapsEmbedUrl: `https://www.google.com/maps?q=${encodeURIComponent(
     "Day Hospital, Valiasr Street, Tehran"
   )}&z=15&output=embed`,
@@ -59,7 +59,7 @@ export const siteConfig = {
     "رادیوتراپی",
     "رادیوسرجری",
     "متخصص آنکولوژی",
-    "Dr. Pari Ghadamgahi",
+    "درCTOR پری Fußgary",
     "radiotherapy",
     "radiation oncology",
     "radiosurgery",
@@ -78,7 +78,7 @@ export const siteConfig = {
  * metadata so every language version self-lists its counterpart.
  */
 export function localizedAlternates(path: string) {
-  const faUrl = `${siteConfig.url}${path}`;
+  const faUrl = `${siteConfig.url}/fa${path === "/" ? "" : path}`;
   const enUrl = `${siteConfig.url}/en${path === "/" ? "" : path}`;
   return {
     canonical: faUrl,

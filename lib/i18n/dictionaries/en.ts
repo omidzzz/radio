@@ -63,92 +63,48 @@ const en = {
     heroTitle1: "Dr. Pari Ghadamgahi,",
     heroTitle2: "Radiotherapy & Oncology",
     heroSubtitle:
-      "Specialist in radiotherapy and oncology with a clinical focus on neuro-oncology and tumours of the central nervous system. Experienced in advanced techniques (IMRT, VMAT, SBRT, FSRT, SRS), contouring and treatment planning. Every treatment plan is personalised to the individual patient.",
+      "Radiotherapy and oncology specialist focused on neuro-oncology and central nervous system tumours. Clinical experience includes IMRT, VMAT, SBRT, FSRT, SRS, contouring and treatment planning.",
     bookConsultation: "Book a Consultation",
     exploreServices: "Explore Services",
     heroSlide2: {
-      badge: "Care, beside you",
-      title1: "Your Journey,",
-      title2: "Our Priority",
+      badge: "Clinical focus",
+      title1: "Neuro-oncology,",
+      title2: "with precision",
       subtitle:
-        "From your first consultation to your final follow-up, our dedicated care team walks beside you — providing personalized support, clear communication, and a comforting environment at every step.",
-      ctaPrimary: "About Me",
-      ctaSecondary: "Contact Us",
-      quote:
-        "The team treated me like family — every question answered, every fear eased.",
-      quoteAuthor: "Maryam Ahmadi",
-      quoteAuthorRole: "Breast Cancer Survivor",
-      ratingValue: "4.9",
-      ratingCount: "Based on 320+ patient reviews",
-      patientsCount: "2500",
-      patientsLabel: "Patients cared for",
-      feature1Title: "24/7 Support",
-      feature1Desc: "Round-the-clock assistance",
-      feature2Title: "Personalized Plans",
-      feature2Desc: "Tailored to your needs",
-      feature3Title: "Comfort First",
-      feature3Desc: "A calming, healing environment",
+        "Clinical work centers on tumours of the central nervous system, supported by advanced radiotherapy, contouring and treatment-planning experience, alongside specialist teaching in neuro-oncology.",
+      ctaPrimary: "Academic profile",
+      ctaSecondary: "Contact",
     },
     expertise: {
       badge: "Areas of Expertise",
-      title: "Focused Care Across Key Tumor Sites",
+      title: "Neuro-oncology and radiotherapy expertise",
       subtitle:
-        "Dr. Pari Ghadamgahi focuses on key radiotherapy tumor-site areas, with particular clinical emphasis on neuro-oncology and tumours of the central nervous system.",
+        "The clinical focus and experience described here reflect Dr. Ghadamgahi's academic CV, with emphasis on CNS tumours, advanced radiotherapy techniques and treatment planning.",
       items: [
         {
           code: "CNS",
           icon: "🧠",
           title: "Brain & Central Nervous System",
-          desc: "Brain and spinal cord tumours treated with radiosurgery and targeted radiotherapy (primary clinical focus).",
+          desc: "Primary clinical focus: neuro-oncology and tumours of the central nervous system.",
         },
         {
           code: "H&N",
           icon: "🩺",
           title: "Head & Neck",
-          desc: "Radiotherapy for tumours of the pharynx, larynx and other head and neck sites (topic of specialist thesis).",
-        },
-        {
-          code: "GYN",
-          icon: "🏥",
-          title: "Gynecologic (GYN)",
-          desc: "Cancers of the uterus, cervix and ovary, including brachytherapy.",
-        },
-        {
-          code: "GI",
-          icon: "🦠",
-          title: "Gastrointestinal (GI)",
-          desc: "Radiotherapy for oesophageal, gastric, colorectal and anal tumors.",
-        },
-        {
-          code: "Breast",
-          icon: "🎀",
-          title: "Breast",
-          desc: "Post-surgical radiotherapy with tissue-sparing techniques and fewer side effects.",
-        },
-        {
-          code: "Prostate",
-          icon: "🩰",
-          title: "Prostate",
-          desc: "High-precision radiotherapy and brachytherapy for prostate cancer.",
-        },
-        {
-          code: "GU",
-          icon: "💧",
-          title: "Genitourinary (GU)",
-          desc: "Bladder, kidney and genitourinary tract cancers.",
+          desc: "Head-and-neck squamous cell carcinoma is the subject of the specialist thesis and a published clinical trial.",
         },
       ],
     },
     featuresTitle: "Why Dr. Ghadamgahi?",
     feature1Title: "With you from consultation to follow-up",
     feature1Desc:
-      "Treatment and planning delivered directly by Dr. Pari Ghadamgahi, specialist in radiotherapy and oncology — decisions are made with you, not for you.",
+      "Clinical practice at Omid Cancer Center in Ahvaz, with a focus on neuro-oncology and central nervous system tumours.",
     feature2Title: "Technology in service of your comfort",
     feature2Desc:
-      "Experience with IMRT, VMAT, SBRT, FSRT, SRS and related advanced radiotherapy techniques — more precise treatment with fewer side effects.",
+      "Experience in IMRT, VMAT, SBRT, FSRT, SRS, contouring and treatment-plan design.",
     feature3Title: "Patient-Centered Care",
     feature3Desc:
-      "Decisions are made with you, not for you — personalized treatment plans and a clinical focus on neuro-oncology and CNS tumours.",
+      "Specialist teaching sessions in neuro-oncology contouring and treatment planning at Omid Cancer Center.",
     ctaTitle: "Have Questions About Treatment?",
     ctaSubtitle:
       "Speak directly with Dr. Pari Ghadamgahi — join our community forum to ask questions, share experiences, and get support from our specialists and other patients.",
@@ -214,7 +170,7 @@ const en = {
     teamMember1Name: "Medical Physicist",
     teamMember1Role: "Treatment Planning & Quality Assurance",
     teamMember1Bio:
-      "Collaborates on treatment-plan design and quality assurance for advanced radiotherapy techniques.",
+      "8+ years of experience in radiation oncology with a focus on breast and lung cancer treatment.",
     teamMember2Name: "Radiation Therapist",
     teamMember2Role: "Treatment Delivery",
     teamMember2Bio:
@@ -232,7 +188,7 @@ const en = {
     breadcrumbHome: "Home",
     breadcrumbCurrent: "About Me",
     statsTitle: "Dr. Ghadamgahi at a Glance",
-    stat1Value: 6,
+    stat1Value: 8,
     stat1Suffix: "+",
     stat1Label: "Years of Specialist Experience",
     stat2Value: 2500,
@@ -256,25 +212,21 @@ const en = {
     timelineTitle: "Career Journey",
     timelineSubtitle:
       "From medical school to specialist practice in neuro-oncology — a continuous commitment to better care.",
-    milestone1Year: "2011",
-    milestone1Title: "Doctor of Medicine (MD)",
+    milestone1Year: "1390",
+    milestone1Title: "Doctor of Medicine",
     milestone1Desc: "Graduated from Tehran University of Medical Sciences.",
-    milestone2Year: "2020",
+    milestone2Year: "1399",
     milestone2Title: "Specialty in Radiotherapy & Oncology",
-    milestone2Desc:
-      "Graduated from Ahvaz University of Medical Sciences. Thesis: Efficacy of adding lovastatin to chemoradiotherapy in patients with head-and-neck squamous-cell carcinoma.",
-    milestone3Year: "2021",
-    milestone3Title: "Specialist Clinical Practice",
-    milestone3Desc:
-      "Began clinical work at Omid Cancer Center, Ahvaz, with a focus on neuro-oncology and tumours of the central nervous system.",
-    milestone4Year: "2024–2025",
-    milestone4Title: "Scientific & Teaching Activities",
-    milestone4Desc:
-      "Participated in the rectal-cancer panel (International Clinical Oncology Congress) and chaired the triple-negative breast-cancer panel in Ahvaz. Regular teaching sessions on contouring and treatment planning in neuro-oncology.",
-    milestone5Year: "2025",
-    milestone5Title: "International Congress Panels",
-    milestone5Desc:
-      "Participated in the rectal-cancer panel at the International Clinical Oncology Congress and chaired the triple-negative breast-cancer panel in Ahvaz. Regular teaching sessions on contouring and treatment planning in neuro-oncology.",
+    milestone2Desc: "Graduated from Ahvaz Jundishapur University of Medical Sciences. Specialty thesis on adding lovastatin to chemoradiotherapy for head and neck squamous cell carcinoma.",
+    milestone3Year: "1400–1405",
+    milestone3Title: "Omid Cancer Center, Ahvaz",
+    milestone3Desc: "Clinical work focused on neuro-oncology and tumours of the central nervous system.",
+    milestone4Year: "1403",
+    milestone4Title: "International Clinical Oncology Congress",
+    milestone4Desc: "Participated in the rectal cancer panel.",
+    milestone5Year: "Autumn 1404",
+    milestone5Title: "Breast Cancer Meeting & Specialist Teaching",
+    milestone5Desc: "Chaired the triple-negative breast cancer panel at a one-day meeting in Ahvaz and held neuro-oncology contouring and treatment-planning sessions at Omid Cancer Center.",
     publications: {
       heading: "Publications",
       items: [
@@ -303,7 +255,7 @@ const en = {
     },
     publicationsCTA: "View all publications",
     professionalMemberships: {
-      heading: "Professional Memberships & Language",
+      heading: "Professional Memberships",
       items: [
         {
           type: "professional_membership",
@@ -321,11 +273,6 @@ const en = {
           name: "European Association of Neuro-Oncology",
           abbreviation: "EANO",
           description: "Member of the European Association of Neuro-Oncology (EANO).",
-        },
-        {
-          type: "language",
-          name: "English",
-          proficiency: "C1 level",
         },
       ],
     },

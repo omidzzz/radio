@@ -1,16 +1,13 @@
 import { getServerDictionary } from "@/lib/i18n/server";
 import HeroSlider from "@/components/home/HeroSlider";
-import TrustStrip from "@/components/home/TrustStrip";
+import HeroMobile from "@/components/home/HeroMobile";
 import AreasOfExpertise from "@/components/home/AreasOfExpertise";
 import Features from "@/components/home/Features";
 import Process from "@/components/home/Process";
 import Equipment from "@/components/home/Equipment";
 import Precision from "@/components/home/Precision";
-import Credibility from "@/components/home/Credibility";
 import FAQ from "@/components/ui/FAQ";
 import CTA from "@/components/home/CTA";
-import Testimonials from "@/components/home/Testimonials";
-import CertificationBand from "@/components/home/CertificationBand";
 import ScanLineDivider from "@/components/ui/ScanLineDivider";
 import SliceDivider from "@/components/ui/SliceDivider";
 import HeroEntrance from "@/components/ui/HeroEntrance";
@@ -63,9 +60,13 @@ export default async function HomePage() {
 
       {/* Hero slider — full-bleed immersive on load */}
       <HeroEntrance>
-        <HeroSlider dict={dict} isFa={isFa} />
+        <div className="hidden sm:block">
+          <HeroSlider dict={dict} isFa={isFa} />
+        </div>
+        <div className="block sm:hidden">
+          <HeroMobile dict={dict} isFa={isFa} />
+        </div>
       </HeroEntrance>
-      <TrustStrip isFa={isFa} />
       <AreasOfExpertise dict={dict} isFa={isFa} />
       <Features dict={dict} isFa={isFa} />
       {/* Below-the-fold sections — rendered inline; content-visibility
@@ -78,16 +79,13 @@ export default async function HomePage() {
         <Equipment isFa={isFa} modalities={dict.home.modalities} />
         <Precision isFa={isFa} />
         <ScanLineDivider />
-        <Testimonials isFa={isFa} />
-        <Credibility isFa={isFa} />
         <SliceDivider label={isFa ? "برش ۰.۵ میلی‌متر" : "SLICE · 0.5 mm"} />
-        <CertificationBand isFa={isFa} />
         <FAQ
           title={dict.home.faqTitle}
           subtitle={dict.home.faqSubtitle}
           items={faqItems}
         />
-        <CTA dict={dict} />
+        <CTA dict={dict} isFa={isFa} />
       </div>
 
       {/* Quiet node network above the footer — desktop only, mobile gets

@@ -63,7 +63,7 @@ export default function Credibility({ isFa }: CredibilityProps) {
             <Reveal key={c.label} delay={i * 200} variant="up">
               <div className="surface-card no-lift-touch group relative flex flex-col items-center p-8">
                 {/* Top accent line */}
-                <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
+                <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[#e3c67e]/40 to-transparent opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
 
                 {/* Icon */}
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-soft text-primary transition-colors duration-200 group-hover:bg-primary-fill group-hover:text-on-primary">

@@ -56,7 +56,7 @@ export function LocaleProvider({
     // Apply dir to document
     document.documentElement.dir = locale === "fa" ? "rtl" : "ltr";
     document.documentElement.lang = locale;
-  }, []);
+  }, [initialLocale, locale]);
 
   const setLocale = (newLocale: Locale) => {
     // Persist the cookie client-side so the server/middleware render the

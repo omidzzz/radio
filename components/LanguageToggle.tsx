@@ -1,40 +1,39 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useLocale } from "./providers/LocaleProvider";
 import { Locale, LOCALE_COOKIE } from "@/lib/i18n/config";
 
 export default function LanguageToggle() {
   const { locale, setLocale } = useLocale();
+  const router = useRouter();
   const pathname = usePathname();
 
   const toggle = () => {
     const newLocale: Locale = locale === "fa" ? "en" : "fa";
 
-    const isPrefixed = pathname === "/en" || pathname.startsWith("/en/");
-    let target: string;
-    if (newLocale === "en") {
-      target = isPrefixed ? pathname : `/en${pathname === "/" ? "" : pathname}`;
+    // pathname always starts with /fa or /en thanks to the [locale] segment.
+    // Swap the locale prefix to build the target URL.
+    const segments = pathname.split("/").filter(Boolean);
+    if (segments.length > 0 && (segments[0] === "fa" || segments[0] === "en")) {
+      segments[0] = newLocale;
     } else {
-      target = isPrefixed ? pathname.slice(3) || "/" : pathname;
+      segments.unshift(newLocale);
     }
+    const target = "/" + segments.join("/");
 
-    // Persist cookie so SSR/middleware render the right language, and flip
-    // the client context (dir/lang) immediately.
+    // Persist cookie for middleware/Accept-Language detection on fresh visits.
     document.cookie = `${LOCALE_COOKIE}=${newLocale}; path=/; max-age=${
       60 * 60 * 24 * 365
     }; samesite=lax${location.protocol === "https:" ? "; secure" : ""}`;
+
+    // Flip the client context (dir/lang) immediately, then navigate.
     setLocale(newLocale);
 
-    // Client-side navigation via Next's router — fast, no reload, and
-    // ThemeProvider stays mounted so the theme does not flicker. Defer to a
-    // separate tick: calling replace() directly inside React's discrete
-    // onClick event is swallowed by Next (the original bug). A brief delay
-    // lets the router settle so the navigation fires on the first try.
-    setTimeout(() => {
-      const router = (window as unknown as { next?: { router?: { replace: (href: string) => Promise<boolean> } } }).next?.router;
-      if (router?.replace) router.replace(target);
-    }, 150);
+    // Client-side navigation via Next's App Router — loads the
+    // pre-rendered static page for the other locale. ThemeProvider stays
+    // mounted so the theme does not flicker.
+    router.replace(target);
   };
 
   return (

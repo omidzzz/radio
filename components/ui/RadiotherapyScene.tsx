@@ -656,10 +656,10 @@ export default function RadiotherapyScene() {
               const isMajor = i % 6 === 0;
               const inner = isMajor ? 82 : 88;
               const outer = isMajor ? 100 : 96;
-              const x1 = 255 + Math.cos(angle) * inner;
-              const y1 = 160 + Math.sin(angle) * inner;
-              const x2 = 255 + Math.cos(angle) * outer;
-              const y2 = 160 + Math.sin(angle) * outer;
+              const x1 = Math.round((255 + Math.cos(angle) * inner) * 10000) / 10000;
+              const y1 = Math.round((160 + Math.sin(angle) * inner) * 10000) / 10000;
+              const x2 = Math.round((255 + Math.cos(angle) * outer) * 10000) / 10000;
+              const y2 = Math.round((160 + Math.sin(angle) * outer) * 10000) / 10000;
               return (
                 <line
                   key={i}

@@ -31,19 +31,19 @@ export default function NotFound() {
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
           <Link
-            href="/"
+            href="/fa/"
             className="inline-flex items-center gap-2 rounded-full bg-primary-fill px-6 py-3 text-sm font-semibold text-on-primary shadow-sm transition-colors duration-300 hover:bg-primary-fill-hover"
           >
             بازگشت به صفحه اصلی
           </Link>
           <Link
-            href="/blog"
+            href="/fa/blog/"
             className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-6 py-3 text-sm font-semibold text-text-primary shadow-sm transition-colors duration-300 hover:border-primary/40 hover:text-primary"
           >
             مشاهده مقالات
           </Link>
           <Link
-            href="/forum"
+            href="/fa/forum/"
             className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-6 py-3 text-sm font-semibold text-text-primary shadow-sm transition-colors duration-300 hover:border-primary/40 hover:text-primary"
           >
             انجمن گفتگو

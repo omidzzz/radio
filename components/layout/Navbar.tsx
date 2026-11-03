@@ -129,7 +129,7 @@ export default function Navbar() {
         className={`relative z-20 border-b transition-all duration-300 ${
           scrolled
             ? "border-primary/25 bg-bg/90 shadow-[0_8px_30px_-14px_rgba(2,6,23,0.35)] backdrop-blur-md min-[1220px]:backdrop-blur-xl"
-            : "border-border bg-bg/80"
+            : "border-border bg-bg"
         }`}
       >
 

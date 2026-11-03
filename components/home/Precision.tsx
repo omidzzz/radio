@@ -51,14 +51,14 @@ export default function Precision({ isFa }: PrecisionProps) {
       ];
 
   return (
-    <section className="content-visibility relative overflow-hidden bg-soft section-pad">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/25 to-transparent" />
-      <div className="pointer-events-none absolute -left-24 top-16 hidden h-64 w-64 rounded-full bg-primary/10 blur-3xl lg:block" />
+    <section className="content-visibility relative overflow-hidden bg-soft section-pad pb-4! sm:pb-12! lg:pb-(--section-y)!">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#e3c67e]/25 to-transparent" />
+      <div className="pointer-events-none absolute -left-24 top-16 hidden h-64 w-64 rounded-full bg-[#e3c67e]/10 blur-3xl lg:block" />
 
       <div className="relative z-10 mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:gap-16 lg:px-8">
         {/* ── Dose map panel ── */}
         <Reveal variant="left">
-          <div className="relative overflow-hidden rounded-[var(--radius-panel)] border border-border bg-surface p-5 shadow-[var(--elevation-card)] sm:p-7">
+          <div className="relative overflow-visible rounded-[var(--radius-panel)] border border-border bg-surface p-5 shadow-[var(--elevation-card)] sm:p-7">
             {/* Panel header — plan readouts, not marketing copy */}
             <div className="flex items-center justify-between gap-4">
               <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-secondary">
@@ -70,21 +70,22 @@ export default function Precision({ isFa }: PrecisionProps) {
             </div>
 
             {/* Isodose field on a faint planning grid */}
-            <div className="relative mt-5 flex items-center justify-center rounded-2xl border border-border/70 bg-bg px-3 py-6 sm:py-8">
+            <div className="relative mt-5 flex flex-col items-center justify-center rounded-2xl border border-border/70 bg-bg px-2 sm:px-3 py-6 sm:py-8">
               <div className="planning-grid pointer-events-none absolute inset-0 rounded-2xl opacity-30" />
-              <HeatmapGrid
-                cols={20}
-                rows={13}
-                cellSize={10}
-                gap={3}
-                palette="dose"
-                label={
-                  isFa
-                    ? "نمای توزیع دوز در پلن درمانی"
-                    : "Dose distribution of a treatment plan"
-                }
-                className="relative"
-              />
+              <div className="min-w-0 w-full">
+                <HeatmapGrid
+                  cols={20}
+                  rows={13}
+                  gap={3}
+                  palette="dose"
+                  label={
+                    isFa
+                      ? "نمای توزیع دوز در پلن درمانی"
+                      : "Dose distribution of a treatment plan"
+                  }
+                  className="relative"
+                />
+              </div>
             </div>
 
             {/* Legend */}
@@ -124,45 +125,41 @@ export default function Precision({ isFa }: PrecisionProps) {
           </Reveal>
 
           {/* Plan metrics */}
-          <dl className="tnum mt-8 grid grid-cols-1 gap-3 border-t border-border pt-6 md:grid-cols-3 md:gap-4">
+          <dl className="tnum mt-5 grid grid-cols-1 gap-3 border-t border-border pt-6 sm:mt-8 md:grid-cols-3 md:gap-4">
             {stats.map((s, i) => (
-              <Reveal key={s.label} delay={i * 90}>
-                <div>
-                  <dt className="text-[11px] font-semibold uppercase tracking-wide text-text-secondary">
-                    {s.label}
-                  </dt>
-                  <dd className="mt-1.5 text-lg font-bold text-text-primary sm:text-xl">
-                    {s.value}
-                  </dd>
-                </div>
-              </Reveal>
+              <div key={s.label}>
+                <dt className="text-[11px] font-semibold uppercase tracking-wide text-text-secondary">
+                  {s.label}
+                </dt>
+                <dd className="mt-1.5 text-lg font-bold text-text-primary sm:text-xl">
+                  {s.value}
+                </dd>
+              </div>
             ))}
           </dl>
 
           {/* QA checklist */}
-          <ul className="mt-8 space-y-3">
+          <ul className="mt-6 space-y-3 sm:mt-8">
             {checklist.map((line, i) => (
-              <Reveal key={line} delay={i * 90}>
-                <li className="flex items-start gap-3 text-sm text-text-secondary">
-                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-soft text-primary ring-1 ring-primary/20">
-                    <svg
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      aria-hidden="true"
-                      className="h-3 w-3"
-                      stroke="currentColor"
-                      strokeWidth={2.2}
-                    >
-                      <path
-                        d="M3.5 8.5l3 3 6-6.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </span>
-                  <span>{line}</span>
-                </li>
-              </Reveal>
+              <li key={line} className="flex items-start gap-3 text-sm text-text-secondary">
+                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-soft text-primary ring-1 ring-primary/20">
+                  <svg
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    aria-hidden="true"
+                    className="h-3 w-3"
+                    stroke="currentColor"
+                    strokeWidth={2.2}
+                  >
+                    <path
+                      d="M3.5 8.5l3 3 6-6.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>
+                <span>{line}</span>
+              </li>
             ))}
           </ul>
         </div>

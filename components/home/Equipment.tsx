@@ -26,8 +26,8 @@ export default function Equipment({ isFa, modalities = [] }: EquipmentProps) {
   ];
 
   return (
-    <section className="content-visibility band-dark section-pad">
-      <div className="pointer-events-none absolute inset-x-0 top-[30%] hidden h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent lg:block" />
+    <section className="content-visibility band-dark section-pad pt-2! sm:pt-12! lg:pt-(--section-y)!">
+      <div className="pointer-events-none absolute inset-x-0 top-[30%] hidden h-px bg-gradient-to-r from-transparent via-[#e3c67e]/20 to-transparent lg:block" />
 
       <div className="relative z-10 mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:gap-14 lg:px-8">
         {/* Detailed MRI illustration — 3D tilt on hover */}
@@ -35,7 +35,7 @@ export default function Equipment({ isFa, modalities = [] }: EquipmentProps) {
           <TiltCard className="h-full" maxTilt={5}>
             <PowerOnGantry className="rounded-3xl">
             <div className="group relative mx-auto flex aspect-[4/3] w-full max-w-lg items-center justify-center rounded-3xl border border-white/10 bg-white/[0.03] p-6 transition-colors duration-200 hover:border-primary/30 hover:bg-white/[0.05]">
-              <div className="pointer-events-none absolute hidden h-56 w-56 rounded-full bg-primary/20 blur-3xl lg:block" />
+              <div className="pointer-events-none absolute hidden h-56 w-56 rounded-full bg-[#e3c67e]/20 blur-3xl lg:block" />
 
               <svg
                 viewBox="0 0 420 300"
@@ -154,16 +154,14 @@ export default function Equipment({ isFa, modalities = [] }: EquipmentProps) {
 
           <dl className="mt-8 grid grid-cols-1 gap-4 border-t border-white/10 pt-8 sm:grid-cols-2 sm:gap-6">
             {specs.map((s, i) => (
-              <Reveal key={s.label} delay={i * 100}>
-                <div className="cursor-default">
-                  <dt className="text-[11px] font-semibold uppercase tracking-wide text-muted">
-                    {s.label}
-                  </dt>
-                  <dd className="mt-1.5 text-xl font-semibold text-white">
-                    {s.value}
-                  </dd>
-                </div>
-              </Reveal>
+              <div key={s.label} className="cursor-default">
+                <dt className="text-[11px] font-semibold uppercase tracking-wide text-muted">
+                  {s.label}
+                </dt>
+                <dd className="mt-1.5 text-xl font-semibold text-white">
+                  {s.value}
+                </dd>
+              </div>
             ))}
           </dl>
 
@@ -175,7 +173,7 @@ export default function Equipment({ isFa, modalities = [] }: EquipmentProps) {
                     key={item}
                     className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-white/70 transition-colors duration-300 hover:border-primary/50 hover:text-white"
                   >
-                    <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-primary/70" />
+                    <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[#e3c67e]/70" />
                     {item}
                   </li>
                 ))}

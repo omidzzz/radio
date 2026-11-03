@@ -31,7 +31,7 @@ export default function MapEmbed({
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <div className="map-embed relative min-h-[280px] flex-1 bg-soft">
+    <div className="map-embed relative min-h-[360px] flex-1 bg-soft lg:min-h-[520px]">
       {loaded ? (
         <iframe
           src={embedUrl}
