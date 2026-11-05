@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { formatDate, formatShortDate, formatRelativeTime } from "../lib/i18n/dates";
+import { formatDate, formatShortDate, formatRelativeTime } from "@/lib/i18n/dates";
 
 describe("Date formatting", () => {
   const testDate = new Date("2026-08-15T10:30:00Z");

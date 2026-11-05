@@ -1,0 +1,21 @@
+   ▲ Next.js 15.5.28
+   - Local:        http://localhost:3000
+   - Network:      http://10.10.10.200:3000
+   - Environments: .env
+
+ ✓ Starting...
+ ✓ Ready in 4s
+ ✓ Compiled /middleware in 265ms (115 modules)
+ ○ Compiling /[locale]/about ...
+ ✓ Compiled /[locale]/about in 4.1s (808 modules)
+ GET /fa/about/ 200 in 6651ms
+ GET /fa/about/ 200 in 323ms
+ ✓ Compiled in 2s (301 modules)
+ GET /fa/about/ 200 in 577ms
+ ✓ Compiled in 944ms (301 modules)
+ ✓ Compiled in 624ms (301 modules)
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 3.6s (1151 modules)
+ GET /fa/about/ 500 in 5178ms
+ GET /fa/about/ 200 in 879ms
+ ✓ Compiled in 809ms (454 modules)

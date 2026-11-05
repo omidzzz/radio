@@ -2,6 +2,10 @@
 
 A complete business website foundation for a radiotherapist, built with Next.js 15, React 19, TypeScript, Tailwind CSS, and SQLite.
 
+## Validated bilingual JSON blog
+
+Validate with `npm run blog:check`, import with `npm run blog:sync`, then rebuild with `npm run build`. Full schema, backup, draft, legacy URL, demo-safety, and deployment instructions: `C:\Users\ghada\Desktop\Projects\radiotherapist-website\docs\BLOG-IMPORT.md`.
+
 ## Features
 
 ### 📄 Standard Business Pages

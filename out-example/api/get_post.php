@@ -45,6 +45,7 @@ try {
     unset($translations['__meta']);
 
     $post = [
+        'id' => (int) $row['id'],
         'slug' => $row['slug'],
         'kind' => $kind,
         'status' => $row['status'] ?? 'draft',

@@ -7,6 +7,16 @@ const scriptSrc = isDev
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/fa/",
+        permanent: true,
+      },
+    ];
+  },
+  outputFileTracingRoot: process.cwd(),
   // `output: "export"` (static HTML export) is incompatible with Next.js
   // middleware: the dev server cannot run middleware in this output mode,
   // which causes the dev server to restart in a loop and the page to keep

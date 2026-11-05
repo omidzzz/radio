@@ -3,6 +3,12 @@
 
 # next.js
 /.next/
+/.next-blog-verify/
+/data/backups/
+/data/blog-before-import.json
+/data/blog-build-verification.json
+/data/blog-browser-verification.json
+/data/blog-verification/
 /out/
 
 # production

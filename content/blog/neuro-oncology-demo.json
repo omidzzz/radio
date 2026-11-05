@@ -1,0 +1,799 @@
+{
+  "slug": "neuro-oncology-demo",
+  "date": "2026-11-04",
+  "updatedAt": "2026-11-04",
+  "tags": [
+    "نوروانکولوژی",
+    "Neuro-oncology",
+    "CNS",
+    "patient-education",
+    "template-demo"
+  ],
+  "status": "published",
+  "kind": "article",
+  "author": {
+    "fa": "محتوای نمایشی — بدون بازبینی پزشک",
+    "en": "Demo content — not clinician-reviewed"
+  },
+  "category": {
+    "fa": "نوروانکولوژی",
+    "en": "Neuro-oncology"
+  },
+  "featured": true,
+  "demo": true,
+  "featuredImage": {
+    "src": "/images/neuro-oncology-demo.svg",
+    "alt": {
+      "fa": "تصویر مفهومی مغز و ارتباطات مراقبتی؛ نه تصویر پزشکی واقعی",
+      "en": "Conceptual brain and care connections; not a medical scan"
+    }
+  },
+  "translations": {
+    "fa": {
+      "title": "نوروانکولوژی؛ آشنایی با مسیر تشخیص، درمان و پیگیری",
+      "excerpt": "راهنمای آموزشی نمونه درباره تومورهای مغز و نخاع، تصمیم‌گیری تیمی، پرتودرمانی و پرسش‌های جلسه مشاوره. این محتوا نمایشی است و توسط پزشک بازبینی نشده است.",
+      "content": [
+        {
+          "type": "heading",
+          "level": 1,
+          "text": "نوروانکولوژی؛ آشنایی با مسیر تشخیص، درمان و پیگیری"
+        },
+        {
+          "type": "paragraph",
+          "style": "lead",
+          "text": "شنیدن نام تومور مغزی می‌تواند پرسش‌های فراوانی ایجاد کند. این نمونه آموزشی، نقشه‌ای برای گفت‌وگو با تیم درمان است؛ نه راهی برای تشخیص از روی علائم یا انتخاب درمان بدون ارزیابی تخصصی."
+        },
+        {
+          "type": "callout",
+          "tone": "warning",
+          "title": "درباره این نمونه",
+          "text": "این مقاله در ۴ نوامبر ۲۰۲۶ برای آزمایش قالب و ورود JSON تهیه شده و توسط پزشک بازبینی نشده است. آمار بلوک بعدی فقط تعداد بخش‌های این راهنماست؛ نرخ موفقیت یا احتمال درمان نیست."
+        },
+        {
+          "type": "stats",
+          "items": [
+            {
+              "value": "۲",
+              "label": "زبان این راهنما"
+            },
+            {
+              "value": "۳",
+              "label": "محور گفت‌وگو: تشخیص، درمان، پیگیری"
+            },
+            {
+              "value": "۱",
+              "label": "چک‌لیست برای آماده‌سازی مشاوره"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "نوروانکولوژی چه حوزه‌ای است؟"
+        },
+        {
+          "type": "paragraph",
+          "text": "نوروانکولوژی به مراقبت از افراد مبتلا به تومورهای سیستم عصبی می‌پردازد. مغز و نخاع با هم سیستم عصبی مرکزی یا CNS را تشکیل می‌دهند. یک ضایعه می‌تواند از همین بافت‌ها آغاز شود یا از سرطان در بخش دیگری از بدن به مغز گسترش یابد؛ به حالت دوم متاستاز مغزی می‌گویند. [۱، ۲]"
+        },
+        {
+          "type": "list",
+          "style": "bullet",
+          "items": [
+            "واژه تومور به‌تنهایی نوع یا رفتار آن را مشخص نمی‌کند. [۱]",
+            "تیم باتجربه در نوع تومور می‌تواند به بررسی تشخیص و گزینه‌های مراقبت کمک کند. [۲]",
+            "شرح حال، معاینه، تصاویر و در موارد مناسب بافت تومور، هر کدام بخشی از پاسخ را فراهم می‌کنند. [۱، ۲]"
+          ]
+        },
+        {
+          "type": "image",
+          "src": "/images/neuro-oncology-demo.svg",
+          "alt": "طرح مفهومی مغز با خطوط ارتباطی در رنگ‌های سبز جنگلی و طلایی",
+          "caption": "تصویر مفهومی ساخته‌شده برای این نمونه است؛ محل تومور، اسکن بیمار یا نقشه دوز را نشان نمی‌دهد.",
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "علائم و زمان درخواست کمک"
+        },
+        {
+          "type": "paragraph",
+          "text": "علائم ممکن است شامل سردرد رو به تشدید، تشنج، تغییرات بینایی یا گفتار و ضعف باشد. این نشانه‌ها علت‌های دیگری هم دارند و وجودشان به معنی قطعی تومور نیست؛ علائم جدید یا رو به تشدید باید بررسی شوند. [۳]"
+        },
+        {
+          "type": "callout",
+          "tone": "danger",
+          "title": "در وضعیت حاد منتظر نوبت سایت نمانید",
+          "text": "تشنج نخستین‌بار، تشنج طولانی یا کاهش هوشیاری نیازمند کمک فوری است. برای ضعف ناگهانی یا اختلال ناگهانی گفتار نیز فوراً کمک اورژانسی بگیرید. از مسیر اورژانس محل زندگی استفاده کنید، نه فرم تماس یا بخش نظرات. [۳، ۱۰]"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "از تصویربرداری تا تشخیص دقیق"
+        },
+        {
+          "type": "paragraph",
+          "text": "MRI برای بررسی تومورهای مغز و نخاع کاربرد دارد. در بسیاری از موارد، بررسی نمونه بافت به تشخیص نوع تومور کمک می‌کند؛ اما امکان و ضرورت نمونه‌برداری را تیم درمان با توجه به محل ضایعه و شرایط فرد می‌سنجد. [۱، ۲]"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "چرا گزارش مولکولی مهم است؟"
+        },
+        {
+          "type": "paragraph",
+          "text": "در بعضی گلیوماها، تغییرات IDH و حذف هم‌زمان 1p/19q در نام‌گذاری و طبقه‌بندی نقش دارند. برای تشخیص الیگودندروگلیوما هر دو ویژگی بررسی می‌شوند. نتیجه یک آزمایش به‌تنهایی نسخه درمانی نیست؛ آن را کنار گزارش کامل با متخصص مرور کنید. [۴]"
+        },
+        {
+          "type": "table",
+          "caption": "مدارک تشخیصی و پرسش‌هایی که می‌توان درباره آن‌ها مطرح کرد",
+          "headers": [
+            "مدرک",
+            "پرسش پیشنهادی"
+          ],
+          "rows": [
+            [
+              "تصاویر و گزارش MRI",
+              "کدام یافته‌ها به بررسی یا مقایسه بیشتر نیاز دارند؟"
+            ],
+            [
+              "گزارش پاتولوژی",
+              "نام دقیق و درجه تومور چیست؟"
+            ],
+            [
+              "گزارش مولکولی در صورت انجام",
+              "کدام نتیجه بر تشخیص من اثر دارد؟"
+            ],
+            [
+              "خلاصه درمان‌های قبلی",
+              "برای تکمیل پرونده چه اطلاعاتی کم است؟"
+            ]
+          ]
+        },
+        {
+          "type": "quote",
+          "text": "پرسش پیشنهادی برای جلسه: هدف این تصمیم چیست، چه گزینه‌های دیگری دارم و چه چیزی هنوز روشن نیست؟",
+          "attribution": "پرسش نوشته‌شده برای این نمونه؛ نقل‌قول از پزشک یا بیمار نیست"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "گزینه‌های درمان؛ یک نسخه برای همه وجود ندارد"
+        },
+        {
+          "type": "paragraph",
+          "text": "بسته به تشخیص و شرایط فرد، مراقبت ممکن است شامل پایش فعال، جراحی، پرتودرمانی یا درمان دارویی باشد. مراقبت حمایتی برای مشکلات ناشی از بیماری یا درمان هم اهمیت دارد. معرفی یک گزینه در این متن به معنی مناسب بودن آن برای شما نیست. [۱]"
+        },
+        {
+          "type": "list",
+          "style": "ordered",
+          "items": [
+            "از تیم بخواهید هدف درمان و گزینه‌های جایگزین را توضیح دهد.",
+            "درباره منفعت مورد انتظار، عوارض و تأثیر برنامه بر زندگی روزمره بپرسید.",
+            "بخواهید ابهام‌های تشخیص و دلیل نیاز یا عدم نیاز به نظر دوم روشن شود."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "SRS و پرتودرمانی کل مغز چه تفاوتی دارند؟"
+        },
+        {
+          "type": "paragraph",
+          "text": "SRS پرتودرمانی متمرکز است و با وجود نام رادیوسرجری، جراحی باز نیست. در متاستازهای مغزی انتخاب بین روش‌های موضعی و پرتودرمانی کل مغز به ارزیابی تخصصی وابسته است؛ حجم و محل ضایعات، وضعیت عمومی و درمان‌های دیگر اهمیت دارند. جدول زیر فقط واژه‌ها را توضیح می‌دهد. [۵، ۶]"
+        },
+        {
+          "type": "table",
+          "caption": "مقایسه مفهومی روش‌ها؛ نه توصیه برای انتخاب درمان",
+          "headers": [
+            "واژه",
+            "معنای کلی",
+            "پرسشی برای متخصص"
+          ],
+          "rows": [
+            [
+              "SRS",
+              "پرتودرمانی بسیار متمرکز به هدف مشخص",
+              "چرا این روش برای شرایط من مطرح است یا نیست؟"
+            ],
+            [
+              "پرتودرمانی تقسیم‌شده",
+              "رساندن درمان طی چند نوبت",
+              "تقسیم درمان چه هدفی در برنامه من دارد؟"
+            ],
+            [
+              "پرتودرمانی کل مغز",
+              "درمان محدوده وسیع‌تری از مغز",
+              "درباره کنترل بیماری و خطرهای شناختی چه باید بدانم؟"
+            ]
+          ]
+        },
+        {
+          "type": "timeline",
+          "title": "طرح گفت‌وگوی مرحله‌به‌مرحله؛ زمان‌بندی ثابت نیست",
+          "items": [
+            {
+              "title": "کامل کردن پرونده",
+              "text": "مدارک و فهرست پرسش‌های خود را جمع‌آوری کنید.",
+              "label": "آماده‌سازی"
+            },
+            {
+              "title": "روشن کردن هدف‌ها",
+              "text": "گزینه‌ها و ترجیح‌های خود را با تیم مرور کنید.",
+              "label": "گفت‌وگو"
+            },
+            {
+              "title": "ثبت گام بعدی",
+              "text": "نام مسئول پیگیری و راه تماس در صورت مشکل را یادداشت کنید.",
+              "label": "پس از جلسه"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "عوارض، کیفیت زندگی و پیگیری"
+        },
+        {
+          "type": "paragraph",
+          "text": "پرتودرمانی مغز ممکن است با خستگی، ریزش مو در ناحیه درمان، تهوع یا تغییرات حافظه و تمرکز همراه باشد. عوارض برای همه یکسان نیستند و بعضی ممکن است دیرتر ظاهر شوند. خطرهای مرتبط با برنامه خود و علائمی را که باید گزارش کنید از تیم بپرسید. [۷]"
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "پیگیری فقط تصویربرداری نیست",
+          "text": "ضعف حرکتی یا تغییرات عملکردی ممکن است به ارزیابی توان‌بخشی نیاز داشته باشد. پیگیری پس از درمان برای بررسی وضعیت بیماری و نیازهای فرد ادامه پیدا می‌کند؛ فاصله و محتوای مراجعه را تیم مشخص می‌کند. [۸]"
+        },
+        {
+          "type": "callout",
+          "tone": "success",
+          "title": "فضایی برای زندگی روزمره",
+          "text": "درباره احساسات، ارتباط با اطرافیان و بازگشت به کار هم صحبت کنید. منابع خودمراقبتی می‌توانند نقطه شروع گفت‌وگو باشند، اما جای حمایت حرفه‌ای در صورت نیاز را نمی‌گیرند. [۹]"
+        },
+        {
+          "type": "checklist",
+          "title": "چک‌لیست پیشنهادی برای جلسه مشاوره",
+          "items": [
+            "تصاویر قابل مشاهده و گزارش‌های تصویربرداری",
+            "پاتولوژی، آزمایش‌های مولکولی و خلاصه درمان‌های قبلی در صورت وجود",
+            "فهرست داروها، حساسیت‌ها و پرسش‌های مهم",
+            "یادداشت تغییرات علائم و تأثیرشان بر فعالیت‌های روزمره",
+            "راه تماس تیم، گام بعدی و نیاز به همراه یا مترجم"
+          ]
+        },
+        {
+          "type": "accordion",
+          "title": "گفت‌وگوهای کوتاه برای شروع",
+          "items": [
+            {
+              "question": "آیا همه تومورها با MRI به‌تنهایی تشخیص قطعی می‌گیرند؟",
+              "answer": "خیر. تصاویر مهم‌اند، اما در بسیاری از موارد نمونه بافت و بررسی‌های دیگر هم مطرح می‌شود. در بعضی شرایط نمونه‌برداری مناسب یا ممکن نیست. [۱، ۲]"
+            },
+            {
+              "question": "آیا می‌توان نتیجه درمان یک فرد دیگر را به خودم تعمیم بدهم؟",
+              "answer": "خیر. تجربه یک فرد جای بررسی پرونده شما را نمی‌گیرد. از متخصص بخواهید عوامل مرتبط با شرایط خودتان را توضیح دهد."
+            }
+          ]
+        },
+        {
+          "type": "glossary",
+          "title": "واژه‌نامه کوچک",
+          "items": [
+            {
+              "term": "CNS",
+              "definition": "سیستم عصبی مرکزی؛ مغز و نخاع. [۱]"
+            },
+            {
+              "term": "متاستاز مغزی",
+              "definition": "گسترش سرطان از محل دیگری در بدن به مغز. [۱]"
+            },
+            {
+              "term": "SRS",
+              "definition": "پرتودرمانی متمرکز؛ نام آن به معنی جراحی باز نیست. [۶]"
+            },
+            {
+              "term": "1p/19q",
+              "definition": "ناحیه‌هایی از کروموزوم‌های ۱ و ۱۹ که وضعیت حذف هم‌زمان آن‌ها در تشخیص برخی گلیوماها بررسی می‌شود. [۴]"
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "یادداشت فنی این نمونه"
+        },
+        {
+          "type": "paragraph",
+          "text": "بلوک کد زیر فقط شیوه نگهداری محتوای آموزشی را نشان می‌دهد و هیچ محاسبه دوز، انتخاب دارو یا توصیه بالینی انجام نمی‌دهد. تمام ظاهر مقاله از قالب مشترک سایت می‌آید."
+        },
+        {
+          "type": "code",
+          "language": "json",
+          "caption": "نمونه داده نمایشی؛ نه دستور درمان",
+          "code": "{\n  \"slug\": \"neuro-oncology-demo\",\n  \"demo\": true,\n  \"translations\": [\"fa\", \"en\"]\n}"
+        },
+        {
+          "type": "cta",
+          "title": "برای جلسه خود پرسش آماده کنید",
+          "text": "برای درخواست مشاوره از صفحه رزرو استفاده کنید. در وضعیت فوری به اورژانس مراجعه کنید و اطلاعات شناسایی یا پرونده پزشکی را در نظرات عمومی ننویسید.",
+          "buttonText": "صفحه درخواست مشاوره",
+          "buttonUrl": "/fa/booking"
+        },
+        {
+          "type": "references",
+          "title": "منابع آموزشی؛ شماره‌ها با متن هماهنگ‌اند",
+          "items": [
+            {
+              "title": "[۱] Adult Central Nervous System Tumors Treatment — Patient Version",
+              "url": "https://www.cancer.gov/types/brain/patient/adult-brain-treatment-pdq",
+              "publisher": "National Cancer Institute"
+            },
+            {
+              "title": "[۲] About Rare Brain and Spine Tumors",
+              "url": "https://www.cancer.gov/rare-brain-spine-tumor/tumors/about-cns-tumors",
+              "publisher": "National Cancer Institute"
+            },
+            {
+              "title": "[۳] Symptoms of a malignant brain tumour",
+              "url": "https://www.nhs.uk/conditions/malignant-brain-tumour/symptoms/",
+              "publisher": "NHS"
+            },
+            {
+              "title": "[۴] Oligodendroglioma and Other IDH-Mutated Tumors",
+              "url": "https://www.cancer.gov/rare-brain-spine-tumor/tumors/oligodendroglioma",
+              "publisher": "National Cancer Institute"
+            },
+            {
+              "title": "[۵] Radiation therapy for brain metastases guideline overview",
+              "url": "https://www.astro.org/news-and-publications/news-and-media-center/news-releases/2022/astro-issues-clinical-guideline-on-radiation-therapy-for-brain-metastases",
+              "publisher": "ASTRO"
+            },
+            {
+              "title": "[۶] Radiation Therapy for Brain Tumors in Adults",
+              "url": "https://www.cancer.org/cancer/types/brain-spinal-cord-tumors-adults/treating/radiation-therapy.html",
+              "publisher": "American Cancer Society"
+            },
+            {
+              "title": "[۷] Radiation Therapy Side Effects",
+              "url": "https://www.cancer.gov/about-cancer/treatment/types/radiation-therapy/side-effects",
+              "publisher": "National Cancer Institute"
+            },
+            {
+              "title": "[۸] After Brain Tumor Treatment in Adults",
+              "url": "https://www.cancer.org/cancer/types/brain-spinal-cord-tumors-adults/after-treatment.html",
+              "publisher": "American Cancer Society"
+            },
+            {
+              "title": "[۹] Managing Your Self-Care",
+              "url": "https://www.cancer.gov/rare-brain-spine-tumor/living/self-care",
+              "publisher": "National Cancer Institute"
+            },
+            {
+              "title": "[۱۰] Symptoms of a stroke",
+              "url": "https://www.nhs.uk/conditions/stroke/symptoms/",
+              "publisher": "NHS"
+            }
+          ]
+        }
+      ],
+      "html": "",
+      "css": "",
+      "faq": [
+        {
+          "question": "آیا این مقاله توسط پزشک سایت تأیید شده است؟",
+          "answer": "خیر. این یک نمونه برای نمایش قالب است و توسط پزشک بازبینی یا تأیید نشده است."
+        },
+        {
+          "question": "آیا این راهنما برای کودکان هم برنامه درمانی ارائه می‌کند؟",
+          "answer": "خیر. این نمونه برنامه درمانی فردی یا کودکان ارائه نمی‌کند؛ درمان کودکان ممکن است با بزرگسالان تفاوت داشته باشد. [۱]"
+        }
+      ],
+      "seo": {
+        "title": "نوروانکولوژی؛ راهنمای آموزشی نمونه",
+        "metaDescription": "نمونه دوزبانه و بدون بازبینی پزشک برای آشنایی با مراقبت از تومورهای سیستم عصبی مرکزی و نمایش بلوک‌های مقاله.",
+        "openGraph": {
+          "title": "نوروانکولوژی — نمونه آموزشی",
+          "description": "آشنایی با گفت‌وگو و تصمیم‌گیری در مراقبت از تومورهای مغز و نخاع؛ بدون بازبینی پزشک.",
+          "image": "/images/neuro-oncology-demo.svg"
+        },
+        "twitter": {
+          "title": "نوروانکولوژی — نمونه آموزشی",
+          "image": "/images/neuro-oncology-demo.svg"
+        },
+        "keywords": [
+          "نوروانکولوژی",
+          "تومور مغزی",
+          "پرتودرمانی"
+        ],
+        "focusKeyword": "نوروانکولوژی"
+      }
+    },
+    "en": {
+      "title": "Neuro-oncology: understanding diagnosis, treatment and follow-up",
+      "excerpt": "An educational sample about brain and spinal cord tumors, team decisions, radiation therapy and consultation questions. Demonstration content only; not clinician-reviewed.",
+      "content": [
+        {
+          "type": "heading",
+          "level": 1,
+          "text": "Neuro-oncology: understanding diagnosis, treatment and follow-up"
+        },
+        {
+          "type": "paragraph",
+          "style": "lead",
+          "text": "Hearing the words brain tumor can raise many questions. This educational example is a map for conversations with your care team, not a way to diagnose symptoms or choose treatment without specialist assessment."
+        },
+        {
+          "type": "callout",
+          "tone": "warning",
+          "title": "About this demonstration",
+          "text": "Created on November 4, 2026 to test the template and JSON import workflow. Not clinician-reviewed. The figures below count features of this guide; they are not treatment outcomes or success rates."
+        },
+        {
+          "type": "stats",
+          "items": [
+            {
+              "value": "2",
+              "label": "languages in this guide"
+            },
+            {
+              "value": "3",
+              "label": "conversation topics: diagnosis, treatment, follow-up"
+            },
+            {
+              "value": "1",
+              "label": "consultation preparation checklist"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "What does neuro-oncology cover?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Neuro-oncology concerns care for people with nervous system tumors. The brain and spinal cord form the central nervous system (CNS). A tumor may start there or spread to the brain from cancer elsewhere, called a brain metastasis. [1, 2]"
+        },
+        {
+          "type": "list",
+          "style": "bullet",
+          "items": [
+            "The word tumor alone does not describe its type or behavior. [1]",
+            "A team experienced in the tumor type can help review diagnosis and care options. [2]",
+            "History, examination, imaging and, when appropriate, tumor tissue each contribute information. [1, 2]"
+          ]
+        },
+        {
+          "type": "image",
+          "src": "/images/neuro-oncology-demo.svg",
+          "alt": "Conceptual brain with care connections in forest green and gold",
+          "caption": "Original concept illustration for this sample; not a patient's scan, tumor location or radiation dose plan.",
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Symptoms and when to seek help"
+        },
+        {
+          "type": "paragraph",
+          "text": "Symptoms may include worsening headaches, seizures, changes in vision or speech, or weakness. Other conditions can cause these symptoms too. New or worsening symptoms need assessment; they do not prove that a tumor is present. [3]"
+        },
+        {
+          "type": "callout",
+          "tone": "danger",
+          "title": "Do not wait for a website appointment in an emergency",
+          "text": "Seek immediate help for a first seizure, a prolonged seizure or reduced consciousness. Sudden weakness or sudden speech difficulty also needs emergency help. Use your local emergency service, not a contact form or comments section. [3, 10]"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "From imaging to a precise diagnosis"
+        },
+        {
+          "type": "paragraph",
+          "text": "MRI helps assess brain and spinal cord tumors. Tissue examination helps establish the diagnosis in many cases, but whether biopsy is appropriate and feasible depends on the lesion's location and the person's circumstances. [1, 2]"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Why might a molecular report matter?"
+        },
+        {
+          "type": "paragraph",
+          "text": "In some gliomas, IDH changes and combined 1p/19q loss contribute to classification. Both features are needed to diagnose oligodendroglioma. A test result alone is not a prescription; review it with a specialist alongside the complete report. [4]"
+        },
+        {
+          "type": "table",
+          "caption": "Diagnostic records and questions you could ask",
+          "headers": [
+            "Record",
+            "Suggested question"
+          ],
+          "rows": [
+            [
+              "MRI images and report",
+              "Which findings need review or comparison?"
+            ],
+            [
+              "Pathology report",
+              "What is the exact tumor name and grade?"
+            ],
+            [
+              "Molecular report, if available",
+              "Which result affects my diagnosis?"
+            ],
+            [
+              "Previous treatment summary",
+              "What information is still missing?"
+            ]
+          ]
+        },
+        {
+          "type": "quote",
+          "text": "A question to take to your visit: What is this decision trying to achieve, what alternatives do I have, and what remains uncertain?",
+          "attribution": "Written for this demonstration; not a clinician or patient quotation"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Treatment options: no single plan fits everyone"
+        },
+        {
+          "type": "paragraph",
+          "text": "Depending on diagnosis and circumstances, care may include active surveillance, surgery, radiation or drug treatment. Supportive care addresses problems caused by illness or treatment. Mentioning an option here does not mean it is appropriate for you. [1]"
+        },
+        {
+          "type": "list",
+          "style": "ordered",
+          "items": [
+            "Ask about the treatment goal and alternatives.",
+            "Discuss expected benefits, side effects and effects on daily life.",
+            "Ask what remains uncertain and whether another opinion could help."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "How do SRS and whole-brain radiation differ?"
+        },
+        {
+          "type": "paragraph",
+          "text": "SRS is focused radiation, not open surgery despite the name radiosurgery. For brain metastases, choosing focal approaches or whole-brain radiation requires specialist assessment; lesion volume and location, general health and other treatments matter. This table explains terms rather than recommending a treatment. [5, 6]"
+        },
+        {
+          "type": "table",
+          "caption": "Conceptual comparison, not a treatment-selection guide",
+          "headers": [
+            "Term",
+            "General meaning",
+            "Question for your specialist"
+          ],
+          "rows": [
+            [
+              "SRS",
+              "Highly focused radiation to a defined target",
+              "Why is this option being considered or excluded?"
+            ],
+            [
+              "Fractionated radiation",
+              "Treatment delivered over multiple sessions",
+              "What is the purpose of dividing my treatment?"
+            ],
+            [
+              "Whole-brain radiation",
+              "Treatment covering a broader brain region",
+              "What should I understand about disease control and cognitive risks?"
+            ]
+          ]
+        },
+        {
+          "type": "timeline",
+          "title": "A conversation outline, not a fixed timetable",
+          "items": [
+            {
+              "title": "Complete the record",
+              "text": "Gather your reports and questions.",
+              "label": "Preparation"
+            },
+            {
+              "title": "Clarify goals",
+              "text": "Review options and your preferences with the team.",
+              "label": "Discussion"
+            },
+            {
+              "title": "Write down the next step",
+              "text": "Record who will follow up and whom to contact with concerns.",
+              "label": "After the visit"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Side effects, quality of life and follow-up"
+        },
+        {
+          "type": "paragraph",
+          "text": "Brain radiation can cause fatigue, hair loss in the treatment area, nausea, or memory and concentration changes. Effects vary and some can appear later. Ask which risks relate to your plan and which symptoms to report. [7]"
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Follow-up is more than imaging",
+          "text": "Weakness or functional changes may call for rehabilitation assessment. Follow-up continues after treatment to review disease status and personal needs. Your team determines the timing and content of visits. [8]"
+        },
+        {
+          "type": "callout",
+          "tone": "success",
+          "title": "Make room for everyday life",
+          "text": "Discuss emotions, relationships and returning to work as well. Self-care resources can start a conversation, but do not replace professional support when needed. [9]"
+        },
+        {
+          "type": "checklist",
+          "title": "Suggested consultation checklist",
+          "items": [
+            "Viewable imaging files and reports",
+            "Pathology, molecular results and earlier treatment summaries, if available",
+            "Medication and allergy lists, and your main questions",
+            "Notes on symptom changes and effects on daily activities",
+            "Team contact details, next steps, and interpreter or companion needs"
+          ]
+        },
+        {
+          "type": "accordion",
+          "title": "Short conversations to get started",
+          "items": [
+            {
+              "question": "Does MRI alone give a definitive diagnosis for every tumor?",
+              "answer": "No. Imaging matters, but tissue and other tests are often considered. In some circumstances biopsy is not appropriate or feasible. [1, 2]"
+            },
+            {
+              "question": "Can I apply someone else's treatment outcome to myself?",
+              "answer": "No. Someone else's experience cannot replace review of your own record. Ask a specialist to explain the factors relevant to your circumstances."
+            }
+          ]
+        },
+        {
+          "type": "glossary",
+          "title": "A small glossary",
+          "items": [
+            {
+              "term": "CNS",
+              "definition": "Central nervous system: the brain and spinal cord. [1]"
+            },
+            {
+              "term": "Brain metastasis",
+              "definition": "Cancer that has spread to the brain from elsewhere in the body. [1]"
+            },
+            {
+              "term": "SRS",
+              "definition": "Focused radiation; the name does not mean open surgery. [6]"
+            },
+            {
+              "term": "1p/19q",
+              "definition": "Regions of chromosomes 1 and 19 whose combined loss is assessed when classifying certain gliomas. [4]"
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Technical note about this sample"
+        },
+        {
+          "type": "paragraph",
+          "text": "The code below only demonstrates educational content storage. It performs no dose calculation, drug selection or clinical decision. The shared site template controls all article styling."
+        },
+        {
+          "type": "code",
+          "language": "json",
+          "caption": "Demonstration data, not treatment instructions",
+          "code": "{\n  \"slug\": \"neuro-oncology-demo\",\n  \"demo\": true,\n  \"translations\": [\"fa\", \"en\"]\n}"
+        },
+        {
+          "type": "cta",
+          "title": "Prepare questions for your visit",
+          "text": "Use the booking page to request a consultation. Use emergency services for urgent problems, and do not post identifying details or medical records in public comments.",
+          "buttonText": "Request a consultation",
+          "buttonUrl": "/en/booking"
+        },
+        {
+          "type": "references",
+          "title": "Educational references, numbered to match the text",
+          "items": [
+            {
+              "title": "[1] Adult Central Nervous System Tumors Treatment — Patient Version",
+              "url": "https://www.cancer.gov/types/brain/patient/adult-brain-treatment-pdq",
+              "publisher": "National Cancer Institute"
+            },
+            {
+              "title": "[2] About Rare Brain and Spine Tumors",
+              "url": "https://www.cancer.gov/rare-brain-spine-tumor/tumors/about-cns-tumors",
+              "publisher": "National Cancer Institute"
+            },
+            {
+              "title": "[3] Symptoms of a malignant brain tumour",
+              "url": "https://www.nhs.uk/conditions/malignant-brain-tumour/symptoms/",
+              "publisher": "NHS"
+            },
+            {
+              "title": "[4] Oligodendroglioma and Other IDH-Mutated Tumors",
+              "url": "https://www.cancer.gov/rare-brain-spine-tumor/tumors/oligodendroglioma",
+              "publisher": "National Cancer Institute"
+            },
+            {
+              "title": "[5] Radiation therapy for brain metastases guideline overview",
+              "url": "https://www.astro.org/news-and-publications/news-and-media-center/news-releases/2022/astro-issues-clinical-guideline-on-radiation-therapy-for-brain-metastases",
+              "publisher": "ASTRO"
+            },
+            {
+              "title": "[6] Radiation Therapy for Brain Tumors in Adults",
+              "url": "https://www.cancer.org/cancer/types/brain-spinal-cord-tumors-adults/treating/radiation-therapy.html",
+              "publisher": "American Cancer Society"
+            },
+            {
+              "title": "[7] Radiation Therapy Side Effects",
+              "url": "https://www.cancer.gov/about-cancer/treatment/types/radiation-therapy/side-effects",
+              "publisher": "National Cancer Institute"
+            },
+            {
+              "title": "[8] After Brain Tumor Treatment in Adults",
+              "url": "https://www.cancer.org/cancer/types/brain-spinal-cord-tumors-adults/after-treatment.html",
+              "publisher": "American Cancer Society"
+            },
+            {
+              "title": "[9] Managing Your Self-Care",
+              "url": "https://www.cancer.gov/rare-brain-spine-tumor/living/self-care",
+              "publisher": "National Cancer Institute"
+            },
+            {
+              "title": "[10] Symptoms of a stroke",
+              "url": "https://www.nhs.uk/conditions/stroke/symptoms/",
+              "publisher": "NHS"
+            }
+          ]
+        }
+      ],
+      "html": "",
+      "css": "",
+      "faq": [
+        {
+          "question": "Has the site's physician approved this article?",
+          "answer": "No. This is a template demonstration, not clinician-reviewed or physician-endorsed content."
+        },
+        {
+          "question": "Does this guide give a treatment plan for children?",
+          "answer": "No. It provides no personal or pediatric treatment plan. Children's treatment may differ from adults' treatment. [1]"
+        }
+      ],
+      "seo": {
+        "title": "Neuro-oncology: an educational sample guide",
+        "metaDescription": "A bilingual, not-clinician-reviewed example introducing CNS tumor care and demonstrating the site's shared article blocks.",
+        "openGraph": {
+          "title": "Neuro-oncology — educational demonstration",
+          "description": "Understanding conversations about brain and spine tumor care. Not clinician-reviewed.",
+          "image": "/images/neuro-oncology-demo.svg"
+        },
+        "twitter": {
+          "title": "Neuro-oncology — educational demonstration",
+          "image": "/images/neuro-oncology-demo.svg"
+        },
+        "keywords": [
+          "neuro-oncology",
+          "brain tumor",
+          "radiation therapy"
+        ],
+        "focusKeyword": "neuro-oncology"
+      }
+    }
+  }
+}

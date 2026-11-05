@@ -555,8 +555,60 @@ function uploadImageFile($fileFieldName) {
 if (isset($_GET['action'])) {
   $action = $_GET['action'];
   switch ($action) {
+    case 'dashboard':
+      try {
+        $counts = $pdo->query("SELECT COUNT(*) AS total, COALESCE(SUM(status = 'published'), 0) AS published, COALESCE(SUM(status <> 'published'), 0) AS drafts FROM posts")->fetch();
+        $tableCount = static function ($table) use ($pdo) {
+        if (!in_array($table, ['bookings', 'contact_messages', 'forum_posts'], true)) return 0;
+        try { return (int)$pdo->query("SELECT COUNT(*) FROM `$table`")->fetchColumn(); }
+        catch (Throwable $e) { return 0; }
+      };
+      $media = glob(rtrim(UPLOADS_DIR, '/') . '/*') ?: [];
+      $media = array_values(array_filter($media, static function ($path) {
+        return is_file($path) && preg_match('/\.(?:jpe?g|png|webp|gif)$/i', $path);
+      }));
+      jsonResponse([
+        'posts' => [
+          'total' => (int)($counts['total'] ?? 0),
+          'published' => (int)($counts['published'] ?? 0),
+          'drafts' => (int)($counts['drafts'] ?? 0),
+        ],
+        'media' => count($media),
+        'bookings' => $tableCount('bookings'),
+        'messages' => $tableCount('contact_messages'),
+        'forum' => $tableCount('forum_posts'),
+        'recent' => array_slice(listPosts(), 0, 6),
+      ]);
+      } catch (Throwable $e) {
+        error_log('[sinisteroid] admin dashboard query failed: ' . $e->getMessage());
+        errorResponse('Dashboard query failed; check the PHP error log.', 500);
+      }
+    case 'media':
+      try {
+        $files = glob(rtrim(UPLOADS_DIR, '/') . '/*') ?: [];
+        $items = [];
+        foreach ($files as $path) {
+          if (!is_file($path) || !preg_match('/\.(?:jpe?g|png|webp|gif)$/i', $path)) continue;
+          $items[] = [
+            'src' => getWebPath($path),
+            'name' => basename($path),
+            'modified' => filemtime($path) ?: 0,
+            'bytes' => filesize($path) ?: 0,
+          ];
+        }
+        usort($items, static fn($a, $b) => $b['modified'] <=> $a['modified']);
+        jsonResponse($items);
+      } catch (Throwable $e) {
+        error_log('[sinisteroid] admin media listing failed: ' . $e->getMessage());
+        errorResponse('Media listing failed; check the PHP error log.', 500);
+      }
     case 'list':
-      jsonResponse(listPosts());
+      try {
+        jsonResponse(listPosts());
+      } catch (Throwable $e) {
+        error_log('[sinisteroid] admin post list query failed: ' . $e->getMessage());
+        errorResponse('Post list query failed; check the PHP error log.', 500);
+      }
       break;
     case 'get':
       $slug = trim($_GET['slug'] ?? '');
@@ -652,25 +704,22 @@ function getDefaultPost() {
 
 :root {
   color-scheme: dark;
-  --bg: #212124;
-  --bg-deep: #1a1a1c;
-  --panel: #2f2f31;
-  --raise: #37373b;
-  --surface: #eff1f3;
-
-  --ink: #eff1f3;
-  --ink-dim: #a1a0ab;
-  --muted: #7d7b87;
-
-  --line: rgba(239, 241, 243, 0.13);
-  --line-strong: rgba(239, 241, 243, 0.26);
-
-  --accent: #fed766;
-  --accent-ink: #212124;
-  --accent-soft: rgba(254, 215, 102, 0.14);
-  --teal: #4fc9dc;
-  --teal-soft: rgba(0, 159, 183, 0.14);
-  --teal-line: rgba(0, 159, 183, 0.42);
+  --bg: #071a13;
+  --bg-deep: #04120d;
+  --panel: #0e2a1f;
+  --raise: #163828;
+  --surface: #eaf3ee;
+  --ink: #eaf3ee;
+  --ink-dim: #a4bcb0;
+  --muted: #7e9689;
+  --line: rgba(164, 188, 176, 0.18);
+  --line-strong: rgba(164, 188, 176, 0.32);
+  --accent: #e3c67e;
+  --accent-ink: #04120d;
+  --accent-soft: rgba(227, 198, 126, 0.13);
+  --teal: #5fd3a6;
+  --teal-soft: rgba(61, 190, 139, 0.12);
+  --teal-line: rgba(95, 211, 166, 0.38);
   --danger: #ff6b6b;
   --danger-soft: rgba(255, 107, 107, 0.13);
   --ok: #7ee0a3;
@@ -689,6 +738,31 @@ function getDefaultPost() {
   --dur: 160ms;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --elev: 0 10px 30px rgba(0, 0, 0, 0.34);
+}
+
+html[data-admin-theme="light"] {
+  color-scheme: light;
+  --bg: #f8f5ee;
+  --bg-deep: #ece5d1;
+  --panel: #fffdf9;
+  --raise: #f1ead9;
+  --surface: #16281f;
+  --ink: #16281f;
+  --ink-dim: #3d5248;
+  --muted: #5d6f65;
+  --line: rgba(22, 40, 31, 0.14);
+  --line-strong: rgba(22, 40, 31, 0.25);
+  --accent: #145c41;
+  --accent-ink: #fffbf2;
+  --accent-soft: rgba(20, 92, 65, 0.1);
+  --teal: #2e7d5b;
+  --teal-soft: rgba(46, 125, 91, 0.1);
+  --teal-line: rgba(46, 125, 91, 0.34);
+  --danger: #b42318;
+  --danger-soft: rgba(180, 35, 24, 0.08);
+  --ok: #16834a;
+  --warn: #9a6b0a;
+  --elev: 0 8px 26px rgba(11, 46, 34, 0.08);
 }
 
 * { box-sizing: border-box; }
@@ -735,7 +809,7 @@ body {
 
 .page {
   display: grid;
-  grid-template-columns: 304px minmax(0, 1fr) 336px;
+  grid-template-columns: 252px minmax(0, 1fr) 336px;
   height: 100vh;
   overflow: hidden;
 }
@@ -763,6 +837,28 @@ body {
   padding: 18px 18px 14px;
   border-block-end: 1px solid var(--line);
 }
+.workspace-nav { display:grid; gap:5px; padding:12px 12px 4px; border-block-end:1px solid var(--line); }
+.workspace-nav button { display:flex; align-items:center; gap:10px; width:100%; text-align:start; border:1px solid transparent; border-radius:var(--r-sm); padding:9px 11px; background:transparent; color:var(--ink-dim); font-size:.8rem; }
+.workspace-nav button:hover, .workspace-nav button.active { background:var(--accent-soft); border-color:var(--line); color:var(--ink); }
+.workspace-nav button.active { box-shadow:inset 2px 0 var(--accent); }
+.utility-view { display:none; }
+.utility-view.active { display:block; }
+.utility-heading { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; margin:4px 0 18px; }
+.utility-heading h1 { margin:0; font-size:1.35rem; }
+.utility-heading p { margin:4px 0 0; color:var(--muted); font-size:.82rem; }
+.utility-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:10px; margin-bottom:18px; }
+.utility-stat { padding:16px; border:1px solid var(--line); border-radius:var(--r); background:var(--panel); }
+.utility-stat strong { display:block; font:700 1.55rem var(--mono); color:var(--accent); }
+.utility-stat span { display:block; margin-top:5px; color:var(--muted); font: .65rem var(--mono); text-transform:uppercase; }
+.utility-panel { margin-bottom:14px; padding:16px; border:1px solid var(--line); border-radius:var(--r); background:var(--panel); }
+.utility-panel h2 { margin:0 0 12px; font-size:.95rem; }
+.media-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px; }
+.media-item { min-width:0; overflow:hidden; border:1px solid var(--line); border-radius:var(--r-sm); background:var(--bg-deep); }
+.media-item img { display:block; width:100%; aspect-ratio:4/3; object-fit:cover; }
+.media-item div { padding:8px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:var(--ink-dim); font-size:.68rem; }
+.workspace-actions { display:flex; align-items:center; gap:6px; }
+.theme-toggle { width:36px; height:36px; padding:0; border:1px solid var(--line); border-radius:50%; background:transparent; color:var(--accent); }
+.view-panel[hidden], .utility-view[hidden] { display:none; }
 .rail-brand {
   display: flex;
   align-items: baseline;
@@ -958,7 +1054,7 @@ button {
   flex-wrap: wrap;
   padding: 14px 22px;
   border-block-end: 1px solid var(--line);
-  background: rgba(33, 33, 36, 0.88);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
   backdrop-filter: blur(14px);
 }
 .command-title { min-width: 0; }
@@ -1121,6 +1217,8 @@ label {
 textarea.input { resize: vertical; min-height: 76px; line-height: 1.6; }
 select.input { color-scheme: dark; cursor: pointer; }
 select.input option { background: var(--bg-deep); color: var(--ink); }
+.html-editor { background: var(--bg-deep); color: var(--ink); }
+.preview-modal { background: color-mix(in srgb, var(--bg-deep) 94%, transparent); }
 
 .flex { display: flex; gap: 8px; align-items: flex-end; }
 .flex-wrap { display: flex; gap: 7px; flex-wrap: wrap; align-items: center; }
@@ -1558,6 +1656,13 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
           </div>
         </div>
 
+        <nav class="workspace-nav" aria-label="Admin sections">
+          <button type="button" class="active" data-workspace="overview">⌂ <span>Overview</span></button>
+          <button type="button" data-workspace="posts">▤ <span>Blog posts</span></button>
+          <button type="button" data-workspace="media">▧ <span>Media library</span></button>
+          <button type="button" data-workspace="settings">⚙ <span>Settings</span></button>
+        </nav>
+
         <div class="rail-search">
           <input id="search-posts" class="input" placeholder="Search posts..." />
         </div>
@@ -1589,6 +1694,7 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
             <p id="editor-subtitle">Select a post to edit or create a new one.</p>
           </div>
           <div class="command-actions">
+            <div class="workspace-actions"><button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch theme" title="Switch theme">☼</button></div>
             <div class="seg" id="view-tabs">
               <button class="tab active" data-view="editor">Editor</button>
               <button class="tab" data-view="json">JSON</button>
@@ -1601,6 +1707,25 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
         </div>
 
         <div class="canvas-inner">
+          <section class="utility-view active" id="overview-view">
+            <div class="utility-heading"><div><h1>Overview</h1><p>Your publishing workspace at a glance.</p></div><button type="button" class="button button-primary" id="create-from-overview">New post</button></div>
+            <div class="utility-grid" id="dashboard-stats"></div>
+            <div class="utility-panel"><h2>Recent posts</h2><div id="dashboard-recent" class="post-list"></div></div>
+          </section>
+          <section class="utility-view" id="posts-view" hidden>
+            <div class="utility-heading"><div><h1>Blog posts</h1><p>Create, edit, preview, and publish articles.</p></div></div>
+            <div id="posts-editor-host"></div>
+          </section>
+          <section class="utility-view" id="media-view" hidden>
+            <div class="utility-heading"><div><h1>Media library</h1><p>Images uploaded for blog content.</p></div><div class="workspace-actions"><label class="button button-primary" for="media-upload">Upload image</label><input id="media-upload" type="file" accept=".jpg,.jpeg,.png,.webp,.gif,image/jpeg,image/png,image/webp,image/gif" hidden><button type="button" class="button button-secondary" id="refresh-media" title="Refresh media">Refresh</button></div></div>
+            <div class="utility-panel"><div class="media-grid" id="media-grid"></div><p class="muted" id="media-empty" hidden>No uploaded images yet.</p></div>
+          </section>
+          <section class="utility-view" id="settings-view" hidden>
+            <div class="utility-heading"><div><h1>Settings</h1><p>Admin workspace preferences.</p></div></div>
+            <div class="utility-panel"><h2>Appearance</h2><label>Theme<select id="theme-select" class="input"><option value="system">Use device preference</option><option value="light">Light</option><option value="dark">Dark</option></select></label></div>
+            <div class="utility-panel"><h2>Blog system</h2><p class="muted">Post editing, media uploads, previews, and publishing use the connected blog database.</p></div>
+          </section>
+          <div class="view-panel" id="post-editor-view" hidden>
           <div id="editor-view">
             <!-- Global language toggle drives every section's tabs at once -->
             <div class="global-lang" id="global-lang-bar">
@@ -1648,7 +1773,7 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
               <div id="collapse-featured" class="collapsible-body">
                 <div class="field-row" style="margin-top:8px;">
                   <label>Image URL<input id="field-featured-src" class="input" data-path="featuredImage.src" /></label>
-                  <label>Upload<input id="upload-featured" class="input" type="file" accept="image/*" /></label>
+                  <label>Upload<input id="upload-featured" class="input" type="file" accept=".jpg,.jpeg,.png,.webp,.gif,image/jpeg,image/png,image/webp,image/gif" /></label>
                 </div>
                 <div class="field-row">
                   <label>Alt (EN)<input id="field-featured-alt-en" class="input" data-path="featuredImage.alt.en" /></label>
@@ -1680,10 +1805,17 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
               <div class="section-title">
                 <span>Content Blocks</span>
                 <div class="quick-add">
-                  <button data-add-block="heading">+ Heading</button>
-                  <button data-add-block="paragraph">+ Paragraph</button>
-                  <button data-add-block="list">+ List</button>
-                  <button data-add-block="image">+ Image</button>
+                  <select id="quick-add-block-type" class="input" aria-label="Block type">
+                    <option value="heading">Heading</option><option value="paragraph">Paragraph</option>
+                    <option value="list">List</option><option value="stats">Stats</option>
+                    <option value="image">Image</option><option value="cta">Call to action</option>
+                    <option value="callout">Callout</option><option value="quote">Quote</option>
+                    <option value="table">Table</option><option value="timeline">Timeline</option>
+                    <option value="checklist">Checklist</option><option value="accordion">Accordion</option>
+                    <option value="glossary">Glossary</option><option value="references">References</option>
+                    <option value="divider">Divider</option><option value="code">Code</option>
+                  </select>
+                  <button id="add-schema-block" class="button button-secondary button-sm">+ Add block</button>
                 </div>
               </div>
               <div class="lang-tabs" id="blocks-lang-tabs"></div>
@@ -1794,6 +1926,7 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
               <div id="json-error" class="error"></div>
             </div>
           </div>
+          </div>
         </div>
       </main>
 
@@ -1868,15 +2001,16 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
         // Render content blocks (simplified preview)
         content.forEach((block, idx) => {
           if (block.type === 'heading') {
-            html += `<h2 style="font-size:22px;font-weight:600;margin:24px 0 8px;color:#fff;">${escapeHtml(block.text||'')}</h2>`;
+            if (block.level === 1 && block.text === tr.title) return;
+            const level = Math.min(6, Math.max(2, Number(block.level)||2));
+            html += `<h${level} id="block-${idx+1}" style="font-size:${level===2?'22':'18'}px;font-weight:650;margin:28px 0 10px;color:#fff;">${escapeHtml(block.text||'')}</h${level}>`;
           } else if (block.type === 'paragraph') {
             const cls = block.style === 'lead' ? 'font-size:18px;font-weight:500;color:#fff;' : '';
             html += `<p style="font-size:15px;line-height:1.7;margin:12px 0;color:rgba(255,255,255,0.85);text-align:justify;${cls}">${escapeHtml(block.text||'')}</p>`;
           } else if (block.type === 'list') {
-            const items = block.items||[];
-            const tag = block.style === 'ordered' ? 'ol' : 'ul';
+            const tag = block.style === 'bullet' ? 'ul' : 'ol';
             html += `<${tag} style="margin:12px 0 12px 20px;color:rgba(255,255,255,0.85);line-height:1.8;">`;
-            items.forEach(item => { html += `<li>${escapeHtml(item)}</li>`; });
+            (block.items||[]).forEach(item => { html += `<li>${escapeHtml(item)}</li>`; });
             html += `</${tag}>`;
           } else if (block.type === 'image') {
             html += `<div style="margin:20px 0;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);padding:8px;background:rgba(255,255,255,0.03);">`;
@@ -1889,22 +2023,33 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
             if (block.text) html += `<p style="color:rgba(255,255,255,0.8);margin:0 0 16px;">${escapeHtml(block.text)}</p>`;
             if (block.buttonText) html += `<a href="${escapeHtml(block.buttonUrl||'#')}" style="display:inline-block;background:#DA0037;color:white;padding:10px 24px;border-radius:999px;font-weight:600;text-decoration:none;">${escapeHtml(block.buttonText)}</a>`;
             html += `</div>`;
-          } else if (block.type === 'highlight') {
-            html += `<div style="margin:16px 0;padding:16px;border-left:4px solid rgba(218,0,55,0.5);background:rgba(26,21,32,0.8);border-radius:12px;">`;
-            if (block.label) html += `<span style="font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:#DA0037;font-weight:600;">${escapeHtml(block.label)}</span>`;
-            html += `<p style="margin:4px 0 0;color:rgba(255,255,255,0.9);">${escapeHtml(block.text)}</p></div>`;
+          } else if (block.type === 'callout') {
+            const tones = { info: '#45b5d1', success: '#46b881', warning: '#d9a640', danger: '#dd6570' };
+            html += `<aside style="margin:18px 0;padding:16px;border-inline-start:4px solid ${tones[block.tone]||tones.info};background:rgba(255,255,255,0.045);border-radius:8px;">`;
+            if (block.title) html += `<h3 style="margin:0 0 6px;color:#fff;">${escapeHtml(block.title)}</h3>`;
+            html += `<p style="margin:0;color:rgba(255,255,255,0.85);">${escapeHtml(block.text||'')}</p></aside>`;
           } else if (block.type === 'quote') {
             html += `<blockquote style="margin:20px 0;padding:16px;border-left:4px solid rgba(52,152,219,0.6);background:rgba(15,20,25,0.8);border-radius:12px;font-style:italic;">`;
             html += `<p style="margin:0;color:rgba(255,255,255,0.9);">${escapeHtml(block.text)}</p>`;
-            if (block.author) html += `<footer style="margin-top:8px;font-size:13px;color:rgba(52,152,219,0.7);font-style:normal;">— ${escapeHtml(block.author)}</footer>`;
+            if (block.attribution) html += `<footer style="margin-top:8px;font-size:13px;color:rgba(52,152,219,0.7);font-style:normal;">— ${block.sourceUrl ? `<a href="${escapeHtml(block.sourceUrl)}">${escapeHtml(block.attribution)}</a>` : escapeHtml(block.attribution)}</footer>`;
             html += `</blockquote>`;
-          } else if (block.type === 'alert') {
-            html += `<div style="margin:16px 0;padding:12px 16px;border-radius:12px;border:1px solid rgba(52,152,219,0.4);background:rgba(52,152,219,0.06);display:flex;gap:10px;align-items:flex-start;">`;
-            html += `<span style="font-size:18px;flex-shrink:0;">ℹ</span><div>`;
-            if (block.title) html += `<strong style="font-size:13px;display:block;margin-bottom:2px;">${escapeHtml(block.title)}</strong>`;
-            html += `<p style="margin:0;font-size:14px;color:rgba(255,255,255,0.85);">${escapeHtml(block.text)}</p></div></div>`;
+          } else if (block.type === 'table') {
+            html += `<div style="overflow-x:auto;margin:20px 0;"><table style="width:100%;border-collapse:collapse"><caption style="text-align:start;padding:8px">${escapeHtml(block.caption||'')}</caption><thead><tr>${(block.headers||[]).map(cell => `<th style="padding:8px;border-bottom:1px solid rgba(255,255,255,.2);text-align:start">${escapeHtml(cell)}</th>`).join('')}</tr></thead><tbody>${(block.rows||[]).map(row => `<tr>${row.map((cell, cellIndex) => `<${cellIndex===0?'th':'td'} style="padding:8px;border-bottom:1px solid rgba(255,255,255,.1);text-align:start">${escapeHtml(cell)}</${cellIndex===0?'th':'td'}>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+          } else if (block.type === 'timeline') {
+            html += `<section style="margin:22px 0;padding:18px;border:1px solid rgba(255,255,255,.12);border-radius:8px">${block.title?`<h3>${escapeHtml(block.title)}</h3>`:''}<ol>${(block.items||[]).map(item => `<li style="margin:12px 0">${item.label?`<small>${escapeHtml(item.label)}</small>`:''}<h4>${escapeHtml(item.title||'')}</h4><p>${escapeHtml(item.text||'')}</p></li>`).join('')}</ol></section>`;
+          } else if (block.type === 'checklist') {
+            html += `<section style="margin:22px 0">${block.title?`<h3>${escapeHtml(block.title)}</h3>`:''}<ul style="list-style:none;padding:0">${(block.items||[]).map(item => `<li style="margin:8px 0"><span aria-hidden="true">✓ </span>${escapeHtml(item)}</li>`).join('')}</ul></section>`;
+          } else if (block.type === 'accordion') {
+            html += `<section style="margin:22px 0">${block.title?`<h3>${escapeHtml(block.title)}</h3>`:''}${(block.items||[]).map(item => `<details style="padding:10px;border-bottom:1px solid rgba(255,255,255,.12)"><summary>${escapeHtml(item.question||'')}</summary><p>${escapeHtml(item.answer||'')}</p></details>`).join('')}</section>`;
+          } else if (block.type === 'glossary') {
+            html += `<section style="margin:22px 0">${block.title?`<h3>${escapeHtml(block.title)}</h3>`:''}<dl>${(block.items||[]).map(item => `<dt><strong>${escapeHtml(item.term||'')}</strong></dt><dd>${escapeHtml(item.definition||'')}</dd>`).join('')}</dl></section>`;
+          } else if (block.type === 'references') {
+            html += `<section style="margin:22px 0"><h3>${escapeHtml(block.title||'References')}</h3><ol>${(block.items||[]).map(item => `<li><a href="${escapeHtml(item.url||'#')}" rel="noopener noreferrer">${escapeHtml(item.title||'')}</a>${item.publisher?` — ${escapeHtml(item.publisher)}`:''}</li>`).join('')}</ol></section>`;
+          } else if (block.type === 'divider') {
+            html += '<hr style="margin:28px 0;border:0;border-top:1px solid rgba(255,255,255,.18)" />';
           } else if (block.type === 'code') {
-            html += `<pre style="margin:16px 0;padding:16px;background:#0a0d12;border-radius:12px;border:1px solid rgba(255,255,255,0.08);overflow-x:auto;font-family:monospace;font-size:13px;color:#e2e8f0;"><code>${escapeHtml(block.code||block.text||'')}</code></pre>`;
+            if (block.caption) html += `<p class="muted">${escapeHtml(block.caption)}</p>`;
+            html += `<pre dir="ltr" style="margin:16px 0;padding:16px;background:#0a0d12;border-radius:8px;border:1px solid rgba(255,255,255,0.08);overflow-x:auto;font-family:monospace;font-size:13px;color:#e2e8f0;"><code class="language-${escapeHtml(block.language||'text')}">${escapeHtml(block.code||'')}</code></pre>`;
           } else if (block.type === 'stats') {
             html += `<div style="margin:20px 0;padding:20px;border-radius:16px;border:1px solid rgba(255,255,255,0.1);background:rgba(15,20,25,0.9);">`;
             html += `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:16px;text-align:center;">`;
@@ -1960,6 +2105,55 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
       const apiBase = window.location.pathname;
       const state = {posts: [], current: null, view: 'editor', contentLang: 'en'};
 
+      function applyAdminTheme(theme) {
+        const selected = theme === 'system' ? (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark') : theme;
+        document.documentElement.dataset.adminTheme = selected;
+        const toggle = byId('theme-toggle');
+        if (toggle) {
+          toggle.textContent = selected === 'dark' ? '☼' : '◐';
+          toggle.title = selected === 'dark' ? 'Switch to light theme' : 'Switch to dark theme';
+          toggle.setAttribute('aria-label', toggle.title);
+        }
+      }
+
+      function setWorkspace(name) {
+        document.querySelectorAll('[data-workspace]').forEach(button => button.classList.toggle('active', button.dataset.workspace === name));
+        document.querySelectorAll('.utility-view').forEach(view => {
+          const active = view.id === name + '-view';
+          view.hidden = !active;
+          view.classList.toggle('active', active);
+        });
+        const editorView = byId('post-editor-view');
+        if (editorView) editorView.hidden = name !== 'posts';
+        if (name === 'overview') loadDashboard();
+        if (name === 'media') loadMedia();
+      }
+
+      async function loadDashboard() {
+        try {
+          const data = await fetchJson(apiBase + '?action=dashboard');
+          byId('dashboard-stats').innerHTML = [
+            ['Posts', data.posts.total], ['Published', data.posts.published],
+            ['Drafts', data.posts.drafts], ['Media files', data.media],
+            ['Bookings', data.bookings], ['Messages', data.messages], ['Forum topics', data.forum],
+          ].map(([label, value]) => `<div class="utility-stat"><strong>${Number(value)||0}</strong><span>${label}</span></div>`).join('');
+          byId('dashboard-recent').innerHTML = (data.recent||[]).map(post => `<div class="post-row"><div class="post-row-main"><strong class="post-row-title">${escapeHtml(post.title||post.slug)}</strong><div class="post-row-meta"><span class="badge badge-${post.status==='published'?'published':'draft'}">${escapeHtml(post.status||'draft')}</span><span>${escapeHtml(post.date||'')}</span></div></div><button class="button button-secondary button-sm" data-open-slug="${escapeHtml(post.slug)}">Edit</button></div>`).join('') || '<p class="muted">No posts yet.</p>';
+        } catch (error) {
+          byId('dashboard-stats').innerHTML = `<p class="error">${escapeHtml(error.message || 'Dashboard unavailable')}</p>`;
+          byId('dashboard-recent').innerHTML = '<p class="muted">Post data could not be loaded.</p>';
+        }
+      }
+
+      async function loadMedia() {
+        try {
+          const media = await fetchJson(apiBase + '?action=media');
+          byId('media-grid').innerHTML = media.map(item => `<div class="media-item"><img src="${escapeHtml(item.src)}" alt="" loading="lazy"><div title="${escapeHtml(item.name)}">${escapeHtml(item.name)}</div></div>`).join('');
+          byId('media-empty').hidden = media.length > 0;
+        } catch (error) {
+          byId('media-grid').innerHTML = `<p class="error">${escapeHtml(error.message)}</p>`;
+        }
+      }
+
       const defaultPost = () => ({
         slug: '', title: '', date: '', tags: [], status: 'draft',
         featuredImage: {src: '', alt: {en: '', fa: ''}},
@@ -1968,6 +2162,28 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
           fa: {title: '', excerpt: '', content: [], html: '', css: '', faq: [], seo: {title: '', metaDescription: '', canonical: '', openGraph: {image: ''}, twitter: {image: ''}, keywords: '', focusKeyword: ''}},
         },
       });
+
+      function createBlogBlock(type) {
+        const defaults = {
+          heading: { type, level: 2, text: '' },
+          paragraph: { type, text: '' },
+          list: { type, style: 'bullet', items: [''] },
+          stats: { type, items: [{ value: '', label: '' }] },
+          image: { type, src: '', alt: '' },
+          cta: { type, title: '', text: '', buttonText: '', buttonUrl: '' },
+          callout: { type, tone: 'info', text: '' },
+          quote: { type, text: '' },
+          table: { type, caption: '', headers: [''], rows: [['']] },
+          timeline: { type, items: [{ title: '', text: '' }] },
+          checklist: { type, items: [''] },
+          accordion: { type, items: [{ question: '', answer: '' }] },
+          glossary: { type, items: [{ term: '', definition: '' }] },
+          references: { type, items: [{ title: '', url: '' }] },
+          divider: { type },
+          code: { type, language: 'text', code: '' },
+        };
+        return JSON.parse(JSON.stringify(defaults[type] || defaults.paragraph));
+      }
 
       function byId(id) { return document.getElementById(id); }
       function escapeHtml(v) { return String(v == null ? '' : v).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]); }
@@ -1995,17 +2211,40 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
         const keys = path.split('.');
         let t = state.current;
         while (keys.length > 1) { const k = keys.shift(); if (t[k] === undefined) t[k] = {}; t = t[k]; }
-        t[keys[0]] = value;
+        const key = keys[0];
+        const blockMatch = path.match(/^translations\.(en|fa)\.content\.(\d+)\.(.+)$/);
+        const block = blockMatch ? state.current.translations[blockMatch[1]].content[Number(blockMatch[2])] : null;
+        const blockField = blockMatch?.[3] || '';
+        const optionalBlockField = ['caption','width','height','attribution','sourceUrl'].includes(blockField) ||
+          (blockField.endsWith('.label') && block?.type === 'timeline') ||
+          (blockField.endsWith('.publisher') && block?.type === 'references');
+        const optionalTitle = blockField === 'title' && ['callout','timeline','checklist','accordion','glossary','references'].includes(block?.type);
+        const optionalSeoFields = ['title','metaDescription','canonical','image','keywords','focusKeyword'];
+        const optionalSeoField = path.includes('.seo.') && optionalSeoFields.includes(key);
+        if (value === '' && ((blockMatch && (optionalBlockField || optionalTitle)) || optionalSeoField)) delete t[key];
+        else t[key] = /\.(level|width|height)$/.test(path) && value !== '' ? Number(value) : value;
         if (path === 'tags') state.current.tags = value.split(',').map(v=>v.trim()).filter(Boolean);
+        syncToJson();
+        markDirty();
       }
 
       function fetchJson(url, opts={}) {
-        return fetch(url, opts).then(async r => { const t = await r.text(); try { return JSON.parse(t); } catch(e) { throw new Error('Invalid JSON'); } });
+        return fetch(url, opts).then(async r => {
+          const text = await r.text();
+          let data;
+          try { data = JSON.parse(text); } catch(e) { throw new Error(r.ok ? 'Invalid JSON response' : `Request failed (${r.status})`); }
+          if (!r.ok || (data && !Array.isArray(data) && data.error)) {
+            throw new Error(data?.error || `Request failed (${r.status})`);
+          }
+          return data;
+        });
       }
 
       function syncToJson() {
+        if (state.syncingJson) return;
         byId('json-editor').value = JSON.stringify(state.current, null, 2);
         byId('json-error').textContent = '';
+        markDirty();
       }
 
       function renderLangTabs(containerId, lang, callback) {
@@ -2036,12 +2275,26 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
         }));
       }
 
+      function renderStringArray(values, lang, blockIndex, kind, rowIndex) {
+        const path = kind === 'header'
+          ? `translations.${lang}.content.${blockIndex}.headers`
+          : kind === 'cell'
+            ? `translations.${lang}.content.${blockIndex}.rows.${rowIndex}`
+            : `translations.${lang}.content.${blockIndex}.items`;
+        const key = `${lang}-${blockIndex}-${kind}-${rowIndex ?? ''}`;
+        return `${values.map((value, itemIndex) => `<div class="flex" style="margin:4px 0">
+          <input class="input" style="flex:1" data-path="${path}.${itemIndex}" value="${escapeHtml(value||'')}" />
+          ${kind !== 'cell' && values.length > 1 ? `<button class="button button-danger button-sm" data-remove-array-item="${key}-${itemIndex}">×</button>` : ''}
+        </div>`).join('')}
+        ${kind !== 'cell' ? `<button class="button button-secondary button-sm" data-add-array-item="${key}">+ Add ${kind === 'header' ? 'column' : 'item'}</button>` : ''}`;
+      }
+
       function renderBlocks(lang) {
         const blocks = state.current.translations[lang]?.content || [];
         const container = byId('blocks-'+lang);
         container.innerHTML = blocks.map((block, i) => {
           const drag = '<span class="drag-handle" title="Drag">☰</span>';
-          const allTypes = ['heading','paragraph','list','image','cta','highlight','stats','quote','alert','code'];
+          const allTypes = ['heading','paragraph','list','stats','image','cta','callout','quote','table','timeline','checklist','accordion','glossary','references','divider','code'];
           const typeSel = `<select class="input" style="font-size:0.82rem;padding:4px 8px;width:auto;display:inline-block;" data-block-type="${lang}-${i}">`+
             allTypes.map(t => `<option value="${t}" ${block.type===t?'selected':''}>${t}</option>`).join('')+'</select>';
           const rm = `<button class="button button-danger button-sm" data-rm-block="${lang}-${i}">×</button>`;
@@ -2052,27 +2305,29 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
               ${[1,2,3,4,5,6].map(n => `<option value="${n}" ${n===lvl?'selected':''}>H${n}</option>`).join('')}</select></label></div>
               <label>Text<textarea class="input" data-path="translations.${lang}.content.${i}.text" rows="2">${escapeHtml(block.text||'')}</textarea></label>`;
           } else if (block.type === 'paragraph') {
-            const style = block.style||'normal';
+            const style = block.style||'default';
             body = `<div class="flex"><label style="flex:1">Style<select class="input" data-path="translations.${lang}.content.${i}.style">
-              <option value="normal" ${style==='normal'?'selected':''}>Normal</option>
-              <option value="lead" ${style==='lead'?'selected':''}>Lead</option>
-              <option value="small" ${style==='small'?'selected':''}>Small</option></select></label></div>
+              <option value="default" ${style==='default'?'selected':''}>Default</option>
+              <option value="lead" ${style==='lead'?'selected':''}>Lead</option></select></label></div>
               <label>Text<textarea class="input" data-path="translations.${lang}.content.${i}.text" rows="2">${escapeHtml(block.text||'')}</textarea></label>`;
           } else if (block.type === 'list') {
             const items = block.items||[];
             body = `<div class="flex"><label style="flex:1">Type<select class="input" data-path="translations.${lang}.content.${i}.style">
               <option value="bullet" ${(block.style||'bullet')==='bullet'?'selected':''}>Bullet</option>
-              <option value="ordered" ${block.style==='ordered'?'selected':''}>Ordered</option></select></label></div>
+              <option value="ordered" ${block.style==='ordered'?'selected':''}>Ordered</option>
+              <option value="numbered" ${block.style==='numbered'?'selected':''}>Numbered</option></select></label></div>
               ${items.map((item, ii) => `<div class="flex" style="margin:4px 0"><input class="input" style="flex:1" data-path="translations.${lang}.content.${i}.items.${ii}" value="${escapeHtml(item||'')}" />
-              <button class="button button-danger button-sm" data-rm-li="${lang}-${i}-${ii}">×</button></div>`).join('')}
+              ${items.length > 1 ? `<button class="button button-danger button-sm" data-rm-li="${lang}-${i}-${ii}">×</button>` : ''}</div>`).join('')}
               <button class="button button-secondary button-sm" data-add-li="${lang}-${i}" style="margin-top:4px">+ Item</button>`;
           } else if (block.type === 'image') {
             const imgSrc = block.src || '';
             body = `<label>URL<input class="input" data-path="translations.${lang}.content.${i}.src" value="${escapeHtml(imgSrc)}" oninput="syncImageAcrossLocales(this.dataset.path, this.value)" data-path="translations.${lang}.content.${i}.src" /></label>
               ${imgSrc ? `<div style="margin:8px 0;border-radius:8px;overflow:hidden;"><img src="${escapeHtml(imgSrc)}" alt="" style="max-width:100%;max-height:150px;border-radius:8px;object-fit:cover;" /></div>` : ''}
               <div class="flex"><label style="flex:1">Alt text<input class="input" data-path="translations.${lang}.content.${i}.alt" value="${escapeHtml(block.alt||'')}" placeholder="Alternative text for SEO" /></label>
-              <label>Upload<input type="file" class="input" accept="image/*" data-upload-img="${lang}-${i}" /></label></div>
-              <label>Caption<textarea class="input" data-path="translations.${lang}.content.${i}.caption" rows="1">${escapeHtml(block.caption||'')}</textarea></label>`;
+              <label>Upload<input type="file" class="input" accept=".jpg,.jpeg,.png,.webp,.gif,image/jpeg,image/png,image/webp,image/gif" data-upload-img="${lang}-${i}" /></label></div>
+              <label>Caption<textarea class="input" data-path="translations.${lang}.content.${i}.caption" rows="1">${escapeHtml(block.caption||'')}</textarea></label>
+              <div class="flex"><label style="flex:1">Width<input class="input" type="number" min="1" data-path="translations.${lang}.content.${i}.width" value="${escapeHtml(block.width||'')}" /></label>
+              <label style="flex:1">Height<input class="input" type="number" min="1" data-path="translations.${lang}.content.${i}.height" value="${escapeHtml(block.height||'')}" /></label></div>`;
           } else if (block.type === 'cta') {
             body = `<div style="padding:8px;border:1px solid rgba(218,0,55,0.3);border-radius:10px;background:rgba(218,0,55,0.06);">
               <label>Title<input class="input" data-path="translations.${lang}.content.${i}.title" value="${escapeHtml(block.title||'')}" placeholder="Call to action heading" /></label>
@@ -2080,39 +2335,70 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
               <div class="flex"><label style="flex:1">Button text<input class="input" data-path="translations.${lang}.content.${i}.buttonText" value="${escapeHtml(block.buttonText||'')}" placeholder="e.g. Get Started" /></label>
               <label style="flex:1">Button URL<input class="input" data-path="translations.${lang}.content.${i}.buttonUrl" value="${escapeHtml(block.buttonUrl||'')}" placeholder="https://..." /></label></div>
             </div>`;
-          } else if (block.type === 'highlight') {
-            body = `<div style="padding:8px;border-left:4px solid rgba(218,0,55,0.5);border-radius:8px;background:rgba(218,0,55,0.04);">
-              <label>Label <span class="muted">(optional)</span><input class="input" data-path="translations.${lang}.content.${i}.label" value="${escapeHtml(block.label||'')}" placeholder="e.g. KEY INSIGHT" /></label>
-              <label>Text<textarea class="input" data-path="translations.${lang}.content.${i}.text" rows="3">${escapeHtml(block.text||'')}</textarea></label>
-            </div>`;
           } else if (block.type === 'stats') {
             const items = block.items||[{value:'',label:''}];
             body = `<div style="padding:8px;border:1px solid rgba(255,255,255,0.08);border-radius:10px;">
               ${items.map((s, si) => `<div class="flex" style="margin-bottom:4px"><input class="input" style="flex:1" data-path="translations.${lang}.content.${i}.items.${si}.value" value="${escapeHtml(s.value||'')}" placeholder="Value" />
               <input class="input" style="flex:2" data-path="translations.${lang}.content.${i}.items.${si}.label" value="${escapeHtml(s.label||'')}" placeholder="Label" />
-              <button class="button button-danger button-sm" data-rm-stat="${lang}-${i}-${si}">×</button></div>`).join('')}
+              ${items.length > 1 ? `<button class="button button-danger button-sm" data-rm-stat="${lang}-${i}-${si}">×</button>` : ''}</div>`).join('')}
               <button class="button button-secondary button-sm" data-add-stat="${lang}-${i}" style="margin-top:4px">+ Add stat</button>
             </div>`;
           } else if (block.type === 'quote') {
             body = `<div style="padding:8px;border-left:4px solid rgba(52,152,219,0.5);border-radius:8px;background:rgba(52,152,219,0.04);">
               <label>Quote text<textarea class="input" data-path="translations.${lang}.content.${i}.text" rows="3">${escapeHtml(block.text||'')}</textarea></label>
-              <label>Author <span class="muted">(optional)</span><input class="input" data-path="translations.${lang}.content.${i}.author" value="${escapeHtml(block.author||'')}" /></label>
+              <label>Attribution <span class="muted">(optional)</span><input class="input" data-path="translations.${lang}.content.${i}.attribution" value="${escapeHtml(block.attribution||'')}" /></label>
+              <label>Source URL <span class="muted">(optional)</span><input class="input" data-path="translations.${lang}.content.${i}.sourceUrl" value="${escapeHtml(block.sourceUrl||'')}" /></label>
             </div>`;
-          } else if (block.type === 'alert') {
-            const style = block.alertStyle||'info';
+          } else if (block.type === 'callout') {
+            const tone = block.tone||'info';
             body = `<div style="padding:8px;border:1px solid rgba(52,152,219,0.3);border-radius:10px;background:rgba(52,152,219,0.06);">
-              <div class="flex"><label style="flex:1">Style<select class="input" data-path="translations.${lang}.content.${i}.alertStyle">
-                <option value="info" ${style==='info'?'selected':''}>Info ℹ</option>
-                <option value="warning" ${style==='warning'?'selected':''}>Warning ⚠</option>
-                <option value="tip" ${style==='tip'?'selected':''}>Tip 💡</option>
-                <option value="danger" ${style==='danger'?'selected':''}>Danger ✕</option></select></label></div>
+              <div class="flex"><label style="flex:1">Tone<select class="input" data-path="translations.${lang}.content.${i}.tone">
+                ${['info','success','warning','danger'].map(value => `<option value="${value}" ${tone===value?'selected':''}>${value}</option>`).join('')}</select></label></div>
               <label>Title <span class="muted">(optional)</span><input class="input" data-path="translations.${lang}.content.${i}.title" value="${escapeHtml(block.title||'')}" /></label>
               <label>Text<textarea class="input" data-path="translations.${lang}.content.${i}.text" rows="2">${escapeHtml(block.text||'')}</textarea></label>
             </div>`;
+          } else if (block.type === 'table') {
+            body = `<label>Caption<input class="input" data-path="translations.${lang}.content.${i}.caption" value="${escapeHtml(block.caption||'')}" /></label>
+              <strong>Headers</strong>${renderStringArray(block.headers||[], lang, i, 'header')}
+              ${(block.rows||[]).map((row, ri) => `<div class="list-item" style="padding:8px;margin-top:6px"><div class="flex"><strong style="flex:1">Row ${ri+1}</strong>${block.rows.length > 1 ? `<button class="button button-danger button-sm" data-remove-table-row="${lang}-${i}-${ri}">×</button>` : ''}</div>${renderStringArray(row, lang, i, 'cell', ri)}</div>`).join('')}
+              <button class="button button-secondary button-sm" data-add-table-row="${lang}-${i}">+ Add row</button>`;
+          } else if (block.type === 'timeline') {
+            body = `<label>Title <span class="muted">(optional)</span><input class="input" data-path="translations.${lang}.content.${i}.title" value="${escapeHtml(block.title||'')}" /></label>
+              ${(block.items||[]).map((item, ii) => `<div class="list-item" style="padding:8px;margin-top:6px"><div class="flex"><strong style="flex:1">Item ${ii+1}</strong>${block.items.length>1?`<button class="button button-danger button-sm" data-remove-item="timeline-${lang}-${i}-${ii}">×</button>`:''}</div>
+                <input class="input" data-path="translations.${lang}.content.${i}.items.${ii}.label" value="${escapeHtml(item.label||'')}" placeholder="Label (optional)" />
+                <input class="input" data-path="translations.${lang}.content.${i}.items.${ii}.title" value="${escapeHtml(item.title||'')}" placeholder="Title" />
+                <textarea class="input" data-path="translations.${lang}.content.${i}.items.${ii}.text" placeholder="Text">${escapeHtml(item.text||'')}</textarea></div>`).join('')}
+              <button class="button button-secondary button-sm" data-add-item="timeline-${lang}-${i}">+ Add item</button>`;
+          } else if (block.type === 'checklist') {
+            body = `<label>Title <span class="muted">(optional)</span><input class="input" data-path="translations.${lang}.content.${i}.title" value="${escapeHtml(block.title||'')}" /></label>
+              ${renderStringArray(block.items||[], lang, i, 'checklist')}`;
+          } else if (block.type === 'accordion') {
+            body = `<label>Title <span class="muted">(optional)</span><input class="input" data-path="translations.${lang}.content.${i}.title" value="${escapeHtml(block.title||'')}" /></label>
+              ${(block.items||[]).map((item, ii) => `<div class="list-item" style="padding:8px;margin-top:6px"><div class="flex"><strong style="flex:1">Item ${ii+1}</strong>${block.items.length>1?`<button class="button button-danger button-sm" data-remove-item="accordion-${lang}-${i}-${ii}">×</button>`:''}</div>
+                <input class="input" data-path="translations.${lang}.content.${i}.items.${ii}.question" value="${escapeHtml(item.question||'')}" placeholder="Question" />
+                <textarea class="input" data-path="translations.${lang}.content.${i}.items.${ii}.answer" placeholder="Answer">${escapeHtml(item.answer||'')}</textarea></div>`).join('')}
+              <button class="button button-secondary button-sm" data-add-item="accordion-${lang}-${i}">+ Add item</button>`;
+          } else if (block.type === 'glossary') {
+            body = `<label>Title <span class="muted">(optional)</span><input class="input" data-path="translations.${lang}.content.${i}.title" value="${escapeHtml(block.title||'')}" /></label>
+              ${(block.items||[]).map((item, ii) => `<div class="list-item" style="padding:8px;margin-top:6px"><div class="flex"><strong style="flex:1">Term ${ii+1}</strong>${block.items.length>1?`<button class="button button-danger button-sm" data-remove-item="glossary-${lang}-${i}-${ii}">×</button>`:''}</div>
+                <input class="input" data-path="translations.${lang}.content.${i}.items.${ii}.term" value="${escapeHtml(item.term||'')}" placeholder="Term" />
+                <textarea class="input" data-path="translations.${lang}.content.${i}.items.${ii}.definition" placeholder="Definition">${escapeHtml(item.definition||'')}</textarea></div>`).join('')}
+              <button class="button button-secondary button-sm" data-add-item="glossary-${lang}-${i}">+ Add term</button>`;
+          } else if (block.type === 'references') {
+            body = `<label>Title<input class="input" data-path="translations.${lang}.content.${i}.title" value="${escapeHtml(block.title||'')}" /></label>
+              ${(block.items||[]).map((item, ii) => `<div class="list-item" style="padding:8px;margin-top:6px"><div class="flex"><strong style="flex:1">Reference ${ii+1}</strong>${block.items.length>1?`<button class="button button-danger button-sm" data-remove-item="references-${lang}-${i}-${ii}">×</button>`:''}</div>
+                <input class="input" data-path="translations.${lang}.content.${i}.items.${ii}.title" value="${escapeHtml(item.title||'')}" placeholder="Title" />
+                <input class="input" data-path="translations.${lang}.content.${i}.items.${ii}.url" value="${escapeHtml(item.url||'')}" placeholder="https://" />
+                <input class="input" data-path="translations.${lang}.content.${i}.items.${ii}.publisher" value="${escapeHtml(item.publisher||'')}" placeholder="Publisher (optional)" /></div>`).join('')}
+              <button class="button button-secondary button-sm" data-add-item="references-${lang}-${i}">+ Add reference</button>`;
           } else if (block.type === 'code') {
             body = `<div style="padding:8px;background:#0a0d12;border-radius:8px;border:1px solid rgba(255,255,255,0.08);">
+              <label>Language<select class="input" data-path="translations.${lang}.content.${i}.language">${['text','json','javascript','typescript','bash','python'].map(value => `<option value="${value}" ${(block.language||'text')===value?'selected':''}>${value}</option>`).join('')}</select></label>
+              <label>Caption <span class="muted">(optional)</span><input class="input" data-path="translations.${lang}.content.${i}.caption" value="${escapeHtml(block.caption||'')}" /></label>
               <label>Code<textarea class="input" data-path="translations.${lang}.content.${i}.code" rows="5" style="font-family:monospace;font-size:0.85rem;">${escapeHtml(block.code||'')}</textarea></label>
             </div>`;
+          } else if (block.type === 'divider') {
+            body = '<div class="muted">Horizontal divider</div>';
           } else {
             body = '<div class="muted">Select a block type above</div>';
           }
@@ -2121,11 +2407,58 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
             <div class="block-body">${body}</div></div>`;
         }).join('');
         // Bind inputs
-        container.querySelectorAll('[data-path]').forEach(el => el.addEventListener('input', () => { setField(el.dataset.path, el.value); }));
+        container.querySelectorAll('[data-path]').forEach(el => {
+          const update = () => setField(el.dataset.path, el.value);
+          el.addEventListener('input', update);
+          if (el.tagName === 'SELECT') el.addEventListener('change', update);
+        });
         container.querySelectorAll('[data-block-type]').forEach(sel => sel.addEventListener('change', () => {
           const [l, idx] = sel.dataset.blockType.split('-');
-          state.current.translations[l].content[Number(idx)].type = sel.value;
-          renderBlocks(l);
+          state.current.translations[l].content[Number(idx)] = createBlogBlock(sel.value);
+          renderBlocks(l); syncToJson();
+        }));
+        container.querySelectorAll('[data-add-item]').forEach(btn => btn.addEventListener('click', () => {
+          const [kind, langKey, blockIndex] = btn.dataset.addItem.split('-');
+          const block = state.current.translations[langKey].content[Number(blockIndex)];
+          if (kind === 'timeline') block.items.push({ title: '', text: '' });
+          else if (kind === 'accordion') block.items.push({ question: '', answer: '' });
+          else if (kind === 'glossary') block.items.push({ term: '', definition: '' });
+          else if (kind === 'references') block.items.push({ title: '', url: '' });
+          renderBlocks(langKey); syncToJson();
+        }));
+        container.querySelectorAll('[data-remove-item]').forEach(btn => btn.addEventListener('click', () => {
+          const [kind, langKey, blockIndex, itemIndex] = btn.dataset.removeItem.split('-');
+          state.current.translations[langKey].content[Number(blockIndex)].items.splice(Number(itemIndex), 1);
+          renderBlocks(langKey); syncToJson();
+        }));
+        container.querySelectorAll('[data-add-table-row]').forEach(btn => btn.addEventListener('click', () => {
+          const [langKey, blockIndex] = btn.dataset.addTableRow.split('-');
+          const block = state.current.translations[langKey].content[Number(blockIndex)];
+          block.rows.push(block.headers.map(() => ''));
+          renderBlocks(langKey); syncToJson();
+        }));
+        container.querySelectorAll('[data-remove-table-row]').forEach(btn => btn.addEventListener('click', () => {
+          const [langKey, blockIndex, rowIndex] = btn.dataset.removeTableRow.split('-');
+          state.current.translations[langKey].content[Number(blockIndex)].rows.splice(Number(rowIndex), 1);
+          renderBlocks(langKey); syncToJson();
+        }));
+        container.querySelectorAll('[data-add-array-item]').forEach(btn => btn.addEventListener('click', () => {
+          const [langKey, blockIndex, kind, rowIndex] = btn.dataset.addArrayItem.split('-');
+          const block = state.current.translations[langKey].content[Number(blockIndex)];
+          if (kind === 'header') block.headers.push('');
+          else if (kind === 'checklist') block.items.push('');
+          if (kind === 'header') block.rows.forEach(row => row.push(''));
+          renderBlocks(langKey); syncToJson();
+        }));
+        container.querySelectorAll('[data-remove-array-item]').forEach(btn => btn.addEventListener('click', () => {
+          const [langKey, blockIndex, kind, rowIndex, itemIndex] = btn.dataset.removeArrayItem.split('-');
+          const block = state.current.translations[langKey].content[Number(blockIndex)];
+          if (kind === 'header') {
+            block.headers.splice(Number(itemIndex), 1);
+            block.rows.forEach(row => row.splice(Number(itemIndex), 1));
+          } else if (kind === 'cell') block.rows[Number(rowIndex)].splice(Number(itemIndex), 1);
+          else block.items.splice(Number(itemIndex), 1);
+          renderBlocks(langKey); syncToJson();
         }));
         container.querySelectorAll('[data-rm-block]').forEach(btn => btn.addEventListener('click', () => {
           const [l, idx] = btn.dataset.rmBlock.split('-');
@@ -2238,7 +2571,8 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
 
       function renderPostList() {
         const term = byId('search-posts').value.toLowerCase();
-        const rows = state.posts.filter(p => p.slug.includes(term) || (p.title||'').toLowerCase().includes(term));
+        const posts = Array.isArray(state.posts) ? state.posts : [];
+        const rows = posts.filter(p => String(p.slug||'').includes(term) || (p.title||'').toLowerCase().includes(term));
         byId('post-list').innerHTML = rows.map(p => {
           const personal = p.kind === 'personal';
           const imgSrc = p.featuredImage?.src || '';
@@ -2270,6 +2604,55 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
       }
 
       document.addEventListener('DOMContentLoaded', async () => {
+        const editor = byId('post-editor-view');
+        byId('posts-editor-host').appendChild(editor);
+        editor.hidden = true;
+        const savedTheme = localStorage.getItem('blog-admin-theme') || 'system';
+        byId('theme-select').value = savedTheme;
+        applyAdminTheme(savedTheme);
+        document.querySelectorAll('[data-workspace]').forEach(button => button.addEventListener('click', () => setWorkspace(button.dataset.workspace)));
+        byId('create-from-overview').addEventListener('click', () => {
+          setWorkspace('posts');
+          byId('new-post').click();
+        });
+        byId('refresh-media').addEventListener('click', loadMedia);
+        byId('media-upload').addEventListener('change', async () => {
+          const file = byId('media-upload').files[0];
+          if (!file) return;
+          const form = new FormData();
+          form.append('action', 'uploadImage');
+          form.append('image_file', file);
+          try {
+            await fetchJson(apiBase, { method: 'POST', body: form });
+            await loadMedia();
+            toast('Image uploaded.', 'ok');
+          } catch (error) {
+            toast(error.message || 'Upload failed.', 'err');
+          } finally {
+            byId('media-upload').value = '';
+          }
+        });
+        byId('theme-select').addEventListener('change', () => {
+          localStorage.setItem('blog-admin-theme', byId('theme-select').value);
+          applyAdminTheme(byId('theme-select').value);
+        });
+        byId('theme-toggle').addEventListener('click', () => {
+          const next = document.documentElement.dataset.adminTheme === 'dark' ? 'light' : 'dark';
+          localStorage.setItem('blog-admin-theme', next);
+          byId('theme-select').value = next;
+          applyAdminTheme(next);
+        });
+        byId('dashboard-recent').addEventListener('click', async event => {
+          const button = event.target.closest('[data-open-slug]');
+          if (!button) return;
+          setWorkspace('posts');
+          await loadPost(button.dataset.openSlug);
+        });
+        document.querySelectorAll('#post-list').forEach(list => list.addEventListener('click', () => {
+          if (!byId('post-editor-view').hidden) return;
+          setWorkspace('posts');
+        }));
+
         // Collapsible sections
         document.querySelectorAll('.collapsible-header').forEach(h => h.addEventListener('click', () => {
           const id = h.dataset.collapse;
@@ -2303,12 +2686,12 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
         });
 
         // Quick-add blocks
-        document.querySelectorAll('[data-add-block]').forEach(btn => btn.addEventListener('click', () => {
-          const type = btn.dataset.addBlock;
+        byId('add-schema-block').addEventListener('click', () => {
+          const type = byId('quick-add-block-type').value;
           const lang = state.contentLang;
-          state.current.translations[lang].content.push({type, text:''});
+          state.current.translations[lang].content.push(createBlogBlock(type));
           renderBlocks(lang); syncToJson();
-        }));
+        });
 
         // FAQ add
         byId('add-faq').addEventListener('click', () => {
@@ -2353,7 +2736,7 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
           const r = await fetchJson(apiBase, {method:'POST', body:fd});
           if (r?.slug) { await loadPosts(); state.current = null; await loadPost(r.slug); toast('Duplicated.', 'ok'); }
         });
-        byId('new-post').addEventListener('click', () => { state.current = normalizePost(defaultPost()); state.current.slug = 'new-post'; syncToJson(); render(); });
+        byId('new-post').addEventListener('click', () => { setWorkspace('posts'); state.current = normalizePost(defaultPost()); state.current.slug = 'new-post'; syncToJson(); render(); });
 
         // Post list actions
         document.body.addEventListener('click', async (e) => {
@@ -2390,7 +2773,13 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
         byId('json-editor').addEventListener('input', () => {
           clearTimeout(window._jsonTimer);
           window._jsonTimer = setTimeout(() => {
-            try { state.current = normalizePost(JSON.parse(byId('json-editor').value)); byId('json-error').textContent = ''; render(); }
+            try {
+              state.current = normalizePost(JSON.parse(byId('json-editor').value));
+              byId('json-error').textContent = '';
+              state.syncingJson = true;
+              try { render(); } finally { state.syncingJson = false; }
+              markDirty();
+            }
             catch(e) { byId('json-error').textContent = e.message; }
           }, 500);
         });
@@ -2449,7 +2838,18 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
 
         // Init
         state.current = normalizePost(defaultPost()); render();
-        async function loadPosts() { state.posts = await fetchJson(apiBase+'?action=list'); renderPostList(); }
+        loadDashboard();
+        async function loadPosts() {
+          try {
+            const posts = await fetchJson(apiBase+'?action=list');
+            if (!Array.isArray(posts)) throw new Error('Posts endpoint returned an invalid response.');
+            state.posts = posts;
+          } catch (error) {
+            state.posts = [];
+            toast(error.message || 'Could not load posts.', 'err');
+          }
+          renderPostList();
+        }
         async function loadPost(slug) { state.current = normalizePost(await fetchJson(apiBase+'?action=get&slug='+encodeURIComponent(slug))); render(); }
         await loadPosts();
       });
@@ -2629,6 +3029,7 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
         ta.addEventListener('input', () => {
           state.current.translations[lang].html = ta.value;
           renderHtmlStats(lang);
+          syncToJson();
           markDirty();
         });
         // Tab inserts two spaces; Shift+Tab dedents. Keyboard users are never
@@ -2851,7 +3252,7 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
         syncHtmlEditors();
         renderHtmlTabs();
         renderInspector();
-        markSaved();
+        if (!state.syncingJson) markSaved();
       };
 
       renderPreviewContent = function (data, lang) {

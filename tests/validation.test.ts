@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
-import { validateBooking } from "../lib/validation/booking";
-import { validateContact } from "../lib/validation/contact";
-import { validateForumPost, validateForumReply } from "../lib/validation/forum";
+import { validateBooking } from "@/lib/validation/booking";
+import { validateContact } from "@/lib/validation/contact";
+import { validateForumPost, validateForumReply } from "@/lib/validation/forum";
 
 describe("Booking validation", () => {
   it("should accept valid booking data", () => {

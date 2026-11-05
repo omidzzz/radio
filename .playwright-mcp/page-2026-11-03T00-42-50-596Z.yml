@@ -1,0 +1,221 @@
+- generic [ref=f3e2]:
+  - banner [ref=f3e3]:
+    - generic [ref=f3e4]:
+      - navigation [ref=f3e5]:
+        - link "دکتر پری قدمگاهی" [ref=f3e6] [cursor=pointer]:
+          - /url: /fa/
+        - generic [ref=f3e8]:
+          - button "جستجو" [ref=f3e9]
+          - button "تغییر منو" [ref=f3e12]
+      - generic:
+        - generic:
+          - link:
+            - /url: /fa/
+            - text: خانه
+          - link:
+            - /url: /fa/about/
+            - text: درباره من
+          - link:
+            - /url: /fa/services/
+            - text: خدمات
+          - link:
+            - /url: /fa/blog/
+            - text: بلاگ
+          - link:
+            - /url: /fa/forum/
+            - text: انجمن
+          - link:
+            - /url: /fa/booking/
+            - text: رزرو جلسه
+          - link:
+            - /url: /fa/contact/
+            - text: تماس با ما
+          - link:
+            - /url: /fa/search/
+            - text: جستجو
+          - generic:
+            - generic:
+              - button
+              - button: EN
+            - link:
+              - /url: /fa/booking/
+              - text: رزرو نوبت
+  - main [ref=f3e16]:
+    - generic [ref=f3e17]:
+      - region "معرفی خدمات و مراقبت" [ref=f3e19]:
+        - img "دکتر پری قدمگاهی، متخصص رادیوتراپی و آنکولوژی" [ref=f3e21]
+        - generic [aria-hidden]:
+          - generic: IMRT
+          - generic: 6 MV
+        - generic [ref=f3e23]:
+          - generic [ref=f3e24]: متخصص رادیوتراپی و آنکولوژی
+          - heading "دکتر پری قدمگاهی، رادیوتراپی و آنکولوژی" [level=1] [ref=f3e27]
+          - paragraph [ref=f3e28]: متخصص رادیوتراپی و آنکولوژی با تمرکز بالینی بر نوروانکولوژی و تومورهای سیستم عصبی مرکزی. تجربه در پرتودرمانی پیشرفته (IMRT، VMAT، SBRT، FSRT، SRS)، کانتورینگ و طراحی پلن درمان. برنامه درمانی هر بیمار بر اساس شرایط او شخصی‌سازی می‌شود.
+          - generic [ref=f3e29]:
+            - link "رزرو نوبت بعدی" [ref=f3e30] [cursor=pointer]:
+              - /url: /fa/booking
+              - text: "نوبت بعدی:"
+              - generic [ref=f3e33]: امروز ۱۴:۳۰
+            - link "رزرو مشاوره" [ref=f3e34] [cursor=pointer]:
+              - /url: /fa/booking/
+            - link "مشاهده خدمات" [ref=f3e36] [cursor=pointer]:
+              - /url: /fa/services/
+      - generic [ref=f3e39]:
+        - generic [ref=f3e41]:
+          - generic [ref=f3e42]: اعتماد و کیفیت
+          - heading "اعتماد جهانی، مراقبت محلی" [level=2] [ref=f3e43]
+        - generic [ref=f3e44]:
+          - generic [ref=f3e46]:
+            - generic [ref=f3e53]:
+              - img [aria-hidden] [ref=f3e54]:
+                - generic [ref=f3e57]: "0"
+              - generic [ref=f3e58]: 98%
+            - generic [ref=f3e59]: رضایت بیماران
+          - generic [ref=f3e61]:
+            - generic [ref=f3e68]:
+              - img [aria-hidden] [ref=f3e69]:
+                - generic [ref=f3e72]: "0"
+              - generic [ref=f3e73]: 24h
+            - generic [ref=f3e74]: میانگین زمان تحویل گزارش
+          - generic [ref=f3e76]:
+            - generic [ref=f3e83]:
+              - img [aria-hidden] [ref=f3e84]:
+                - generic [ref=f3e87]: "0"
+              - generic [ref=f3e88]: 100%
+            - generic [ref=f3e89]: دقت تشخیص
+      - generic [ref=f3e91]:
+        - generic [ref=f3e93]:
+          - generic [ref=f3e94]:
+            - generic [ref=f3e95]: MOD / DOSE MAP
+            - generic [ref=f3e96]: IMRT · 6 MV
+          - img "نمای توزیع دوز در پلن درمانی" [ref=f3e99]
+          - list [ref=f3e360]:
+            - listitem [ref=f3e361]: ۹۵٪ ایزودوز
+            - listitem [ref=f3e363]: ۱۰۰٪ ایزودوز
+            - listitem [ref=f3e365]: نقاط داغ ۱۱۰٪
+        - generic [ref=f3e367]:
+          - generic [ref=f3e369]:
+            - generic [ref=f3e370]: دقت و ایمنی
+            - heading "هر میلی‌متر، برنامه‌ریزی‌شده" [level=2] [ref=f3e371]
+            - paragraph [ref=f3e372]: دوز درمانی دقیقاً به هدف می‌رسد و بافت سالم اطراف تا حد امکان حفظ می‌شود. این نتیجهٔ یک مسیر کنترل‌شده از شبیه‌سازی تا تایید نهایی است.
+          - generic [ref=f3e373]:
+            - generic [ref=f3e374]:
+              - term [ref=f3e375]: پوشش هدف
+              - definition [ref=f3e376]: ۹۶.۴٪
+            - generic [ref=f3e377]:
+              - term [ref=f3e378]: شاخص تطابق
+              - definition [ref=f3e379]: ۱.۰۲
+            - generic [ref=f3e380]:
+              - term [ref=f3e381]: دقت تنظیم بیمار
+              - definition [ref=f3e382]: ±۰.۵ میلی‌متر
+          - list [ref=f3e383]:
+            - listitem [ref=f3e384]:
+              - generic [ref=f3e388]: شبیه‌سازی و طراحی پلن بر پایه تصاویر CT
+            - listitem [ref=f3e389]:
+              - generic [ref=f3e393]: تایید روزانه موقعیت بیمار پیش از هر جلسه
+            - listitem [ref=f3e394]:
+              - generic [ref=f3e398]: کنترل مستقل صحت دوز پیش از شروع درمان
+      - generic [ref=f3e400]:
+        - img [ref=f3e406]:
+          - generic [ref=f3e443]: BEAM ON
+          - generic [ref=f3e446]: 3.0T WIDE-BORE MRI
+        - generic [ref=f3e447]:
+          - generic [ref=f3e449]:
+            - generic [ref=f3e450]: دستگاه‌های ما
+            - heading "فناوری که به آن اعتماد می‌کنید" [level=2] [ref=f3e451]
+            - paragraph [ref=f3e452]: دستگاه‌های ما استانداردهای بالینی روز دنیا را رعایت می‌کنند تا تصاویری واضح و قابل اتکا برای پزشک شما فراهم شود.
+          - generic [ref=f3e453]:
+            - generic [ref=f3e454]:
+              - term [ref=f3e455]: قدرت میدان مغناطیسی
+              - definition [ref=f3e456]: 3.0 T
+            - generic [ref=f3e457]:
+              - term [ref=f3e458]: قطر دهانه دستگاه
+              - definition [ref=f3e459]: ۷۰ سانتی‌متر
+            - generic [ref=f3e460]:
+              - term [ref=f3e461]: میانگین زمان اسکن
+              - definition [ref=f3e462]: ۱۸ تا ۳۵ دقیقه
+            - generic [ref=f3e463]:
+              - term [ref=f3e464]: دقت تفکیک برش
+              - definition [ref=f3e465]: ۰.۵ میلی‌متر
+      - generic [ref=f3e467]:
+        - generic [ref=f3e469]:
+          - heading "سؤالی درباره درمان دارید؟" [level=2] [ref=f3e470]
+          - paragraph [ref=f3e471]: مستقیم با دکتر پری قدمگاهی گفتگو کنید — به انجمن گفتگوی ما بپیوندید تا سؤالات خود را بپرسید، تجربیات خود را به اشتراک بگذارید و از متخصصان و سایر بیماران حمایت بگیرید.
+        - generic [ref=f3e473]:
+          - link "مشاهده انجمن" [ref=f3e474] [cursor=pointer]:
+            - /url: /fa/forum/
+          - link "تماس با ما" [ref=f3e477] [cursor=pointer]:
+            - /url: /fa/contact/
+  - contentinfo "Site footer" [ref=f3e479]:
+    - generic [ref=f3e484]:
+      - generic [ref=f3e485]:
+        - generic [ref=f3e486]:
+          - link "دکتر پری قدمگاهی" [ref=f3e487] [cursor=pointer]:
+            - /url: /fa/
+          - paragraph [ref=f3e489]: مراقبت تخصصی و دلسوزانه در رادیوتراپی و آنکولوژی، با تمرکز بر درمان دقیق و انسانی بیماران سرطانی. سلامت و آرامش شما اولویت من است.
+          - generic [ref=f3e490]:
+            - link "Telegram" [ref=f3e491] [cursor=pointer]:
+              - /url: https://t.me/radiotherapyclinic
+            - link "WhatsApp" [ref=f3e494] [cursor=pointer]:
+              - /url: https://wa.me/989124599949
+            - link "Instagram" [ref=f3e497] [cursor=pointer]:
+              - /url: https://instagram.com/radiotherapyclinic
+          - link "رزرو نوبت" [ref=f3e502] [cursor=pointer]:
+            - /url: /fa/booking/
+        - navigation "دسترسی سریع" [ref=f3e503]:
+          - heading "دسترسی سریع" [level=3] [ref=f3e504]
+          - list [ref=f3e506]:
+            - listitem [ref=f3e507]:
+              - link "درباره ما" [ref=f3e508] [cursor=pointer]:
+                - /url: /fa/about/
+            - listitem [ref=f3e510]:
+              - link "خدمات ما" [ref=f3e511] [cursor=pointer]:
+                - /url: /fa/services/
+            - listitem [ref=f3e513]:
+              - link "انجمن گفتگو" [ref=f3e514] [cursor=pointer]:
+                - /url: /fa/forum/
+            - listitem [ref=f3e516]:
+              - link "رزرو نوبت" [ref=f3e517] [cursor=pointer]:
+                - /url: /fa/booking/
+            - listitem [ref=f3e519]:
+              - link "بلاگ" [ref=f3e520] [cursor=pointer]:
+                - /url: /fa/blog/
+            - listitem [ref=f3e522]:
+              - link "تماس با ما" [ref=f3e523] [cursor=pointer]:
+                - /url: /fa/contact/
+        - generic [ref=f3e525]:
+          - heading "تماس" [level=3] [ref=f3e526]
+          - list [ref=f3e528]:
+            - listitem [ref=f3e529]:
+              - link "تهران، خیابان ولیعصر روبروی درب اورژانس بیمارستان دی، برج پزشکان دی طبقه دهم، واحد C" [ref=f3e531] [cursor=pointer]:
+                - /url: https://www.google.com/maps/dir/?api=1&destination=Day%20Hospital%2C%20Valiasr%20Street%2C%20Tehran
+                - text: تهران، خیابان ولیعصرروبروی درب اورژانس بیمارستان دی، برج پزشکان دیطبقه دهم، واحد C
+              - link "مسیریابی" [ref=f3e532] [cursor=pointer]:
+                - /url: https://www.google.com/maps/dir/?api=1&destination=Day%20Hospital%2C%20Valiasr%20Street%2C%20Tehran
+            - listitem [ref=f3e533]:
+              - link "۰۹۱۲۵۰۴۴۹۵۳" [ref=f3e534] [cursor=pointer]:
+                - /url: tel:09125044953
+            - listitem [ref=f3e537]:
+              - link "dr.pghadamgahi@gmail.com" [ref=f3e538] [cursor=pointer]:
+                - /url: mailto:dr.pghadamgahi@gmail.com
+        - generic [ref=f3e543]:
+          - generic [ref=f3e544]:
+            - heading "ساعات کاری" [level=3] [ref=f3e545]
+            - generic [ref=f3e547]: اکنون بسته است
+          - list
+          - link "ورود مدیریت" [ref=f3e551] [cursor=pointer]:
+            - /url: /fa/admin/login/
+      - generic [ref=f3e553]:
+        - generic [ref=f3e554]:
+          - paragraph [ref=f3e555]: © ۲۰۲۶ دکتر پری قدمگاهی. تمامی حقوق محفوظ است.
+          - paragraph [ref=f3e556]:
+            - text: طراحی توسط
+            - link "sinisteroid" [ref=f3e557] [cursor=pointer]:
+              - /url: https://sinisteroid.ir/
+        - generic [ref=f3e558]:
+          - link "حریم خصوصی" [ref=f3e559] [cursor=pointer]:
+            - /url: /fa/privacy/
+          - link "شرایط استفاده" [ref=f3e561] [cursor=pointer]:
+            - /url: /fa/terms/
+          - link "بازگشت به بالا" [ref=f3e563] [cursor=pointer]:
+            - /url: "#top"

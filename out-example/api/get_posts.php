@@ -1,9 +1,9 @@
 <?php
 
-require_once __DIR__ . '/db.php';
 header('Content-Type: application/json; charset=utf-8');
 
 try {
+    require_once __DIR__ . '/db.php';
     $params = [];
     // SECURITY: drafts are only visible to the authenticated admin. The old
     // `?admin=1` query-param shortcut required no auth at all, so ANY visitor
@@ -19,7 +19,7 @@ try {
     // Default (no param) stays "all posts" for the blog index sync.
     $limit = isset($_GET['limit']) ? max(1, min(50, (int) $_GET['limit'])) : 0;
     $stmt = $pdo->prepare(
-        "SELECT slug, status, title, date_published AS date, tags, featured_image, content_json FROM posts $statusFilter ORDER BY date_published DESC"
+        "SELECT id, slug, status, title, date_published AS date, tags, featured_image, content_json FROM posts $statusFilter ORDER BY date_published DESC"
         . ($limit > 0 ? " LIMIT $limit" : "")
     );
     $stmt->execute($params);
@@ -50,6 +50,7 @@ try {
         }
 
         return [
+            'id' => (int) $row['id'],
             'slug' => $row['slug'],
             'kind' => $kind,
             'status' => $row['status'] ?? 'draft',
@@ -65,7 +66,7 @@ try {
         ];
     }, $rows);
     echo json_encode($posts, JSON_UNESCAPED_UNICODE);
-} catch (Exception $e) {
+} catch (Throwable $e) {
     // SECURITY: log details server-side, never echo them to the visitor.
     error_log('[sinisteroid] get_posts query failed: ' . $e->getMessage());
     http_response_code(500);

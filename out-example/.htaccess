@@ -66,16 +66,12 @@
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteRule ^(en|fa)/(blog|work|skills|education|showcase)$ $1/$2/ [R=301,L]
 
-  # ── Static blog post w/o trailing slash → serve index.html (200) ─
-  # Internal rewrite, not a redirect. The page ships its own
-  # <link rel="canonical"> in trailing-slash form, so Google still
-  # consolidates the no-slash and slash variants into one URL.
-  RewriteCond %{REQUEST_URI} ^/en/blog/([^/]+)$
-  RewriteCond %{DOCUMENT_ROOT}/en/blog/%1/index.html -f
-  RewriteRule ^ /en/blog/%1/index.html [L]
-  RewriteCond %{REQUEST_URI} ^/fa/blog/([^/]+)$
-  RewriteCond %{DOCUMENT_ROOT}/fa/blog/%1/index.html -f
-  RewriteRule ^ /fa/blog/%1/index.html [L]
+  # ── Database is authoritative for every article URL ───────────────
+  # Route both existing and newly published slugs through the same React
+  # shell and MySQL detail API. Static exports remain a fallback only for
+  # missing/failed DB content, not a stale source of published copy.
+  RewriteRule ^(en|fa)/blog/live/?$ $1/blog/live/index.html [L]
+  RewriteRule ^(en|fa)/blog/([^/.]+)/?$ api/post.php?slug=$2&locale=$1 [QSA,L]
 
   # ── Locale section index — serve index.html (internal) ──────────
   RewriteRule ^en/blog$ en/blog/index.html [L]
@@ -88,16 +84,6 @@
   RewriteRule ^fa/education$ fa/education/index.html [L]
   RewriteRule ^en/showcase$ en/showcase/index.html [L]
   RewriteRule ^fa/showcase$ fa/showcase/index.html [L]
-
-  # ── DB-only posts → server-side PHP rendering ────────────────────
-  # Posts published via /api/admin.php exist only in MySQL until the
-  # next static export. When no pre-rendered folder exists for a slug,
-  # api/post.php renders the FULL article (HTML head, meta tags, JSON-LD,
-  # all content blocks) straight from the database — no rebuild needed.
-  # Existing folders are untouched (!-d guard).
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteRule ^(en|fa)/blog/([^/.]+)/?$ api/post.php?slug=$2&locale=$1 [QSA,L]
 
   # ── Dynamic sitemap: all DB posts get indexed via sitemap.php ──────
   # sitemap.xml is rewritten to sitemap.php which reads ALL published

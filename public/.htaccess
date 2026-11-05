@@ -1,7 +1,6 @@
 # ─────────────────────────────────────────────
-# Static HTML Export (`next export`) — Apache/cPanel
-# Deploy the entire `out/` folder — including this hidden .htaccess file —
-# to the domain's document root. Do NOT point this at a Node.js backend.
+# Static Next.js export with PHP/MySQL-backed live blog and admin — Apache/cPanel
+# The deployment archive also includes PHP API files from out-example/api.
 # ─────────────────────────────────────────────
 # Force UTF-8 charset (fixes Persian/Arabic mojibake)
 AddDefaultCharset UTF-8
@@ -33,13 +32,21 @@ DirectoryIndex index.html
   # /fa/* and /en/* have pre-built static pages at these paths
   # (no rewrite needed — files exist where they're requested)
 
+  # The prerendered shell is a live client renderer for MySQL blog posts.
+  # Keep the shell itself static, but route every article URL through PHP.
+  RewriteRule ^(en|fa)/blog/live/?$ $1/blog/live/index.html [L]
+  RewriteRule ^(en|fa)/blog/([^/.]+)/?$ api/post.php?slug=$2&locale=$1 [QSA,L]
+
+  # MySQL-backed sitemap includes posts published after the static build.
+  RewriteRule ^sitemap\.xml$ sitemap.php [L,QSA]
+
+  # PHP APIs and authenticated admin must reach the PHP handler.
+  RewriteRule ^api/ - [L]
+
   # Serve existing files and directories directly
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
-
-  # No Node.js backend in static export → block API routes explicitly
-  RewriteRule ^api/ - [R=404,L]
 
   # Favicon (actual file lives at /images/icon-512.png)
   RewriteRule ^favicon\.ico$ /images/icon-512.png [L]
