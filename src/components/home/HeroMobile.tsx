@@ -1,10 +1,6 @@
-﻿"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import type { Dictionary } from "@/lib/i18n";
-import LiveSlotBadge from "@/components/ui/LiveSlotBadge";
-import MagneticButton from "@/components/ui/MagneticButton";
 import SlideBackground from "@/components/slides/SlideBackground";
 
 interface HeroMobileProps {
@@ -42,7 +38,7 @@ export default function HeroMobile({
         </div>
         <div className="hero-mobile-portrait-frame relative z-10">
           <Image
-            src="/images/doctor-portrait-mobile.webp"
+            src="/images/doctor-portrait-mobile-top.webp"
             alt={
               isFa
                 ? "دکتر پری قدمگاهی، متخصص رادیوتراپی و آنکولوژی"
@@ -103,32 +99,43 @@ export default function HeroMobile({
           </ul>
 
           <div className="anim-fade-up delay-400 mt-5 flex w-full flex-col gap-3 sm:mt-6 sm:gap-4">
-            <LiveSlotBadge
-              isFa={isFa}
-              primary
+            <Link
               href={bookingHref}
-              className="hero-surface hero-panel-compact w-full"
-            />
-            <MagneticButton
-              as={Link}
+              prefetch={false}
+              className="ui-button ui-button-slot tnum inline-flex min-h-11 w-full items-center justify-center gap-2 px-4 py-2 text-xs is-primary hero-surface hero-panel-compact"
+              dir={isFa ? "rtl" : "ltr"}
+            >
+              <span className="relative flex h-2 w-2" aria-hidden="true">
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+              </span>
+              {isFa ? (
+                <>
+                  نوبت بعدی: <span className="font-bold">امروز ۱۴:۳۰</span>
+                </>
+              ) : (
+                <>
+                  Next Slot: <span className="font-bold">Today 14:30</span>
+                </>
+              )}
+            </Link>
+            <Link
               href={bookingHref}
-              variant="primary"
-              className="hero-cta w-full min-h-12 overflow-hidden px-6 py-3.5"
+              prefetch={false}
+              className="group relative inline-flex min-h-12 w-full cursor-pointer select-none items-center justify-center gap-2 overflow-hidden px-6 py-3.5 font-semibold leading-relaxed ui-button ui-button-primary hero-cta"
             >
               <span className="relative flex items-center gap-2" dir="ltr">
                 {dict.home.bookConsultation}
               </span>
-            </MagneticButton>
-            <MagneticButton
-              as={Link}
+            </Link>
+            <Link
               href={servicesHref}
-              variant="outline"
-              className="hero-cta w-full min-h-12 px-6 py-3 text-base"
+              prefetch={false}
+              className="group relative inline-flex min-h-12 w-full cursor-pointer select-none items-center justify-center gap-2 overflow-hidden px-6 py-3 text-base font-semibold leading-relaxed ui-button ui-button-outline hero-cta"
             >
               <span className="relative flex items-center gap-2" dir="ltr">
                 {dict.home.exploreServices}
               </span>
-            </MagneticButton>
+            </Link>
           </div>
         </div>
       </div>

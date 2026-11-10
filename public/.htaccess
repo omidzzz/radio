@@ -40,6 +40,11 @@ DirectoryIndex index.html
   # MySQL-backed sitemap includes posts published after the static build.
   RewriteRule ^sitemap\.xml$ sitemap.php [L,QSA]
 
+  # Legacy Next.js image-optimizer URLs (/_next/image/?url=...) are not
+  # available in the static export; serve the underlying file directly.
+  RewriteCond %{REQUEST_URI} ^/_next/image [NC]
+  RewriteRule .* /image.php [QSA,L]
+
   # PHP APIs and authenticated admin must reach the PHP handler.
   RewriteRule ^api/ - [L]
 
@@ -78,6 +83,15 @@ DirectoryIndex index.html
   Header set Referrer-Policy "strict-origin-when-cross-origin"
   Header set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
   Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
+
+# Never cache the service worker or HTML shells so updates propagate
+<IfModule mod_headers.c>
+  <FilesMatch "^(sw\.js|.*\.html)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
 </IfModule>
 
 # Cache static assets

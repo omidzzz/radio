@@ -4,11 +4,14 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useState,
   ReactNode,
 } from "react";
-import BookingModal from "./BookingModal";
+import dynamic from "next/dynamic";
+
+// The form, validation, and date-picker code is only needed after the visitor
+// opens the booking dialog. Keep it out of the initial page bundle.
+const BookingModal = dynamic(() => import("./BookingModal"), { ssr: false });
 
 interface BookingModalContextValue {
   openBookingModal: () => void;

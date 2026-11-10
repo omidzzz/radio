@@ -27,6 +27,7 @@ export default function HeroSlider({ dict, isFa }: HeroSliderProps) {
   return (
     <div
       className="relative grid"
+      dir={isFa ? "rtl" : "ltr"}
       role="region"
       aria-roledescription={isFa ? "اسلایدر" : "carousel"}
       aria-label={
@@ -40,6 +41,7 @@ export default function HeroSlider({ dict, isFa }: HeroSliderProps) {
             active === i ? "opacity-100" : "opacity-0 pointer-events-none"
           }`}
           aria-hidden={active !== i}
+          inert={active !== i}
           role="group"
           aria-roledescription={isFa ? "اسلاید" : "slide"}
           aria-label={`${i + 1} ${isFa ? "از" : "of"} ${SLIDE_COUNT}`}

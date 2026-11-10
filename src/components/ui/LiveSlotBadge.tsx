@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { toFarsiDigits } from "@/lib/i18n/numbers";
 import { useBookingModal } from "@/components/forms/BookingModalProvider";
 
@@ -48,8 +49,9 @@ export default function LiveSlotBadge({
 
   if (href) {
     return (
-      <a
+      <Link
         href={href}
+        prefetch={false}
         onClick={(e) => {
           e.preventDefault();
           openBookingModal();
@@ -59,7 +61,7 @@ export default function LiveSlotBadge({
         aria-label={isFa ? "رزرو نوبت بعدی" : "Book next available slot"}
       >
         {content}
-      </a>
+      </Link>
     );
   }
 

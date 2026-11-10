@@ -1,11 +1,21 @@
-/* ═══════════════════════════════════════════
-   RENDERING PERFORMANCE
+﻿# RENDERING PERFORMANCE
    content-visibility: auto lets the browser skip rendering,
    painting and hit-testing of off-screen sections until they
    scroll into view, cutting initial main-thread work on mobile.
    contain-intrinsic-size reserves space to prevent scroll jumps.
-═══════════════════════════════════════════ */
+
 .content-visibility {
   content-visibility: auto;
   contain-intrinsic-size: auto 600px;
+}
+
+/* homepage override: larger intrinsic-size to prevent CLS on below-fold sections */
+.home-page-sections .content-visibility,
+.home-page-sections>div.content-visibility {
+  contain-intrinsic-size: auto 900px;
+}
+
+/* CTA band override */
+section.band-dark.content-visibility {
+  contain-intrinsic-size: auto 650px;
 }

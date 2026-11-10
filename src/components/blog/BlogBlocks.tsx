@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { BlogBlock } from "@/lib/blog/schema";
 import type { Locale } from "@/lib/i18n/config";
 
@@ -16,11 +17,16 @@ function Block({ block, index, title, locale }: { block: BlogBlock; index: numbe
     }
     case "stats": return <dl className="blog-stats">{block.items.map((item, i) => <div key={i}><dt>{item.label}</dt><dd>{item.value}</dd></div>)}</dl>;
     case "image": return <figure className="blog-figure">
-      {/* Native images support validated local paths and remote URLs without an optimizer dependency. */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={block.src} alt={block.alt} width={block.width ?? 1200} height={block.height ?? 675} loading="lazy" decoding="async" />
-      {block.caption && <figcaption>{block.caption}</figcaption>}
-    </figure>;
+        <Image
+          src={block.src}
+          alt={block.alt}
+          width={block.width ?? 1200}
+          height={block.height ?? 675}
+          loading="lazy"
+          priority={false}
+        />
+        {block.caption && <figcaption>{block.caption}</figcaption>}
+      </figure>;
     case "cta": return <aside className="blog-cta text-center"><h2>{block.title}</h2><p>{block.text}</p><a className="ui-button ui-button-primary" href={block.buttonUrl}>{block.buttonText}<span aria-hidden="true">{fa ? "←" : "→"}</span></a></aside>;
     case "callout": return <aside className={`blog-callout blog-callout-${block.tone}`}>{block.title && <h3>{block.title}</h3>}<p>{block.text}</p></aside>;
     case "quote": return <figure className="blog-quote"><blockquote><p>{block.text}</p></blockquote>{block.attribution && <figcaption>{block.sourceUrl ? <a href={block.sourceUrl} rel="noopener noreferrer">{block.attribution}</a> : block.attribution}</figcaption>}</figure>;

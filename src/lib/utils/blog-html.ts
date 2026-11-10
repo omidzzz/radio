@@ -37,12 +37,18 @@ export function processArticleHtml(rawHtml: string): {
     },
   );
 
+  // Add aspect-ratio to prevent CLS (Cumulative Layout Shift)
+  // If no explicit width/height, use a default ratio to reserve space
   const withLazyImages = withAnchors.replace(
     /<img\b([^>]*)>/gi,
     (_match, attrs: string) => {
       let updated = attrs;
       if (!/loading=/i.test(updated)) updated += ' loading="lazy"';
       if (!/decoding=/i.test(updated)) updated += ' decoding="async"';
+      // Add aspect-ratio to prevent CLS if no width/height specified
+      if (!/width=/i.test(updated) && !/height=/i.test(updated)) {
+        updated += ' style="aspect-ratio: 4/3; object-fit: cover;"';
+      }
       return `<img${updated}>`;
     },
   );

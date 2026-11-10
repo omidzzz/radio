@@ -2,6 +2,11 @@
 // All site-wide SEO values live here for consistency.
 // Identity data sourced from Dr. Ghadamgahi's visit card.
 
+const configuredSiteUrl = process.env.NEXT_PUBLIC_APP_URL?.trim().replace(/\/+$/, "");
+const siteUrl = configuredSiteUrl && !/yourdomain\.com/i.test(configuredSiteUrl)
+  ? configuredSiteUrl
+  : "https://sinisteroid.ir";
+
 export const siteConfig = {
   name: "دکتر پری قدمگاهی ",
   shortName: "دکتر پری قدمگاهی",
@@ -14,7 +19,7 @@ export const siteConfig = {
     fa: "وب‌سایت دکتر پری قدمگاهی، متخصص رادیوتراپی و آنکولوژی — پرتودرمانی با تمرکز بر نوروانکولوژی و تومورهای سیستم عصبی مرکزی (CNS). رزرو مشاوره، پرسش در انجمن گفتگو و آشنایی با گزینه‌های درمانی.",
     en: "The website of Dr. Pari Ghadamgahi, specialist in radiotherapy and oncology — radiotherapy with a focus on neuro-oncology and tumours of the central nervous system (CNS). Book a consultation, ask questions in the forum, and learn about treatment options.",
   },
-  url: process.env.NEXT_PUBLIC_APP_URL || "https://yourdomain.com",
+  url: siteUrl,
   locale: "fa_IR",
   alternateLocale: "en_US",
   defaultOgImage: "/images/og-default.jpg",

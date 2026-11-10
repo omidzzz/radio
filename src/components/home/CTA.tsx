@@ -22,6 +22,7 @@ export default function CTA({ dict, isFa }: CTAProps) {
             <MagneticButton
               as={Link}
               href={`/${locale}/forum`}
+              prefetch={false}
               strength={0.2}
               variant="primary"
               className="conic-border"
@@ -33,6 +34,7 @@ export default function CTA({ dict, isFa }: CTAProps) {
             <MagneticButton
               as={Link}
               href={`/${locale}/contact`}
+              prefetch={false}
               strength={0.2}
               variant="ghost"
               className="ui-button-on-dark"

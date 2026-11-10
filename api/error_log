@@ -1,0 +1,129 @@
+[05-Nov-2026 00:29:32 UTC] [sinisteroid] DB connection failed: SQLSTATE[HY000] [1045] Access denied for user 'your_db_user'@'localhost' (using password: YES)
+[05-Nov-2026 00:29:35 UTC] [sinisteroid] DB connection failed: SQLSTATE[HY000] [1045] Access denied for user 'your_db_user'@'localhost' (using password: YES)
+[05-Nov-2026 00:32:28 UTC] [sinisteroid] DB connection failed: SQLSTATE[HY000] [1045] Access denied for user 'your_db_user'@'localhost' (using password: YES)
+[05-Nov-2026 00:32:35 UTC] [sinisteroid] DB connection failed: SQLSTATE[HY000] [1045] Access denied for user 'your_db_user'@'localhost' (using password: YES)
+[05-Nov-2026 00:39:33 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'siniste1_radio.posts' doesn't exist in /home/siniste1/test.sinisteroid.ir/api/admin.php:371
+Stack trace:
+#0 /home/siniste1/test.sinisteroid.ir/api/admin.php(371): PDO->query()
+#1 /home/siniste1/test.sinisteroid.ir/api/admin.php(559): listPosts()
+#2 {main}
+  thrown in /home/siniste1/test.sinisteroid.ir/api/admin.php on line 371
+[05-Nov-2026 00:40:30 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'siniste1_radio.posts' doesn't exist in /home/siniste1/test.sinisteroid.ir/api/admin.php:371
+Stack trace:
+#0 /home/siniste1/test.sinisteroid.ir/api/admin.php(371): PDO->query()
+#1 /home/siniste1/test.sinisteroid.ir/api/admin.php(559): listPosts()
+#2 {main}
+  thrown in /home/siniste1/test.sinisteroid.ir/api/admin.php on line 371
+[05-Nov-2026 00:40:31 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'siniste1_radio.posts' doesn't exist in /home/siniste1/test.sinisteroid.ir/api/admin.php:371
+Stack trace:
+#0 /home/siniste1/test.sinisteroid.ir/api/admin.php(371): PDO->query()
+#1 /home/siniste1/test.sinisteroid.ir/api/admin.php(559): listPosts()
+#2 {main}
+  thrown in /home/siniste1/test.sinisteroid.ir/api/admin.php on line 371
+[05-Nov-2026 00:40:33 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'siniste1_radio.posts' doesn't exist in /home/siniste1/test.sinisteroid.ir/api/admin.php:371
+Stack trace:
+#0 /home/siniste1/test.sinisteroid.ir/api/admin.php(371): PDO->query()
+#1 /home/siniste1/test.sinisteroid.ir/api/admin.php(559): listPosts()
+#2 {main}
+  thrown in /home/siniste1/test.sinisteroid.ir/api/admin.php on line 371
+[05-Nov-2026 00:40:34 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'siniste1_radio.posts' doesn't exist in /home/siniste1/test.sinisteroid.ir/api/admin.php:371
+Stack trace:
+#0 /home/siniste1/test.sinisteroid.ir/api/admin.php(371): PDO->query()
+#1 /home/siniste1/test.sinisteroid.ir/api/admin.php(559): listPosts()
+#2 {main}
+  thrown in /home/siniste1/test.sinisteroid.ir/api/admin.php on line 371
+[05-Nov-2026 01:36:43 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'siniste1_radio.posts' doesn't exist in /home/siniste1/test.sinisteroid.ir/api/admin.php:559
+Stack trace:
+#0 /home/siniste1/test.sinisteroid.ir/api/admin.php(559): PDO->query()
+#1 {main}
+  thrown in /home/siniste1/test.sinisteroid.ir/api/admin.php on line 559
+[05-Nov-2026 01:36:43 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'siniste1_radio.posts' doesn't exist in /home/siniste1/test.sinisteroid.ir/api/admin.php:371
+Stack trace:
+#0 /home/siniste1/test.sinisteroid.ir/api/admin.php(371): PDO->query()
+#1 /home/siniste1/test.sinisteroid.ir/api/admin.php(596): listPosts()
+#2 {main}
+  thrown in /home/siniste1/test.sinisteroid.ir/api/admin.php on line 371
+[05-Nov-2026 01:37:10 UTC] [sinisteroid] get_posts query failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'siniste1_radio.posts' doesn't exist
+[05-Nov-2026 01:37:22 UTC] [sinisteroid] get_posts query failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'siniste1_radio.posts' doesn't exist
+[05-Nov-2026 01:40:10 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'siniste1_radio.posts' doesn't exist in /home/siniste1/test.sinisteroid.ir/api/admin.php:449
+Stack trace:
+#0 /home/siniste1/test.sinisteroid.ir/api/admin.php(449): PDOStatement->execute()
+#1 /home/siniste1/test.sinisteroid.ir/api/admin.php(628): savePost()
+#2 {main}
+  thrown in /home/siniste1/test.sinisteroid.ir/api/admin.php on line 449
+[05-Nov-2026 01:40:11 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'siniste1_radio.posts' doesn't exist in /home/siniste1/test.sinisteroid.ir/api/admin.php:371
+Stack trace:
+#0 /home/siniste1/test.sinisteroid.ir/api/admin.php(371): PDO->query()
+#1 /home/siniste1/test.sinisteroid.ir/api/admin.php(596): listPosts()
+#2 {main}
+  thrown in /home/siniste1/test.sinisteroid.ir/api/admin.php on line 371
+[05-Nov-2026 01:58:33 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'siniste1_radio.posts' doesn't exist in /home/siniste1/test.sinisteroid.ir/api/admin.php:559
+Stack trace:
+#0 /home/siniste1/test.sinisteroid.ir/api/admin.php(559): PDO->query()
+#1 {main}
+  thrown in /home/siniste1/test.sinisteroid.ir/api/admin.php on line 559
+[05-Nov-2026 13:11:41 UTC] [sinisteroid] get_posts query failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'siniste1_radio.posts' doesn't exist
+[05-Nov-2026 13:11:57 UTC] [sinisteroid] admin dashboard query failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'siniste1_radio.posts' doesn't exist
+[05-Nov-2026 13:11:57 UTC] [sinisteroid] admin post list query failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'siniste1_radio.posts' doesn't exist
+[05-Nov-2026 13:13:25 UTC] [sinisteroid] admin post list query failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'siniste1_radio.posts' doesn't exist
+[05-Nov-2026 13:13:25 UTC] [sinisteroid] admin dashboard query failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'siniste1_radio.posts' doesn't exist
+[05-Nov-2026 13:14:01 UTC] [sinisteroid] admin dashboard query failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'siniste1_radio.posts' doesn't exist
+[05-Nov-2026 13:14:01 UTC] [sinisteroid] admin post list query failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'siniste1_radio.posts' doesn't exist
+[05-Nov-2026 13:14:58 UTC] [sinisteroid] get_posts query failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'siniste1_radio.posts' doesn't exist
+[05-Nov-2026 13:52:20 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 13:55:03 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 14:35:45 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 14:36:19 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 14:37:06 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 14:41:03 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 14:41:10 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 14:54:50 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 15:42:04 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 15:47:19 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 15:49:59 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 15:51:51 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 15:55:45 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 15:55:56 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 16:00:29 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 16:04:47 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 16:57:04 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 17:20:52 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 17:28:52 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 17:30:55 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 17:50:54 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 18:45:24 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 18:47:21 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 19:54:22 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 21:26:24 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 23:07:48 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 23:09:28 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 23:25:29 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 23:26:51 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 23:27:55 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 23:28:09 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 23:28:26 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[05-Nov-2026 23:32:20 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[06-Nov-2026 04:02:26 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[06-Nov-2026 04:02:50 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[06-Nov-2026 04:04:48 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[06-Nov-2026 04:04:49 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[06-Nov-2026 04:05:06 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[06-Nov-2026 19:37:05 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[06-Nov-2026 22:00:09 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[06-Nov-2026 22:00:55 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[06-Nov-2026 22:35:29 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[06-Nov-2026 22:35:33 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[06-Nov-2026 22:35:35 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[06-Nov-2026 22:35:38 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[06-Nov-2026 22:35:40 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[06-Nov-2026 22:35:40 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[06-Nov-2026 22:35:42 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[06-Nov-2026 22:35:42 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[07-Nov-2026 14:32:21 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[07-Nov-2026 21:54:27 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[08-Nov-2026 09:06:26 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[10-Nov-2026 17:20:20 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[10-Nov-2026 17:29:03 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[10-Nov-2026 17:42:33 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[10-Nov-2026 18:16:13 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177
+[10-Nov-2026 18:16:17 UTC] PHP Warning:  Array to string conversion in /home/siniste1/test.sinisteroid.ir/api/post.php on line 177

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Dictionary } from "@/lib/i18n";
 import CursorGlow from "@/components/ui/CursorGlow";
@@ -6,6 +5,9 @@ import MagneticButton from "@/components/ui/MagneticButton";
 import LiveSlotBadge from "@/components/ui/LiveSlotBadge";
 import HeroBottomDivider from "@/components/home/HeroBottomDivider";
 import SlideBackground from "@/components/slides/SlideBackground";
+import ViewportImage from "@/components/ui/ViewportImage";
+
+const TRANSPARENT_PIXEL = "data:image/gif;base64,R0lGODlhAQABAAAAACw=";
 
 interface HeroProps {
   dict: Dictionary;
@@ -18,6 +20,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
 
   return (
     <section
+      dir={isFa ? "rtl" : "ltr"}
       className={`slide-entrance relative h-full min-h-[100svh] overflow-hidden bg-white text-slate-900 dark:bg-deep dark:text-text-primary sm:min-h-[96vh] ${
         playAnim ? "slide-active" : ""
       }`}
@@ -78,6 +81,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
               <MagneticButton
                 as={Link}
                 href={`/${locale}/booking`}
+                prefetch={false}
                 strength={0.2}
                 variant="primary"
                 className="conic-border w-full sm:w-auto"
@@ -91,6 +95,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
               <MagneticButton
                 as={Link}
                 href={`/${locale}/services`}
+                prefetch={false}
                 strength={0.2}
                 variant="outline"
                 className="w-full sm:w-auto"
@@ -111,17 +116,19 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
               <div className="hero-visual-halo absolute inset-[12%_4%_8%_12%]" aria-hidden="true" />
 
               <div className="hero-image-card hero-image-card-machine anim-slide-right delay-500 absolute bottom-[8%] left-0 z-20 h-[54%] w-[43%] overflow-hidden rounded-lg shadow-2xl shadow-primary/25 ring-1 ring-primary/30 transition-transform duration-500 will-change-transform hover:-translate-y-2 hover:-rotate-2 sm:bottom-[9%] sm:h-[58%] sm:w-[46%] xl:-left-8 xl:bottom-14 xl:h-[55%] xl:w-[48%] xl:rounded-xl xl:hover:-translate-y-4">
-                <Image
-                  src="/images/hero-radiology machine.webp"
+                <ViewportImage
+                  src="/images/hero-radiology-machine-desktop.webp"
+                  mobileSrc={TRANSPARENT_PIXEL}
                   alt={
                     isFa
                       ? "تجهیزات پیشرفته رادیوتراپی"
                       : "Advanced radiology equipment"
                   }
-                  fill
-                  sizes="(max-width: 767px) 38vw, (max-width: 1279px) 20vw, 24vw"
+                  width={332}
+                  height={323}
                   loading="lazy"
-                  className="object-cover transition-transform duration-700 hover:scale-105"
+                  fetchPriority="low"
+                  className="absolute inset-0 block h-full w-full object-cover transition-transform duration-700 hover:scale-105"
                 />
                 <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-primary/30" />
                 <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -129,19 +136,20 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
                 </div>
               </div>
 
-              <div className="hero-image-card hero-image-card-main anim-slide-right delay-700 absolute right-0 top-0 z-30 h-[92%] w-[68%] overflow-hidden rounded-xl shadow-2xl shadow-deep/70 ring-1 ring-white/15 transition-transform duration-500 will-change-transform hover:-translate-y-2 hover:rotate-1 sm:h-[90%] sm:w-[70%] xl:h-[88%] xl:w-[70%] xl:hover:-translate-y-4">
-                <Image
-                  src="/images/home-radiologist.webp"
+              <div className="hero-image-card hero-image-card-main anim-slide-right delay-700 absolute right-0 top-0 z-30 h-[92%] w-[68%] overflow-hidden rounded-xl shadow-2xl shadow-deep/70 ring-1 ring-white/15 transition-transform duration-500 hover:-translate-y-2 hover:rotate-1 sm:h-[90%] sm:w-[70%] xl:h-[88%] xl:w-[70%] xl:hover:-translate-y-4">
+                <ViewportImage
+                  src="/images/home-radiologist-desktop-top.webp"
+                  mobileSrc={TRANSPARENT_PIXEL}
                   alt={
                     isFa
                       ? "پزشک متخصص رادیوتراپی و آنکولوژی"
                       : "Radiotherapy and oncology specialist"
                   }
-                  fill
-                  priority={playAnim}
+                  width={536}
+                  height={930}
+                  loading="eager"
                   fetchPriority="high"
-                  sizes="(max-width: 767px) 60vw, (max-width: 1279px) 32vw, 38vw"
-                  className="object-cover object-top transition-transform duration-700 hover:scale-105"
+                  className="absolute inset-0 block h-full w-full object-cover object-top transition-transform duration-700 hover:scale-105 will-change-transform"
                 />
                 <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-primary/10" />
                 <div className="hero-image-glass-line pointer-events-none absolute inset-x-0 top-[18%] h-px" />

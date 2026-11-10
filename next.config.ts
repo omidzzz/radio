@@ -32,7 +32,10 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
-    unoptimized: true,
+    // Static export (output: "export") has no Next.js image-optimization
+    // server, so the /_next/image endpoint does not exist in the deployed
+    // archive. Serve images directly from /images instead.
+    unoptimized: process.env.NODE_ENV === "production",
     formats: ["image/avif", "image/webp"],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],

@@ -5,7 +5,6 @@ import {
   useContext,
   useEffect,
   useState,
-  startTransition,
   ReactNode,
 } from "react";
 import { Locale, LOCALE_COOKIE, isLocale } from "@/lib/i18n/config";
@@ -56,7 +55,7 @@ export function LocaleProvider({
     // Apply dir to document
     document.documentElement.dir = locale === "fa" ? "rtl" : "ltr";
     document.documentElement.lang = locale;
-  }, [initialLocale, locale]);
+  }, [locale]);
 
   const setLocale = (newLocale: Locale) => {
     // Persist the cookie client-side so the server/middleware render the
@@ -67,9 +66,7 @@ export function LocaleProvider({
     }; samesite=lax${location.protocol === "https:" ? "; secure" : ""}`;
     // Flip the context (dir/lang follow via useEffect) so client
     // components read the new dictionary immediately.
-    startTransition(() => {
-      setLocaleState(newLocale);
-    });
+    setLocaleState(newLocale);
   };
 
   const dir = locale === "fa" ? "rtl" : "ltr";

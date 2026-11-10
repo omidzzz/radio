@@ -7,7 +7,8 @@ const path = require("path");
 
 const outDir = path.join(process.cwd(), "out");
 const destZip = path.join(process.cwd(), "deploy.zip");
-const phpSourceDir = path.join(process.cwd(), "out-example", "api");
+const phpSourceDir = path.join(process.cwd(), "api");
+const seenPaths = new Set();
 
 function walk(dir, acc = []) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -22,11 +23,11 @@ const files = walk(outDir).map((file) => ({ file, root: outDir }));
 
 for (const file of walk(phpSourceDir)) {
   const relative = path.relative(phpSourceDir, file).replace(/\\/g, "/");
-  if (relative === "config.php" || relative === "config.php.example" || relative.startsWith("uploads/")) continue;
+  if (relative === "config.php" || relative === "config.php.example" || relative === "error_log") continue;
   files.push({ file, root: phpSourceDir, prefix: "api" });
 }
 
-for (const file of [path.join(process.cwd(), "public", ".htaccess"), path.join(process.cwd(), "out-example", "sitemap.php")]) {
+for (const file of [path.join(process.cwd(), "public", ".htaccess")]) {
   if (fs.existsSync(file)) files.push({ file, root: path.dirname(file), prefix: "" });
 }
 
@@ -41,8 +42,10 @@ let offset = 0;
 
 for (const entry of sortedFiles) {
   const { file } = entry;
-  const data = fs.readFileSync(file);
   const rel = [entry.prefix, path.relative(entry.root, file)].filter(Boolean).join("/").replace(/\\/g, "/");
+  if (seenPaths.has(rel)) continue;
+  seenPaths.add(rel);
+  const data = fs.readFileSync(file);
   const nameBuf = Buffer.from(rel, "utf8");
   const time = Math.floor(Date.now() / 1000);
   const modTime = (((time / 3600) & 0x1f) << 11) | (((time / 60) & 0x3f) << 5) | (time & 0x1f);
@@ -103,4 +106,4 @@ eocd.writeUInt32LE(offset, 16);
 eocd.writeUInt16LE(0, 20);
 
 fs.writeFileSync(destZip, Buffer.concat([...chunks, ...central, eocd]));
-console.log(`✓ deploy.zip created (${sortedFiles.length} files, including PHP blog/admin endpoints)`);
+console.log(`deploy.zip created (${sortedFiles.length} files, including PHP blog/admin endpoints)`);

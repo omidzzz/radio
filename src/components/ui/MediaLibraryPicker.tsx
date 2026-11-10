@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getCsrfToken } from "@/lib/http/csrf";
+import Image from "next/image";
 
 interface MediaFile {
   url: string;
@@ -83,7 +84,7 @@ export default function MediaLibraryPicker({ value, onChange, label = "Featured 
         {value ? (
           <div className="relative h-20 w-32 shrink-0 overflow-hidden rounded-lg border border-primary/30 bg-deep/50">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={value} alt="Featured" className="h-full w-full object-cover" />
+            <Image src={value} alt="Featured" width={200} height={200} loading="lazy" />
           </div>
         ) : (
           <div className="flex h-20 w-32 shrink-0 items-center justify-center rounded-lg border border-dashed border-primary/30 bg-deep/50 text-xs text-white/40">
@@ -140,7 +141,7 @@ export default function MediaLibraryPicker({ value, onChange, label = "Featured 
                   title={f.name}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={f.url} alt={f.name} className="h-full w-full object-cover" />
+                  <Image src={f.url} alt={f.name} width={96} height={96} loading="lazy" />
                   <span className="absolute inset-x-0 bottom-0 truncate bg-deep/80 px-1 py-0.5 text-[9px] text-white/70">
                     {fmt(f.size)}
                   </span>

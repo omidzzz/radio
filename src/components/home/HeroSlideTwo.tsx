@@ -1,9 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Dictionary } from "@/lib/i18n";
 import MagneticButton from "@/components/ui/MagneticButton";
 import HeroBottomDivider from "@/components/home/HeroBottomDivider";
 import SlideBackground from "@/components/slides/SlideBackground";
+import ViewportImage from "@/components/ui/ViewportImage";
 
 interface HeroSlideTwoProps {
   dict: Dictionary;
@@ -21,6 +21,7 @@ export default function HeroSlideTwo({
 
   return (
     <section
+      dir={isFa ? "rtl" : "ltr"}
       className={`slide-entrance relative h-full min-h-[100svh] overflow-hidden bg-white text-slate-900 dark:bg-deep dark:text-text-primary sm:min-h-[100vh] ${
         playAnim ? "slide-active" : ""
       }`}
@@ -32,20 +33,39 @@ export default function HeroSlideTwo({
         <div className="grid w-full items-center gap-8 sm:gap-12 md:grid-cols-12 md:gap-8 lg:gap-10">
           <div className="relative order-1 md:col-span-5 xl:col-span-7">
             <div className="hero-care-visual relative mx-auto aspect-video w-full max-w-xl sm:aspect-[16/10] md:aspect-[4/5] xl:aspect-square xl:max-w-lg">
-              <div className="hero-care-backplate absolute inset-[8%_4%_4%_2%]" aria-hidden="true" />
-              <div className="hero-care-halo absolute inset-[9%_4%_5%_7%]" aria-hidden="true" />
-              <div className="hero-care-orbit absolute inset-[3%_0_6%_4%]" aria-hidden="true" />
-              <div className="hero-care-grid absolute inset-[12%_6%_10%_10%]" aria-hidden="true" />
+              <div
+                className="hero-care-backplate absolute inset-[8%_4%_4%_2%]"
+                aria-hidden="true"
+              />
+              <div
+                className="hero-care-halo absolute inset-[9%_4%_5%_7%]"
+                aria-hidden="true"
+              />
+              <div
+                className="hero-care-orbit absolute inset-[3%_0_6%_4%]"
+                aria-hidden="true"
+              />
+              <div
+                className="hero-care-grid absolute inset-[12%_6%_10%_10%]"
+                aria-hidden="true"
+              />
               <div className="hero-care-image anim-scale-in relative z-10 mx-auto h-full w-full overflow-hidden rounded-xl shadow-xl ring-1 ring-secondary/15 sm:rounded-2xl xl:rounded-full">
-                <Image
-                  src="/images/home-consultation-circle.webp"
-                  alt={isFa ? "دکتر پری قدمگاهی در محیط درمانی" : "Dr. Pari Ghadamgahi in a clinical setting"}
-                  fill
-                  sizes="(max-width: 639px) calc(100vw - 2rem), (max-width: 767px) calc(100vw - 3rem), (max-width: 1279px) 38vw, 34vw"
-                  priority={false}
-                  fetchPriority="low"
-                  className="object-cover object-center"
-                />
+                {playAnim ? (
+                  <ViewportImage
+                    src="/images/home-consultation-circle.webp"
+                    mobileSrc="/images/home-consultation-circle-mobile.webp"
+                    alt={
+                      isFa
+                        ? "دکتر پری قدمگاهی در محیط درمانی"
+                        : "Dr. Pari Ghadamgahi in a clinical setting"
+                    }
+                    width={640}
+                    height={640}
+                    loading="lazy"
+                    fetchPriority="low"
+                    className="block h-full w-full object-cover object-center"
+                  />
+                ) : null}
                 <div className="hero-care-image-overlay" aria-hidden="true" />
                 <div className="hero-care-image-markers" aria-hidden="true">
                   <span />
@@ -58,19 +78,29 @@ export default function HeroSlideTwo({
           </div>
 
           <div className="hero-copy-column hero-care-copy-column order-2 md:col-span-7 xl:col-span-5">
-            <div className="hero-surface hero-panel-compact anim-fade-up delay-200 inline-flex items-center gap-2.5 rounded-full border border-secondary/35 bg-secondary/10 text-sm font-medium text-secondary-hover backdrop-blur-sm">
+            <div className="hero-surface  hero-panel-compact  w-fit anim-fade-up delay-200 inline-flex items-center gap-2.5 rounded-full border border-secondary/35 bg-secondary/10 text-sm font-medium text-secondary-hover backdrop-blur-sm">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary-fill-hover opacity-75 motion-reduce:animate-none" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary-fill-hover" />
+              </span>
               {slide.badge}
             </div>
             <h2 className="anim-fade-up delay-300 fluid-display mt-5 font-black leading-[0.94] tracking-tight slide-main-heading text-shadow-lg sm:mt-7">
-              {slide.title1} <span className="hero-title-accent shimmer-text drop-shadow-soft inline-block">{slide.title2}</span>
+              {slide.title1}{" "}
+              <span className="hero-title-accent shimmer-text drop-shadow-soft inline-block">
+                {slide.title2}
+              </span>
             </h2>
             <div className="mt-6 max-w-xl anim-fade-up delay-400">
-              <p className="hero-subtitle hero-subtitle-slide">{slide.subtitle}</p>
+              <p className="hero-subtitle hero-subtitle-slide">
+                {slide.subtitle}
+              </p>
             </div>
             <div className="anim-fade-up delay-500 mt-6 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-4">
               <MagneticButton
                 as={Link}
                 href={`/${locale}/about`}
+                prefetch={false}
                 strength={0.2}
                 variant="secondary"
                 className="hero-cta min-h-12 px-7 py-3.5"
@@ -80,6 +110,7 @@ export default function HeroSlideTwo({
               <MagneticButton
                 as={Link}
                 href={`/${locale}/contact`}
+                prefetch={false}
                 strength={0.2}
                 variant="outline"
                 className="hero-cta min-h-12 px-7 py-3"

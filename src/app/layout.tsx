@@ -184,29 +184,6 @@ export default async function RootLayout({
           href="/rss.xml"
         />
         <link rel="llms" href="/llms.txt" />
-        {/* Preload hero image for LCP optimization - desktop */}
-        <link
-          rel="preload"
-          as="image"
-          href="/images/hero-radiology%20machine.webp"
-          fetchPriority="high"
-        />
-        {/* Preload mobile hero portrait for LCP on phones */}
-        <link
-          rel="preload"
-          as="image"
-          href="/images/doctor-portrait-mobile.webp"
-          fetchPriority="high"
-          media="(max-width: 767px)"
-        />
-        {/* Preload hero image for LCP on print */}
-        <link
-          rel="preload"
-          as="image"
-          href="/images/hero-radiology%20machine.webp"
-          fetchPriority="high"
-          media="print"
-        />
         {/* Set lang/dir based on URL locale */}
         <script
           dangerouslySetInnerHTML={{

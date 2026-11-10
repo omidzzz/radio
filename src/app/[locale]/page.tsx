@@ -4,8 +4,8 @@ import { getDictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/config";
 import { siteConfig } from "@/lib/seo/seo";
 import StickyBookingBar from "@/components/forms/StickyBookingBar";
-const HeroSlider = dynamic(() => import("@/components/home/HeroSlider"), { ssr: true });
-const HeroMobile = dynamic(() => import("@/components/home/HeroMobile"), { ssr: true });
+import HeroSlider from "@/components/home/HeroSlider";
+import HeroMobile from "@/components/home/HeroMobile";
 
 // Lazy-load below-the-fold sections to reduce initial bundle
 const Precision = dynamic(() => import("@/components/home/Precision"), { ssr: true });

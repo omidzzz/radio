@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import { isSafeBlogUrl, localizeBlogText, type BlogDocument, type BlogBlock } from "@/lib/blog/schema";
 import type { BlogPost } from "@/lib/types/blog";
 import type { Locale } from "@/lib/i18n/config";
+import Image from "next/image";
 import Link from "next/link";
 import BlogBlocks from "./BlogBlocks";
 import Breadcrumbs from "@/components/breadcrumbs/Breadcrumbs";
 import { processArticleHtml } from "@/lib/utils/blog-html";
+import { siteConfig } from "@/lib/seo/seo";
 import "./article.css";
 
 type ApiPost = {
@@ -108,6 +110,12 @@ export default function LiveBlogPost({ locale }: { locale: Locale }) {
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
+    if (!post) return;
+    const title = locale === "fa" ? post.titleFA : post.titleEN || post.titleFA;
+    document.title = `${title} | ${siteConfig.shortName}`;
+  }, [locale, post]);
+
+  useEffect(() => {
     const slug = decodeURIComponent(window.location.pathname.split("/").filter(Boolean).at(-1) || "");
     const controller = new AbortController();
     fetch(`/api/get_post.php?slug=${encodeURIComponent(slug)}`, { cache: "no-store", signal: controller.signal })
@@ -138,7 +146,17 @@ export default function LiveBlogPost({ locale }: { locale: Locale }) {
         <h1 className="article-title">{title}</h1>
         <p className="blog-deck">{excerpt}</p>
         <div className="blog-meta"><span>{fa ? post.authorFA : post.authorEN || post.authorFA}</span>{post.publishedAt && <time dateTime={post.publishedAt}>{new Intl.DateTimeFormat(fa ? "fa-IR" : "en-US", { dateStyle: "long", timeZone: "UTC" }).format(new Date(post.publishedAt))}</time>}</div>
-        {post.image && <figure className="blog-cover"><img src={post.image} alt={localizeBlogText(post.document?.featuredImage?.alt, locale, title)} width="1200" height="675" fetchPriority="high" /></figure>}
+        {post.image && <figure className="blog-cover">
+        <Image
+          src={post.image}
+          alt={localizeBlogText(post.document?.featuredImage?.alt, locale, title)}
+          width={1200}
+          height={675}
+          loading="lazy"
+          priority={false}
+        />
+      </figure>
+}
       </div></header>
       <div className="blog-shell blog-layout"><article className="blog-content article-content" aria-label={title}>
         {translation ? <BlogBlocks blocks={content} title={title} locale={locale} /> : <div dangerouslySetInnerHTML={{ __html: legacyHtml.html }} />}

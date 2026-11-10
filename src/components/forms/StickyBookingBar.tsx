@@ -61,6 +61,7 @@ export default function StickyBookingBar({
     >
       <Link
         href={bookingHref}
+        prefetch={false}
         tabIndex={show ? 0 : -1}
         className="ui-button ui-button-primary btn-sheen flex min-h-[52px] items-center justify-center gap-2 rounded-2xl border-primary/40 bg-bg/92 text-base font-bold text-text-primary shadow-[0_-8px_30px_-10px_rgba(2,6,23,0.5)] backdrop-blur-md active:scale-[0.98]"
       >

@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useState } from "react";
+import { memo, useEffect, useMemo, useRef, useState } from "react";
 
 type Palette = "brand" | "dose";
 
@@ -73,29 +73,57 @@ export default memo(function HeatmapGrid({
   label = "Dose distribution heatmap",
   className = "",
 }: HeatmapGridProps) {
+  const gridRef = useRef<HTMLDivElement | null>(null);
+  const [isNearViewport, setIsNearViewport] = useState(false);
   const [hoveredCell, setHoveredCell] = useState<number | null>(null);
 
-  const cells = Array.from({ length: rows * cols }, (_, i) => {
-    const row = Math.floor(i / cols);
-    const col = i % cols;
+  useEffect(() => {
+    const grid = gridRef.current;
+    if (!grid) return;
 
-    // Two target volumes — primary centred, boost off-centre
-    const sigma1 = Math.min(cols, rows) * 0.28;
-    const sigma2 = Math.min(cols, rows) * 0.16;
-    const primary = Math.exp(
-      -(((col - cols * 0.5) ** 2 + (row - rows * 0.48) ** 2) /
-        (2 * sigma1 * sigma1))
+    if (!("IntersectionObserver" in window)) {
+      setIsNearViewport(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        setIsNearViewport(true);
+        observer.disconnect();
+      },
+      { rootMargin: "400px 0px" },
     );
-    const boost =
-      0.75 *
-      Math.exp(
-        -(((col - cols * 0.66) ** 2 + (row - rows * 0.62) ** 2) /
-          (2 * sigma2 * sigma2))
-      );
-    const value = Math.min(1, primary + boost);
 
-    return { index: i, value };
-  });
+    observer.observe(grid);
+    return () => observer.disconnect();
+  }, []);
+
+  const cells = useMemo(() => {
+    if (!isNearViewport) return [];
+
+    return Array.from({ length: rows * cols }, (_, i) => {
+      const row = Math.floor(i / cols);
+      const col = i % cols;
+
+      // Two target volumes — primary centred, boost off-centre
+      const sigma1 = Math.min(cols, rows) * 0.28;
+      const sigma2 = Math.min(cols, rows) * 0.16;
+      const primary = Math.exp(
+        -(((col - cols * 0.5) ** 2 + (row - rows * 0.48) ** 2) /
+          (2 * sigma1 * sigma1))
+      );
+      const boost =
+        0.75 *
+        Math.exp(
+          -(((col - cols * 0.66) ** 2 + (row - rows * 0.62) ** 2) /
+            (2 * sigma2 * sigma2))
+        );
+      const value = Math.min(1, primary + boost);
+
+      return { index: i, value };
+    });
+  }, [cols, isNearViewport, rows]);
 
   function cellColor(index: number): string {
     const value = cells[index].value;
@@ -123,9 +151,22 @@ export default memo(function HeatmapGrid({
     return `rgba(26, 115, 82, ${0.15 + value * 0.75})`;
   }
 
+  function getCellIndex(target: EventTarget | null): number | null {
+    if (!(target instanceof HTMLElement)) return null;
+    const cell = target.closest<HTMLElement>("[data-heat-cell]");
+    if (!cell || !gridRef.current?.contains(cell)) return null;
+    const index = Number(cell.dataset.heatCell);
+    return Number.isInteger(index) ? index : null;
+  }
+
+  const placeholderBackground = palette === "dose"
+    ? "radial-gradient(ellipse at 52% 48%, rgba(245,158,11,.3), transparent 34%), radial-gradient(ellipse at 66% 62%, rgba(239,68,68,.28), transparent 16%), radial-gradient(ellipse at 38% 42%, rgba(46,125,91,.3), transparent 58%)"
+    : "radial-gradient(ellipse at 50% 50%, rgba(26,115,82,.34), transparent 60%)";
+
   return (
     <div
-      className={`grid w-full ${className}`}
+      ref={gridRef}
+      className={`relative grid w-full ${className}`}
       style={{
         gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
         gridTemplateRows: `repeat(${rows}, minmax(0, 1fr))`,
@@ -134,30 +175,38 @@ export default memo(function HeatmapGrid({
       }}
       role="img"
       aria-label={label}
+      onPointerOver={(event) => {
+        if (!canHover()) return;
+        const index = getCellIndex(event.target);
+        if (index !== null) setHoveredCell(index);
+      }}
+      onPointerLeave={() => {
+        if (canHover()) setHoveredCell(null);
+      }}
+      onClick={(event) => {
+        if (canHover()) return;
+        const index = getCellIndex(event.target);
+        if (index !== null) {
+          setHoveredCell((current) => current === index ? null : index);
+        }
+      }}
     >
-      {cells.map((cell) => (
+      {isNearViewport ? (
+        cells.map((cell) => (
+          <div
+            key={cell.index}
+            data-heat-cell={cell.index}
+            className="heatmap-cell aspect-square w-full rounded-sm"
+            style={{ backgroundColor: cellColor(cell.index) }}
+          />
+        ))
+      ) : (
         <div
-          key={cell.index}
-          className="heatmap-cell aspect-square w-full rounded-sm"
-          style={{
-            backgroundColor: cellColor(cell.index),
-          }}
-          onMouseEnter={() => {
-            if (!canHover()) return;
-            setHoveredCell(cell.index);
-          }}
-          onMouseLeave={() => {
-            if (!canHover()) return;
-            setHoveredCell(null);
-          }}
-          onClick={() => {
-            if (canHover()) return;
-            setHoveredCell((current) =>
-              current === cell.index ? null : cell.index
-            );
-          }}
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 rounded-sm"
+          style={{ background: placeholderBackground }}
         />
-      ))}
+      )}
     </div>
   );
 });

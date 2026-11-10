@@ -66,7 +66,7 @@
 
   /* Slow down or pause non-critical infinite animations on mobile */
   .float-bob,
-  .isodose-ring
+  .isodose-ring,
   .shimmer-text {
     animation: none !important;
   }
@@ -106,6 +106,46 @@
   .animate-ping {
     animation-duration: 2.5s;
   }
+
+/* Mobile hero specific optimizations */
+.hero-mobile .hero-mobile-halo,
+.hero-mobile .hero-mobile-orbit,
+.hero-mobile .hero-mobile-crosshair,
+.hero-mobile .hero-mobile-grid {
+  opacity: 0.3 !important;
+}
+
+/* MagneticButton - reduce magnet strength on mobile */
+.magnetic-button {
+  --magnetic-strength: 0.1 !important;
+}
+
+/* Font loading optimization on mobile */
+@media (max-width: 767px) {
+  @supports (font-display: swap) {
+    :root {
+      --font-display-window: 2s;
+    }
+  }
+
+  .text-7xl,
+  .text-8xl,
+  .text-9xl {
+    font-family: var(--font-vazirmatn), system-ui, sans-serif;
+  }
+}
+
+/* Reduced-motion mobile optimization */
+@media (max-width: 767px) and (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 
   .animate-pulse {
     animation-duration: 3s;

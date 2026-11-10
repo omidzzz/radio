@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import Breadcrumbs from "@/components/breadcrumbs/Breadcrumbs";
 import type { Metadata } from "next";
 import type { BlogPost } from "@/lib/types/blog";
@@ -72,7 +73,15 @@ export default function BlogArticle({ post, locale }: { post: BlogPost; locale: 
       {post.document?.demo && <p className="blog-demo"><strong>{fa ? "نمونه نمایشی — بدون بازبینی پزشک" : "Demonstration — not clinician-reviewed"}</strong><br />{fa ? "این مطلب برای نمایش قالب و فرایند ورود محتوا تهیه شده است؛ راهنمای تشخیص یا درمان فردی نیست و نباید به پزشک سایت نسبت داده شود." : "This sample demonstrates the template and import workflow. It is not personal diagnostic or treatment advice and is not attributed to the site's physician."}</p>}
       {view.image && <figure className="blog-cover">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={view.image} alt={view.imageAlt} width={1200} height={675} fetchPriority="high" />
+        <Image
+          src={view.image}
+          alt={view.imageAlt}
+          width={1200}
+          height={675}
+          fetchPriority="high"
+          priority
+          className="object-cover"
+        />
       </figure>}
     </div></header>
     <div className="blog-shell blog-layout"><div>

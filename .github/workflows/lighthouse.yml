@@ -1,0 +1,42 @@
+name: Lighthouse CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+
+jobs:
+  lhci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - name: Start static server
+        run: npx --yes serve@latest out -l 3456 &
+        shell: bash
+
+      - name: Wait for server
+        run: |
+          for i in {1..30}; do
+            if curl -s http://localhost:3456 > /dev/null; then
+              break
+            fi
+            sleep 2
+          done
+
+      - run: npm run test:lighthouse:ci
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lhci-report
+          path: .lhci
+          retention-days: 30
