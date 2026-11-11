@@ -1,13 +1,14 @@
 "use client";
 
 import { useRouter, usePathname } from "next/navigation";
-import { useLocale } from "./providers/LocaleProvider";
 import { Locale, LOCALE_COOKIE } from "@/lib/i18n/config";
 
 export default function LanguageToggle() {
-  const { locale, setLocale } = useLocale();
   const router = useRouter();
+  // Derive locale from URL — the root LocaleProvider is always initialized
+  // as "fa", so useLocale() would return the wrong locale on /en pages.
   const pathname = usePathname();
+  const locale = (pathname.split("/")[1] === "en" ? "en" : "fa") as Locale;
 
   const toggle = () => {
     const newLocale: Locale = locale === "fa" ? "en" : "fa";
@@ -27,12 +28,7 @@ export default function LanguageToggle() {
       60 * 60 * 24 * 365
     }; samesite=lax${location.protocol === "https:" ? "; secure" : ""}`;
 
-    // Flip the client context (dir/lang) immediately, then navigate.
-    setLocale(newLocale);
-
-    // Client-side navigation via Next's App Router — loads the
-    // pre-rendered static page for the other locale. ThemeProvider stays
-    // mounted so the theme does not flicker.
+    // Navigate to the localized URL. Navbar/Footer re-render via usePathname().
     router.replace(target);
   };
 

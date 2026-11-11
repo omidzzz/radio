@@ -59,7 +59,7 @@ export default function HeroMobile({
 
       <div className="relative z-10 flex flex-col px-5 pb-[calc(2.75rem+env(safe-area-inset-bottom))] sm:px-6">
         <div className="hero-mobile-copy-panel flex flex-col items-center justify-start gap-4 py-4 text-center">
-          <span className="hero-surface hero-panel-compact anim-fade-up inline-flex items-center gap-2.5 rounded-full border border-primary/35 bg-primary/12 text-xs font-medium text-gold transition-colors duration-200 hover:border-primary/70 hover:bg-primary/20">
+          <span className="hero-surface hero-panel-compact anim-fade-up inline-flex self-start items-center gap-2.5 rounded-full border border-primary/35 bg-primary/12 text-xs font-medium text-gold transition-colors duration-200 hover:border-primary/70 hover:bg-primary/20">
             <span className="relative flex h-2 w-2">
               <span className="absolute hidden h-full w-full animate-ping rounded-full opacity-75 motion-reduce:animate-none sm:inline-flex bg-primary-fill-hover" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-primary-fill-hover" />
@@ -87,13 +87,13 @@ export default function HeroMobile({
             className="anim-fade-up delay-350 flex max-w-lg flex-wrap justify-center gap-2 text-xs font-semibold text-text-primary"
             aria-label={isFa ? "دستاوردهای حرفه‌ای" : "Professional achievements"}
           >
-            <li className="rounded-full border border-highlight/35 bg-deep/70 px-3 py-1.5 text-highlight">
+            <li className="inline-flex self-start rounded-full border border-highlight/35 bg-deep/70 px-3 py-1.5 text-highlight">
               {isFa ? "دارای بورد تخصصی" : "Board-certified specialist"}
             </li>
-            <li className="rounded-full border border-border bg-surface/80 px-3 py-1.5">
+            <li className="inline-flex self-start rounded-full border border-border bg-surface/80 px-3 py-1.5">
               {isFa ? "تمرکز بر نوروانکولوژی" : "Neuro-oncology focus"}
             </li>
-            <li className="rounded-full border border-border bg-surface/80 px-3 py-1.5">
+            <li className="inline-flex self-start rounded-full border border-border bg-surface/80 px-3 py-1.5">
               {isFa ? "۳ مقاله منتشرشده" : "3 published articles"}
             </li>
           </ul>

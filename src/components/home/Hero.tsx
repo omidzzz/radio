@@ -32,7 +32,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
       <div className="relative z-10 mx-auto flex h-full min-h-[100svh] max-w-7xl items-center px-4 pb-24 pt-[4.5rem] sm:min-h-[100vh] sm:px-6 sm:py-20 lg:px-8">
         <div className="grid w-full items-center gap-7 sm:gap-12 md:grid-cols-12 md:gap-8 lg:gap-10">
           <div className="hero-copy-column order-2 md:order-1 md:col-span-7 xl:col-span-5">
-            <div className="hero-surface hero-panel-compact anim-fade-up delay-200 inline-flex items-center gap-2.5 rounded-full border border-primary/40 bg-primary/10 text-sm font-medium text-gold transition-colors duration-200 hover:border-primary/70 hover:bg-primary/20">
+            <div className="hero-surface hero-panel-compact anim-fade-up delay-200 inline-flex self-start items-center gap-2.5 rounded-full border border-primary/40 bg-primary/10 text-sm font-medium text-gold transition-colors duration-200 hover:border-primary/70 hover:bg-primary/20">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary-fill-hover opacity-75 motion-reduce:animate-none" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-primary-fill-hover" />
@@ -59,18 +59,18 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
               className="anim-fade-up delay-450 mt-4 flex flex-wrap gap-2 text-xs font-semibold text-text-primary"
               aria-label={isFa ? "دستاوردهای حرفه‌ای" : "Professional achievements"}
             >
-              <li className="rounded-full border border-highlight/35 bg-deep/70 px-3 py-1.5 text-highlight">
+              <li className="inline-flex self-start rounded-full border border-highlight/35 bg-deep/70 px-3 py-1.5 text-highlight">
                 {isFa ? "دارای بورد تخصصی" : "Board-certified specialist"}
               </li>
-              <li className="rounded-full border border-border bg-surface/80 px-3 py-1.5">
+              <li className="inline-flex self-start rounded-full border border-border bg-surface/80 px-3 py-1.5">
                 {isFa ? "تمرکز بر نوروانکولوژی" : "Neuro-oncology focus"}
               </li>
-              <li className="rounded-full border border-border bg-surface/80 px-3 py-1.5">
+              <li className="inline-flex self-start rounded-full border border-border bg-surface/80 px-3 py-1.5">
                 {isFa ? "۳ مقاله منتشرشده" : "3 published articles"}
               </li>
             </ul>
 
-            <div className="anim-fade-up delay-500 mt-5 inline-flex">
+            <div className="anim-fade-up delay-500 mt-5 inline-flex self-start">
               <LiveSlotBadge
                 isFa={isFa}
                 className="hero-surface hero-panel-compact transition-all duration-300 hover:border-primary hover:bg-surface hover:shadow-[0_0_20px_-4px_rgba(26,115,82,0.5)]"
@@ -115,7 +115,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
               <div className="hero-visual-orbit hero-visual-orbit-secondary absolute inset-[14%_8%_13%_2%]" aria-hidden="true" />
               <div className="hero-visual-halo absolute inset-[12%_4%_8%_12%]" aria-hidden="true" />
 
-              <div className="hero-image-card hero-image-card-machine anim-slide-right delay-500 absolute bottom-[8%] left-0 z-20 h-[54%] w-[43%] overflow-hidden rounded-lg shadow-2xl shadow-primary/25 ring-1 ring-primary/30 transition-transform duration-500 will-change-transform hover:-translate-y-2 hover:-rotate-2 sm:bottom-[9%] sm:h-[58%] sm:w-[46%] xl:-left-8 xl:bottom-14 xl:h-[55%] xl:w-[48%] xl:rounded-xl xl:hover:-translate-y-4">
+              <div className="hero-image-card hero-image-card-machine anim-slide-right delay-500 absolute bottom-[8%] left-0 z-20 h-[54%] w-[43%] overflow-hidden rounded-lg shadow-2xl shadow-primary/25 ring-1 ring-primary/30 transition-transform duration-500 will-change-transform hover:-translate-y-2 hover:-rotate-2 hover:scale-105 sm:bottom-[9%] sm:h-[58%] sm:w-[46%] xl:-left-8 xl:bottom-14 xl:h-[55%] xl:w-[48%] xl:rounded-xl xl:hover:-translate-y-4 xl:hover:scale-105">
                 <ViewportImage
                   src="/images/hero-radiology-machine-desktop.webp"
                   mobileSrc={TRANSPARENT_PIXEL}
@@ -128,7 +128,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
                   height={323}
                   loading="lazy"
                   fetchPriority="low"
-                  className="absolute inset-0 block h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                  className="absolute inset-0 block h-full w-full object-cover"
                 />
                 <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-primary/30" />
                 <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -136,7 +136,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
                 </div>
               </div>
 
-              <div className="hero-image-card hero-image-card-main anim-slide-right delay-700 absolute right-0 top-0 z-30 h-[92%] w-[68%] overflow-hidden rounded-xl shadow-2xl shadow-deep/70 ring-1 ring-white/15 transition-transform duration-500 hover:-translate-y-2 hover:rotate-1 sm:h-[90%] sm:w-[70%] xl:h-[88%] xl:w-[70%] xl:hover:-translate-y-4">
+              <div className="hero-image-card hero-image-card-main anim-slide-right delay-700 absolute right-0 top-0 z-30 h-[92%] w-[68%] overflow-hidden rounded-xl shadow-2xl shadow-deep/70 ring-1 ring-white/15 transition-transform duration-500 will-change-transform hover:-translate-y-2 hover:rotate-1 hover:scale-105 sm:h-[90%] sm:w-[70%] xl:h-[88%] xl:w-[70%] xl:hover:-translate-y-4 xl:hover:scale-105">
                 <ViewportImage
                   src="/images/home-radiologist-desktop-top.webp"
                   mobileSrc={TRANSPARENT_PIXEL}
@@ -149,7 +149,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
                   height={930}
                   loading="eager"
                   fetchPriority="high"
-                  className="absolute inset-0 block h-full w-full object-cover object-top transition-transform duration-700 hover:scale-105 will-change-transform"
+                  className="absolute inset-0 block h-full w-full object-cover object-top"
                 />
                 <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-primary/10" />
                 <div className="hero-image-glass-line pointer-events-none absolute inset-x-0 top-[18%] h-px" />

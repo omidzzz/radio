@@ -1,9 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import type { ComponentType, ReactNode, SVGProps } from "react";
-import { useDictionary, useFarsiDigits, useLocale } from "@/lib/i18n/client";
+import { getDictionary } from "@/lib/i18n";
+import { toFarsiDigits } from "@/lib/i18n/numbers";
 import { siteConfig } from "@/lib/seo/seo";
+import type { Locale } from "@/lib/i18n/config";
 import {
   InstagramIcon,
   MailIcon,
@@ -31,9 +34,11 @@ export default function Footer({
   workingHours: Array<{ label: string; hours: string; isClosed: boolean }>;
   isOpen: boolean;
 }) {
-  const currentDict = useDictionary();
-  const { locale } = useLocale();
-  const toFarsi = useFarsiDigits();
+  const pathname = usePathname();
+  // Derive locale from URL path — authoritative source that survives
+  // client-side navigation timing issues with locale context.
+  const locale = (pathname.split("/")[1] === "en" ? "en" : "fa") as Locale;
+  const currentDict = getDictionary(locale);
   const isFa = locale === "fa";
   const localePrefix = `/${locale}`;
   const closedLabel = currentDict.footer.closed;
@@ -189,7 +194,7 @@ export default function Footer({
                 >
                   <PhoneIcon className="footer-contact-icon h-3.5 w-3.5 shrink-0 text-primary/70" />
                   <span dir="ltr" className="footer-contact-value">
-                    {isFa ? toFarsi(siteConfig.phone) : siteConfig.phone}
+                    {isFa ? toFarsiDigits(siteConfig.phone) : siteConfig.phone}
                   </span>
                 </a>
               </li>
@@ -273,9 +278,7 @@ export default function Footer({
             <div className="text-center lg:text-left">
               <p className="text-sm text-slate-400">
                 &copy;{" "}
-                {isFa
-                  ? toFarsi(new Date().getFullYear())
-                  : new Date().getFullYear()}{" "}
+                {isFa ? toFarsiDigits(new Date().getFullYear()) : new Date().getFullYear()}
                 {currentDict.common.doctorName}. {currentDict.footer.rightsReserved}
               </p>
               <p className="mt-1 text-xs text-slate-500">

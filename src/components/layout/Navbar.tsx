@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
-import { useLocale } from "@/components/providers/LocaleProvider";
 import { dictionaries } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n/config";
 import LanguageToggle from "../LanguageToggle";
 import ThemeToggle from "../ui/ThemeToggle";
 import LiveSlotBadge from "@/components/ui/LiveSlotBadge";
@@ -32,7 +33,12 @@ export interface NavbarStrings {
 }
 
 export default function Navbar() {
-  const { locale } = useLocale();
+  const pathname = usePathname();
+  // Derive locale from the URL path — the URL is the single source of truth
+  // and always matches the currently rendered page. Client-side locale
+  // context can lag during router.replace navigation, leaving header/footer
+  // stale while the main body already shows the new language.
+  const locale = (pathname.split("/")[1] === "en" ? "en" : "fa") as Locale;
   const dict = dictionaries[locale] || dictionaries.fa;
   const strings: NavbarStrings = {
     doctorName: dict.common.doctorName,

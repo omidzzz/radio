@@ -34,6 +34,8 @@ const vazirmatn = Vazirmatn({
   variable: "--font-vazirmatn-next",
   display: "swap",
   weight: ["400", "500", "600", "700"],
+  preload: true,
+  adjustFontFallback: true,
 });
 
 const outfit = Outfit({
@@ -171,6 +173,7 @@ export default async function RootLayout({
     <LocaleProvider initialLocale="fa">
       <html
         lang={defaultLocale}
+        dir={defaultLocale === "fa" ? "rtl" : "ltr"}
         suppressHydrationWarning
         className={`${vazirmatn.variable} ${outfit.variable}`}
         data-scroll-behavior="smooth"

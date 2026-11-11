@@ -1,0 +1,144 @@
+# ─────────────────────────────────────────────
+# Static Next.js export with PHP/MySQL-backed live blog and admin — Apache/cPanel
+# The deployment archive also includes PHP API files from out-example/api.
+# ─────────────────────────────────────────────
+# Force UTF-8 charset (fixes Persian/Arabic mojibake)
+AddDefaultCharset UTF-8
+<IfModule mod_mime.c>
+  AddCharset UTF-8 .html .css .js .json .xml .rss .txt
+</IfModule>
+
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  Options +FollowSymLinks -Indexes
+
+  # Force www → non-www (uncomment one of the two redirect blocks below)
+  # Option A: Redirect www to non-www
+  # RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  # RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+  # Option B: Redirect non-www to www
+  # RewriteCond %{HTTP_HOST} !^www\. [NC]
+  # RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L]
+
+  # Force HTTPS (uncomment when SSL is active)
+  # RewriteCond %{HTTPS} off
+  # RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  # RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+  # Locale-prefixed routes serve pre-built static HTML directly
+  # /fa/* and /en/* have pre-built static pages at these paths
+  # (no rewrite needed — files exist where they're requested)
+
+  # The prerendered shell is a live client renderer for MySQL blog posts.
+  # Keep the shell itself static, but route every article URL through PHP.
+  RewriteRule ^(en|fa)/blog/live/?$ $1/blog/live/index.html [L]
+  RewriteRule ^(en|fa)/blog/([^/.]+)/?$ api/post.php?slug=$2&locale=$1 [QSA,L]
+
+  # MySQL-backed sitemap includes posts published after the static build.
+  RewriteRule ^sitemap\.xml$ sitemap.php [L,QSA]
+
+  # Legacy Next.js image-optimizer URLs (/_next/image/?url=...) are not
+  # available in the static export; serve the underlying file directly.
+  RewriteCond %{REQUEST_URI} ^/_next/image [NC]
+  RewriteRule .* /image.php [QSA,L]
+
+  # PHP APIs and authenticated admin must reach the PHP handler.
+  RewriteRule ^api/ - [L]
+
+  # Serve existing files and directories directly
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Favicon (actual file lives at /images/icon-512.png)
+  RewriteRule ^favicon\.ico$ /images/icon-512.png [L]
+
+  # Root path → redirect to default locale (fa)
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^$ /fa/ [R=301,L]
+
+  # No SPA fallback needed with static export — 404 for unknown routes
+  RewriteCond %{REQUEST_URI} !\.(?:css|js|jpg|jpeg|png|gif|svg|ico|woff|woff2|ttf|eot|webp|avif|json|xml|txt|html)$ [NC]
+  RewriteRule ^(.*)$ /fa/404.html [L]
+</IfModule>
+
+# CORS headers (restricted - replace with your actual domain)
+<IfModule mod_headers.c>
+  SetEnvIf Origin "^https?://(yourdomain\.com|localhost:3000)$" CORS_ALLOWED_ORIGIN=$0
+  Header set Access-Control-Allow-Origin "%{CORS_ALLOWED_ORIGIN}e" env=CORS_ALLOWED_ORIGIN
+  Header set Access-Control-Allow-Methods "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+  Header set Access-Control-Allow-Headers "Content-Type, Authorization, x-csrf-token"
+  Header set Access-Control-Allow-Credentials "true"
+</IfModule>
+
+# Security headers
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-XSS-Protection "1; mode=block"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+  Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
+
+# Never cache the service worker or HTML shells so updates propagate
+<IfModule mod_headers.c>
+  <FilesMatch "^(sw\.js|.*\.html)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
+</IfModule>
+
+# Cache static assets
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpg "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType application/font-woff2 "access plus 1 year"
+</IfModule>
+
+# Compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/plain
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/xml
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE application/xml
+  AddOutputFilterByType DEFLATE application/xhtml+xml
+  AddOutputFilterByType DEFLATE application/rss+xml
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/x-javascript
+  AddOutputFilterByType DEFLATE application/json
+</IfModule>
+
+# Limit file upload size (5MB)
+LimitRequestBody 5242880
+
+# Protect sensitive files
+<FilesMatch "^\.">
+  Order allow,deny
+  Deny from all
+</FilesMatch>
+
+# Protect .env file
+<Files ".env">
+  Order allow,deny
+  Deny from all
+</Files>
+
+# Protect database files
+<FilesMatch "\.(db|sqlite|db-shm|db-wal)$">
+  Order allow,deny
+  Deny from all
+</Files>
