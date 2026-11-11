@@ -72,4 +72,172 @@ function jsonResponse($data)
     exit;
 }
 
+/**
+ * Ensure all tables used by the public API and admin panel exist.
+ * Idempotent: safe to run on every request (CREATE TABLE IF NOT EXISTS).
+ */
+function ensureTables()
+{
+    global $pdo;
+
+    $pdo->exec("
+        CREATE TABLE IF NOT EXISTS bookings (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            full_name VARCHAR(200) NOT NULL,
+            email VARCHAR(200) NOT NULL,
+            phone VARCHAR(20) NOT NULL,
+            session_type VARCHAR(50) NOT NULL DEFAULT 'initial-consultation',
+            preferred_date DATE NOT NULL,
+            preferred_time TIME NOT NULL,
+            notes TEXT,
+            status ENUM('pending','confirmed','cancelled','completed') NOT NULL DEFAULT 'pending',
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            INDEX idx_created (created_at DESC),
+            INDEX idx_date_time (preferred_date, preferred_time)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    ");
+
+    $pdo->exec("
+        CREATE TABLE IF NOT EXISTS contact_messages (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(200) NOT NULL,
+            email VARCHAR(200) NOT NULL,
+            subject VARCHAR(300) NOT NULL,
+            message TEXT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            INDEX idx_created (created_at DESC)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    ");
+
+    $pdo->exec("
+        CREATE TABLE IF NOT EXISTS blog_comments (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            post_id INT NOT NULL,
+            author_name VARCHAR(200) NOT NULL,
+            content TEXT NOT NULL,
+            is_approved TINYINT(1) NOT NULL DEFAULT 0,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            INDEX idx_post (post_id),
+            INDEX idx_approved (post_id, is_approved)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    ");
+
+    $pdo->exec("
+        CREATE TABLE IF NOT EXISTS forum_posts (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            author_name VARCHAR(200) NOT NULL,
+            title VARCHAR(300) NOT NULL,
+            content TEXT NOT NULL,
+            category VARCHAR(50) NOT NULL DEFAULT 'general',
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            INDEX idx_created (created_at DESC),
+            INDEX idx_category (category)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    ");
+
+    $pdo->exec("
+        CREATE TABLE IF NOT EXISTS forum_replies (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            post_id INT NOT NULL,
+            author_name VARCHAR(200) NOT NULL,
+            content TEXT NOT NULL,
+            is_admin TINYINT(1) NOT NULL DEFAULT 0,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (post_id) REFERENCES forum_posts(id) ON DELETE CASCADE,
+            INDEX idx_post (post_id)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    ");
+
+    $pdo->exec("
+        CREATE TABLE IF NOT EXISTS availability_settings (
+            id INT PRIMARY KEY DEFAULT 1,
+            first_available_date DATE NOT NULL,
+            booking_window_days INT NOT NULL DEFAULT 30,
+            slot_duration_minutes INT NOT NULL DEFAULT 30,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    ");
+
+    $pdo->exec("
+        CREATE TABLE IF NOT EXISTS availability_day_slots (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            day_of_week TINYINT NOT NULL UNIQUE CHECK (day_of_week BETWEEN 0 AND 6),
+            is_available TINYINT(1) NOT NULL DEFAULT 0,
+            start_time TIME NULL,
+            end_time TIME NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    ");
+
+    $pdo->exec("
+        CREATE TABLE IF NOT EXISTS unavailable_slots (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            \`date\` DATE NOT NULL,
+            \`time\` TIME NOT NULL,
+            reason VARCHAR(255),
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            UNIQUE KEY uniq_slot (\`date\`, \`time\`),
+            INDEX idx_date (\`date\`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    ");
+
+    // Seed default availability settings if empty
+    $count = (int) $pdo->query('SELECT COUNT(*) FROM availability_settings')->fetchColumn();
+    if ($count === 0) {
+        $today = date('Y-m-d');
+        $pdo->prepare('INSERT INTO availability_settings (id, first_available_date, booking_window_days, slot_duration_minutes) VALUES (1, ?, 30, 30)')
+            ->execute([$today]);
+    }
+
+    // Seed default day slots if empty (Sun-Thu + Sat working, Fri closed)
+    $count = (int) $pdo->query('SELECT COUNT(*) FROM availability_day_slots')->fetchColumn();
+    if ($count === 0) {
+        $defaults = [
+            [0, 1, '08:00:00', '17:00:00'],
+            [1, 1, '08:00:00', '17:00:00'],
+            [2, 1, '08:00:00', '17:00:00'],
+            [3, 1, '08:00:00', '17:00:00'],
+            [4, 1, '08:00:00', '17:00:00'],
+            [5, 0, NULL, NULL],
+            [6, 1, '08:00:00', '17:00:00'],
+        ];
+        $stmt = $pdo->prepare('INSERT INTO availability_day_slots (day_of_week, is_available, start_time, end_time) VALUES (?, ?, ?, ?)');
+        foreach ($defaults as $row) {
+            $stmt->execute($row);
+        }
+    }
+}
+
+try {
+    ensureTables();
+} catch (Exception $e) {
+    error_log('[sinisteroid] ensureTables failed: ' . $e->getMessage());
+}
+
+/**
+ * Check if the current request has a valid admin session.
+ */
+function isAdminSession(): bool
+{
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    return !empty($_SESSION['admin'] ?? false);
+}
+
+/**
+ * Require a valid admin session; otherwise return 401 and exit.
+ */
+function requireAdminSession(): void
+{
+    if (!isAdminSession()) {
+        http_response_code(401);
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['error' => 'Unauthorized'], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+}
+
 ?>

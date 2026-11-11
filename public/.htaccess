@@ -45,6 +45,23 @@ DirectoryIndex index.html
   RewriteCond %{REQUEST_URI} ^/_next/image [NC]
   RewriteRule .* /image.php [QSA,L]
 
+  # Public PHP API endpoints (extensionless URLs map to .php files)
+  RewriteRule ^api/contact/?$ api/contact.php [L]
+  RewriteRule ^api/bookings/?$ api/bookings.php [L]
+  RewriteRule ^api/availability/?$ api/availability.php [L]
+
+  # Admin PHP API endpoints (extensionless URLs map to .php files)
+  RewriteRule ^api/admin-login/?$ api/admin-login.php [L]
+  RewriteRule ^api/admin-logout/?$ api/admin-logout.php [L]
+  RewriteRule ^api/admin/stats/?$ api/admin-stats.php [L]
+  RewriteRule ^api/admin/bookings/?$ api/admin-bookings.php [L]
+  RewriteRule ^api/admin/messages/?$ api/admin-messages.php [L]
+  RewriteRule ^api/admin/comments/?$ api/admin-comments.php [L]
+  RewriteRule ^api/admin/forum/?$ api/admin-forum.php [L]
+  RewriteRule ^api/admin/blog/?$ api/admin-blog.php [L]
+  RewriteRule ^api/admin/availability/?$ api/admin-availability.php [L]
+  RewriteRule ^api/admin/unavailable-slots/?$ api/admin-unavailable-slots.php [L]
+
   # PHP APIs and authenticated admin must reach the PHP handler.
   RewriteRule ^api/ - [L]
 
