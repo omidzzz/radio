@@ -34,13 +34,13 @@ if ($method === 'GET') {
             echo json_encode(['error' => 'Failed to load forum posts.'], JSON_UNESCAPED_UNICODE);
         }
     } else {
-        // blog comments
+        // blog comments — join with legacy `posts` table for post title
         try {
             $stmt = $pdo->query(
                 'SELECT c.id, c.post_id, c.author_name, c.content, c.is_approved, c.created_at,
-                        p.title_fa AS post_title
+                        p.title AS post_title
                  FROM blog_comments c
-                 LEFT JOIN blog_posts p ON p.id = c.post_id
+                 LEFT JOIN posts p ON p.id = c.post_id
                  ORDER BY c.created_at DESC'
             );
             $rows = $stmt->fetchAll();

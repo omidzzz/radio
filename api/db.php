@@ -80,7 +80,15 @@ function ensureTables()
 {
     global $pdo;
 
-    $pdo->exec("
+    $createTable = function ($sql) use ($pdo) {
+        try {
+            $pdo->exec($sql);
+        } catch (Exception $e) {
+            error_log('[sinisteroid] ensureTables create failed: ' . $e->getMessage());
+        }
+    };
+
+    $createTable("
         CREATE TABLE IF NOT EXISTS bookings (
             id INT AUTO_INCREMENT PRIMARY KEY,
             full_name VARCHAR(200) NOT NULL,
@@ -97,7 +105,7 @@ function ensureTables()
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
     ");
 
-    $pdo->exec("
+    $createTable("
         CREATE TABLE IF NOT EXISTS contact_messages (
             id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(200) NOT NULL,
@@ -109,7 +117,7 @@ function ensureTables()
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
     ");
 
-    $pdo->exec("
+    $createTable("
         CREATE TABLE IF NOT EXISTS blog_comments (
             id INT AUTO_INCREMENT PRIMARY KEY,
             post_id INT NOT NULL,
@@ -122,7 +130,7 @@ function ensureTables()
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
     ");
 
-    $pdo->exec("
+    $createTable("
         CREATE TABLE IF NOT EXISTS forum_posts (
             id INT AUTO_INCREMENT PRIMARY KEY,
             author_name VARCHAR(200) NOT NULL,
@@ -135,7 +143,7 @@ function ensureTables()
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
     ");
 
-    $pdo->exec("
+    $createTable("
         CREATE TABLE IF NOT EXISTS forum_replies (
             id INT AUTO_INCREMENT PRIMARY KEY,
             post_id INT NOT NULL,
@@ -148,7 +156,7 @@ function ensureTables()
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
     ");
 
-    $pdo->exec("
+    $createTable("
         CREATE TABLE IF NOT EXISTS availability_settings (
             id INT PRIMARY KEY DEFAULT 1,
             first_available_date DATE NOT NULL,
@@ -159,10 +167,10 @@ function ensureTables()
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
     ");
 
-    $pdo->exec("
+    $createTable("
         CREATE TABLE IF NOT EXISTS availability_day_slots (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            day_of_week TINYINT NOT NULL UNIQUE CHECK (day_of_week BETWEEN 0 AND 6),
+            day_of_week TINYINT NOT NULL UNIQUE,
             is_available TINYINT(1) NOT NULL DEFAULT 0,
             start_time TIME NULL,
             end_time TIME NULL,
@@ -171,7 +179,7 @@ function ensureTables()
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
     ");
 
-    $pdo->exec("
+    $createTable("
         CREATE TABLE IF NOT EXISTS unavailable_slots (
             id INT AUTO_INCREMENT PRIMARY KEY,
             \`date\` DATE NOT NULL,
@@ -183,30 +191,38 @@ function ensureTables()
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
     ");
 
-    // Seed default availability settings if empty
-    $count = (int) $pdo->query('SELECT COUNT(*) FROM availability_settings')->fetchColumn();
-    if ($count === 0) {
-        $today = date('Y-m-d');
-        $pdo->prepare('INSERT INTO availability_settings (id, first_available_date, booking_window_days, slot_duration_minutes) VALUES (1, ?, 30, 30)')
-            ->execute([$today]);
+    // Seed default availability settings if empty (use INSERT IGNORE to avoid duplicate key errors)
+    try {
+        $count = (int) $pdo->query('SELECT COUNT(*) FROM availability_settings')->fetchColumn();
+        if ($count === 0) {
+            $today = date('Y-m-d');
+            $pdo->prepare('INSERT IGNORE INTO availability_settings (id, first_available_date, booking_window_days, slot_duration_minutes) VALUES (1, ?, 30, 30)')
+                ->execute([$today]);
+        }
+    } catch (Exception $e) {
+        error_log('[sinisteroid] ensureTables seed settings failed: ' . $e->getMessage());
     }
 
     // Seed default day slots if empty (Sun-Thu + Sat working, Fri closed)
-    $count = (int) $pdo->query('SELECT COUNT(*) FROM availability_day_slots')->fetchColumn();
-    if ($count === 0) {
-        $defaults = [
-            [0, 1, '08:00:00', '17:00:00'],
-            [1, 1, '08:00:00', '17:00:00'],
-            [2, 1, '08:00:00', '17:00:00'],
-            [3, 1, '08:00:00', '17:00:00'],
-            [4, 1, '08:00:00', '17:00:00'],
-            [5, 0, NULL, NULL],
-            [6, 1, '08:00:00', '17:00:00'],
-        ];
-        $stmt = $pdo->prepare('INSERT INTO availability_day_slots (day_of_week, is_available, start_time, end_time) VALUES (?, ?, ?, ?)');
-        foreach ($defaults as $row) {
-            $stmt->execute($row);
+    try {
+        $count = (int) $pdo->query('SELECT COUNT(*) FROM availability_day_slots')->fetchColumn();
+        if ($count === 0) {
+            $defaults = [
+                [0, 1, '08:00:00', '17:00:00'],
+                [1, 1, '08:00:00', '17:00:00'],
+                [2, 1, '08:00:00', '17:00:00'],
+                [3, 1, '08:00:00', '17:00:00'],
+                [4, 1, '08:00:00', '17:00:00'],
+                [5, 0, NULL, NULL],
+                [6, 1, '08:00:00', '17:00:00'],
+            ];
+            $stmt = $pdo->prepare('INSERT IGNORE INTO availability_day_slots (day_of_week, is_available, start_time, end_time) VALUES (?, ?, ?, ?)');
+            foreach ($defaults as $row) {
+                $stmt->execute($row);
+            }
         }
+    } catch (Exception $e) {
+        error_log('[sinisteroid] ensureTables seed day_slots failed: ' . $e->getMessage());
     }
 }
 
@@ -241,3 +257,4 @@ function requireAdminSession(): void
 }
 
 ?>
+
