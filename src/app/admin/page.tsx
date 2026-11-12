@@ -7,18 +7,27 @@ import { useRouter } from "next/navigation";
 import { siteConfig } from "@/lib/seo/seo";
 import OverviewTab from "@/app/admin/components/OverviewTab";
 import ReservationsTab from "@/app/admin/components/ReservationsTab";
-import MessagesTab from "@/app/admin/components/MessagesTab";
-import CommentsTab from "@/app/admin/components/CommentsTab";
+import LeadsTab from "@/app/admin/components/LeadsTab";
+import BlogCommentsTab from "@/app/admin/components/BlogCommentsTab";
+import ForumTab from "@/app/admin/components/ForumTab";
 import BlogTab from "@/app/admin/components/BlogTab";
 import AvailabilityTab from "@/app/admin/components/AvailabilityTab";
 
-type Tab = "overview" | "reservations" | "messages" | "comments" | "blog" | "availability";
+type Tab =
+  | "overview"
+  | "reservations"
+  | "leads"
+  | "blogComments"
+  | "forumPosts"
+  | "blog"
+  | "availability";
 
 const TABS: { key: Tab; labelKey: string }[] = [
   { key: "overview", labelKey: "overview" },
   { key: "reservations", labelKey: "bookings" },
-  { key: "messages", labelKey: "messages" },
-  { key: "comments", labelKey: "forumPosts" },
+  { key: "leads", labelKey: "leads" },
+  { key: "blogComments", labelKey: "blogComments" },
+  { key: "forumPosts", labelKey: "forumPosts" },
   { key: "blog", labelKey: "blogPosts" },
   { key: "availability", labelKey: "availability" },
 ];
@@ -125,8 +134,9 @@ export default function AdminPage() {
 
           {tab === "overview" && <OverviewTab admin={admin} />}
           {tab === "reservations" && <ReservationsTab admin={admin} />}
-          {tab === "messages" && <MessagesTab admin={admin} />}
-          {tab === "comments" && <CommentsTab admin={admin} />}
+          {tab === "leads" && <LeadsTab admin={admin} />}
+          {tab === "blogComments" && <BlogCommentsTab admin={admin} />}
+          {tab === "forumPosts" && <ForumTab admin={admin} />}
           {tab === "blog" && <BlogTab admin={admin} />}
           {tab === "availability" && <AvailabilityTab admin={admin} />}
         </main>

@@ -2,11 +2,11 @@
 
 import { useEffect, useState, useCallback } from "react";
 
-interface MessagesTabProps { admin: Record<string, any>; }
-interface Message { id: number; name: string; email: string; subject: string; message: string; created_at: string; }
+interface LeadsTabProps { admin: Record<string, any>; }
+interface Lead { id: number; name: string; email: string; subject: string; message: string; created_at: string; }
 
-export default function MessagesTab({ admin }: MessagesTabProps) {
-  const [messages, setMessages] = useState<Message[]>([]);
+export default function LeadsTab({ admin }: LeadsTabProps) {
+  const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState("");
   const [ok, setOk] = useState("");
@@ -17,8 +17,8 @@ export default function MessagesTab({ admin }: MessagesTabProps) {
       const res = await fetch("/api/admin/messages", { credentials: "include" });
       if (!res.ok) return;
       const data = await res.json();
-      setMessages(data.messages || []);
-    } catch { setErr("Failed to load messages."); }
+      setLeads(data.messages || []);
+    } catch { setErr("Failed to load leads."); }
     finally { setLoading(false); }
   }, []);
 
@@ -29,9 +29,9 @@ export default function MessagesTab({ admin }: MessagesTabProps) {
     try {
       const res = await fetch(`/api/admin/messages?id=${id}`, { method: "DELETE", credentials: "include" });
       if (!res.ok) throw new Error("Failed");
-      setOk("Message deleted.");
+      setOk("Lead deleted.");
       await load();
-    } catch { setErr("Failed to delete message."); }
+    } catch { setErr("Failed to delete lead."); }
   };
 
   return (
@@ -50,7 +50,7 @@ export default function MessagesTab({ admin }: MessagesTabProps) {
             <th className="pb-3 text-right text-sm font-semibold text-text-secondary">Actions</th>
           </tr></thead>
           <tbody className="text-sm">
-            {loading ? <tr><td colSpan={7} className="py-4 text-center text-text-muted">Loading…</td></tr> : messages.length === 0 ? <tr><td colSpan={7} className="py-4 text-center text-text-muted">{admin.noMessages}</td></tr> : messages.map((m) => (
+            {loading ? <tr><td colSpan={7} className="py-4 text-center text-text-muted">Loading…</td></tr> : leads.length === 0 ? <tr><td colSpan={7} className="py-4 text-center text-text-muted">{admin.noMessages}</td></tr> : leads.map((m) => (
               <tr key={m.id} className="border-b border-border/50 hover:bg-accent/30 transition">
                 <td className="py-3 text-text-muted">#{m.id}</td>
                 <td className="py-3 text-text-primary">{m.name}</td>

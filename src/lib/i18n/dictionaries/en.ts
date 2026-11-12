@@ -609,6 +609,8 @@ const en = {
     bookings: "Bookings",
     forumPosts: "Forum Posts",
     messages: "Messages",
+    leads: "Leads",
+    blogComments: "Blog Comments",
     totalBookings: "Total Bookings",
     pendingBookings: "Pending Bookings",
     confirmedBookings: "Confirmed Bookings",

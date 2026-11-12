@@ -607,6 +607,8 @@ const fa = {
     bookings: "نوبت‌ها",
     forumPosts: "پست‌های انجمن",
     messages: "پیام‌ها",
+    leads: "لیدها",
+    blogComments: "نظرات بلاگ",
     totalBookings: "کل نوبت‌ها",
     pendingBookings: "نوبت‌های در انتظار",
     confirmedBookings: "نوبت‌های تأییدشده",
