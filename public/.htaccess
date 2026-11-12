@@ -62,6 +62,10 @@ DirectoryIndex index.html
   RewriteRule ^api/admin/availability/?$ api/admin-availability.php [L]
   RewriteRule ^api/admin/unavailable-slots/?$ api/admin-unavailable-slots.php [L]
 
+  # Admin dashboard (Next.js static pages)
+  RewriteRule ^admin/?$ admin/index.html [L]
+  RewriteRule ^admin/login/?$ admin/login/index.html [L]
+
   # PHP APIs and authenticated admin must reach the PHP handler.
   RewriteRule ^api/ - [L]
 
