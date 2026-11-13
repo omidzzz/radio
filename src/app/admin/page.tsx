@@ -10,7 +10,7 @@ import ReservationsTab from "@/app/admin/components/ReservationsTab";
 import LeadsTab from "@/app/admin/components/LeadsTab";
 import BlogCommentsTab from "@/app/admin/components/BlogCommentsTab";
 import ForumTab from "@/app/admin/components/ForumTab";
-import BlogTab from "@/app/admin/components/BlogTab";
+import BlogEditorTab from "@/app/admin/components/BlogEditorTab";
 import AvailabilityTab from "@/app/admin/components/AvailabilityTab";
 
 type Tab =
@@ -137,7 +137,7 @@ export default function AdminPage() {
           {tab === "leads" && <LeadsTab admin={admin} />}
           {tab === "blogComments" && <BlogCommentsTab admin={admin} />}
           {tab === "forumPosts" && <ForumTab admin={admin} />}
-          {tab === "blog" && <BlogTab admin={admin} />}
+          {tab === "blog" && <BlogEditorTab admin={admin} />}
           {tab === "availability" && <AvailabilityTab admin={admin} />}
         </main>
       </div>
