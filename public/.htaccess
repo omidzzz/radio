@@ -49,6 +49,11 @@ DirectoryIndex index.html
   RewriteRule ^api/contact/?$ api/contact.php [L]
   RewriteRule ^api/bookings/?$ api/bookings.php [L]
   RewriteRule ^api/availability/?$ api/availability.php [L]
+  RewriteRule ^api/forum/posts/?$ api/forum-posts.php [L]
+  RewriteRule ^api/forum-replies/?$ api/forum-replies.php [L]
+  RewriteRule ^api/blog-views/?$ api/blog-views.php [L]
+  RewriteRule ^api/blog-comments/?$ api/blog-comments.php [L]
+  RewriteRule ^api/upload/?$ api/upload.php [L]
 
   # Admin PHP API endpoints (extensionless URLs map to .php files)
   RewriteRule ^api/admin-login/?$ api/admin-login.php [L]
