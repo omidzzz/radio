@@ -17,8 +17,14 @@ $requestedDate = isset($_GET['date']) ? trim((string) $_GET['date']) : null;
 try {
     $settings = $pdo->query('SELECT * FROM availability_settings WHERE id = 1')->fetch();
     if (!$settings) {
-        http_response_code(500);
-        echo json_encode(['error' => ['Availability not configured.']], JSON_UNESCAPED_UNICODE);
+        // No settings configured — return empty time slots instead of 500
+        http_response_code(200);
+        echo json_encode([
+            'settings' => null,
+            'daySlots' => [],
+            'timeSlots' => [],
+            'date' => $requestedDate,
+        ], JSON_UNESCAPED_UNICODE);
         exit;
     }
 

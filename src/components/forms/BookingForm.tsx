@@ -312,11 +312,11 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
   const labelClasses = "mb-1 block text-sm font-medium text-text-primary";
 
   // Compute min date for DatePicker
-  const minDate = availability?.settings.first_available_date || getTodayISO();
+  const minDate = availability?.settings?.first_available_date || getTodayISO();
 
   // Compute max date (first available + booking window)
   const maxDate = useCallback(() => {
-    if (!availability) return undefined;
+    if (!availability?.settings) return undefined;
     const d = new Date(minDate + "T12:00:00");
     d.setDate(d.getDate() + availability.settings.booking_window_days);
     return toISO(d);
@@ -325,7 +325,7 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
   // Check if a date is available (day of week enabled + within window)
   const isDateDisabled = useCallback(
     (dateStr: string) => {
-      if (!availability) return false;
+      if (!availability?.settings || !availability?.daySlots) return true;
       const date = new Date(dateStr + "T12:00:00");
       const dayOfWeek = date.getDay();
       const daySlot = availability.daySlots.find((s) => s.day_of_week === dayOfWeek);

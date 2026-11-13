@@ -191,35 +191,32 @@ function ensureTables()
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
     ");
 
-    // Seed default availability settings if empty (use INSERT IGNORE to avoid duplicate key errors)
+    // Seed default availability settings (id=1) if missing — use INSERT IGNORE
     try {
-        $count = (int) $pdo->query('SELECT COUNT(*) FROM availability_settings')->fetchColumn();
-        if ($count === 0) {
+        $exists = (int) $pdo->query('SELECT COUNT(*) FROM availability_settings WHERE id = 1')->fetchColumn();
+        if ($exists === 0) {
             $today = date('Y-m-d');
-            $pdo->prepare('INSERT IGNORE INTO availability_settings (id, first_available_date, booking_window_days, slot_duration_minutes) VALUES (1, ?, 30, 30)')
+            $pdo->prepare('INSERT INTO availability_settings (id, first_available_date, booking_window_days, slot_duration_minutes) VALUES (1, ?, 30, 30)')
                 ->execute([$today]);
         }
     } catch (Exception $e) {
         error_log('[sinisteroid] ensureTables seed settings failed: ' . $e->getMessage());
     }
 
-    // Seed default day slots if empty (Sun-Thu + Sat working, Fri closed)
+    // Seed default day slots (Sun-Thu + Sat working, Fri closed) if missing
     try {
-        $count = (int) $pdo->query('SELECT COUNT(*) FROM availability_day_slots')->fetchColumn();
-        if ($count === 0) {
-            $defaults = [
-                [0, 1, '08:00:00', '17:00:00'],
-                [1, 1, '08:00:00', '17:00:00'],
-                [2, 1, '08:00:00', '17:00:00'],
-                [3, 1, '08:00:00', '17:00:00'],
-                [4, 1, '08:00:00', '17:00:00'],
-                [5, 0, NULL, NULL],
-                [6, 1, '08:00:00', '17:00:00'],
-            ];
-            $stmt = $pdo->prepare('INSERT IGNORE INTO availability_day_slots (day_of_week, is_available, start_time, end_time) VALUES (?, ?, ?, ?)');
-            foreach ($defaults as $row) {
-                $stmt->execute($row);
-            }
+        $defaults = [
+            [0, 1, '08:00:00', '17:00:00'], // Sunday
+            [1, 1, '08:00:00', '17:00:00'], // Monday
+            [2, 1, '08:00:00', '17:00:00'], // Tuesday
+            [3, 1, '08:00:00', '17:00:00'], // Wednesday
+            [4, 1, '08:00:00', '17:00:00'], // Thursday
+            [5, 0, NULL, NULL],             // Friday (closed)
+            [6, 1, '08:00:00', '17:00:00'], // Saturday
+        ];
+        $stmt = $pdo->prepare('INSERT IGNORE INTO availability_day_slots (day_of_week, is_available, start_time, end_time) VALUES (?, ?, ?, ?)');
+        foreach ($defaults as $row) {
+            $stmt->execute($row);
         }
     } catch (Exception $e) {
         error_log('[sinisteroid] ensureTables seed day_slots failed: ' . $e->getMessage());
