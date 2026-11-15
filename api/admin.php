@@ -2531,13 +2531,6 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
     }
   }
 
-  function loadForums() { loadForums(); }
-  function loadBookings() { loadBookings(); }
-  function loadComments() { loadComments(); }
-  function loadMessages() { loadMessages(); }
-
-      }
-
       async function loadDashboard() {
         try {
           const data = await fetchJson(apiBase + '?action=dashboard');
