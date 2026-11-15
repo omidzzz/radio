@@ -583,6 +583,7 @@ if (isset($_GET['action'])) {
         error_log('[sinisteroid] admin dashboard query failed: ' . $e->getMessage());
         errorResponse('Dashboard query failed; check the PHP error log.', 500);
       }
+      break;
     case 'media':
       try {
         $files = glob(rtrim(UPLOADS_DIR, '/') . '/*') ?: [];
@@ -602,6 +603,73 @@ if (isset($_GET['action'])) {
         error_log('[sinisteroid] admin media listing failed: ' . $e->getMessage());
         errorResponse('Media listing failed; check the PHP error log.', 500);
       }
+      break;
+
+    case 'forum':
+      try {
+        $stmt = $pdo->query(
+          'SELECT fp.id, fp.author_name, fp.title, fp.content, fp.category, fp.created_at,
+                  (SELECT COUNT(*) FROM forum_replies fr WHERE fr.post_id = fp.id) as reply_count
+                   FROM forum_posts fp ORDER BY fp.created_at DESC'
+        );
+        $rows = $stmt->fetchAll();
+        jsonResponse(['posts' => $rows]);
+      } catch (Throwable $e) {
+        error_log('[sinisteroid] admin forum list failed: ' . $e->getMessage());
+        errorResponse('Forum list failed; check the PHP error log.', 500);
+      }
+      break;
+
+    case 'bookings':
+      try {
+        $stmt = $pdo->query(
+          'SELECT id, full_name, email, phone, session_type, preferred_date, preferred_time, notes, status, created_at
+           FROM bookings ORDER BY created_at DESC'
+        );
+        $rows = $stmt->fetchAll();
+        foreach ($rows as &$row) {
+          if ($row['preferred_time'] !== null) {
+            $row['preferred_time'] = substr((string) $row['preferred_time'], 0, 5);
+          }
+        }
+        jsonResponse(['bookings' => $rows]);
+      } catch (Throwable $e) {
+        error_log('[sinisteroid] admin bookings list failed: ' . $e->getMessage());
+        errorResponse('Bookings list failed; check the PHP error log.', 500);
+      }
+      break;
+
+    case 'comments':
+      try {
+        $stmt = $pdo->query(
+          'SELECT c.id, c.post_id, c.author_name, c.content, c.is_approved, c.created_at,
+                  p.title AS post_title
+           FROM blog_comments c
+           LEFT JOIN posts p ON p.id = c.post_id
+           ORDER BY c.created_at DESC'
+        );
+        $rows = $stmt->fetchAll();
+        jsonResponse(['comments' => $rows]);
+      } catch (Throwable $e) {
+        error_log('[sinisteroid] admin comments list failed: ' . $e->getMessage());
+        errorResponse('Comments list failed; check the PHP error log.', 500);
+      }
+      break;
+
+    case 'messages':
+      try {
+        $stmt = $pdo->query(
+          'SELECT id, name, email, subject, message, created_at
+           FROM contact_messages ORDER BY created_at DESC'
+        );
+        $rows = $stmt->fetchAll();
+        jsonResponse(['messages' => $rows]);
+      } catch (Throwable $e) {
+        error_log('[sinisteroid] admin messages list failed: ' . $e->getMessage());
+        errorResponse('Messages list failed; check the PHP error log.', 500);
+      }
+      break;
+
     case 'list':
       try {
         jsonResponse(listPosts());
@@ -629,11 +697,24 @@ if (isset($_GET['action'])) {
   }
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // All mutations (save / delete / duplicate / uploadImage) share the
   // same-origin + POST requirement.
   assertSameOriginMutation();
-  $action = $_POST['action'];
+  // Action may come via POST field (form data) or URL query string (?action=...)
+  $action = $_POST['action'] ?? $_GET['action'] ?? '';
+  if (!$action) {
+    errorResponse('Missing action', 400);
+  }
+  // Read JSON body for endpoints that send JSON payloads
+  $jsonBody = [];
+  $raw = file_get_contents('php://input');
+  if ($raw !== false && trim($raw) !== '') {
+    $decoded = json_decode($raw, true);
+    if (is_array($decoded)) {
+      $jsonBody = $decoded;
+    }
+  }
   switch ($action) {
     case 'save':
       $payload = json_decode($_POST['post_json'] ?? '', true);
@@ -659,6 +740,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     case 'uploadImage':
       $result = uploadImageFile('image_file');
       jsonResponse($result);
+      break;
+    case 'delete-forum':
+      $id = (int)($jsonBody['id'] ?? 0);
+      if (!$id) {
+        errorResponse('Missing forum post id', 400);
+      }
+      try {
+        $pdo->prepare('DELETE FROM forum_posts WHERE id = ?')->execute([$id]);
+        jsonResponse(['ok' => true]);
+      } catch (Throwable $e) {
+        error_log('[sinisteroid] delete forum failed: ' . $e->getMessage());
+        errorResponse('Failed to delete forum post', 500);
+      }
+      break;
+    case 'delete-booking':
+      $id = (int)($jsonBody['id'] ?? 0);
+      if (!$id) {
+        errorResponse('Missing booking id', 400);
+      }
+      try {
+        $pdo->prepare('DELETE FROM bookings WHERE id = ?')->execute([$id]);
+        jsonResponse(['ok' => true]);
+      } catch (Throwable $e) {
+        error_log('[sinisteroid] delete booking failed: ' . $e->getMessage());
+        errorResponse('Failed to delete booking', 500);
+      }
+      break;
+    case 'delete-comment':
+      $id = (int)($jsonBody['id'] ?? 0);
+      if (!$id) {
+        errorResponse('Missing comment id', 400);
+      }
+      try {
+        $pdo->prepare('DELETE FROM blog_comments WHERE id = ?')->execute([$id]);
+        jsonResponse(['ok' => true]);
+      } catch (Throwable $e) {
+        error_log('[sinisteroid] delete comment failed: ' . $e->getMessage());
+        errorResponse('Failed to delete comment', 500);
+      }
+      break;
+    case 'delete-message':
+      $id = (int)($jsonBody['id'] ?? 0);
+      if (!$id) {
+        errorResponse('Missing message id', 400);
+      }
+      try {
+        $pdo->prepare('DELETE FROM contact_messages WHERE id = ?')->execute([$id]);
+        jsonResponse(['ok' => true]);
+      } catch (Throwable $e) {
+        error_log('[sinisteroid] delete message failed: ' . $e->getMessage());
+        errorResponse('Failed to delete message', 500);
+      }
       break;
     default:
       errorResponse('Unknown action', 400);
