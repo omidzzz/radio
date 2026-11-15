@@ -2334,8 +2334,29 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
       const container = byId('forum-post-list');
       if (!data || !Array.isArray(data.posts)) {
         container.innerHTML = '<p class="muted">No forum posts found.</p>';
+        return;
+      }
+      container.innerHTML = data.posts.map(p => 
+        <div class="post-row">
+          <div class="post-row-main">
+            <button class="post-row-title" data-open-forum=""></button>
+            <div class="post-row-meta">
+              <span class="badge badge-published"></span>
+              <span>Posted by  on </span>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="button button-sm button-secondary" data-edit-forum="">Edit</button>
+            <button class="button button-sm button-danger" data-delete-forum="">Delete</button>
+          </div>
+        </div>
+      ).join('');
+    } catch (error) {
+      toast(error.message || 'Failed to load forum posts.', 'err');
+    }
+  }
 
-  // Event listeners for new workspace features
+// Event listeners for new workspace features
   document.addEventListener('DOMContentLoaded', () => {
     // Forum post list events
     document.addEventListener('click', (e) => {
@@ -3712,3 +3733,4 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
     </script>
   </body>
 </html>
+
