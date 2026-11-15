@@ -311,16 +311,30 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
 
   const labelClasses = "mb-1 block text-sm font-medium text-text-primary";
 
-  // Compute min date for DatePicker
-  const minDate = availability?.settings?.first_available_date || getTodayISO();
+  // Minimum bookable date: first_available_date if it is in the future,
+  // otherwise today. Clamping to today ensures the calendar never opens
+  // to already-past dates when the configured first_available_date has
+  // passed without booking activity.
+  const minDate = availability?.settings?.first_available_date
+    ? toISO(
+        new Date(
+          Math.max(
+            new Date(availability.settings.first_available_date + "T12:00:00").getTime(),
+            Date.now()
+          )
+        )
+      )
+    : getTodayISO();
 
-  // Compute max date (first available + booking window)
+  // Maximum bookable date: today + booking_window_days.
+  // (The previous implementation computed this relative to first_available_date,
+  // which could produce a window that had already ended.)
   const maxDate = useCallback(() => {
     if (!availability?.settings) return undefined;
-    const d = new Date(minDate + "T12:00:00");
+    const d = new Date(getTodayISO() + "T12:00:00");
     d.setDate(d.getDate() + availability.settings.booking_window_days);
     return toISO(d);
-  }, [availability, minDate]);
+  }, [availability]);
 
   // Check if a date is available (day of week enabled + within window)
   const isDateDisabled = useCallback(
@@ -636,9 +650,7 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
               </div>
             ) : (
               <div className="flex h-[42px] items-center rounded-lg border border-dashed border-border px-4 text-sm text-muted">
-                {values.preferred_date
-                  ? dict.booking.selectDateFirst
-                  : dict.booking.selectTime}
+                <span dir="ltr">{dict.booking.selectTime}</span>
               </div>
             )}
             {showNoSlots && (

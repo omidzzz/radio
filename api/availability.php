@@ -4,6 +4,119 @@
 // GET  /api/availability?date=YYYY-MM-DD  -> returns available time slots for that date
 require_once __DIR__ . '/db.php';
 
+// ══════════════════════════════════════════════════════════════════════════════
+// Defensive table bootstrap — re-run the existence checks on EVERY request.
+//
+// api/db.php calls ensureTables() at startup, but that function swallows
+// "create failed" errors into a log so an operator can't easily notice that
+// the public calendar tables were never built.  Here we make sure the four
+// tables this endpoint reads exist (CREATE TABLE IF NOT EXISTS covers a
+// partially-migrated / freshly-restored DB), so the endpoint can never die
+// with a raw 500 "Failed to load availability." while something is missing.
+// ══════════════════════════════════════════════════════════════════════════════
+$ensureApiTables = function () use ($pdo) {
+    $create = function ($sql) use ($pdo) {
+        if (trim((string) $sql) === '') {
+            return;
+        }
+        try {
+            $pdo->exec($sql);
+        } catch (Throwable $e) {
+            error_log('[sinisteroid] api availability ensureTables create failed: ' . $e->getMessage());
+        }
+    };
+
+    // bookings
+    $create("
+        CREATE TABLE IF NOT EXISTS bookings (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            full_name VARCHAR(200) NOT NULL,
+            email VARCHAR(200) NOT NULL,
+            phone VARCHAR(20) NOT NULL,
+            session_type VARCHAR(50) NOT NULL DEFAULT 'initial-consultation',
+            preferred_date DATE NOT NULL,
+            preferred_time TIME NOT NULL,
+            notes TEXT,
+            status ENUM('pending','confirmed','cancelled','completed') NOT NULL DEFAULT 'pending',
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            INDEX idx_created (created_at DESC),
+            INDEX idx_date_time (preferred_date, preferred_time)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    ");
+
+    // availability_settings
+    $create("
+        CREATE TABLE IF NOT EXISTS availability_settings (
+            id INT PRIMARY KEY DEFAULT 1,
+            first_available_date DATE NOT NULL,
+            booking_window_days INT NOT NULL DEFAULT 30,
+            slot_duration_minutes INT NOT NULL DEFAULT 30,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    ");
+
+    // availability_day_slots
+    $create("
+        CREATE TABLE IF NOT EXISTS availability_day_slots (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            day_of_week TINYINT NOT NULL UNIQUE,
+            is_available TINYINT(1) NOT NULL DEFAULT 0,
+            start_time TIME NULL,
+            end_time TIME NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    ");
+
+    // unavailable_slots
+    $create("
+        CREATE TABLE IF NOT EXISTS unavailable_slots (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            `date` DATE NOT NULL,
+            `time` TIME NOT NULL,
+            reason VARCHAR(255),
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            UNIQUE KEY uniq_slot (`date`, `time`),
+            INDEX idx_date (`date`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    ");
+
+    // Seed availability_settings (id=1) if missing
+    try {
+        $count = (int) $pdo->query('SELECT COUNT(*) FROM availability_settings')->fetchColumn();
+        if ($count === 0) {
+            $pdo->prepare('INSERT INTO availability_settings (id, first_available_date, booking_window_days, slot_duration_minutes) VALUES (1, CURDATE(), 30, 30)')->execute();
+        }
+    } catch (Throwable $e) {
+        error_log('[sinisteroid] api availability seed settings failed: ' . $e->getMessage());
+    }
+
+    // Seed availability_day_slots defaults if empty
+    try {
+        $count = (int) $pdo->query('SELECT COUNT(*) FROM availability_day_slots')->fetchColumn();
+        if ($count === 0) {
+            $stmt = $pdo->prepare('INSERT INTO availability_day_slots (day_of_week, is_available, start_time, end_time) VALUES (?, ?, ?, ?)');
+            foreach ([
+                [0, 1, '08:00:00', '17:00:00'],
+                [1, 1, '08:00:00', '17:00:00'],
+                [2, 1, '08:00:00', '17:00:00'],
+                [3, 1, '08:00:00', '17:00:00'],
+                [4, 1, '08:00:00', '17:00:00'],
+                [5, 0, NULL, NULL],
+                [6, 1, '08:00:00', '17:00:00'],
+            ] as $row) {
+                $stmt->execute($row);
+            }
+        }
+    } catch (Throwable $e) {
+        error_log('[sinisteroid] api availability seed day_slots failed: ' . $e->getMessage());
+    }
+};
+
+$ensureApiTables();
+
+
 header('Content-Type: application/json; charset=utf-8');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
@@ -24,6 +137,7 @@ try {
             'daySlots' => [],
             'timeSlots' => [],
             'date' => $requestedDate,
+            'error' => 'Availability not configured. Please contact the clinic.',
         ], JSON_UNESCAPED_UNICODE);
         exit;
     }
@@ -65,9 +179,25 @@ try {
         $dayOfWeek = (int) $dateTime->format('w');
         $today = new DateTime();
         $today->setTime(0, 0, 0);
-        $firstDate = new DateTime($settings['first_available_date']);
+        $firstDate = null;
+        $firstDateStr = isset($settings['first_available_date']) ? trim((string) $settings['first_available_date']) : '';
+        if ($firstDateStr !== '' && $firstDateStr !== '0000-00-00' && $firstDateStr !== '1970-01-01') {
+            $candidate = DateTime::createFromFormat('Y-m-d', $firstDateStr);
+            if ($candidate !== false) {
+                $firstDate = $candidate;
+            }
+        }
+        if ($firstDate === null) {
+            $firstDate = new DateTime();
+            $firstDate->setTime(0, 0, 0);
+        }
+
+        $windowDays = isset($settings['booking_window_days']) ? (int) $settings['booking_window_days'] : 30;
+        if ($windowDays <= 0 || $windowDays > 365) {
+            $windowDays = 30;
+        }
         $maxDate = clone $today;
-        $maxDate->modify('+' . (int) $settings['booking_window_days'] . ' days');
+        $maxDate->modify('+' . $windowDays . ' days');
 
         $timeSlots = [];
         if ($dateTime >= $firstDate && $dateTime <= $maxDate) {

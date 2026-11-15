@@ -5,13 +5,8 @@ require_once __DIR__ . '/db.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    echo json_encode(['error' => 'Method not allowed'], JSON_UNESCAPED_UNICODE);
-    exit;
-}
-
-$input = json_decode(file_get_contents('php://input'), true);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $input = json_decode(file_get_contents('php://input'), true);
 if (!is_array($input)) {
     $input = [];
 }
@@ -162,13 +157,15 @@ try {
         ],
         'message' => 'Your booking request has been received.',
     ], JSON_UNESCAPED_UNICODE);
+    exit;
 } catch (Exception $e) {
     error_log('[sinisteroid] booking insert failed: ' . $e->getMessage());
     http_response_code(500);
     echo json_encode(['error' => ['Failed to save booking. Please try again.']], JSON_UNESCAPED_UNICODE);
+    exit;
 }
+}  // end POST handling
 
-// GET: list all bookings (newest first)
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     try {
         $stmt = $pdo->query(

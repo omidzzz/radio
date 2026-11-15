@@ -188,17 +188,20 @@ export function isDateAvailable(dateStr: string): boolean {
   const date = new Date(dateStr + "T12:00:00");
   if (isNaN(date.getTime())) return false;
 
-  const firstDate = new Date(settings.first_available_date + "T12:00:00");
-  if (date < firstDate) return false;
+  const firstDate = new Date(
+    (settings?.first_available_date ?? "").toString() + "T12:00:00"
+  );
+  if (isNaN(firstDate.getTime()) || date < firstDate) return false;
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
+  const windowDays = Number(settings?.booking_window_days) || 0;
   const maxDate = new Date(today);
-  maxDate.setDate(maxDate.getDate() + settings.booking_window_days);
+  maxDate.setDate(maxDate.getDate() + (Number.isFinite(windowDays) && windowDays > 0 ? windowDays : 0));
   if (date > maxDate) return false;
 
   const dayOfWeek = date.getDay();
-  const daySlot = daySlots.find((s) => s.day_of_week === dayOfWeek);
+  const daySlot = daySlots?.find((s) => s.day_of_week === dayOfWeek);
   if (!daySlot || daySlot.is_available !== 1) return false;
 
   return true;
@@ -210,16 +213,32 @@ export function getAvailableTimeSlots(dateStr: string): string[] {
 
   const date = new Date(dateStr + "T12:00:00");
   const dayOfWeek = date.getDay();
-  const daySlot = daySlots.find((s) => s.day_of_week === dayOfWeek);
-  if (!daySlot || daySlot.is_available !== 1 || !daySlot.start_time || !daySlot.end_time) {
+  const daySlot = daySlots?.find((s) => s.day_of_week === dayOfWeek);
+  if (
+    !daySlot ||
+    daySlot.is_available !== 1 ||
+    !daySlot.start_time ||
+    !daySlot.end_time
+  ) {
     return [];
   }
 
-  const slotDuration = settings.slot_duration_minutes;
-  const [startHour, startMin] = daySlot.start_time.split(":").map(Number);
-  const [endHour, endMin] = daySlot.end_time.split(":").map(Number);
-  const startMinutes = startHour * 60 + startMin;
-  const endMinutes = endHour * 60 + endMin;
+  const slotDuration = Number(settings?.slot_duration_minutes) || 30;
+  if (!Number.isFinite(slotDuration) || slotDuration <= 0) return [];
+
+  const [startHour, startMin] = daySlot.start_time
+    .toString()
+    .split(":")
+    .map(Number);
+  const [endHour, endMin] = daySlot.end_time
+    .toString()
+    .split(":")
+    .map(Number);
+
+  const startMinutes = (Number.isFinite(startHour) ? startHour : 0) * 60 + (Number.isFinite(startMin) ? startMin : 0);
+  const endMinutes = (Number.isFinite(endHour) ? endHour : 0) * 60 + (Number.isFinite(endMin) ? endMin : 0);
+
+  if (startMinutes >= endMinutes) return [];
 
   const slots: string[] = [];
   for (let t = startMinutes; t + slotDuration <= endMinutes; t += slotDuration) {
@@ -241,8 +260,11 @@ export function getAvailableTimeSlots(dateStr: string): string[] {
   // Remove any slots that have been explicitly blocked
   filtered = filtered.filter((slot) => !isSlotUnavailable(dateStr, slot));
 
+
   return filtered;
 }
+
+
 
 export function validateBookingAvailability(dateStr: string, timeStr: string): void {
   if (!isDateAvailable(dateStr)) {

@@ -1660,6 +1660,10 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
           <button type="button" class="active" data-workspace="overview">⌂ <span>Overview</span></button>
           <button type="button" data-workspace="posts">▤ <span>Blog posts</span></button>
           <button type="button" data-workspace="media">▧ <span>Media library</span></button>
+          <button type="button" data-workspace="forum">Forum</button>
+          <button type="button" data-workspace="bookings">Reservations</button>
+          <button type="button" data-workspace="comments">Comments</button>
+          <button type="button" data-workspace="messages">Messages</button>
           <button type="button" data-workspace="settings">⚙ <span>Settings</span></button>
         </nav>
 
@@ -1723,6 +1727,64 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
           <section class="utility-view" id="settings-view" hidden>
             <div class="utility-heading"><div><h1>Settings</h1><p>Admin workspace preferences.</p></div></div>
             <div class="utility-panel"><h2>Appearance</h2><label>Theme<select id="theme-select" class="input"><option value="system">Use device preference</option><option value="light">Light</option><option value="dark">Dark</option></select></label></div>
+
+          <section class="utility-view" id="forum-view" hidden>
+            <div class="utility-heading"><div><h1>Forum</h1><p>Manage forum posts and replies.</p></div></div>
+            <div class="utility-panel">
+              <div class="workspace-actions" style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <input id="forum-search" class="input" style="max-width:300px;" placeholder="Search forum..." />
+                  <button id="new-forum-post" class="button button-primary">+ New Post</button>
+                </div>
+              </div>
+              <div class="utility-panel" style="margin-top:12px;padding:12px;">
+                <div id="forum-post-list" class="post-list" style="max-height:400px;overflow-y:auto;"></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="utility-view" id="bookings-view" hidden>
+            <div class="utility-heading"><div><h1>Reservations</h1><p>Manage appointments and bookings.</p></div></div>
+            <div class="utility-panel">
+              <div class="workspace-actions" style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <input id="booking-search" class="input" style="max-width:300px;" placeholder="Search bookings..." />
+                </div>
+              </div>
+              <div class="utility-panel" style="margin-top:12px;padding:12px;">
+                <div id="booking-list" class="post-list" style="max-height:400px;overflow-y:auto;"></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="utility-view" id="comments-view" hidden>
+            <div class="utility-heading"><div><h1>Comments</h1><p>Manage blog comments and messages.</p></div></div>
+            <div class="utility-panel">
+              <div class="workspace-actions" style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <input id="comment-search" class="input" style="max-width:300px;" placeholder="Search comments..." />
+                </div>
+              </div>
+              <div class="utility-panel" style="margin-top:12px;padding:12px;">
+                <div id="comment-list" class="post-list" style="max-height:400px;overflow-y:auto;"></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="utility-view" id="messages-view" hidden>
+            <div class="utility-heading"><div><h1>Messages</h1><p>Manage messages and contact inquiries.</p></div></div>
+            <div class="utility-panel">
+              <div class="workspace-actions" style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <input id="message-search" class="input" style="max-width:300px;" placeholder="Search messages..." />
+                </div>
+              </div>
+              <div class="utility-panel" style="margin-top:12px;padding:12px;">
+                <div id="message-list" class="post-list" style="max-height:400px;overflow-y:auto;"></div>
+              </div>
+            </div>
+          </section>
+
             <div class="utility-panel"><h2>Blog system</h2><p class="muted">Post editing, media uploads, previews, and publishing use the connected blog database.</p></div>
           </section>
           <div class="view-panel" id="post-editor-view" hidden>
@@ -2127,6 +2189,216 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
         if (editorView) editorView.hidden = name !== 'posts';
         if (name === 'overview') loadDashboard();
         if (name === 'media') loadMedia();
+
+  // Load data for different workspace types
+  async function loadForums() {
+    try {
+      const data = await fetchJson(apiBase + '?action=forum');
+      const container = byId('forum-post-list');
+      if (!data || !Array.isArray(data.posts)) {
+        container.innerHTML = '<p class="muted">No forum posts found.</p>';
+
+  // Event listeners for new workspace features
+  document.addEventListener('DOMContentLoaded', () => {
+    // Forum post list events
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('[data-open-forum]')) {
+        setWorkspace('forum');
+        loadForums();
+      }
+      if (e.target.closest('[data-edit-forum]')) {
+        const id = e.target.closest('[data-edit-forum]').dataset.editForum;
+        setWorkspace('posts');
+        loadPost(id);
+      }
+      if (e.target.closest('[data-delete-forum]')) {
+        const id = e.target.closest('[data-delete-forum]').dataset.deleteForum;
+        if (confirm('Delete this forum post?')) {
+          fetchJson(apiBase + '?action=delete-forum', {method: 'POST', body: JSON.stringify({id})})
+            .then(() => loadForums())
+            .catch(e => toast(e.message || 'Failed to delete.', 'err'));
+        }
+      }
+    });
+
+    // Booking list events
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('[data-open-booking]')) {
+        setWorkspace('bookings');
+        loadBookings();
+      }
+      if (e.target.closest('[data-edit-booking]')) {
+        const id = e.target.closest('[data-edit-booking]').dataset.editBooking;
+        setWorkspace('bookings');
+        loadBookings();
+      }
+      if (e.target.closest('[data-delete-booking]')) {
+        const id = e.target.closest('[data-delete-booking]').dataset.deleteBooking;
+        if (confirm('Delete this booking?')) {
+          fetchJson(apiBase + '?action=delete-booking', {method: 'POST', body: JSON.stringify({id})})
+            .then(() => loadBookings())
+            .catch(e => toast(e.message || 'Failed to delete.', 'err'));
+        }
+      }
+    });
+
+    // Comment list events
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('[data-open-comment]')) {
+        setWorkspace('comments');
+        loadComments();
+      }
+      if (e.target.closest('[data-edit-comment]')) {
+        const id = e.target.closest('[data-edit-comment]').dataset.editComment;
+        setWorkspace('comments');
+        loadComments();
+      }
+      if (e.target.closest('[data-delete-comment]')) {
+        const id = e.target.closest('[data-delete-comment]').dataset.deleteComment;
+        if (confirm('Delete this comment?')) {
+          fetchJson(apiBase + '?action=delete-comment', {method: 'POST', body: JSON.stringify({id})})
+            .then(() => loadComments())
+            .catch(e => toast(e.message || 'Failed to delete.', 'err'));
+        }
+      }
+    });
+
+    // Message list events
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('[data-open-message]')) {
+        setWorkspace('messages');
+        loadMessages();
+      }
+      if (e.target.closest('[data-edit-message]')) {
+        const id = e.target.closest('[data-edit-message]').dataset.editMessage;
+        setWorkspace('messages');
+        loadMessages();
+      }
+      if (e.target.closest('[data-delete-message]')) {
+        const id = e.target.closest('[data-delete-message]').dataset.deleteMessage;
+        if (confirm('Delete this message?')) {
+          fetchJson(apiBase + '?action=delete-message', {method: 'POST', body: JSON.stringify({id})})
+            .then(() => loadMessages())
+            .catch(e => toast(e.message || 'Failed to delete.', 'err'));
+        }
+      }
+    });
+  });
+
+        return;
+      }
+      container.innerHTML = data.posts.map(p => `
+        <div class="post-row">
+          <div class="post-row-main">
+            <button class="post-row-title" data-open-forum="${escapeHtml(p.slug)}">${escapeHtml(p.title || p.slug)}</button>
+            <div class="post-row-meta">
+              <span class="badge badge-published">${escapeHtml(p.status || 'draft')}</span>
+              <span>Posted by ${escapeHtml(p.author_name || 'Unknown')} on ${escapeHtml(p.date || '')}</span>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="button button-sm button-secondary" data-edit-forum="${escapeHtml(p.id)}">Edit</button>
+            <button class="button button-sm button-danger" data-delete-forum="${escapeHtml(p.id)}">Delete</button>
+          </div>
+        </div>
+      `).join('');
+    } catch (error) {
+      toast(error.message || 'Failed to load forum posts.', 'err');
+    }
+  }
+
+  async function loadBookings() {
+    try {
+      const data = await fetchJson(apiBase + '?action=bookings');
+      const container = byId('booking-list');
+      if (!data || !Array.isArray(data.bookings)) {
+        container.innerHTML = '<p class="muted">No bookings found.</p>';
+        return;
+      }
+      container.innerHTML = data.bookings.map(b => `
+        <div class="post-row">
+          <div class="post-row-main">
+            <button class="post-row-title" data-open-booking="${escapeHtml(b.id)}">${escapeHtml(b.full_name || b.email || 'Unknown')}</button>
+            <div class="post-row-meta">
+              <span class="badge badge-published">${escapeHtml(b.session_type || 'Booking')}</span>
+              <span>${escapeHtml(b.preferred_date || '')} at ${escapeHtml(b.preferred_time || '')}</span>
+              <span class="badge badge-${b.status || 'pending'}">${escapeHtml(b.status || 'pending')}</span>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="button button-sm button-secondary" data-edit-booking="${escapeHtml(b.id)}">Edit</button>
+            <button class="button button-sm button-danger" data-delete-booking="${escapeHtml(b.id)}">Delete</button>
+          </div>
+        </div>
+      `).join('');
+    } catch (error) {
+      toast(error.message || 'Failed to load bookings.', 'err');
+    }
+  }
+
+  async function loadComments() {
+    try {
+      const data = await fetchJson(apiBase + '?action=comments');
+      const container = byId('comment-list');
+      if (!data || !Array.isArray(data.comments)) {
+        container.innerHTML = '<p class="muted">No comments found.</p>';
+        return;
+      }
+      container.innerHTML = data.comments.map(c => `
+        <div class="post-row">
+          <div class="post-row-main">
+            <button class="post-row-title" data-open-comment="${escapeHtml(c.id)}">${escapeHtml(c.title || 'Comment')}</button>
+            <div class="post-row-meta">
+              <span class="badge badge-published">${escapeHtml(c.post_slug || 'Post')}</span>
+              <span class="badge badge-${c.status || 'pending'}">${escapeHtml(c.status || 'pending')}</span>
+              <span>${escapeHtml(c.author_name || 'Unknown')} on ${escapeHtml(c.date || '')}</span>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="button button-sm button-secondary" data-edit-comment="${escapeHtml(c.id)}">Edit</button>
+            <button class="button button-sm button-danger" data-delete-comment="${escapeHtml(c.id)}">Delete</button>
+          </div>
+        </div>
+      `).join('');
+    } catch (error) {
+      toast(error.message || 'Failed to load comments.', 'err');
+    }
+  }
+
+  async function loadMessages() {
+    try {
+      const data = await fetchJson(apiBase + '?action=messages');
+      const container = byId('message-list');
+      if (!data || !Array.isArray(data.messages)) {
+        container.innerHTML = '<p class="muted">No messages found.</p>';
+        return;
+      }
+      container.innerHTML = data.messages.map(m => `
+        <div class="post-row">
+          <div class="post-row-main">
+            <button class="post-row-title" data-open-message="${escapeHtml(m.id)}">${escapeHtml(m.subject || 'Message')}</button>
+            <div class="post-row-meta">
+              <span class="badge badge-published">${escapeHtml(m.status || 'new')}</span>
+              <span>${escapeHtml(m.author_name || 'Unknown')} &lt;${escapeHtml(m.email || '')}&gt;</span>
+              <span>${escapeHtml(m.date || '')}</span>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="button button-sm button-secondary" data-edit-message="${escapeHtml(m.id)}">Edit</button>
+            <button class="button button-sm button-danger" data-delete-message="${escapeHtml(m.id)}">Delete</button>
+          </div>
+        </div>
+      `).join('');
+    } catch (error) {
+      toast(error.message || 'Failed to load messages.', 'err');
+    }
+  }
+
+  function loadForums() { loadForums(); }
+  function loadBookings() { loadBookings(); }
+  function loadComments() { loadComments(); }
+  function loadMessages() { loadMessages(); }
+
       }
 
       async function loadDashboard() {

@@ -191,19 +191,16 @@ function ensureTables()
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
     ");
 
-    // Seed default availability settings (id=1) if missing — use INSERT IGNORE
+    // Seed default availability settings (id=1) — always try, INSERT IGNORE handles duplicates
     try {
-        $exists = (int) $pdo->query('SELECT COUNT(*) FROM availability_settings WHERE id = 1')->fetchColumn();
-        if ($exists === 0) {
-            $today = date('Y-m-d');
-            $pdo->prepare('INSERT INTO availability_settings (id, first_available_date, booking_window_days, slot_duration_minutes) VALUES (1, ?, 30, 30)')
-                ->execute([$today]);
-        }
+        $today = date('Y-m-d');
+        $pdo->prepare('INSERT IGNORE INTO availability_settings (id, first_available_date, booking_window_days, slot_duration_minutes) VALUES (1, ?, 30, 30)')
+            ->execute([$today]);
     } catch (Exception $e) {
         error_log('[sinisteroid] ensureTables seed settings failed: ' . $e->getMessage());
     }
 
-    // Seed default day slots (Sun-Thu + Sat working, Fri closed) if missing
+    // Seed default day slots (Sun-Thu + Sat working, Fri closed) — always try
     try {
         $defaults = [
             [0, 1, '08:00:00', '17:00:00'], // Sunday
