@@ -2333,7 +2333,7 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
       const data = await fetchJson(apiBase + '?action=forum');
       const container = byId('forum-post-list');
       if (!data || !Array.isArray(data.posts)) {
-        container.innerHTML = '<p class="muted">No forum posts found.</p>';
+        container.innerHTML = '<p class="muted">  });\n\n
         return;
       }
       container.innerHTML = data.posts.map(p => 
@@ -2442,28 +2442,6 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
       }
     });
   });
-
-        return;
-      }
-      container.innerHTML = data.posts.map(p => `
-        <div class="post-row">
-          <div class="post-row-main">
-            <button class="post-row-title" data-open-forum="${escapeHtml(p.slug)}">${escapeHtml(p.title || p.slug)}</button>
-            <div class="post-row-meta">
-              <span class="badge badge-published">${escapeHtml(p.status || 'draft')}</span>
-              <span>Posted by ${escapeHtml(p.author_name || 'Unknown')} on ${escapeHtml(p.date || '')}</span>
-            </div>
-          </div>
-          <div class="actions">
-            <button class="button button-sm button-secondary" data-edit-forum="${escapeHtml(p.id)}">Edit</button>
-            <button class="button button-sm button-danger" data-delete-forum="${escapeHtml(p.id)}">Delete</button>
-          </div>
-        </div>
-      `).join('');
-    } catch (error) {
-      toast(error.message || 'Failed to load forum posts.', 'err');
-    }
-  }
 
   async function loadBookings() {
     try {
@@ -3733,4 +3711,5 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
     </script>
   </body>
 </html>
+
 
