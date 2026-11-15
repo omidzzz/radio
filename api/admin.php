@@ -2336,7 +2336,7 @@ select.input option { background: var(--bg-deep); color: var(--ink); }
         container.innerHTML = '<p class="muted">No forum posts found.</p>';
         return;
       }
-      container.innerHTML = data.posts.map(p => ``
+      container.innerHTML = data.posts.map(p => `
         <div class="post-row">
           <div class="post-row-main">
             <button class="post-row-title" data-open-forum="${escapeHtml(p.slug)}">${escapeHtml(p.title || p.slug)}</button>
