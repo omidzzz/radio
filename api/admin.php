@@ -2951,19 +2951,15 @@ function getDefaultPost()
         view.classList.toggle('active', active);
       });
       const editorView = byId('post-editor-view');
-if (editorView) editorView.hidden = name !== 'posts';
+  if (editorView) {
+    editorView.hidden = name !== 'posts';
+  }
         if (name === 'overview') loadDashboard();
         if (name === 'media') loadMedia();
         if (name === 'forum') loadForums();
         if (name === 'bookings') loadBookings();
         if (name === 'comments') loadComments();
         if (name === 'messages') loadMessages();
-      if (name === 'overview') loadDashboard();
-      if (name === 'media') loadMedia();
-      if (name === 'forum') loadForums();
-      if (name === 'bookings') loadBookings();
-      if (name === 'comments') loadComments();
-      if (name === 'messages') loadMessages();
     }
     // Load data for different workspace types
     async function loadForums() {
