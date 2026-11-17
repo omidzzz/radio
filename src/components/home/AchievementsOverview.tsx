@@ -4,12 +4,14 @@ interface AchievementsOverviewProps {
   isFa: boolean;
 }
 
-export default function AchievementsOverview({ isFa }: AchievementsOverviewProps) {
+export default function AchievementsOverview({
+  isFa,
+}: AchievementsOverviewProps) {
   const highlights = isFa
     ? [
         {
           label: "تمرکز بالینی",
-          text: "نوروانکولوژی و تومورهای سیستم عصبی مرکزی",
+          text: "پرتودرمانی شخصی‌سازی‌شده",
         },
         {
           label: "تحصیلات تخصصی",
@@ -27,19 +29,19 @@ export default function AchievementsOverview({ isFa }: AchievementsOverviewProps
     : [
         {
           label: "Clinical focus",
-          text: "Neuro-oncology and central nervous system tumours",
+          text: "Personalized radiotherapy",
         },
         {
-          label: "Medical education",
-          text: "Medicine at Tehran University; specialty training at Ahvaz University",
+          label: "Specialist education",
+          text: "Medical degree from Tehran University of Medical Sciences; specialty training at Ahvaz Jundishapur University of Medical Sciences",
         },
         {
           label: "Research & teaching",
-          text: "Three published articles and specialist teaching sessions",
+          text: "Three published papers and specialized training sessions",
         },
         {
           label: "Advanced radiotherapy",
-          text: "IMRT, VMAT, SBRT, FSRT, SRS, contouring and treatment planning",
+          text: "IMRT, VMAT, SBRT, FSRT, SRS, contouring and treatment plan design",
         },
       ];
 
@@ -59,7 +61,9 @@ export default function AchievementsOverview({ isFa }: AchievementsOverviewProps
               id="achievements-title"
               className="mt-3 text-2xl font-bold leading-tight text-text-primary sm:text-3xl"
             >
-              {isFa ? "دانش تخصصی، مراقبت دقیق" : "Specialist knowledge, precise care"}
+              {isFa
+                ? "دانش تخصصی، مراقبت دقیق"
+                : "Specialist knowledge, precise care"}
             </h2>
             <p className="mt-3 max-w-lg text-sm leading-7 text-text-secondary">
               {isFa
@@ -81,7 +85,9 @@ export default function AchievementsOverview({ isFa }: AchievementsOverviewProps
           {highlights.map((item, index) => (
             <Reveal key={item.label} delay={index * 100}>
               <div className="h-full border-t border-border py-5">
-                <h3 className="text-sm font-bold text-text-primary">{item.label}</h3>
+                <h3 className="text-sm font-bold text-text-primary">
+                  {item.label}
+                </h3>
                 <p className="mt-2 text-sm leading-6 text-text-secondary">
                   {item.text}
                 </p>

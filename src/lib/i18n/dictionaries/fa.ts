@@ -52,7 +52,8 @@ const fa = {
     designerBy: "طراحی توسط",
     adminLogin: "ورود مدیریت",
     addressLine1: "تهران، خیابان ولیعصر",
-    addressLine2: "روبروی درب اورژانس بیمارستان دی، برج پزشکان دی",
+    addressLine2:
+      " تقاطع گاندی دوم، روبروی درب اورژانس بیمارستان دی، برج پزشکان دی",
     addressLine3: "طبقه دهم، واحد C",
     privacy: "حریم خصوصی",
     terms: "شرایط استفاده",
@@ -61,9 +62,10 @@ const fa = {
   },
   home: {
     heroTitle1: "دکتر پری قدمگاهی،",
-    heroTitle2: "رادیوتراپی و آنکولوژی",
+    heroTitle2:
+      "در مسیر درمان سرطان، هر بیمار شایسته یک برنامه درمانی دقیق و اختصاصی است.",
     heroSubtitle:
-      "متخصص رادیوتراپی و آنکولوژی با تمرکز بر نوروانکولوژی و تومورهای سیستم عصبی مرکزی. دارای تجربه در IMRT، VMAT، SBRT، FSRT، SRS، کانتورینگ و طراحی پلن درمان.",
+      "ارائه خدمات تخصصی در زمینه تشخیص، ارزیابی و درمان طیف گسترده‌ای از تومورهای سرطانی، با بهره‌گیری از روش‍‌های نوین پرتودرمانی، رادیوسرجری و درمان‌های دارویی. با تکیه بر دانش روز پزشکی ، فناوری‌های پیشرفته و رویکردی فردمحور، تلاش می‌کنیم مناسب‌ترین مسیر درمانی را برای هر بیمار طراحی کنیم.",
     bookConsultation: "رزرو مشاوره",
     exploreServices: "مشاهده خدمات",
     heroSlide2: {
@@ -215,8 +217,7 @@ const fa = {
       "از تحصیلات پزشکی تا فعالیت تخصصی در نوروانکولوژی؛ تعهدی مستمر به مراقبت بهتر.",
     milestone1Year: "۱۳۹۰",
     milestone1Title: "دکترای حرفه‌ای پزشکی",
-    milestone1Desc:
-      "فارغ‌التحصیل دانشگاه علوم پزشکی تهران.",
+    milestone1Desc: "فارغ‌التحصیل دانشگاه علوم پزشکی تهران.",
     milestone2Year: "۱۳۹۹",
     milestone2Title: "تخصص رادیوتراپی و آنکولوژی",
     milestone2Desc:
@@ -227,8 +228,7 @@ const fa = {
       "فعالیت بالینی با تمرکز بر نوروانکولوژی و تومورهای سیستم عصبی مرکزی.",
     milestone4Year: "۱۴۰۳",
     milestone4Title: "کنگره بین‌المللی کلینیکال آنکولوژی",
-    milestone4Desc:
-      "شرکت در پنل کانسر رکتوم.",
+    milestone4Desc: "شرکت در پنل کانسر رکتوم.",
     milestone5Year: "پاییز ۱۴۰۴",
     milestone5Title: "همایش کانسر پستان و فعالیت آموزشی",
     milestone5Desc:
@@ -238,21 +238,24 @@ const fa = {
       items: [
         {
           year: "۲۰۱۵",
-          title: "Comparison of Demographic and Diagnostic Characteristics of Iranian Inpatients With Bipolar I Disorder to Western Counterparts.",
+          title:
+            "Comparison of Demographic and Diagnostic Characteristics of Iranian Inpatients With Bipolar I Disorder to Western Counterparts.",
           journal: "Iranian Journal of Psychiatry and Behavioral Sciences",
           details: "2015;9(2):e839",
           doi: "10.17795/ijpbs839",
         },
         {
           year: "۲۰۱۶",
-          title: "Demographic and Diagnostic Features of 3147 Inpatients With Mood Disorders in Iran.",
+          title:
+            "Demographic and Diagnostic Features of 3147 Inpatients With Mood Disorders in Iran.",
           journal: "Iranian Journal of Psychiatry and Behavioral Sciences",
           details: "2016;10(3):e2298",
           doi: "10.17795/ijpbs-2298",
         },
         {
           year: "۲۰۲۲",
-          title: "A Phase III Randomized Clinical Trial Study of Chemoradiation using Lovastatin/Cisplatin in Patients with Head and Neck Squamous Cell Carcinoma.",
+          title:
+            "A Phase III Randomized Clinical Trial Study of Chemoradiation using Lovastatin/Cisplatin in Patients with Head and Neck Squamous Cell Carcinoma.",
           journal: "Middle East Journal of Cancer",
           details: "2022;13(1):120–127",
           doi: "10.30476/mejc.2021.87318.1407",
@@ -291,10 +294,7 @@ const fa = {
         "دوره آموزشی IMRT در استانبول، ترکیه.",
       ],
     },
-    thesisSupervisors: [
-      "دکتر ساسان زرمجو",
-      "دکتر حجت‌الله شهپریان",
-    ],
+    thesisSupervisors: ["دکتر ساسان زرمجو", "دکتر حجت‌الله شهپریان"],
   },
   services: {
     title: "خدمات ما",
@@ -391,7 +391,7 @@ const fa = {
       "جلسات کوتاه ۱۵ تا ۳۰ دقیقه‌ای با دستگاه‌های پیشرفته و نظارت مستمر تیم درمان.",
     process4Title: "پیگیری و مراقبت",
     process4Desc:
-      "تصویربرداری کنترلی، بررسی پاسخ به درمان و پشتیبانی مستمر پس از پایان دوره.",
+      " ویزیت‌های حین درمان ، تصویربرداری کنترلی، بررسی پاسخ به درمان و پشتیبانی مستمر پس از پایان دوره.",
     faqTitle: "پرسش‌های متداول درباره خدمات",
     faqSubtitle: "پاسخ پرتکرارترین سؤالات بیماران درباره خدمات و روند درمان.",
     faq: [
@@ -403,17 +403,17 @@ const fa = {
       {
         question: "آیا همه این خدمات در همان محل ارائه می‌شود؟",
         answer:
-          "بله؛ از پرتودرمانی خارجی و رادیوسرجری تا براکی‌تراپی و برنامه‌ریزی درمان، همه خدمات در مطب و بدون نیاز به ارجاع به مرکز دیگر انجام می‌شود.",
+          "ویزیت و ارزیابی اولیه بیمار در مطب انجام می‌شود، اما برای مراحل شبیه‌سازی درمان و دریافت جلسات درمانی به مرکز مجهز پرتودرمانی معرفی میگردد.",
       },
       {
         question: "برای شروع درمان چه مدارکی لازم است؟",
         answer:
-          "مدارک پزشکی، جواب بیوپسی و تصویربرداری‌های اخیر (CT، MRI یا PET) را همراه داشته باشید. در صورت نیاز، تصویربرداری تکمیلی در همان جلسه انجام می‌شود.",
+          "مدارک پزشکی، جواب بیوپسی و تصویربرداری‌های اخیر (CT، MRI یا PET) را همراه داشته باشید. در صورت نیاز، برای بررسی‌های تکمیلی به مراکز معتبر ارجاع خواهید شد.",
       },
       {
         question: "تعداد جلسات درمان چگونه تعیین می‌شود؟",
         answer:
-          "تعداد جلسات بر اساس نوع و اندازه تومور، هدف درمان و وضعیت عمومی شما در برنامه درمانی شخصی مشخص می‌شود؛ از یک تا پنج جلسه در رادیوسرجری تا چند هفته در پرتودرمانی کسری.",
+          "تعداد جلسات بر اساس نوع و اندازه تومور، هدف درمان و وضعیت عمومی شما در برنامه درمانی شخصی‌سازی‌شده مشخص می‌شود؛ از یک تا پنج جلسه در رادیوسرجری تا چند هفته در پرتودرمانی کانونشنال.",
       },
     ],
   },
@@ -685,5 +685,3 @@ const fa = {
 };
 
 export default fa;
-
-

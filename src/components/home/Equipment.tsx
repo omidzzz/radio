@@ -467,7 +467,7 @@ export default function Equipment({ isFa, modalities = [] }: EquipmentProps) {
             <SectionHeader
               align="start"
               tone="dark"
-              eyebrow={isFa ? "دستگاه‌های ما" : "Our Equipment"}
+              eyebrow={isFa ? "مراکز طرف همکاری" : "Our Partner Centers"}
               title={
                 isFa
                   ? "فناوری که به آن اعتماد می‌کنید"
@@ -475,8 +475,8 @@ export default function Equipment({ isFa, modalities = [] }: EquipmentProps) {
               }
               subtitle={
                 isFa
-                  ? "دستگاه‌های ما استانداردهای بالینی روز دنیا را رعایت می‌کنند تا تصاویری واضح و قابل اتکا برای پزشک شما فراهم شود."
-                  : "Our scanners are calibrated to current clinical standards, producing clear, dependable images your doctor can act on."
+                  ? "ارجاع به مراکز پیشرفته و مجهز، با رعایت استانداردهای بالینی روز دنیا. تصاویری واضح و قابل اتکا برای برنامه‌ریزی فرایند درمان."
+                  : "We refer you to advanced, fully equipped centers that follow current international clinical standards, providing clear, reliable images for planning your treatment."
               }
             />
           </Reveal>

@@ -69,13 +69,12 @@ export default function HeroMobile({
               : "Radiotherapy & Oncology Specialist"}
           </span>
 
-          <h1 className="hero-mobile-heading anim-fade-up delay-200 fluid-display mt-5 max-w-full font-black leading-[0.92] tracking-tight slide-main-heading text-shadow-lg sm:mt-6 sm:max-w-none">
-            <span className="hero-mobile-name">{dict.home.heroTitle1}</span>
-            <br className="sm:hidden" />
-            <span className="hero-title-accent shimmer-text drop-shadow-soft inline-block">
-              {dict.home.heroTitle2}
-            </span>
+          <h1 className="anim-fade-up delay-200 font-black leading-[1.1] tracking-tight slide-main-heading text-shadow-lg sm:mt-6 text-wrap-balance text-[clamp(1.5rem,0.9rem+3vw,2.25rem)] mt-4 max-w-full">
+            {dict.home.heroTitle1}
           </h1>
+          <p className={`anim-fade-up delay-300 mt-2 max-w-[46ch] text-2xl sm:text-3xl font-semibold leading-[1.15] tracking-tight text-gold text-wrap-balance${isFa ? " leading-[1.5] text-wrap-pretty" : ""}`}>
+            {dict.home.heroTitle2}
+          </p>
 
           <div className="hero-mobile-copy anim-fade-up delay-300 mt-1 max-w-lg text-center">
             <p className="hero-subtitle hero-subtitle-mobile">

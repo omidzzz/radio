@@ -85,14 +85,14 @@ export default function HeroSlideTwo({
               </span>
               {slide.badge}
             </div>
-            <h2 className="anim-fade-up delay-300 fluid-display mt-5 font-black leading-[0.94] tracking-tight slide-main-heading text-shadow-lg sm:mt-7">
-              {slide.title1}{" "}
-              <span className="hero-title-accent shimmer-text drop-shadow-soft inline-block">
-                {slide.title2}
-              </span>
+            <h2 className="anim-fade-up delay-300 font-black leading-[1.1] tracking-tight slide-main-heading text-shadow-lg sm:mt-6 text-wrap-balance text-[clamp(1.5rem,1rem+1.5vw,2.25rem)] mt-4">
+              {slide.title1}
             </h2>
+            <p className={`anim-fade-up delay-350 mt-2 max-w-[52ch] text-2xl sm:text-3xl font-semibold leading-[1.15] tracking-tight text-gold text-wrap-balance${isFa ? " leading-[1.5] text-wrap-pretty" : ""}`}>
+              {slide.title2}
+            </p>
             <div className="mt-6 max-w-xl anim-fade-up delay-400">
-              <p className="hero-subtitle hero-subtitle-slide">
+              <p className={`hero-subtitle hero-subtitle-slide text-justify text-justify-auto${isFa ? "" : " hyphens-auto leading-relaxed"}`}>
                 {slide.subtitle}
               </p>
             </div>

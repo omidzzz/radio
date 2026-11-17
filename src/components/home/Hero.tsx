@@ -42,28 +42,28 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
                 : "Radiotherapy & Oncology Specialist"}
             </div>
 
-            <h1 className="anim-fade-up delay-300 fluid-display mt-5 font-black slide-main-heading text-shadow-lg sm:mt-7">
-              {dict.home.heroTitle1}{" "}
-              <span className="hero-title-accent shimmer-text drop-shadow-soft">
-                {dict.home.heroTitle2}
-              </span>
+            <h1 className="anim-fade-up delay-300 font-black slide-main-heading text-shadow-lg sm:mt-6 text-wrap-balance text-[clamp(1.75rem,1.1rem+1.8vw,2.75rem)] leading-[1.1] mt-4">
+              {dict.home.heroTitle1}
             </h1>
+            <p className={`anim-fade-up delay-350 mt-2 max-w-[52ch] text-3xl sm:text-4xl font-semibold leading-[1.15] tracking-tight text-gold text-wrap-balance${isFa ? " leading-[1.5] text-wrap-pretty" : ""}`}>
+              {dict.home.heroTitle2}
+            </p>
 
             <div className="anim-fade-up delay-400 mt-6 max-w-xl">
-              <p className="hero-subtitle">
-                {dict.home.heroSubtitle}
-              </p>
+              <p className={`hero-subtitle text-justify text-justify-auto${isFa ? "" : " hyphens-auto leading-relaxed"}`}>{dict.home.heroSubtitle}</p>
             </div>
 
             <ul
               className="anim-fade-up delay-450 mt-4 flex flex-wrap gap-2 text-xs font-semibold text-text-primary"
-              aria-label={isFa ? "دستاوردهای حرفه‌ای" : "Professional achievements"}
+              aria-label={
+                isFa ? "دستاوردهای حرفه‌ای" : "Professional achievements"
+              }
             >
               <li className="inline-flex self-start rounded-full border border-highlight/35 bg-deep/70 px-3 py-1.5 text-highlight">
                 {isFa ? "دارای بورد تخصصی" : "Board-certified specialist"}
               </li>
               <li className="inline-flex self-start rounded-full border border-border bg-surface/80 px-3 py-1.5">
-                {isFa ? "تمرکز بر نوروانکولوژی" : "Neuro-oncology focus"}
+                {isFa ? "درمان پیشرفته" : "Advanced Treatment"}
               </li>
               <li className="inline-flex self-start rounded-full border border-border bg-surface/80 px-3 py-1.5">
                 {isFa ? "۳ مقاله منتشرشده" : "3 published articles"}
@@ -109,11 +109,26 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
 
           <div className="relative order-1 md:order-2 md:col-span-5 xl:col-span-7">
             <div className="hero-visual-shell relative mx-auto aspect-video w-full max-w-xl sm:aspect-[16/10] md:aspect-[4/5] xl:aspect-[4/5] xl:max-w-none">
-              <div className="hero-visual-backplate absolute inset-[8%_2%_2%_5%]" aria-hidden="true" />
-              <div className="hero-visual-grid absolute inset-[6%_0_4%_8%]" aria-hidden="true" />
-              <div className="hero-visual-orbit hero-visual-orbit-primary absolute inset-[5%_0_7%_10%]" aria-hidden="true" />
-              <div className="hero-visual-orbit hero-visual-orbit-secondary absolute inset-[14%_8%_13%_2%]" aria-hidden="true" />
-              <div className="hero-visual-halo absolute inset-[12%_4%_8%_12%]" aria-hidden="true" />
+              <div
+                className="hero-visual-backplate absolute inset-[8%_2%_2%_5%]"
+                aria-hidden="true"
+              />
+              <div
+                className="hero-visual-grid absolute inset-[6%_0_4%_8%]"
+                aria-hidden="true"
+              />
+              <div
+                className="hero-visual-orbit hero-visual-orbit-primary absolute inset-[5%_0_7%_10%]"
+                aria-hidden="true"
+              />
+              <div
+                className="hero-visual-orbit hero-visual-orbit-secondary absolute inset-[14%_8%_13%_2%]"
+                aria-hidden="true"
+              />
+              <div
+                className="hero-visual-halo absolute inset-[12%_4%_8%_12%]"
+                aria-hidden="true"
+              />
 
               <div className="hero-image-card hero-image-card-machine anim-slide-right delay-500 absolute bottom-[8%] left-0 z-20 h-[54%] w-[43%] overflow-hidden rounded-lg shadow-2xl shadow-primary/25 ring-1 ring-primary/30 transition-transform duration-500 will-change-transform hover:-translate-y-2 hover:-rotate-2 hover:scale-105 sm:bottom-[9%] sm:h-[58%] sm:w-[46%] xl:-left-8 xl:bottom-14 xl:h-[55%] xl:w-[48%] xl:rounded-xl xl:hover:-translate-y-4 xl:hover:scale-105">
                 <ViewportImage
@@ -136,7 +151,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
                 </div>
               </div>
 
-              <div className="hero-image-card hero-image-card-main anim-slide-right delay-700 absolute right-0 top-0 z-30 h-[92%] w-[68%] overflow-hidden rounded-xl shadow-2xl shadow-deep/70 ring-1 ring-white/15 transition-transform duration-500 will-change-transform hover:-translate-y-2 hover:rotate-1 hover:scale-105 sm:h-[90%] sm:w-[70%] xl:h-[88%] xl:w-[70%] xl:hover:-translate-y-4 xl:hover:scale-105">
+              <div className="hero-image-card hero-image-card-main anim-slide-right delay-700 absolute right-0 top-0 z-30 h-[88%] max-h-[62rem] w-[68%] overflow-hidden rounded-xl shadow-2xl shadow-deep/70 ring-1 ring-white/15 transition-transform duration-500 will-change-transform hover:-translate-y-2 hover:rotate-1 hover:scale-105 sm:h-[86%] sm:w-[70%] xl:h-[84%] xl:w-[70%] xl:hover:-translate-y-4 xl:hover:scale-105">
                 <ViewportImage
                   src="/images/home-radiologist-desktop-top.webp"
                   mobileSrc={TRANSPARENT_PIXEL}

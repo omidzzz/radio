@@ -2446,8 +2446,9 @@ function getDefaultPost()
                 <option value="dark">Dark</option>
               </select></label>
           </div>
+        </section>
 
-          <section class="utility-view" id="forum-view" hidden>
+        <section class="utility-view" id="forum-view" hidden>
             <div class="utility-heading">
               <div>
                 <h1>Forum</h1>
@@ -2532,7 +2533,6 @@ function getDefaultPost()
             <h2>Blog system</h2>
             <p class="muted">Post editing, media uploads, previews, and publishing use the connected blog database.</p>
           </div>
-        </section>
         <div class="view-panel" id="post-editor-view" hidden>
           <div id="editor-view">
             <!-- Global language toggle drives every section's tabs at once -->
@@ -2953,6 +2953,10 @@ function getDefaultPost()
       const editorView = byId('post-editor-view');
   if (editorView) {
     editorView.hidden = name !== 'posts';
+  }
+  const newPostBtn = byId('new-post');
+  if (newPostBtn) {
+    newPostBtn.hidden = name !== 'posts';
   }
         if (name === 'overview') loadDashboard();
         if (name === 'media') loadMedia();
@@ -3791,7 +3795,7 @@ function getDefaultPost()
       document.querySelectorAll('.tab').forEach(tab => tab.addEventListener('click', () => {
         document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t === tab));
         const v = tab.dataset.view;
-        byId('editor-view').hidden = v !== 'editor';
+        byId('post-editor-view').hidden = v !== 'editor';
         byId('json-view').hidden = v !== 'json';
         state.view = v;
       }));
