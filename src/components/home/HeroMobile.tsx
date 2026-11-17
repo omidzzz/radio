@@ -27,7 +27,7 @@ export default function HeroMobile({
         isFa ? "معرفی خدمات و مراقبت" : "Care and services introduction"
       }
     >
-      <div className="hero-mobile-visual relative z-10 mx-auto w-full max-w-88 px-6 pt-4 sm:px-8">
+      <div className="hero-mobile-visual relative z-10 mx-auto w-full px-6 pt-4 sm:max-w-88 sm:px-8">
         <div className="hero-mobile-halo absolute inset-[5%_9%_0]" aria-hidden="true" />
         <div className="hero-mobile-orbit absolute inset-[2%_4%_3%]" aria-hidden="true" />
         <div className="hero-mobile-grid absolute inset-[10%_3%_8%]" aria-hidden="true" />
@@ -38,7 +38,7 @@ export default function HeroMobile({
         </div>
         <div className="hero-mobile-portrait-frame relative z-10">
           <Image
-            src="/images/1000003050.webp"
+            src="/images/1000003044.webp"
             alt={
               isFa
                 ? "دکتر پری قدمگاهی، متخصص رادیوتراپی و آنکولوژی"

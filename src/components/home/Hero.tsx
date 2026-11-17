@@ -110,51 +110,30 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
           <div className="relative order-1 md:order-2 md:col-span-5 xl:col-span-7">
             <div className="hero-visual-shell relative mx-auto aspect-video w-full max-w-xl sm:aspect-[16/10] md:aspect-[4/5] xl:aspect-[4/5] xl:max-w-none">
               <div
-                className="hero-visual-backplate absolute inset-[8%_2%_2%_5%]"
+                className={`hero-visual-backplate absolute ${!isFa ? "scale-x-[-1]" : ""} ${isFa ? "inset-[8%_2%_2%_5%]" : "inset-[8%_5%_2%_2%]}"}`}
                 aria-hidden="true"
               />
               <div
-                className="hero-visual-grid absolute inset-[6%_0_4%_8%]"
+                className={`hero-visual-grid absolute ${!isFa ? "scale-x-[-1]" : ""} ${isFa ? "inset-[6%_0_4%_8%]" : "inset-[6%_8%_4%_0%]}"}`}
                 aria-hidden="true"
               />
               <div
-                className="hero-visual-orbit hero-visual-orbit-primary absolute inset-[5%_0_7%_10%]"
+                className={`hero-visual-orbit hero-visual-orbit-primary absolute ${!isFa ? "scale-x-[-1]" : ""} ${isFa ? "inset-[5%_0_7%_10%]" : "inset-[5%_10%_7%_0%]}"}`}
                 aria-hidden="true"
               />
               <div
-                className="hero-visual-orbit hero-visual-orbit-secondary absolute inset-[14%_8%_13%_2%]"
+                className={`hero-visual-orbit hero-visual-orbit-secondary absolute ${!isFa ? "scale-x-[-1]" : ""} ${isFa ? "inset-[14%_8%_13%_2%]" : "inset-[14%_2%_13%_8%]}"}`}
                 aria-hidden="true"
               />
               <div
-                className="hero-visual-halo absolute inset-[12%_4%_8%_12%]"
+                className={`hero-visual-halo absolute ${!isFa ? "scale-x-[-1]" : ""} ${isFa ? "inset-[12%_4%_8%_12%]" : "inset-[12%_12%_8%_4%]}"}`}
                 aria-hidden="true"
               />
 
-              <div className="hero-image-card hero-image-card-machine anim-slide-right delay-500 absolute bottom-[8%] left-0 z-20 h-[54%] w-[43%] overflow-hidden rounded-lg shadow-2xl shadow-primary/25 ring-1 ring-primary/30 transition-transform duration-500 will-change-transform hover:-translate-y-2 hover:-rotate-2 hover:scale-105 sm:bottom-[9%] sm:h-[58%] sm:w-[46%] xl:-left-8 xl:bottom-14 xl:h-[55%] xl:w-[48%] xl:rounded-xl xl:hover:-translate-y-4 xl:hover:scale-105">
+              <div className={`hero-image-card hero-image-card-main anim-slide-right delay-700 absolute ${isFa ? "left-0" : "right-0"} top-0 z-30 h-[88%] max-h-[62rem] w-[68%] overflow-hidden rounded-xl shadow-2xl shadow-deep/70 ring-1 ring-white/15 transition-transform duration-500 will-change-transform hover:-translate-y-2 hover:rotate-1 hover:scale-105 sm:h-[86%] sm:w-[70%] xl:h-[84%] xl:w-[70%] xl:hover:-translate-y-4 xl:hover:scale-105`}>
                 <ViewportImage
-                  src="/images/1000003053.webp"
-                  mobileSrc={TRANSPARENT_PIXEL}
-                  alt={
-                    isFa
-                      ? "تجهیزات پیشرفته رادیوتراپی"
-                      : "Advanced radiology equipment"
-                  }
-                  width={332}
-                  height={323}
-                  loading="lazy"
-                  fetchPriority="low"
-                  className="absolute inset-0 block h-full w-full object-cover"
-                />
-                <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-primary/30" />
-                <div className="pointer-events-none absolute inset-0 overflow-hidden">
-                  <div className="hud-sweep absolute inset-x-0 h-8 bg-gradient-to-b from-transparent via-highlight/30 to-transparent" />
-                </div>
-              </div>
-
-              <div className="hero-image-card hero-image-card-main anim-slide-right delay-700 absolute right-0 top-0 z-30 h-[88%] max-h-[62rem] w-[68%] overflow-hidden rounded-xl shadow-2xl shadow-deep/70 ring-1 ring-white/15 transition-transform duration-500 will-change-transform hover:-translate-y-2 hover:rotate-1 hover:scale-105 sm:h-[86%] sm:w-[70%] xl:h-[84%] xl:w-[70%] xl:hover:-translate-y-4 xl:hover:scale-105">
-                <ViewportImage
-                  src="/images/1000003047.webp"
-                  mobileSrc={TRANSPARENT_PIXEL}
+                  src="/images/1000003044.webp"
+                  mobileSrc="/images/1000003044.webp"
                   alt={
                     isFa
                       ? "پزشک متخصص رادیوتراپی و آنکولوژی"
@@ -168,27 +147,23 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
                 />
                 <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-primary/10" />
                 <div className="hero-image-glass-line pointer-events-none absolute inset-x-0 top-[18%] h-px" />
-                {[
-                  "left-3 top-3 border-l border-t",
-                  "right-3 top-3 border-r border-t",
-                  "left-3 bottom-3 border-l border-b",
-                  "right-3 bottom-3 border-r border-b",
-                ].map((pos) => (
-                  <div
-                    key={pos}
-                    className={`pointer-events-none absolute h-5 w-5 ${pos} border-highlight/70`}
-                  />
-                ))}
-                <div className="pointer-events-none absolute left-1/2 top-[38%] hidden h-14 w-14 -translate-x-1/2 -translate-y-1/2 sm:block">
-                  <span className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-highlight/40" />
-                  <span className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-highlight/40" />
-                  <span className="hud-pulse absolute left-1/2 top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-highlight" />
-                </div>
+                {isFa ? (
+                  <>
+                    <div className="pointer-events-none absolute h-5 w-5 left-3 top-3 border-l border-t border-highlight/70" />
+                    <div className="pointer-events-none absolute h-5 w-5 left-3 bottom-3 border-l border-b border-highlight/70" />
+                  </>
+                ) : (
+                  <>
+                    <div className="pointer-events-none absolute h-5 w-5 right-3 top-3 border-r border-t border-highlight/70" />
+                    <div className="pointer-events-none absolute h-5 w-5 right-3 bottom-3 border-r border-b border-highlight/70" />
+                  </>
+                )}
+                
               </div>
-
-              <div className="anim-scale-in delay-900 absolute -right-6 top-10 z-10 hidden h-20 w-20 rounded-full border border-slate-300/40 dark:border-primary/20 lg:block" />
-              <div className="anim-scale-in delay-1000 absolute -left-10 bottom-32 z-10 hidden h-14 w-14 rounded-full border border-slate-300/40 dark:border-secondary/25 lg:block" />
-              <div className="anim-fade-in delay-1100 absolute right-1/3 top-1/4 z-10 hidden h-3 w-3 rounded-full bg-gold/50 dark:bg-primary-fill-hover/50 lg:block" />
+                
+              <div className={`anim-scale-in delay-900 absolute ${isFa ? "-right-6" : "-left-6"} top-10 z-10 hidden h-20 w-20 rounded-full border border-slate-300/40 dark:border-primary/20 lg:block`} />
+              <div className={`anim-scale-in delay-1000 absolute ${isFa ? "-left-10" : "-right-10"} bottom-32 z-10 hidden h-14 w-14 rounded-full border border-slate-300/40 dark:border-secondary/25 lg:block`} />
+              <div className={`anim-fade-in delay-1100 absolute ${isFa ? "right-1/3" : "left-1/3"} top-1/4 z-10 hidden h-3 w-3 rounded-full bg-gold/50 dark:bg-primary-fill-hover/50 lg:block`} />
             </div>
           </div>
         </div>
