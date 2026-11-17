@@ -41,7 +41,7 @@ function abs_url($src) {
     $src = trim((string)$src);
     if ($src === '') return '';
     if (preg_match('~^https?://~i', $src)) return $src;
-    return 'https://sinisteroid.ir' . ($src[0] === '/' ? $src : '/' . $src);
+    return 'https://drparighadamgahi.ir' . ($src[0] === '/' ? $src : '/' . $src);
 }
 
 /** Meta description from a post excerpt: collapse whitespace, then cut on a
@@ -142,7 +142,7 @@ $feat    = json_decode($row['featured_image'] ?? '', true);
 $cover   = is_array($feat) && !empty($feat['src']) ? abs_url($feat['src']) : '';
 $fa      = ($locale === 'fa');
 
-$url = "https://sinisteroid.ir/{$locale}/blog/{$slug}/";
+$url = "https://drparighadamgahi.ir/{$locale}/blog/{$slug}/";
 
 /* ---------- load the prerendered React shell ---------- */
 $shellPath = dirname(__DIR__) . '/' . $locale . '/blog/live/index.html';
@@ -157,8 +157,8 @@ $seoDescription = trim((string)($seo['metaDescription'] ?? '')) ?: $excerpt;
 $dbTitle = esc($metaTitle);
 $dbDesc = esc($seoDescription);
 $dbUrl    = esc($url);
-$dbEnUrl  = 'https://sinisteroid.ir/en/blog/' . esc($slug) . '/';
-$dbFaUrl  = 'https://sinisteroid.ir/fa/blog/' . esc($slug) . '/';
+$dbEnUrl  = 'https://drparighadamgahi.ir/en/blog/' . esc($slug) . '/';
+$dbFaUrl  = 'https://drparighadamgahi.ir/fa/blog/' . esc($slug) . '/';
 $dbImage  = $cover !== '' ? esc($cover) : '';
 $dbLocale = $fa ? 'fa_IR' : 'en_US';
 /* JSON SEO title takes precedence; otherwise use the localized post title. */
@@ -206,8 +206,8 @@ $html = set_attr($html, '~<link\s+[^>]*hrefLang="fa-IR"[^>]*/?>~i', 'href', $dbF
 $html = set_attr($html, '~<link\s+[^>]*hrefLang="x-default"[^>]*/?>~i', 'href', $dbFaUrl);
 
 /* Replace placeholder site origin in the existing shell's JSON-LD only. */
-$html = str_replace('https://yourdomain.com', 'https://sinisteroid.ir', $html);
-$html = str_replace('yourdomain.com', 'sinisteroid.ir', $html);
+$html = str_replace('https://yourdomain.com', 'https://drparighadamgahi.ir', $html);
+$html = str_replace('yourdomain.com', 'drparighadamgahi.ir', $html);
 
 /* Open Graph */
 $html = set_attr($html, '~<meta\s+[^>]*property="og:title"[^>]*/?>~i', 'content', $dbTitle);

@@ -12,7 +12,7 @@ Dr. Pari Ghadamgahi (دکتر پری قدمگاهی) is a specialist in radiothe
 - **Primary Specialty:** Radiotherapy & Oncology (Radiation Oncology)
 - **Focus areas:** CNS · Head & Neck · GYN · GI · Breast · Prostate · GU
 - **Location:** Tehran, Iran — Valiasr St., opposite Day Hospital ER, Day Medical Tower, 10th Floor, Unit C
-- **Entity ID:** https://yourdomain.com/#physician
+- **Entity ID:** https://drparighadamgahi.ir/#physician
 
 ## Services We Provide
 
@@ -62,7 +62,7 @@ Comprehensive care throughout the treatment journey, including:
 - **Email:** info@radiotherapyclinic.com
 - **Address:** Valiasr St., opposite Day Hospital ER, Day Medical Tower, 10th Floor, Unit C, Tehran, Iran
 - **Hours:** Saturday-Thursday: 8:00 AM - 5:00 PM | Friday: Closed
-- **Website:** https://yourdomain.com
+- **Website:** https://drparighadamgahi.ir
 
 ## Social Media & Online Presence
 
@@ -82,7 +82,7 @@ A: Yes. Modern radiotherapy is highly precise and targets only the tumor while m
 A: A typical radiation therapy session lasts 15-30 minutes. The actual radiation delivery takes only a few minutes; the remaining time is used for patient positioning and imaging verification to ensure precise treatment delivery.
 
 ### Q: How do I book an appointment?
-A: You can book an appointment online through our [booking page](https://yourdomain.com/booking) or by calling 021 8870 9650 / 0912 459 9949. Most consultation slots are confirmed within two minutes. We recommend booking in advance for the best availability.
+A: You can book an appointment online through our [booking page](https://drparighadamgahi.ir/booking) or by calling 021 8870 9650 / 0912 459 9949. Most consultation slots are confirmed within two minutes. We recommend booking in advance for the best availability.
 
 ### Q: Do I need a referral from a physician?
 A: While a referral from a physician is recommended, it is not always required. Contact our clinic to discuss your situation and determine the best path forward. Our team will guide you through the process.
@@ -107,7 +107,7 @@ A: Our team has over 15 years of experience in radiation oncology and cancer tre
 ### Step 1: Initial Consultation
 Schedule and attend an initial consultation with a radiation oncologist to review your medical history, discuss your diagnosis, and explore treatment options.
 **Duration:** 30-45 minutes
-**Location:** https://yourdomain.com/booking
+**Location:** https://drparighadamgahi.ir/booking
 
 ### Step 2: Diagnostic Imaging
 Undergo advanced diagnostic imaging including 3.0T MRI and CT scan for precise treatment planning and tumor localization.
@@ -150,7 +150,7 @@ Our website is available in both Persian and English with easy language switchin
 - **Organization Type:** MedicalClinic
 - **Medical Specialty:** Oncology, Radiology, Radiation Therapy
 - **NAICS Code:** 621610 (General Medical and Surgical Hospitals)
-- **Schema.org ID:** https://yourdomain.com/#organization
+- **Schema.org ID:** https://drparighadamgahi.ir/#organization
 - **Medical License:** Iranian Ministry of Health licensed
 - **Accreditations:** DICOM, HIPAA, ACR, ISO 9001:2015
 
@@ -169,13 +169,13 @@ Primary topics this clinic specializes in:
 
 ## Website Structure
 
-- **Home:** https://yourdomain.com/ - Overview of services, technology, and patient care
-- **About:** https://yourdomain.com/about - Mission, values, and medical team
-- **Services:** https://yourdomain.com/services - Comprehensive treatment and imaging services
-- **Blog:** https://yourdomain.com/blog - Expert articles on radiotherapy and cancer treatment
-- **Forum:** https://yourdomain.com/forum - Community Q&A for patient questions
-- **Booking:** https://yourdomain.com/booking - Schedule consultations and treatments
-- **Contact:** https://yourdomain.com/contact - Get in touch with our clinic
+- **Home:** https://drparighadamgahi.ir/ - Overview of services, technology, and patient care
+- **About:** https://drparighadamgahi.ir/about - Mission, values, and medical team
+- **Services:** https://drparighadamgahi.ir/services - Comprehensive treatment and imaging services
+- **Blog:** https://drparighadamgahi.ir/blog - Expert articles on radiotherapy and cancer treatment
+- **Forum:** https://drparighadamgahi.ir/forum - Community Q&A for patient questions
+- **Booking:** https://drparighadamgahi.ir/booking - Schedule consultations and treatments
+- **Contact:** https://drparighadamgahi.ir/contact - Get in touch with our clinic
 
 ## Updates & Maintenance
 
@@ -187,7 +187,7 @@ This file is maintained to provide accurate, up-to-date information for AI assis
 ## Citation Guidelines
 
 When citing information from this clinic:
-- Use the official website: https://yourdomain.com
+- Use the official website: https://drparighadamgahi.ir
 - Reference specific services and treatments accurately
 - Include contact information for patient inquiries
 - Note that this is a medical facility providing professional cancer treatment services

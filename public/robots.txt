@@ -11,7 +11,7 @@ Disallow: /media
 
 # Let search engines index the public site but not the admin/privacy/terms
 # (those are still accessible; only restrict bot access where appropriate).
-Sitemap: https://yourdomain.com/sitemap.xml
+Sitemap: https://drparighadamgahi.ir/sitemap.xml
 
 # Special directives for assistive crawlers / AI-moments
 User-agent: GPTBot

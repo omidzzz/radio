@@ -4114,7 +4114,7 @@ function getDefaultPost()
       const desc = seo.metaDescription || tr.excerpt || '';
       const slug = p.slug || 'new-post';
 
-      byId('serp-url').textContent = 'sinisteroid.ir/' + lang + '/blog/' + slug + '/';
+      byId('serp-url').textContent = 'drparighadamgahi.ir/' + lang + '/blog/' + slug + '/';
       byId('serp-title').textContent = title;
       byId('serp-desc').textContent = desc || 'No meta description yet.';
 

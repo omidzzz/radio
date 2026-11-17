@@ -5,7 +5,7 @@
 const configuredSiteUrl = process.env.NEXT_PUBLIC_APP_URL?.trim().replace(/\/+$/, "");
 const siteUrl = configuredSiteUrl && !/yourdomain\.com/i.test(configuredSiteUrl)
   ? configuredSiteUrl
-  : "https://sinisteroid.ir";
+  : "https://drparighadamgahi.ir";
 
 export const siteConfig = {
   name: "دکتر پری قدمگاهی ",
