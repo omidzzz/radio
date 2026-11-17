@@ -132,7 +132,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
 
               <div className="hero-image-card hero-image-card-machine anim-slide-right delay-500 absolute bottom-[8%] left-0 z-20 h-[54%] w-[43%] overflow-hidden rounded-lg shadow-2xl shadow-primary/25 ring-1 ring-primary/30 transition-transform duration-500 will-change-transform hover:-translate-y-2 hover:-rotate-2 hover:scale-105 sm:bottom-[9%] sm:h-[58%] sm:w-[46%] xl:-left-8 xl:bottom-14 xl:h-[55%] xl:w-[48%] xl:rounded-xl xl:hover:-translate-y-4 xl:hover:scale-105">
                 <ViewportImage
-                  src="/images/hero-radiology-machine-desktop.webp"
+                  src="/images/1000003053.webp"
                   mobileSrc={TRANSPARENT_PIXEL}
                   alt={
                     isFa
@@ -153,7 +153,7 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
 
               <div className="hero-image-card hero-image-card-main anim-slide-right delay-700 absolute right-0 top-0 z-30 h-[88%] max-h-[62rem] w-[68%] overflow-hidden rounded-xl shadow-2xl shadow-deep/70 ring-1 ring-white/15 transition-transform duration-500 will-change-transform hover:-translate-y-2 hover:rotate-1 hover:scale-105 sm:h-[86%] sm:w-[70%] xl:h-[84%] xl:w-[70%] xl:hover:-translate-y-4 xl:hover:scale-105">
                 <ViewportImage
-                  src="/images/home-radiologist-desktop-top.webp"
+                  src="/images/1000003047.webp"
                   mobileSrc={TRANSPARENT_PIXEL}
                   alt={
                     isFa

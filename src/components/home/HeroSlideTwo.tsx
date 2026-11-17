@@ -52,8 +52,8 @@ export default function HeroSlideTwo({
               <div className="hero-care-image anim-scale-in relative z-10 mx-auto h-full w-full overflow-hidden rounded-xl shadow-xl ring-1 ring-secondary/15 sm:rounded-2xl xl:rounded-full">
                 {playAnim ? (
                   <ViewportImage
-                    src="/images/home-consultation-circle.webp"
-                    mobileSrc="/images/home-consultation-circle-mobile.webp"
+                    src="/images/1000003044.webp"
+                    mobileSrc="/images/1000003044.webp"
                     alt={
                       isFa
                         ? "دکتر پری قدمگاهی در محیط درمانی"

@@ -38,7 +38,7 @@ export default function HeroMobile({
         </div>
         <div className="hero-mobile-portrait-frame relative z-10">
           <Image
-            src="/images/doctor-portrait-mobile-top.webp"
+            src="/images/1000003050.webp"
             alt={
               isFa
                 ? "دکتر پری قدمگاهی، متخصص رادیوتراپی و آنکولوژی"
