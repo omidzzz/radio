@@ -10,7 +10,8 @@ import JsonLdScript from "@/components/feedback/JsonLd";
 import RadiationEmblem from "@/components/ui/RadiationEmblem";
 import ParticleBackground from "@/components/ui/ParticleBackground";
 import PageHero from "@/components/ui/PageHero";
-import { getWorkingHoursSummary } from "@/lib/services/working-hours";
+import OfficeHours from "@/components/ui/OfficeHours";
+import { HoursLabel } from "@/components/providers/ClinicCopyProvider";
 
 export const dynamicParams = false;
 
@@ -51,12 +52,6 @@ export const revalidate = 86400;
 export default async function BookingPage({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale }: { locale: Locale } = await params;
   const dict = getDictionary(locale);
-  const workingHours = getWorkingHoursSummary(locale);
-  const closedLabel = locale === "fa" ? "تعطیل" : "Closed";
-
-  const todayName = new Intl.DateTimeFormat(locale === "fa" ? "fa" : "en-US", {
-    weekday: "long",
-  }).format(new Date());
 
   const breadcrumbs = breadcrumbSchema([
     { name: locale === "fa" ? "خانه" : "Home", path: `/${locale}` },
@@ -171,26 +166,11 @@ export default async function BookingPage({ params }: { params: Promise<{ locale
                     </svg>
                   </div>
                   <h3 className="text-lg font-semibold text-text-primary">
-                    {dict.booking.hours}
+                    <HoursLabel locale={locale} fallback={dict.booking.hours} />
                   </h3>
                 </div>
 
-                <ul className="mt-6 space-y-4">
-                  {workingHours.map((entry) => {
-                    const isToday = entry.label.includes(todayName);
-                    return (
-                      <span
-                        key={entry.label}
-                        className={`mt-1 flex items-center justify-between gap-3 rounded-lg px-2 py-0.5 ${
-                          isToday ? "bg-soft font-medium text-primary ring-1 ring-primary/15" : ""
-                        }`}
-                      >
-                        <span>{entry.label}</span>
-                        <span>{entry.isClosed ? closedLabel : entry.hours}</span>
-                      </span>
-                    );
-                  })}
-                </ul>
+                <OfficeHours locale={locale} className="mt-6" />
               </div>
 
               <div className="relative overflow-hidden rounded-[1.6rem] border border-primary/30 bg-gradient-to-br from-soft via-surface to-primary/[0.07] p-6">

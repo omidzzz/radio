@@ -36,9 +36,12 @@ DirectoryIndex index.html
   # Keep the shell itself static, but route every article URL through PHP.
   RewriteRule ^(en|fa)/blog/live/?$ $1/blog/live/index.html [L]
   RewriteRule ^(en|fa)/blog/([^/.]+)/?$ api/post.php?slug=$2&locale=$1 [QSA,L]
+  # Numeric forum bookmarks point to the live MySQL discussion, not a build-time snapshot.
+  RewriteRule ^(fa|en)/forum/([0-9]+)/?$ /$1/forum/?topic=$2 [R=302,L]
+  RewriteRule ^forum/([0-9]+)/?$ /fa/forum/?topic=$1 [R=302,L]
 
   # MySQL-backed sitemap includes posts published after the static build.
-  RewriteRule ^sitemap\.xml$ sitemap.php [L,QSA]
+  RewriteRule ^sitemap\.xml$ api/sitemap.php [L]
 
   # Legacy Next.js image-optimizer URLs (/_next/image/?url=...) are not
   # available in the static export; serve the underlying file directly.
@@ -47,9 +50,13 @@ DirectoryIndex index.html
 
   # Public PHP API endpoints (extensionless URLs map to .php files)
   RewriteRule ^api/contact/?$ api/contact.php [L]
+  RewriteRule ^api/search/?$ api/search.php [L]
   RewriteRule ^api/bookings/?$ api/bookings.php [L]
   RewriteRule ^api/availability/?$ api/availability.php [L]
   RewriteRule ^api/forum/posts/?$ api/forum-posts.php [L]
+  RewriteRule ^api/forum/posts/([0-9]+)/replies/?$ api/forum-replies.php?post_id=$1 [L]
+  RewriteRule ^api/blog/([0-9]+)/comments/?$ api/blog-comments.php?id=$1 [L]
+  RewriteRule ^api/blog/([0-9]+)/views/?$ api/blog-views.php?id=$1 [L]
   RewriteRule ^api/forum-replies/?$ api/forum-replies.php [L]
   RewriteRule ^api/blog-views/?$ api/blog-views.php [L]
   RewriteRule ^api/blog-comments/?$ api/blog-comments.php [L]
@@ -67,8 +74,7 @@ DirectoryIndex index.html
   RewriteRule ^api/admin-messages/?$ api/admin-messages.php [L]
   RewriteRule ^api/admin/comments/?$ api/admin-comments.php [L]
   RewriteRule ^api/admin-comments/?$ api/admin-comments.php [L]
-  RewriteRule ^api/admin/forum/?$ api/admin-forum.php [L]
-  RewriteRule ^api/admin-forum/?$ api/admin-forum.php [L]
+  RewriteRule ^api/admin(?:/|-)forum/?$ api/admin-comments.php?type=forum [L]
   RewriteRule ^api/admin/blog/?$ api/admin-blog.php [L]
   RewriteRule ^api/admin-blog/?$ api/admin-blog.php [L]
   RewriteRule ^api/admin/availability/?$ api/admin-availability.php [L]
@@ -76,9 +82,8 @@ DirectoryIndex index.html
   RewriteRule ^api/admin/unavailable-slots/?$ api/admin-unavailable-slots.php [L]
   RewriteRule ^api/admin-unavailable-slots/?$ api/admin-unavailable-slots.php [L]
 
-  # Admin dashboard (Next.js static pages)
-  RewriteRule ^admin/?$ admin/index.html [L]
-  RewriteRule ^admin/login/?$ admin/login/index.html [L]
+  # One canonical, authenticated PHP workspace. Redirect legacy GET entry points.
+  RewriteRule ^(?:admin\.php|admin(?:/login)?/?)$ /api/admin.php [R=307,L]
 
   # PHP APIs and authenticated admin must reach the PHP handler.
   RewriteRule ^api/ - [L]

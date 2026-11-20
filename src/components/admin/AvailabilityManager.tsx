@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import { csrfHeaders } from "@/lib/http/csrf";
 import { useDictionary } from "@/lib/i18n/client";
 import { useLocale } from "@/components/providers/LocaleProvider";
+import { clinicSchedule } from "@/lib/clinic-schedule";
 
 interface AvailabilitySettings {
   id: number;
@@ -188,8 +189,8 @@ export default function AvailabilityManager() {
     const newAvailable = slot.is_available === 1 ? 0 : 1;
     updateDaySlot(dayOfWeek, {
       is_available: newAvailable,
-      start_time: newAvailable === 1 ? slot.start_time || "08:00" : null,
-      end_time: newAvailable === 1 ? slot.end_time || "17:00" : null,
+      start_time: newAvailable === 1 ? slot.start_time || clinicSchedule.opens : null,
+      end_time: newAvailable === 1 ? slot.end_time || clinicSchedule.closes : null,
     });
   };
 
@@ -385,7 +386,7 @@ export default function AvailabilityManager() {
                 <button
                   type="button"
                   onClick={() => toggleDayAvailability(slot.day_of_week)}
-                  disabled={saving}
+                  disabled={saving || !clinicSchedule.weekdays.includes(slot.day_of_week)}
                   className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors ${
                     slot.is_available === 1 ? "bg-green-500" : "bg-gray-300"
                   }`}
@@ -410,7 +411,8 @@ export default function AvailabilityManager() {
                     </label>
                     <input
                       type="time"
-                      value={slot.start_time || "08:00"}
+                      min={clinicSchedule.opens} max={clinicSchedule.closes}
+                      value={slot.start_time || clinicSchedule.opens}
                       onChange={(e) =>
                         updateDayTime(slot.day_of_week, "start_time", e.target.value)
                       }
@@ -424,7 +426,8 @@ export default function AvailabilityManager() {
                     </label>
                     <input
                       type="time"
-                      value={slot.end_time || "17:00"}
+                      min={clinicSchedule.opens} max={clinicSchedule.closes}
+                      value={slot.end_time || clinicSchedule.closes}
                       onChange={(e) =>
                         updateDayTime(slot.day_of_week, "end_time", e.target.value)
                       }

@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import type { Locale } from "@/lib/i18n/config";
 import type { FloatingContactLabels } from "@/components/feedback/FloatingContact";
 
 // Client-only, code-split: the floating contact widget is interactive
@@ -11,8 +12,10 @@ const FloatingContact = dynamic(() => import("@/components/feedback/FloatingCont
 
 export default function FloatingContactLazy({
   labels,
+  locale,
 }: {
   labels: FloatingContactLabels;
+  locale: Locale;
 }) {
-  return <FloatingContact labels={labels} />;
+  return <FloatingContact labels={labels} locale={locale} />;
 }

@@ -1,8 +1,10 @@
 "use client";
 
+import { createPortal } from "react-dom";
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useLocale } from "../providers/LocaleProvider";
 import { toFarsiDigits } from "@/lib/i18n/numbers";
+import { clinicClock } from "@/lib/clinic-schedule";
 
 // ── Jalali calendar via Intl (guaranteed correct) ──
 const PERSIAN_DF = new Intl.DateTimeFormat("en-US-u-ca-persian", {
@@ -54,7 +56,7 @@ function jalaliMonthRange(jy: number, jm: number): { start: Date; length: number
 
   // Count days in this Jalali month
   let length = 0;
-  let curr = new Date(candidate);
+  const curr = new Date(candidate);
   while (true) {
     const [y, m] = getJalali(curr);
     if (y !== jy || m !== jm) break;
@@ -79,9 +81,7 @@ const GREGORIAN_MONTHS = [
 ];
 
 function toISO(date: Date): string {
-  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(
-    date.getDate()
-  ).padStart(2, "0")}`;
+  return date.toISOString().slice(0, 10);
 }
 
 interface DatePickerProps {
@@ -111,22 +111,68 @@ export default function DatePicker({
   const [open, setOpen] = useState(false);
   const [viewDate, setViewDate] = useState<Date>(() => {
     if (value) {
-      const d = new Date(value + "T12:00:00");
+      const d = new Date(value + "T00:00:00Z");
       if (!isNaN(d.getTime())) return d;
     }
-    const now = new Date();
-    now.setHours(12, 0, 0, 0);
-    return now;
+    return new Date((min || clinicClock().date) + "T00:00:00Z");
   });
   const containerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const popupRef = useRef<HTMLDivElement>(null);
+  const [popupPosition, setPopupPosition] = useState<{
+    top: number;
+    left: number;
+  }>({ top: 0, left: 0 });
+
+  // Render the popup outside the modal's overflow containers so it can't be
+  // clipped by them, and keep it aligned to the trigger while open.
+  useEffect(() => {
+    if (!open) return;
+    const trigger = triggerRef.current;
+    if (!trigger) return;
+
+    const reposition = () => {
+      const rect = trigger.getBoundingClientRect();
+      const popup = popupRef.current;
+      if (!popup) return;
+      const popupHeight = popup.offsetHeight;
+      const popupWidth = popup.offsetWidth;
+
+      // Default: below the trigger (replaces the old `mt-1`)
+      let top = rect.bottom + 6;
+      if (top + popupHeight > window.innerHeight) {
+        // Not enough room below → open above the trigger
+        top = rect.top - popupHeight - 6;
+      }
+      if (top < 6) top = 6;
+
+      let left = rect.left;
+      if (left + popupWidth > window.innerWidth) left = window.innerWidth - popupWidth - 8;
+      if (left < 8) left = 8;
+
+      setPopupPosition({ top, left });
+    };
+
+    reposition();
+    window.addEventListener("scroll", reposition);
+    window.addEventListener("resize", reposition);
+    return () => {
+      window.removeEventListener("scroll", reposition);
+      window.removeEventListener("resize", reposition);
+    };
+  }, [open]);
 
   // Close on outside click or Escape; return focus to the trigger on close
   useEffect(() => {
     if (!open) return;
 
     function handleClickOutside(e: MouseEvent) {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node) &&
+        popupRef.current &&
+        !popupRef.current.contains(e.target as Node)
+      ) {
         setOpen(false);
       }
     }
@@ -152,6 +198,7 @@ export default function DatePicker({
         return `${toFarsiDigits(jd)} ${JALALI_MONTHS[jm - 1]} ${toFarsiDigits(jy)}`;
       }
       return date.toLocaleDateString("en-US", {
+        timeZone: "UTC",
         year: "numeric",
         month: "long",
         day: "numeric",
@@ -167,16 +214,15 @@ export default function DatePicker({
   };
 
   const isDisabled = (date: Date) => {
-    if (min && date < new Date(min + "T00:00:00")) return true;
-    if (max && date > new Date(max + "T00:00:00")) return true;
-    if (isDateDisabled && isDateDisabled(toISO(date))) return true;
+    const iso = toISO(date);
+    if ((min && iso < min) || (max && iso > max)) return true;
+    if (isDateDisabled && isDateDisabled(iso)) return true;
     return false;
   };
 
   /**
    * Unified month-grid renderer shared by both calendar systems.
-   * `cells` are either day numbers (Jalali, resolved against `monthStart`)
-   * or pre-built Date objects (Gregorian).
+   * Both calendars resolve display day numbers against a UTC month start.
    */
   const renderMonthGrid = ({
     cells,
@@ -188,15 +234,15 @@ export default function DatePicker({
     rtl,
   }: {
     cells: (number | null)[];
-    /** First real day of the displayed month (used to resolve Jalali day numbers) */
-    monthStart: Date | null;
+    /** First Gregorian date of the displayed month, represented at UTC midnight. */
+    monthStart: Date;
     headerLabel: string;
     weekdays: string[];
     onPrev: () => void;
     onNext: () => void;
     rtl: boolean;
   }) => {
-    const now = new Date();
+    const today = clinicClock().date;
 
     return (
       <div className="p-3" dir={rtl ? "rtl" : "ltr"}>
@@ -207,6 +253,17 @@ export default function DatePicker({
             className="ui-icon-button ui-icon-button-compact h-7 w-7 border-transparent bg-transparent"
             aria-label={isFa ? "ماه قبل" : "Previous month"}
           >
+            <svg
+              className="h-4 w-4 shrink-0"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+              aria-hidden="true"
+              style={{ transform: rtl ? "scaleX(-1)" : "scaleX(1)" }}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
           </button>
           <div className="text-sm font-semibold text-text-primary">{headerLabel}</div>
           <button
@@ -215,6 +272,17 @@ export default function DatePicker({
             className="ui-icon-button ui-icon-button-compact h-7 w-7 border-transparent bg-transparent"
             aria-label={isFa ? "ماه بعد" : "Next month"}
           >
+            <svg
+              className="h-4 w-4 shrink-0"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+              aria-hidden="true"
+              style={{ transform: rtl ? "scaleX(-1)" : "scaleX(1)" }}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
           </button>
         </div>
 
@@ -227,21 +295,12 @@ export default function DatePicker({
         <div className="grid grid-cols-7 gap-0.5">
           {cells.map((day, i) => {
             if (day === null) return <div key={i} />;
-            const date =
-              monthStart !== null
-                ? (() => {
-                    const d = new Date(monthStart);
-                    d.setUTCDate(d.getUTCDate() + day - 1);
-                    return d;
-                  })()
-                : (day as unknown as Date);
+            const date = new Date(monthStart);
+            date.setUTCDate(date.getUTCDate() + day - 1);
             const iso = toISO(date);
             const selected = iso === value;
             const disabledDay = isDisabled(date);
-            const isToday =
-              now.getFullYear() === date.getFullYear() &&
-              now.getMonth() === date.getMonth() &&
-              now.getDate() === date.getDate();
+            const isToday = iso === today;
 
             return (
               <button
@@ -298,20 +357,20 @@ export default function DatePicker({
 
   // ── Gregorian calendar ──
   const renderGregorianCalendar = () => {
-    const year = viewDate.getFullYear();
-    const month = viewDate.getMonth();
+    const year = viewDate.getUTCFullYear();
+    const month = viewDate.getUTCMonth();
     const firstWeekday = new Date(Date.UTC(year, month, 1)).getUTCDay();
     const daysInMonth = new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
 
     const cells: (number | null)[] = [];
     for (let i = 0; i < firstWeekday; i++) cells.push(null);
     for (let d = 1; d <= daysInMonth; d++) {
-      cells.push(new Date(Date.UTC(year, month, d)) as unknown as number);
+      cells.push(d);
     }
 
     return renderMonthGrid({
       cells,
-      monthStart: null,
+      monthStart: new Date(Date.UTC(year, month, 1)),
       headerLabel: `${GREGORIAN_MONTHS[month]} ${year}`,
       weekdays: GREGORIAN_WEEKDAYS,
       onPrev: () => setViewDate(new Date(Date.UTC(year, month - 1, 1))),
@@ -332,7 +391,7 @@ export default function DatePicker({
         className={`flex w-full items-center justify-between rounded-lg border border-border bg-surface px-4 py-2.5 text-start text-text-primary transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-60 ${className}`}
       >
         <span className={value ? "" : "text-muted"}>
-          {value ? formatDisplay(new Date(value + "T12:00:00")) : placeholder || (isFa ? "انتخاب تاریخ" : "Select date")}
+          {value ? formatDisplay(new Date(value + "T00:00:00Z")) : placeholder || (isFa ? "انتخاب تاریخ" : "Select date")}
         </span>
         <svg
           className="ms-2 h-4 w-4 shrink-0 text-muted"
@@ -350,15 +409,21 @@ export default function DatePicker({
         </svg>
       </button>
 
-      {open && (
+      {open && createPortal(
         <div
+          ref={popupRef}
           role="dialog"
           aria-label={isFa ? "تقویم انتخاب تاریخ" : "Date picker"}
-          className="anim-scale-in absolute z-50 mt-1 w-72 rounded-xl border border-border bg-surface shadow-xl"
-          style={{ animationDuration: "0.18s" }}
+          className="anim-scale-in fixed z-[100] w-72 rounded-xl border border-border bg-surface shadow-xl"
+          style={{
+            top: popupPosition.top,
+            left: popupPosition.left,
+            animationDuration: "0.18s",
+          }}
         >
           {isFa ? renderJalaliCalendar() : renderGregorianCalendar()}
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );

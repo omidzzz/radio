@@ -2,6 +2,7 @@ import db from "@/lib/db/db";
 import { BookingFormValues } from "@/lib/validation/booking";
 import { ApiError } from "@/lib/http/api-error";
 import { notifyNewBooking } from "@/lib/mail/mailer";
+import { validateBookingAvailability } from "./availability-service";
 
 export interface BookingRecord {
   id: number;
@@ -17,6 +18,7 @@ export interface BookingRecord {
 }
 
 export function createBooking(input: BookingFormValues) {
+  validateBookingAvailability(input.preferred_date, input.preferred_time);
   const result = db
     .prepare(
       `INSERT INTO bookings (full_name, email, phone, session_type, preferred_date, preferred_time, notes)

@@ -1,6 +1,7 @@
 import db from "@/lib/db/db";
-import { getDictionary } from "@/lib/i18n";
+import { getDictionary, localePath } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/config";
+import { getTreatmentSearchText } from "./treatment-catalog";
 
 // ─────────────────────────────────────────────────────────────
 // Types
@@ -94,28 +95,8 @@ function getStaticPages(locale: Locale): StaticPageEntry[] {
       id: "page-services",
       type: "page",
       title: isFa ? "خدمات درمانی" : "Our Services",
-      content: [
-        dict.services.subtitle,
-        dict.services.service1Title,
-        dict.services.service1Desc,
-        ...dict.services.service1Features,
-        dict.services.service2Title,
-        dict.services.service2Desc,
-        ...dict.services.service2Features,
-        dict.services.service3Title,
-        dict.services.service3Desc,
-        ...dict.services.service3Features,
-        dict.services.service4Title,
-        dict.services.service4Desc,
-        ...dict.services.service4Features,
-        dict.services.service5Title,
-        dict.services.service5Desc,
-        ...dict.services.service5Features,
-        dict.services.service6Title,
-        dict.services.service6Desc,
-        ...dict.services.service6Features,
-      ].join(" "),
-      url: "/services",
+      content: getTreatmentSearchText(dict.services.catalog),
+      url: `${localePath(locale, "/services")}/#treatment-atlas`,
       category: isFa ? "خدمات" : "Services",
     },
     {

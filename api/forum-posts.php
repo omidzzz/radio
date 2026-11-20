@@ -4,6 +4,27 @@
 require_once __DIR__ . '/db.php';
 
 header('Content-Type: application/json; charset=utf-8');
+header('Cache-Control: no-store');
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    try {
+        if (isset($_GET['id'])) {
+            $q = $pdo->prepare('SELECT id,title,author_name,content,category,created_at FROM forum_posts WHERE id=?');
+            $q->execute([(int)$_GET['id']]); $topic=$q->fetch();
+            if (!$topic) {http_response_code(404); jsonResponse(['error'=>'Topic not found']);}
+            $q=$pdo->prepare('SELECT id,author_name,content,is_admin,created_at FROM forum_replies WHERE post_id=? ORDER BY id');
+            $q->execute([$topic['id']]); jsonResponse(['post'=>$topic,'replies'=>$q->fetchAll()]);
+        }
+        $page=max(1,min(100000,(int)($_GET['page']??1))); $category=$_GET['category']??'all';
+        $where=in_array($category,['general','treatment','support','other'],true)?' WHERE p.category=?':'';
+        $args=$where?[$category]:[]; $count=$pdo->prepare('SELECT COUNT(*) FROM forum_posts p'.$where);$count->execute($args);
+        $pages=max(1,(int)ceil($count->fetchColumn()/10)); $page=min($page,$pages);
+        $order=($_GET['sort']??'')==='replies'?'reply_count DESC, p.id DESC':'p.id DESC';
+        $q=$pdo->prepare('SELECT p.id,p.author_name,p.title,SUBSTR(p.content,1,240) AS excerpt,p.category,p.created_at,
+          (SELECT COUNT(*) FROM forum_replies r WHERE r.post_id=p.id) AS reply_count FROM forum_posts p'.$where.' ORDER BY '.$order.' LIMIT 10 OFFSET '.(($page-1)*10));
+        $q->execute($args); jsonResponse(['posts'=>$q->fetchAll(),'page'=>$page,'pages'=>$pages]);
+    } catch(Throwable $e) { error_log($e->getMessage()); http_response_code(500); jsonResponse(['error'=>'Forum unavailable.']); }
+}
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);

@@ -59,7 +59,7 @@ export default async function LatestPosts({
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d={isFa ? "M9 5l7 7-7 7" : "M5 19l14-14M5 5l14 14"}
+                  d="M9 5l7 7-7 7"
                 />
               </svg>
             </Link>

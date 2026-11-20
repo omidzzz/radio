@@ -1,3 +1,5 @@
+import type { TreatmentCatalog } from "@/lib/services/treatment-catalog";
+
 const en = {
   common: {
     bookNow: "Book Now",
@@ -32,6 +34,7 @@ const en = {
   floating: {
     telegram: "Chat on Telegram",
     whatsapp: "Chat on WhatsApp",
+    phone: "Call Us",
     backToTop: "Back to top",
   },
   footer: {
@@ -44,17 +47,17 @@ const en = {
     bookSession: "Book an Appointment",
     contact: "Contact",
     officeHours: "Office Hours",
-    mondayFriday: "Saturday – Thursday",
+    tehranTime: "Tehran time",
+    mondayFriday: "Saturday, Sunday, Tuesday",
     saturday: "Saturday",
-    sunday: "Friday",
+    sunday: "Sunday",
     closed: "Closed",
     rightsReserved: "All rights reserved.",
     designerBy: "Design by",
     adminLogin: "Admin Login",
-    addressLine1: "Valiasr St., Tehran",
-    addressLine2:
-      "Gandhi 2nd Intersection, opposite the Day Hospital ER entrance, Day Medical Tower",
-    addressLine3: "Floor 10, Unit C",
+    addressLine1: "Day Medical Tower",
+    addressLine2: "Valiasr Street, Floor 10, Unit C",
+    addressLine3: "Tehran, Iran",
     privacy: "Privacy Policy",
     terms: "Terms of Use",
     backToTop: "Back to top",
@@ -303,54 +306,53 @@ const en = {
     title: "Our Services",
     subtitle:
       "Comprehensive radiotherapy services using the latest technology and a personalized approach to care, with a special focus on neuro-oncology.",
-    service1Title: "External Beam Radiation Therapy (EBRT)",
-    service1Desc:
-      "The most common type of radiotherapy, in which high-energy beams are directed precisely at the tumor from outside the body while sparing the surrounding healthy tissue.",
-    service1Features: [
-      "3D Conformal Radiation Therapy (3D-CRT)",
-      "Intensity-Modulated Radiation Therapy (IMRT)",
-      "Image-Guided Radiation Therapy (IGRT)",
-    ],
-    service2Title: "Stereotactic Radiosurgery (SRS)",
-    service2Desc:
-      "A non-surgical procedure that delivers highly precise, high-dose radiation to small tumors in the brain and other areas, usually in one to five sessions.",
-    service2Features: [
-      "Treatment of brain and spine tumors",
-      "Single-session and fractionated options (FSRT)",
-      "Sub-millimeter precision",
-    ],
-    service3Title: "Stereotactic Body Radiation Therapy (SBRT)",
-    service3Desc:
-      "An advanced technique that delivers high doses of radiation to tumors in the body with exceptional precision, often in just a few sessions.",
-    service3Features: [
-      "Lung, liver and pancreatic tumors",
-      "Spinal and bone metastases",
-      "Fewer treatment sessions",
-    ],
-    service4Title: "Brachytherapy",
-    service4Desc:
-      "A form of internal radiotherapy in which radioactive sources are placed inside or next to the tumor, delivering a high dose with minimal effect on healthy tissue.",
-    service4Features: [
-      "Prostate cancer treatment",
-      "Gynecologic cancers",
-      "High-dose-rate (HDR) brachytherapy",
-    ],
-    service5Title: "Palliative Radiation Therapy",
-    service5Desc:
-      "Targeted treatment to relieve pain and symptoms caused by advanced cancer, improving patients' quality of life at every stage.",
-    service5Features: [
-      "Pain and symptom management",
-      "Relief of bone metastases",
-      "Short, rapid treatment schedules",
-    ],
-    service6Title: "Treatment Planning & Simulation",
-    service6Desc:
-      "Comprehensive planning services using advanced imaging (CT, MRI, PET) to create precise, personalized treatment plans — including contouring and plan design.",
-    service6Features: [
-      "CT simulation and 3D planning",
-      "Combined MRI and PET imaging",
-      "Custom immobilization devices",
-    ],
+    catalog: {
+      eyebrow: "Treatment options",
+      title: "Treatment Atlas",
+      introduction: "Explore two groups of radiotherapy services, organized by the goal of treatment or the area being treated.",
+      consultationNote: "At your consultation, the doctor will review your options based on the location of the lesion, your treatment goals, and your circumstances.",
+      groups: [
+        {
+          id: "external-beam",
+          title: "External Beam Radiation Therapy",
+          codes: ["EBRT"],
+          description: "A machine outside the body directs radiation to the area being treated.",
+          branches: [
+            {
+              id: "definitive-perioperative",
+              title: "Definitive Radiotherapy or Radiotherapy with Surgery",
+              description: "Radiotherapy can be the main treatment or, when appropriate, be given before or after surgery.",
+            },
+            {
+              id: "palliative",
+              title: "Palliative Radiotherapy",
+              description: "Used to relieve pain or other symptoms caused by cancer, including pain from bone metastases.",
+            },
+          ],
+        },
+        {
+          id: "stereotactic",
+          title: "Radiosurgery and Stereotactic Radiotherapy",
+          codes: ["SRS", "FSRT", "SBRT"],
+          description: "Forms of external beam radiotherapy that focus radiation precisely on a defined target.",
+          branches: [
+            {
+              id: "brain",
+              title: "Treatment for Brain Lesions",
+              codes: ["SRS", "FSRT"],
+              description: "For selected brain lesions, options include stereotactic radiosurgery and fractionated stereotactic radiotherapy, which is given over multiple sessions.",
+            },
+            {
+              id: "body",
+              title: "Stereotactic Body Radiotherapy",
+              codes: ["SBRT"],
+              description: "Focused radiotherapy for selected lesions outside the brain, including in these areas:",
+              sites: ["Liver", "Lung", "Spine", "Pancreas", "Prostate"],
+            },
+          ],
+        },
+      ],
+    } satisfies TreatmentCatalog,
     ctaTitle: "Not Sure Which Service You Need?",
     ctaSubtitle:
       "Our team can help you understand your options. Book a consultation or ask a question in the forum.",
@@ -358,13 +360,12 @@ const en = {
     askForum: "Ask in the Forum",
     metaTitle: "Medical Services | Dr. Pari Ghadamgahi",
     metaDescription:
-      "Specialized radiotherapy and medical imaging services: treatment planning, precision radiotherapy, MRI, CT and follow-up care.",
+      "Explore definitive and palliative external beam radiation therapy (EBRT), stereotactic treatment for brain lesions (SRS and FSRT), and stereotactic body radiotherapy (SBRT).",
     breadcrumbHome: "Home",
     breadcrumbCurrent: "Medical Services",
     highlight1: "Targeted, high-precision treatment",
     highlight2: "Advanced technologies",
     highlight3: "A team of experienced specialists",
-    cardCta: "Book This Service",
     ctaBadge: "Ready to Begin",
     statsTitle: "Our Services at a Glance",
     stat1Value: 6,
@@ -379,22 +380,28 @@ const en = {
     stat4Value: 30,
     stat4Suffix: "",
     stat4Label: "Average minutes per session",
-    processBadge: "Treatment Journey",
-    processTitle: "Your Treatment Journey in Four Steps",
-    processSubtitle:
-      "From your first consultation to post-treatment follow-up, we are with you at every stage.",
-    process1Title: "Consultation & Assessment",
-    process1Desc:
-      "A radiation oncologist reviews your medical history and imaging to choose the most suitable treatment option.",
-    process2Title: "Imaging & Planning",
-    process2Desc:
-      "CT simulation and advanced imaging are used to design a precise, fully personalized treatment plan (contouring and plan design).",
-    process3Title: "Treatment Sessions",
-    process3Desc:
-      "Short sessions of 15 to 30 minutes on advanced equipment, with continuous monitoring by the treatment team.",
-    process4Title: "Follow-up & Care",
-    process4Desc:
-      "Check-ups during treatment, follow-up imaging, review of your response to treatment, and ongoing support after your course ends.",
+    journey: {
+      title: "Your Treatment Journey",
+      introduction: "What to expect from your first consultation through follow-up care.",
+      points: [
+        {
+          title: "Consultation & Assessment",
+          description: "A radiation oncologist reviews your medical history and imaging to choose the most suitable treatment option.",
+        },
+        {
+          title: "Imaging & Planning",
+          description: "CT simulation and advanced imaging are used to design a precise, fully personalized treatment plan (contouring and plan design).",
+        },
+        {
+          title: "Treatment Sessions",
+          description: "Short sessions of 15 to 30 minutes on advanced equipment, with continuous monitoring by the treatment team.",
+        },
+        {
+          title: "Follow-up & Care",
+          description: "Check-ups during treatment, follow-up imaging, review of your response to treatment, and ongoing support after your course ends.",
+        },
+      ],
+    },
     faqTitle: "Frequently Asked Questions About Our Services",
     faqSubtitle:
       "Answers to the most common patient questions about our services and the treatment process.",
@@ -518,9 +525,7 @@ const en = {
     phone: "Phone",
     email: "Email",
     officeHours: "Office Hours",
-    saturdayThursday: "Saturday – Thursday",
-    friday: "Friday",
-    fridayHours: "Closed",
+    saturdayThursday: "Saturday, Sunday, Tuesday",
     preferForumTitle: "Prefer to Ask in the Forum?",
     preferForumText:
       "Join our community forum to ask questions and get support — no account needed.",

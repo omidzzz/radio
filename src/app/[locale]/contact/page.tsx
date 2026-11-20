@@ -11,10 +11,9 @@ import JsonLdScript from "@/components/feedback/JsonLd";
 import RadiationEmblem from "@/components/ui/RadiationEmblem";
 import ParticleBackground from "@/components/ui/ParticleBackground";
 import PageHero from "@/components/ui/PageHero";
-import {
-  getWorkingHoursSummary,
-  getOpenNowStatus,
-} from "@/lib/services/working-hours";
+import OfficeHours from "@/components/ui/OfficeHours";
+import { HoursLabel } from "@/components/providers/ClinicCopyProvider";
+import OfficeStatus from "@/components/ui/OfficeStatus";
 import {
   PhoneIcon,
   PhoneCallIcon,
@@ -77,10 +76,6 @@ const HERO_FEATURE_ICONS = [
 export default async function ContactPage({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale }: { locale: Locale } = await params;
   const dict = getDictionary(locale);
-  const workingHours = getWorkingHoursSummary(locale);
-  const closedLabel = locale === "fa" ? "تعطیل" : "Closed";
-  const { isOpen } = getOpenNowStatus();
-  const openLabel = isOpen ? dict.contact.openNow : dict.contact.closedNow;
   const breadcrumbs = breadcrumbSchema([
     { name: locale === "fa" ? "خانه" : "Home", path: `/${locale}` },
     { name: dict.contact.title, path: `/${locale}/contact` },
@@ -208,8 +203,8 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                   <a href={`mailto:${siteConfig.email}`} dir="ltr" className="contact-method-card group flex min-w-0 items-center gap-3 rounded-xl border border-border bg-surface px-4 py-3 transition-colors hover:border-primary/40"><MailIcon className="h-4 w-4 shrink-0 text-primary" /><span className="min-w-0 break-all text-sm text-text-primary group-hover:text-primary">{siteConfig.email}</span></a>
                   <a href={siteConfig.phoneHref} dir="ltr" className="contact-method-card group flex items-center gap-3 rounded-xl border border-border bg-surface px-4 py-3 transition-colors hover:border-primary/40"><PhoneIcon className="h-4 w-4 shrink-0 text-primary" /><span className="text-sm text-text-primary group-hover:text-primary">{locale === "fa" ? toFarsiDigits(siteConfig.phone) : siteConfig.phone}</span></a>
                   <div className="contact-method-card rounded-xl border border-border bg-surface px-4 py-3 text-sm text-text-secondary">
-                    <div className="flex items-center gap-2 font-medium text-text-primary"><ClockIcon className="h-4 w-4 text-primary" />{dict.contact.officeHours}<span className="ms-auto text-xs text-primary">{openLabel}</span></div>
-                    <div className="mt-2 space-y-1">{workingHours.map((entry) => <span key={entry.label} className="block break-words">{entry.label}: {entry.isClosed ? closedLabel : entry.hours}</span>)}</div>
+                    <div className="flex items-center gap-2 font-medium text-text-primary"><ClockIcon className="h-4 w-4 text-primary" /><HoursLabel locale={locale} fallback={dict.contact.officeHours} /><OfficeStatus open={dict.contact.openNow} closed={dict.contact.closedNow} className="ms-auto" /></div>
+                    <OfficeHours locale={locale} className="mt-2" />
                   </div>
                 </div>
               </div>

@@ -7,6 +7,7 @@ import type { Locale } from "@/lib/i18n/config";
 import Image from "next/image";
 import Link from "next/link";
 import BlogBlocks from "./BlogBlocks";
+import BlogComments from "@/components/feedback/BlogComments";
 import Breadcrumbs from "@/components/breadcrumbs/Breadcrumbs";
 import { processArticleHtml } from "@/lib/utils/blog-html";
 import { siteConfig } from "@/lib/seo/seo";
@@ -162,6 +163,7 @@ export default function LiveBlogPost({ locale }: { locale: Locale }) {
         {translation ? <BlogBlocks blocks={content} title={title} locale={locale} /> : <div dangerouslySetInnerHTML={{ __html: legacyHtml.html }} />}
         {!!translation?.faq.length && <section className="blog-accordion"><h2>{fa ? "پرسش‌های متداول" : "Frequently asked questions"}</h2>{translation.faq.map((item, index) => <details key={index}><summary>{item.question}</summary><p>{item.answer}</p></details>)}</section>}
         <div className="blog-after"><Link href={`/${locale}/blog/`} className="ui-button ui-button-ghost">{fa ? "بازگشت به مقالات" : "Back to articles"}</Link></div>
+        {post.id > 0 && post.isPublished && <BlogComments postId={post.id} />}
       </article></div>
     </div>;
   }

@@ -24,13 +24,7 @@ if ($method === 'GET') {
         $daySlots = [];
         $stmt = $pdo->query('SELECT * FROM availability_day_slots ORDER BY day_of_week');
         while ($row = $stmt->fetch()) {
-            $daySlots[] = [
-                'id' => (int) $row['id'],
-                'day_of_week' => (int) $row['day_of_week'],
-                'is_available' => (int) $row['is_available'],
-                'start_time' => $row['start_time'] !== null ? substr((string) $row['start_time'], 0, 5) : null,
-                'end_time' => $row['end_time'] !== null ? substr((string) $row['end_time'], 0, 5) : null,
-            ];
+            $daySlots[] = ['id' => (int) $row['id']] + clinicDaySlot($row);
         }
         http_response_code(200);
         echo json_encode([
@@ -57,6 +51,33 @@ if ($method === 'PATCH') {
     }
 
     try {
+        // Validate before writing any part of a combined settings update.
+        $changes = $input['daySlots'] ?? [];
+        if (isset($input['day_of_week'])) {
+            $stmt = $pdo->prepare('SELECT * FROM availability_day_slots WHERE day_of_week = ?');
+            $stmt->execute([$input['day_of_week']]);
+            $row = $stmt->fetch();
+            $changes = [$row ? array_merge(clinicDaySlot($row), $input) : $input];
+        }
+        foreach ($changes as $slot) {
+            $day = filter_var($slot['day_of_week'] ?? null, FILTER_VALIDATE_INT);
+            $start = $slot['start_time'] ?? null;
+            $end = $slot['end_time'] ?? null;
+            $policy = clinicSchedule();
+            if ($day === false || $day < 0 || $day > 6 || !in_array($slot['is_available'] ?? null, [0, 1, '0', '1'], true) || ((int) $slot['is_available'] === 1 &&
+                (!in_array($day, $policy['weekdays'], true) || !is_string($start) || !is_string($end) ||
+                 !preg_match('/^\d\d:[0-5]\d$/D', $start) || !preg_match('/^\d\d:[0-5]\d$/D', $end) ||
+                 $start < $policy['opens'] || $end > $policy['closes'] || $start >= $end))) {
+                http_response_code(400);
+                echo json_encode(['error' => 'Weekly availability must stay within clinic hours.']);
+                exit;
+            }
+        }
+        if (isset($input['slot_duration_minutes']) && ((int) $input['slot_duration_minutes'] < 10 || (int) $input['slot_duration_minutes'] > 240)) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Invalid slot duration.']);
+            exit;
+        }
         // Update global settings
         if (isset($input['first_available_date']) || isset($input['booking_window_days']) || isset($input['slot_duration_minutes'])) {
             $updates = [];
@@ -81,13 +102,14 @@ if ($method === 'PATCH') {
         }
 
         // Update day slots
-        if (isset($input['daySlots']) && is_array($input['daySlots'])) {
+        if ($changes) {
             $stmt = $pdo->prepare(
                 'UPDATE availability_day_slots
                  SET is_available = ?, start_time = ?, end_time = ?, updated_at = CURRENT_TIMESTAMP
                  WHERE day_of_week = ?'
             );
-            foreach ($input['daySlots'] as $slot) {
+            foreach ($changes as $slot) {
+                $slot = clinicDaySlot($slot);
                 $stmt->execute([
                     (int) ($slot['is_available'] ?? 0),
                     $slot['start_time'] ?? null,

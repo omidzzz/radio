@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { clinicSchedule } from "@/lib/clinic-schedule";
 
 interface AvailabilityTabProps { admin: Record<string, any>; }
 interface DaySlot { id: number; day_of_week: number; is_available: number; start_time: string | null; end_time: string; }
@@ -113,12 +114,12 @@ export default function AvailabilityTab({ admin }: AvailabilityTabProps) {
             <div key={slot.day_of_week} className="flex items-center justify-between gap-3 p-3 rounded-lg border border-border bg-surface/50">
               <span className="text-sm text-text-primary">{dayNames[slot.day_of_week]}</span>
               <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" checked={slot.is_available === 1} onChange={(e) => setDaySlots((prev) => prev.map((s: DaySlot) => s.day_of_week === slot.day_of_week ? { ...s, is_available: e.target.checked ? 1 : 0 } : s))} className="rounded border-border text-primary focus:ring-primary" />
+                <input type="checkbox" disabled={!clinicSchedule.weekdays.includes(slot.day_of_week)} checked={slot.is_available === 1} onChange={(e) => setDaySlots((prev) => prev.map((s: DaySlot) => s.day_of_week === slot.day_of_week ? { ...s, is_available: e.target.checked ? 1 : 0, start_time: e.target.checked ? clinicSchedule.opens : null, end_time: e.target.checked ? clinicSchedule.closes : "" } : s))} className="rounded border-border text-primary focus:ring-primary" />
                 {admin.weeklySchedule}
               </label>
               <div className="flex gap-2">
-                <input type="time" value={slot.start_time || ""} onChange={(e) => setDaySlots((prev) => prev.map((s: DaySlot) => s.day_of_week === slot.day_of_week ? { ...s, start_time: e.target.value } : s))} disabled={slot.is_available !== 1} className="rounded-lg border border-border bg-surface px-2 py-1.5 text-xs text-text-primary" />
-                <input type="time" value={slot.end_time || ""} onChange={(e) => setDaySlots((prev) => prev.map((s: DaySlot) => s.day_of_week === slot.day_of_week ? { ...s, end_time: e.target.value } : s))} disabled={slot.is_available !== 1} className="rounded-lg border border-border bg-surface px-2 py-1.5 text-xs text-text-primary" />
+                <input type="time" min={clinicSchedule.opens} max={clinicSchedule.closes} value={slot.start_time || ""} onChange={(e) => setDaySlots((prev) => prev.map((s: DaySlot) => s.day_of_week === slot.day_of_week ? { ...s, start_time: e.target.value } : s))} disabled={slot.is_available !== 1} className="rounded-lg border border-border bg-surface px-2 py-1.5 text-xs text-text-primary" />
+                <input type="time" min={clinicSchedule.opens} max={clinicSchedule.closes} value={slot.end_time || ""} onChange={(e) => setDaySlots((prev) => prev.map((s: DaySlot) => s.day_of_week === slot.day_of_week ? { ...s, end_time: e.target.value } : s))} disabled={slot.is_available !== 1} className="rounded-lg border border-border bg-surface px-2 py-1.5 text-xs text-text-primary" />
               </div>
             </div>
           ))}

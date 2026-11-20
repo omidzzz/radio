@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
+import { useBookingModal } from "@/components/forms/BookingModalProvider";
 import { dictionaries } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/config";
 import LanguageToggle from "../LanguageToggle";
@@ -47,6 +48,7 @@ export default function Navbar() {
     nav: dict.nav,
   };
   const isFa = locale === "fa";
+  const { openBookingModal } = useBookingModal();
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -148,17 +150,32 @@ export default function Navbar() {
 
           {/* Desktop navigation — theme-aware text, single hover pill */}
           <div className="site-header-desktop-actions hidden items-center gap-0.5 min-[1220px]:flex">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                prefetch={false}
-                className="group relative rounded-full px-3.5 py-2 text-sm font-medium text-text-secondary transition-colors duration-200 hover:text-text-primary"
-              >
-                <span className="relative z-10">{link.label}</span>
-                <span className="absolute inset-0 rounded-full bg-primary/0 transition-colors duration-200 group-hover:bg-primary/12" />
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isBooking = link.href.endsWith("/booking");
+              return (
+                isBooking ? (
+                  <button
+                    key={link.href}
+                    type="button"
+                    onClick={openBookingModal}
+                    className="group relative rounded-full px-3.5 py-2 text-sm font-medium text-text-secondary transition-colors duration-200 hover:text-text-primary cursor-pointer"
+                  >
+                    <span className="relative z-10">{link.label}</span>
+                    <span className="absolute inset-0 rounded-full bg-primary/0 transition-colors duration-200 group-hover:bg-primary/12" />
+                  </button>
+                ) : (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    prefetch={false}
+                    className="group relative rounded-full px-3.5 py-2 text-sm font-medium text-text-secondary transition-colors duration-200 hover:text-text-primary"
+                  >
+                    <span className="relative z-10">{link.label}</span>
+                    <span className="absolute inset-0 rounded-full bg-primary/0 transition-colors duration-200 group-hover:bg-primary/12" />
+                  </Link>
+                )
+              );
+            })}
 
             {/* Search icon — opens full overlay panel */}
             <div className="site-header-icon-wrap relative ml-1">
@@ -312,15 +329,17 @@ export default function Navbar() {
                     <ThemeToggle />
                     <LanguageToggle />
                   </div>
-                  <Link
-                    href={bookingHref}
-                    prefetch={false}
-                    onClick={() => setMobileOpen(false)}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMobileOpen(false);
+                      openBookingModal();
+                    }}
                     tabIndex={mobileOpen ? 0 : -1}
                     className="ui-button ui-button-primary w-full px-6 py-3 text-center text-sm"
                   >
                     {strings.bookNow}
-                  </Link>
+                  </button>
                 </div>
               </div>
             </div>

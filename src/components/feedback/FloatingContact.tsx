@@ -2,17 +2,19 @@
 
 import { useEffect, useRef, useState } from "react";
 import { siteConfig } from "@/lib/seo/seo";
+import type { Locale } from "@/lib/i18n/config";
+import OfficeHours from "@/components/ui/OfficeHours";
+import { useClinicCopy } from "@/components/providers/ClinicCopyProvider";
+import OfficeStatus from "@/components/ui/OfficeStatus";
 import { useScrollProgress } from "@/lib/hooks/useScrollProgress";
-import { ArrowUpIcon, ClockIcon, TelegramIcon, WhatsAppIcon } from "@/components/ui/icons";
+import { ArrowUpIcon, ClockIcon, PhoneIcon, TelegramIcon, WhatsAppIcon } from "@/components/ui/icons";
 
 export interface FloatingContactLabels {
   telegram: string;
   whatsapp: string;
+  phone: string;
   backToTop: string;
   officeHours: string;
-  workingDays: string;
-  friday: string;
-  fridayHours: string;
   openNow: string;
   closedNow: string;
 }
@@ -20,6 +22,7 @@ export interface FloatingContactLabels {
 interface FloatingContactProps {
   /** Localized labels used for tooltips and aria-labels */
   labels: FloatingContactLabels;
+  locale: Locale;
   /** Scroll position (px) after which the back-to-top button appears */
   showAfter?: number;
 }
@@ -40,22 +43,15 @@ const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS;
  */
 export default function FloatingContact({
   labels,
+  locale,
   showAfter = 400,
 }: FloatingContactProps) {
   const btnRef = useRef<HTMLButtonElement | null>(null);
   const ringRef = useRef<SVGCircleElement | null>(null);
   const [hoursOpen, setHoursOpen] = useState(false);
+  const heading = useClinicCopy(locale)?.hours?.heading ?? labels.officeHours;
   // Set post-mount; false on the server so there is no hydration mismatch.
   const [readingWidgetPresent, setReadingWidgetPresent] = useState(false);
-  const tehranTime = new Intl.DateTimeFormat("en-US", {
-    timeZone: "Asia/Tehran",
-    weekday: "long",
-    hour: "numeric",
-    hourCycle: "h23",
-  }).formatToParts(new Date());
-  const weekday = tehranTime.find((part) => part.type === "weekday")?.value;
-  const hour = Number(tehranTime.find((part) => part.type === "hour")?.value ?? -1);
-  const isOpen = weekday !== "Friday" && hour >= 8 && hour < 17;
 
   useEffect(() => {
     setReadingWidgetPresent(Boolean(document.querySelector(".reading-widget")));
@@ -80,8 +76,8 @@ export default function FloatingContact({
           <button
             type="button"
             className="float-chat-btn float-hours-btn"
-            aria-label={labels.officeHours}
-            data-label={labels.officeHours}
+            aria-label={heading}
+            data-label={heading}
             aria-expanded={hoursOpen}
             aria-controls="floating-office-hours"
             onClick={() => setHoursOpen((open) => !open)}
@@ -89,22 +85,12 @@ export default function FloatingContact({
             <ClockIcon className="relative z-10 h-5 w-5" />
           </button>
           {hoursOpen && (
-            <section id="floating-office-hours" className="float-hours-panel" aria-label={labels.officeHours}>
+            <section id="floating-office-hours" className="float-hours-panel" aria-label={heading}>
               <div className="flex items-center justify-between gap-4 border-b border-border/70 pb-3">
-                <h2 className="text-sm font-bold text-text-primary">{labels.officeHours}</h2>
-                <span className={`inline-flex items-center gap-1.5 text-xs font-semibold ${isOpen ? "text-emerald-600" : "text-rose-600"}`}>
-                  <span className={`h-2 w-2 rounded-full ${isOpen ? "bg-emerald-500" : "bg-rose-500"}`} />
-                  {isOpen ? labels.openNow : labels.closedNow}
-                </span>
+                <h2 className="text-sm font-bold text-text-primary">{heading}</h2>
+                <OfficeStatus open={labels.openNow} closed={labels.closedNow} />
               </div>
-              <div className="mt-3 flex justify-between gap-6 text-sm text-text-secondary">
-                <span>{labels.workingDays}</span>
-                <span dir="ltr">08:00–17:00</span>
-              </div>
-              <div className="mt-2 flex justify-between gap-6 text-sm text-text-secondary">
-                <span>{labels.friday}</span>
-                <span>{labels.fridayHours}</span>
-              </div>
+              <OfficeHours locale={locale} className="mt-3 text-sm text-text-secondary" />
             </section>
           )}
         </div>
@@ -127,6 +113,14 @@ export default function FloatingContact({
           data-label={labels.whatsapp}
         >
           <WhatsAppIcon className="relative z-10 h-5 w-5" />
+        </a>
+        <a
+          href={siteConfig.mobileHref}
+          className="float-chat-btn float-contact-btn float-phone-btn"
+          aria-label={labels.phone}
+          data-label={labels.phone}
+        >
+          <PhoneIcon className="relative z-10 h-5 w-5" />
         </a>
       </div>
 

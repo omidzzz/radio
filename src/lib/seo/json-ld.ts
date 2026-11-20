@@ -1,6 +1,7 @@
 // JSON-LD Structured Data helpers
 // Generates schema.org markup for SEO & GEO (Generative Engine Optimization)
 import { siteConfig } from "./seo";
+import type { TreatmentCatalog } from "@/lib/services/treatment-catalog";
 
 export type JsonLd = Record<string, unknown>;
 
@@ -104,7 +105,9 @@ export function medicalClinicSchema(): JsonLd {
     ],
     address: {
       "@type": "PostalAddress",
-      streetAddress: siteConfig.address.street,
+      streetAddress: siteConfig.address.streetExtra
+        ? `${siteConfig.address.street}, ${siteConfig.address.streetExtra}`
+        : siteConfig.address.street,
       addressLocality: siteConfig.address.city,
       addressCountry: siteConfig.address.country,
       postalCode: siteConfig.address.postalCode,
@@ -127,9 +130,9 @@ export function medicalClinicSchema(): JsonLd {
     isAccessibleForFree: false,
     openingHoursSpecification: siteConfig.hours.map((h) => ({
       "@type": "OpeningHoursSpecification",
-      dayOfWeek: h.day.split("-"),
-      opens: h.hours.split("-")[0] || "08:00",
-      closes: h.hours.split("-")[1] || "17:00",
+      dayOfWeek: h.day,
+      opens: h.opens,
+      closes: h.closes,
     })),
     sameAs: Object.values(siteConfig.socials),
   };
@@ -190,7 +193,9 @@ export function sitePhysicianSchema(): JsonLd {
     ],
     address: {
       "@type": "PostalAddress",
-      streetAddress: siteConfig.address.street,
+      streetAddress: siteConfig.address.streetExtra
+        ? `${siteConfig.address.street}, ${siteConfig.address.streetExtra}`
+        : siteConfig.address.street,
       addressLocality: siteConfig.address.city,
       addressCountry: siteConfig.address.country,
     },
@@ -202,27 +207,20 @@ export function sitePhysicianSchema(): JsonLd {
   };
 }
 
-/**
- * MedicalWebPage / MedicalProcedure schema for services
- */
-export function medicalProcedureSchema(
-  name: string,
-  description: string,
-  features: string[],
-): JsonLd {
-  return {
+/** The services page and these descriptions share the same localized catalog. */
+export function treatmentProcedureSchemas(catalog: TreatmentCatalog, locale: "fa" | "en"): JsonLd[] {
+  return catalog.groups.map((group) => ({
     "@context": "https://schema.org",
     "@type": "MedicalProcedure",
-    name,
-    description,
-    howPerformed: features,
-    bodyLocation: "Cancerous tissue",
-    preparation: "Consultation with radiation oncologist required",
-    followup: "Follow-up imaging and consultation scheduled post-treatment",
-    provider: {
-      "@id": `${siteConfig.url}/#organization`,
-    },
-  };
+    name: group.title,
+    alternateName: group.codes,
+    description: [
+      group.description,
+      ...group.branches.map(({ title, description, sites }) =>
+        `${title}: ${description}${sites?.length ? ` ${new Intl.ListFormat(locale).format(sites)}.` : ""}`,
+      ),
+    ].join(" "),
+  }));
 }
 
 /**
@@ -485,7 +483,9 @@ export function reviewSchema(): JsonLd {
     name: siteConfig.name,
     address: {
       "@type": "PostalAddress",
-      streetAddress: siteConfig.address.street,
+      streetAddress: siteConfig.address.streetExtra
+        ? `${siteConfig.address.street}, ${siteConfig.address.streetExtra}`
+        : siteConfig.address.street,
       addressLocality: siteConfig.address.city,
       addressCountry: siteConfig.address.country,
     },

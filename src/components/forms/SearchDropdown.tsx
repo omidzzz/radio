@@ -90,7 +90,7 @@ export default function SearchDropdown({
       setError(false);
 
       try {
-        const res = await fetch(`/api/search?q=${encodeURIComponent(term)}&limit=6&pages=true`, {
+        const res = await fetch(`/api/search.php?locale=${locale}&q=${encodeURIComponent(term)}&limit=6`, {
           signal: controller.signal,
           headers: { "Accept": "application/json" },
         });
@@ -116,7 +116,7 @@ export default function SearchDropdown({
         setLoading(false);
       }
     },
-    []
+    [locale]
   );
 
   // Debounced input handler

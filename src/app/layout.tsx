@@ -3,10 +3,8 @@ import { Vazirmatn, Outfit } from "next/font/google";
 import dynamic from "next/dynamic";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import { BookingModalProvider } from "@/components/forms/BookingModalProvider";
+import { ClinicCopyProvider } from "@/components/providers/ClinicCopyProvider";
 import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import FloatingContactLazy from "@/components/feedback/FloatingContactLazy";
 import { siteConfig } from "@/lib/seo/seo";
 import {
   websiteSchema,
@@ -20,9 +18,7 @@ import {
 import JsonLdScript from "@/components/feedback/JsonLd";
 import ScrollProgress from "@/components/ui/ScrollProgress";
 import PWARegister from "@/components/ui/PWARegister";
-import { defaultLocale, localeDirs } from "@/lib/i18n/config";
-import { getDictionary } from "@/lib/i18n";
-import { LocaleProvider } from "@/components/providers/LocaleProvider";
+import { defaultLocale } from "@/lib/i18n/config";
 
 const Analytics = process.env.NEXT_PUBLIC_GA_ID
   ? dynamic(() => import("@/components/ui/Analytics"))
@@ -146,32 +142,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const dict = getDictionary("fa");
-  const hourParts = new Intl.DateTimeFormat("en-US", {
-    timeZone: "Asia/Tehran",
-    weekday: "long",
-    hour: "numeric",
-    hourCycle: "h23",
-  }).formatToParts(new Date());
-  const weekday = hourParts.find((part) => part.type === "weekday")?.value;
-  const hour = Number(hourParts.find((part) => part.type === "hour")?.value ?? -1);
-  const isOpen = weekday !== "Friday" && hour >= 8 && hour < 17;
-  const workingHours = [
-    {
-      label: dict.contact.saturdayThursday,
-      hours: "۰۸:۰۰ تا ۱۷:۰۰",
-      isClosed: false,
-    },
-    {
-      label: dict.contact.friday,
-      hours: dict.contact.fridayHours,
-      isClosed: true,
-    },
-  ];
-
   return (
-    <LocaleProvider initialLocale="fa">
-      <html
+    <html
         lang={defaultLocale}
         dir={defaultLocale === "fa" ? "rtl" : "ltr"}
         suppressHydrationWarning
@@ -204,28 +176,12 @@ export default async function RootLayout({
         <PWARegister />
         <ScrollProgress />
         <ThemeProvider>
-          <Navbar />
-          <BookingModalProvider>{children}</BookingModalProvider>
+          <ClinicCopyProvider>
+            {children}
+          </ClinicCopyProvider>
         </ThemeProvider>
-        <Footer
-          workingHours={workingHours}
-          isOpen={isOpen}
-        />
-        <FloatingContactLazy
-          labels={{
-            telegram: "Telegram",
-            whatsapp: "WhatsApp",
-            backToTop: "بازگشت به بالا",
-            officeHours: dict.contact.officeHours,
-            workingDays: dict.contact.saturdayThursday,
-            friday: dict.contact.friday,
-            fridayHours: dict.contact.fridayHours,
-            openNow: dict.contact.openNow,
-            closedNow: dict.contact.closedNow,
-          }}
-        />
       </body>
     </html>
-  </LocaleProvider>
+
 );
 }

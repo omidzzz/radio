@@ -49,8 +49,8 @@ if ($errors) {
     exit;
 }
 
-$dateTime = DateTime::createFromFormat('Y-m-d', $preferred_date);
-if ($dateTime === false) {
+$dateTime = clinicDate($preferred_date);
+if (!$dateTime) {
     http_response_code(400);
     echo json_encode(['error' => ['Invalid date.']], JSON_UNESCAPED_UNICODE);
     exit;
@@ -64,44 +64,10 @@ if (!$settings) {
     exit;
 }
 
-$today = new DateTime();
-$today->setTime(0, 0, 0);
-$firstDate = new DateTime($settings['first_available_date']);
-if ($dateTime < $firstDate) {
-    http_response_code(400);
-    echo json_encode(['error' => ['The selected date is before the first available booking date.']], JSON_UNESCAPED_UNICODE);
-    exit;
-}
-$maxDate = clone $today;
-$maxDate->modify('+' . (int) $settings['booking_window_days'] . ' days');
-if ($dateTime > $maxDate) {
-    http_response_code(400);
-    echo json_encode(['error' => ['The selected date is outside the booking window.']], JSON_UNESCAPED_UNICODE);
-    exit;
-}
-
 $daySlot = $pdo->prepare('SELECT * FROM availability_day_slots WHERE day_of_week = ?');
 $daySlot->execute([$dayOfWeek]);
 $ds = $daySlot->fetch();
-if (!$ds || $ds['is_available'] !== 1) {
-    http_response_code(400);
-    echo json_encode(['error' => ['The selected day is not available for booking.']], JSON_UNESCAPED_UNICODE);
-    exit;
-}
-
-$start = new DateTime($ds['start_time']);
-$end = new DateTime($ds['end_time']);
-$t = new DateTime($preferred_time);
-if ($t < $start || $t >= $end) {
-    http_response_code(400);
-    echo json_encode(['error' => ['The selected time is outside working hours.']], JSON_UNESCAPED_UNICODE);
-    exit;
-}
-
-$slotDuration = (int) $settings['slot_duration_minutes'];
-$startMinutes = (int) $start->format('H') * 60 + (int) $start->format('i');
-$tMinutes = (int) $t->format('H') * 60 + (int) $t->format('i');
-if (($tMinutes - $startMinutes) % $slotDuration !== 0) {
+if (!$ds || !in_array($preferred_time, clinicSlotStarts($preferred_date, $settings, $ds), true)) {
     http_response_code(400);
     echo json_encode(['error' => ['The selected time is not a valid slot.']], JSON_UNESCAPED_UNICODE);
     exit;
@@ -167,6 +133,7 @@ try {
 }  // end POST handling
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    requireAdminSession();
     try {
         $stmt = $pdo->query(
             'SELECT id, full_name, email, phone, session_type, preferred_date, preferred_time, notes, status, created_at

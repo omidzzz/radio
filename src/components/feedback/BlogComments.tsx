@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocale } from "../providers/LocaleProvider";
 import { formatDate } from "@/lib/i18n";
 import type { BlogComment } from "@/lib/types";
@@ -23,6 +23,15 @@ export default function BlogComments({
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch(`/api/blog-comments.php?id=${postId}`, { cache: "no-store", signal: controller.signal })
+      .then(r => r.ok ? r.json() : null)
+      .then(data => { if (!controller.signal.aborted && Array.isArray(data?.comments)) setComments(data.comments); })
+      .catch(() => {});
+    return () => controller.abort();
+  }, [postId]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
@@ -30,7 +39,7 @@ export default function BlogComments({
     setSuccess("");
 
     try {
-      const response = await fetch(`/api/blog/${postId}/comments`, {
+      const response = await fetch(`/api/blog-comments.php?id=${postId}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ author_name: authorName, content }),

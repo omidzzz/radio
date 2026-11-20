@@ -9,7 +9,8 @@ import JsonLdScript from "@/components/feedback/JsonLd";
 import RadiationEmblem from "@/components/ui/RadiationEmblem";
 import ParticleBackground from "@/components/ui/ParticleBackground";
 import PageHero from "@/components/ui/PageHero";
-import { getWorkingHoursSummary } from "@/lib/services/working-hours";
+import OfficeHours from "@/components/ui/OfficeHours";
+import { HoursLabel } from "@/components/providers/ClinicCopyProvider";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { dict } = await getServerDictionary();
@@ -39,14 +40,6 @@ export const revalidate = 86400;
 
 export default async function BookingPage() {
   const { dict, locale } = await getServerDictionary();
-  const workingHours = getWorkingHoursSummary(locale);
-  const closedLabel = locale === "fa" ? "تعطیل" : "Closed";
-
-  // Name of today's weekday in the active locale — used to highlight
-  // the matching row(s) in the working-hours list.
-  const todayName = new Intl.DateTimeFormat(locale === "fa" ? "fa" : "en-US", {
-    weekday: "long",
-  }).format(new Date());
 
   const breadcrumbs = breadcrumbSchema([
     { name: locale === "fa" ? "خانه" : "Home", path: "/" },
@@ -213,23 +206,9 @@ export default async function BookingPage() {
                   </li>
                   <li>
                     <span className="font-medium text-text-primary">
-                      {dict.booking.hours}:
+                      <HoursLabel locale={locale} fallback={dict.booking.hours} />:
                     </span>
-                    <br />
-                    {workingHours.map((entry) => {
-                      const isToday = entry.label.includes(todayName);
-                      return (
-                        <span
-                          key={entry.label}
-                          className={`mt-1 flex items-center justify-between gap-3 rounded-lg px-2 py-0.5 ${
-                            isToday ? "bg-soft font-medium text-primary ring-1 ring-primary/15" : ""
-                          }`}
-                        >
-                          <span>{entry.label}</span>
-                          <span>{entry.isClosed ? closedLabel : entry.hours}</span>
-                        </span>
-                      );
-                    })}
+                    <OfficeHours locale={locale} className="mt-2" />
                   </li>
                 </ul>
               </div>

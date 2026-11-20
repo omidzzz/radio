@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { toFarsiDigits } from "@/lib/i18n/numbers";
 import { useBookingModal } from "@/components/forms/BookingModalProvider";
 
 interface LiveSlotBadgeProps {
@@ -12,9 +11,6 @@ interface LiveSlotBadgeProps {
   /** Make the badge visually bolder — used when it replaces the Book Now button */
   primary?: boolean;
 }
-
-const nextSlotFa = `امروز ${toFarsiDigits("14:30")}`;
-const nextSlotEn = "Today 14:30";
 
 export default function LiveSlotBadge({
   isFa,
@@ -35,15 +31,7 @@ export default function LiveSlotBadge({
         <span className={`absolute hidden h-full w-full animate-ping rounded-full opacity-60 motion-reduce:animate-none sm:inline-flex ${dotClass}`} />
         <span className={`relative inline-flex h-2 w-2 rounded-full ${dotClass}`} />
       </span>
-      {isFa ? (
-        <>
-          نوبت بعدی: <span className="font-bold">{nextSlotFa}</span>
-        </>
-      ) : (
-        <>
-          Next Slot: <span className="font-bold">{nextSlotEn}</span>
-        </>
-      )}
+      {isFa ? "مشاهده نوبت‌های آزاد" : "View available appointments"}
     </>
   );
 

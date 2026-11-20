@@ -1,6 +1,7 @@
 import type Database from "better-sqlite3";
 import { logger } from "@/lib/core/logger";
 import { ensureBlogDocumentColumns } from "@/lib/blog/store";
+import { clinicClock, defaultDaySlots } from "@/lib/clinic-schedule";
 
 interface Migration {
   id: number;
@@ -52,14 +53,10 @@ const migrations: Migration[] = [
         .prepare("SELECT COUNT(*) as count FROM availability_settings")
         .get() as { count: number };
       if (settingsCount.count === 0) {
-        const now = new Date();
-        const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(
-          now.getDate()
-        ).padStart(2, "0")}`;
         db.prepare(
           `INSERT INTO availability_settings (id, first_available_date, booking_window_days, slot_duration_minutes)
            VALUES (1, ?, 30, 30)`
-        ).run(today);
+        ).run(clinicClock().date);
       }
 
       // Seed default day slots if empty
@@ -71,17 +68,8 @@ const migrations: Migration[] = [
           `INSERT INTO availability_day_slots (day_of_week, is_available, start_time, end_time)
            VALUES (?, ?, ?, ?)`
         );
-        const defaults = [
-          [0, 0, null, null],
-          [1, 1, "08:00", "17:00"],
-          [2, 1, "08:00", "17:00"],
-          [3, 1, "08:00", "17:00"],
-          [4, 1, "08:00", "17:00"],
-          [5, 1, "08:00", "13:00"],
-          [6, 0, null, null],
-        ];
-        for (const [day, avail, start, end] of defaults) {
-          insert.run(day, avail, start, end);
+        for (const day of defaultDaySlots) {
+          insert.run(day.day_of_week, day.is_available, day.start_time, day.end_time);
         }
       }
     },

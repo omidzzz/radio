@@ -19,7 +19,7 @@ export default function StickyBookingBar({
   isFa: boolean;
 }) {
   const [visible, setVisible] = useState(false);
-  const { isOpen: modalOpen } = useBookingModal();
+  const { openBookingModal, isOpen: modalOpen } = useBookingModal();
   const { locale } = useLocale();
   const bookingHref = `/${locale}/booking`;
 
@@ -59,9 +59,9 @@ export default function StickyBookingBar({
       style={{ paddingBottom: "calc(0.75rem + env(safe-area-inset-bottom))" }}
       aria-hidden={!show}
     >
-      <Link
-        href={bookingHref}
-        prefetch={false}
+      <button
+        type="button"
+        onClick={openBookingModal}
         tabIndex={show ? 0 : -1}
         className="ui-button ui-button-primary btn-sheen flex min-h-[52px] items-center justify-center gap-2 rounded-2xl border-primary/40 bg-bg/92 text-base font-bold text-text-primary shadow-[0_-8px_30px_-10px_rgba(2,6,23,0.5)] backdrop-blur-md active:scale-[0.98]"
       >
@@ -73,7 +73,7 @@ export default function StickyBookingBar({
         <span className="text-xs font-medium text-text-secondary" dir={isFa ? "rtl" : "ltr"}>
           · {isFa ? "پاسخ در کمتر از ۲۴ ساعت" : "Replies within 24h"}
         </span>
-      </Link>
+      </button>
     </div>
   );
 }

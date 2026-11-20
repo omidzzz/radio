@@ -6,22 +6,10 @@ import { useForm } from "@/lib/hooks/useForm";
 import DatePicker from "./DatePicker";
 import Honeypot from "../Honeypot";
 import { logger } from "@/lib/core/logger";
-
-interface AvailabilitySettings {
-  first_available_date: string;
-  booking_window_days: number;
-  slot_duration_minutes: number;
-}
-
-interface DaySlot {
-  day_of_week: number;
-  is_available: number;
-  start_time: string | null;
-  end_time: string | null;
-}
+import { addDays, clinicClock, scheduledStarts, type BookingSchedule, type DaySlot } from "@/lib/clinic-schedule";
 
 interface AvailabilityData {
-  settings: AvailabilitySettings;
+  settings: BookingSchedule;
   daySlots: DaySlot[];
 }
 
@@ -36,25 +24,12 @@ interface BookingFormData {
   website_field?: string;
 }
 
-function getTodayISO(): string {
-  const now = new Date();
-  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(
-    now.getDate()
-  ).padStart(2, "0")}`;
-}
-
-function toISO(date: Date): string {
-  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(
-    date.getDate()
-  ).padStart(2, "0")}`;
-}
-
 const initialValues: BookingFormData = {
   full_name: "",
   email: "",
   phone: "",
   session_type: "initial-consultation",
-  preferred_date: getTodayISO(),
+  preferred_date: "",
   preferred_time: "",
   notes: "",
   website_field: "",
@@ -62,12 +37,6 @@ const initialValues: BookingFormData = {
 
 /** localStorage key for unsent form drafts */
 const DRAFT_KEY = "booking-form-draft";
-
-/**
- * Per-date cache of fetched time slots so toggling between dates
- * doesn't re-hit the API for dates we've already seen this session.
- */
-const slotCache = new Map<string, string[]>();
 
 /** Icons for each session-type card */
 const SESSION_ICONS: Record<string, React.ReactNode> = {
@@ -121,7 +90,7 @@ interface BookingFormProps {
 export default function BookingForm({ embedded = false }: BookingFormProps) {
   const dict = useDictionary();
   const [availability, setAvailability] = useState<AvailabilityData | null>(null);
-  const [timeSlots, setTimeSlots] = useState<string[]>([]);
+  const [slotResult, setSlotResult] = useState<{ date: string; slots: string[] } | null>(null);
   const [loadingSlots, setLoadingSlots] = useState(false);
   const [bookingRef, setBookingRef] = useState<string | null>(null);
   const [draftRestored, setDraftRestored] = useState(false);
@@ -141,7 +110,6 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
     handleSubmit,
     setValue,
     setValues,
-    setError,
     setSuccess,
   } = useForm<BookingFormData>({
     initialValues,
@@ -163,10 +131,11 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
       if (formData.website_field) {
         setSuccess(dict.booking.successMessage);
         setValues(initialValues);
-        setTimeSlots([]);
+        setSlotResult(null);
         return;
       }
 
+      if (!canReserve(formData.preferred_date, formData.preferred_time)) throw new Error(dict.booking.noSlots);
       const response = await fetch("/api/bookings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -185,7 +154,7 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
 
       setSuccess(dict.booking.successMessage);
       setValues(initialValues);
-      setTimeSlots([]);
+      setSlotResult(null);
       try {
         window.localStorage.removeItem(DRAFT_KEY);
       } catch {
@@ -200,7 +169,7 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
       const raw = window.localStorage.getItem(DRAFT_KEY);
       if (raw) {
         const draft = JSON.parse(raw) as Partial<BookingFormData>;
-        setValues({ ...initialValues, ...draft });
+        setValues({ ...initialValues, ...draft, preferred_time: "" });
       }
     } catch {
       /* corrupted draft — ignore */
@@ -210,15 +179,20 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Wizard navigation — step 1 requires a date and a time slot
-  const goToDetails = useCallback(() => {
-    if (!values.preferred_date || !values.preferred_time) {
+  const timeSlots = slotResult?.date === values.preferred_date ? slotResult.slots : [];
+  function canReserve(date: string, time: string) {
+    return !!availability && slotResult?.date === date && slotResult.slots.includes(time) &&
+      scheduledStarts(date, availability.settings, availability.daySlots).includes(time);
+  }
+
+  const goToDetails = () => {
+    if (!canReserve(values.preferred_date, values.preferred_time)) {
       setStepError(true);
       return;
     }
     setStepError(false);
     setStep(2);
-  }, [values.preferred_date, values.preferred_time]);
+  };
 
   // ── Persist draft on every change (after initial restore) ──
   useEffect(() => {
@@ -241,10 +215,10 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
   useEffect(() => {
     async function fetchAvailability() {
       try {
-        const res = await fetch("/api/availability");
+        const res = await fetch("/api/availability", { cache: "no-store" });
         if (res.ok) {
           const data = await res.json();
-          setAvailability(data);
+          if (data.settings && Array.isArray(data.daySlots)) setAvailability(data);
         }
       } catch (err) {
         logger.error("Failed to fetch availability", { error: err });
@@ -253,54 +227,43 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
     fetchAvailability();
   }, []);
 
-  // Fetch available time slots when date changes (with abort + cache)
+  // Show only live, server-confirmed starts for the currently selected date.
   useEffect(() => {
-    if (!values.preferred_date) {
-      setTimeSlots([]);
-      return;
-    }
-
-    // Serve from cache instantly when we've already fetched this date
-    const cached = slotCache.get(values.preferred_date);
-    if (cached) {
-      setTimeSlots(cached);
+    const date = values.preferred_date;
+    setSlotResult(null);
+    setValue("preferred_time", "");
+    if (!availability || !scheduledStarts(date, availability.settings, availability.daySlots).length) {
       setLoadingSlots(false);
-      if (values.preferred_time && !cached.includes(values.preferred_time)) {
-        setValue("preferred_time", "");
-      }
+      if (date && availability) setValue("preferred_date", "");
       return;
     }
 
+    const { settings, daySlots } = availability;
     const controller = new AbortController();
     setLoadingSlots(true);
     async function fetchTimeSlots() {
       try {
         const res = await fetch(
-          `/api/availability?date=${values.preferred_date}`,
-          { signal: controller.signal }
+          `/api/availability?date=${date}`,
+          { signal: controller.signal, cache: "no-store" }
         );
         if (res.ok) {
           const data = await res.json();
-          const slots: string[] = data.timeSlots || [];
-          slotCache.set(values.preferred_date, slots);
-          setTimeSlots(slots);
-          // If current selected time is no longer available, clear it
-          if (values.preferred_time && !slots.includes(values.preferred_time)) {
-            setValue("preferred_time", "");
+          if (!controller.signal.aborted && Array.isArray(data.timeSlots)) {
+            const slots = scheduledStarts(date, settings, daySlots).filter(time => data.timeSlots.includes(time));
+            setSlotResult({ date, slots });
           }
         }
       } catch (err) {
         if ((err as Error)?.name === "AbortError") return;
         logger.error("Failed to fetch time slots", { error: err });
-        setTimeSlots([]);
       } finally {
-        setLoadingSlots(false);
+        if (!controller.signal.aborted) setLoadingSlots(false);
       }
     }
     fetchTimeSlots();
     return () => controller.abort();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values.preferred_date]);
+  }, [values.preferred_date, availability, setValue]);
 
   const sessionTypes = Object.entries(dict.booking.sessionTypes).map(
     ([value, label]) => ({ value, label })
@@ -315,36 +278,18 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
   // otherwise today. Clamping to today ensures the calendar never opens
   // to already-past dates when the configured first_available_date has
   // passed without booking activity.
-  const minDate = availability?.settings?.first_available_date
-    ? toISO(
-        new Date(
-          Math.max(
-            new Date(availability.settings.first_available_date + "T12:00:00").getTime(),
-            Date.now()
-          )
-        )
-      )
-    : getTodayISO();
+  const today = clinicClock().date;
+  const minDate = availability && availability.settings.first_available_date > today ? availability.settings.first_available_date : today;
 
   // Maximum bookable date: today + booking_window_days.
   // (The previous implementation computed this relative to first_available_date,
   // which could produce a window that had already ended.)
-  const maxDate = useCallback(() => {
-    if (!availability?.settings) return undefined;
-    const d = new Date(getTodayISO() + "T12:00:00");
-    d.setDate(d.getDate() + availability.settings.booking_window_days);
-    return toISO(d);
-  }, [availability]);
+  const maxDate = availability ? addDays(today, availability.settings.booking_window_days) : undefined;
 
   // Check if a date is available (day of week enabled + within window)
   const isDateDisabled = useCallback(
     (dateStr: string) => {
-      if (!availability?.settings || !availability?.daySlots) return true;
-      const date = new Date(dateStr + "T12:00:00");
-      const dayOfWeek = date.getDay();
-      const daySlot = availability.daySlots.find((s) => s.day_of_week === dayOfWeek);
-      if (!daySlot || daySlot.is_available !== 1) return true;
-      return false;
+      return !availability || !scheduledStarts(dateStr, availability.settings, availability.daySlots).length;
     },
     [availability]
   );
@@ -352,14 +297,7 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
   // Find the first bookable date within the window (for the quick-pick button)
   const nextAvailableDate = useCallback((): string | null => {
     if (!availability) return null;
-    const max = maxDate();
-    const end = max ? new Date(max + "T12:00:00") : null;
-    for (
-      let d = new Date(minDate + "T12:00:00");
-      end !== null && d <= end;
-      d.setDate(d.getDate() + 1)
-    ) {
-      const iso = toISO(d);
+    for (let iso = minDate; maxDate && iso <= maxDate; iso = addDays(iso, 1)) {
       if (!isDateDisabled(iso)) return iso;
     }
     return null;
@@ -594,7 +532,7 @@ export default function BookingForm({ embedded = false }: BookingFormProps) {
                 setValue("preferred_time", "");
               }}
               min={minDate}
-              max={maxDate()}
+              max={maxDate}
               isDateDisabled={isDateDisabled}
               disabled={!availability}
               placeholder={

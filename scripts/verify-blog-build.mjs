@@ -14,6 +14,8 @@ for (const name of ["src", "public", "content", "package.json", "package-lock.js
   if (existsSync(source)) cpSync(source, path.join(workspace, name), { recursive: true });
 }
 symlinkSync(path.join(root, "node_modules"), path.join(workspace, "node_modules"), process.platform === "win32" ? "junction" : "dir");
+mkdirSync(path.join(workspace, "api"));
+cpSync(path.join(root, "api", "clinic-schedule.json"), path.join(workspace, "api", "clinic-schedule.json"));
 mkdirSync(path.join(workspace, "data"));
 const db = new Database(path.join(root, "data", "site.db"), { readonly: true });
 try { await db.backup(path.join(workspace, "data", "site.db")); }

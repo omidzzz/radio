@@ -9,6 +9,7 @@
     --color-button-hover-text: var(--color-text-on-dark);
     --color-float-telegram: #087ea4;
     --color-float-whatsapp: #15803d;
+    --color-float-phone: #b45309;
     --color-float-hours: #b18424;
     --color-float-hover-text: #fffbf2
 }
@@ -19,6 +20,7 @@
     --color-button-text: #fffbf2;
     --color-float-telegram: #67e8f9;
     --color-float-whatsapp: #4ade80;
+    --color-float-phone: #f59e0b;
     --color-float-hours: #e3c67e;
     --color-float-hover-text: #04120d
 }
@@ -577,13 +579,11 @@ html[lang=en] h6 {
 }
 
 .footer-contact-panel,
-.footer-hours-panel,
 .footer-nav {
     position: relative
 }
 
 .footer-contact-panel:before,
-.footer-hours-panel:before,
 .footer-nav:before {
     content: "";
     position: absolute;
@@ -612,17 +612,84 @@ html[lang=en] h6 {
     transform: translateX(-2px)
 }
 
-.footer-contact-panel,
-.footer-hours-panel {
+.footer-contact-panel {
     padding: 1rem;
     border: 1px solid color-mix(in srgb, var(--color-primary-hover) 15%, transparent);
     border-radius: 1.15rem;
     background: linear-gradient(145deg, color-mix(in srgb, var(--color-surface) 9%, transparent), transparent 70%)
 }
 
-.footer-contact-panel .footer-heading,
-.footer-hours-panel .footer-heading {
+.footer-contact-panel .footer-heading {
     margin-top: .1rem
+}
+
+/* A typeset opening-hours notice, distinct from the footer's navigation. */
+.footer-hours-panel {
+    --hours-paper: var(--color-text-on-dark);
+    --hours-ink: var(--color-deep);
+    --hours-rule: color-mix(in srgb, var(--color-gold) 50%, var(--hours-paper));
+    container-type: inline-size;
+    position: relative;
+    min-inline-size: 0;
+    align-self: start;
+    padding: clamp(1rem, 2vw, 1.5rem);
+    border: 1px solid var(--hours-rule);
+    border-radius: .25rem;
+    background: var(--hours-paper);
+    color: var(--hours-ink);
+    text-align: start
+}
+
+[data-theme=dark] .footer-hours-panel {
+    --hours-paper: var(--color-surface);
+    --hours-ink: var(--color-text-primary)
+}
+
+.footer-hours-panel::before {
+    content: "";
+    position: absolute;
+    inset-block-start: -1px;
+    inset-inline-start: clamp(1rem, 2vw, 1.5rem);
+    inline-size: 2.75rem;
+    block-size: 3px;
+    background: var(--color-gold)
+}
+
+.footer-hours-title {
+    font-size: .875rem;
+    font-weight: 700
+}
+
+.footer-hours-schedule {
+    margin-block: 1.25rem 1rem
+}
+
+.footer-hours-schedule dt {
+    font-size: .9375rem;
+    line-height: 1.65
+}
+
+.footer-hours-schedule dd {
+    margin-block-start: .25rem;
+    font-family: var(--font-outfit);
+    font-size: clamp(1.4rem, 14cqi, 2.75rem);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.15;
+    white-space: nowrap
+}
+
+.footer-hours-caption {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: .25rem .75rem;
+    min-block-size: 1.75rem;
+    padding-block-start: .65rem;
+    border-block-start: 1px solid var(--hours-rule);
+    font-size: .75rem;
+    line-height: 1.5
 }
 
 .footer-contact-list a {
@@ -656,13 +723,11 @@ html[lang=en] h6 {
     }
 
     .footer-contact-panel:before,
-    .footer-hours-panel:before,
     .footer-nav:before {
         display: none
     }
 
-    .footer-contact-panel,
-    .footer-hours-panel {
+    .footer-contact-panel {
         padding: .9rem
     }
 }
@@ -1652,6 +1717,10 @@ html[lang=fa] .hero-subtitle-mobile {
     animation-delay: .18s
 }
 
+.float-chat-btn:nth-child(4) {
+    animation-delay: .27s
+}
+
 .float-contact-btn {
     --float-accent: var(--color-primary)
 }
@@ -1662,6 +1731,10 @@ html[lang=fa] .hero-subtitle-mobile {
 
 .float-whatsapp-btn {
     --float-accent: var(--color-float-whatsapp)
+}
+
+.float-phone-btn {
+    --float-accent: var(--color-float-phone)
 }
 
 .float-hours-btn {

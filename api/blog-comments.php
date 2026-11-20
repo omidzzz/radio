@@ -5,11 +5,7 @@ require_once __DIR__ . '/db.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    echo json_encode(['error' => 'Method not allowed'], JSON_UNESCAPED_UNICODE);
-    exit;
-}
+header('Cache-Control: no-store');
 
 $postId = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 if ($postId <= 0) {
@@ -19,6 +15,16 @@ if ($postId <= 0) {
 }
 
 $input = json_decode(file_get_contents('php://input'), true);
+try {
+    $published = $pdo->prepare("SELECT id FROM posts WHERE id=? AND status='published'");
+    $published->execute([$postId]);
+    if (!$published->fetch()) {http_response_code(404); jsonResponse(['error'=>'Article not found.']);}
+    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        $q=$pdo->prepare('SELECT id,author_name AS authorName,content,created_at AS createdAt FROM blog_comments WHERE post_id=? AND is_approved=1 ORDER BY id');
+        $q->execute([$postId]); jsonResponse(['comments'=>$q->fetchAll()]);
+    }
+} catch(Throwable $e) { error_log($e->getMessage()); http_response_code(500); jsonResponse(['error'=>'Comments unavailable.']); }
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {http_response_code(405); jsonResponse(['error'=>'Method not allowed']);}
 if (!is_array($input)) {
     $input = [];
 }

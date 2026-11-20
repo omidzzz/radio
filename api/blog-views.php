@@ -37,7 +37,9 @@ if (empty($_SESSION[$sessionKey])) {
 
 // Return current view count
 try {
-    $row = $pdo->prepare("SELECT COALESCE(views, 0) as views FROM posts WHERE id = ?")->execute([$postId])->fetch();
+    $stmt = $pdo->prepare("SELECT COALESCE(views, 0) as views FROM posts WHERE id = ?");
+    $stmt->execute([$postId]);
+    $row = $stmt->fetch();
     $views = $row ? (int) $row['views'] : 0;
     http_response_code(200);
     echo json_encode(['views' => $views], JSON_UNESCAPED_UNICODE);

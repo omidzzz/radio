@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import type { Dictionary } from "@/lib/i18n";
+import { useBookingModal } from "@/components/forms/BookingModalProvider";
 import CursorGlow from "@/components/ui/CursorGlow";
 import MagneticButton from "@/components/ui/MagneticButton";
 import LiveSlotBadge from "@/components/ui/LiveSlotBadge";
@@ -17,6 +20,7 @@ interface HeroProps {
 
 export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
   const locale = isFa ? "fa" : "en";
+  const { openBookingModal } = useBookingModal();
 
   return (
     <section
@@ -78,20 +82,17 @@ export default function Hero({ dict, isFa, playAnim = true }: HeroProps) {
             </div>
 
             <div className="anim-fade-up delay-550 mt-6 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-4">
-              <MagneticButton
-                as={Link}
-                href={`/${locale}/booking`}
-                prefetch={false}
-                strength={0.2}
-                variant="primary"
-                className="conic-border w-full sm:w-auto"
+              <button
+                type="button"
+                onClick={openBookingModal}
+                className="conic-border w-full sm:w-auto ui-button ui-button-primary hero-cta"
               >
                 <span className="hero-cta btn-sheen relative inline-flex min-h-12 w-full items-center justify-center overflow-hidden px-6 py-3.5 text-base sm:w-auto sm:px-8">
                   <span className="relative flex items-center gap-2" dir="ltr">
                     {dict.home.bookConsultation}
                   </span>
                 </span>
-              </MagneticButton>
+              </button>
               <MagneticButton
                 as={Link}
                 href={`/${locale}/services`}

@@ -3,9 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ComponentType, ReactNode, SVGProps } from "react";
+import { useBookingModal } from "@/components/forms/BookingModalProvider";
 import { getDictionary } from "@/lib/i18n";
 import { toFarsiDigits } from "@/lib/i18n/numbers";
 import { siteConfig } from "@/lib/seo/seo";
+import OfficeHours from "@/components/ui/OfficeHours";
+import { HoursLabel } from "@/components/providers/ClinicCopyProvider";
+import OfficeStatus from "@/components/ui/OfficeStatus";
 import type { Locale } from "@/lib/i18n/config";
 import {
   InstagramIcon,
@@ -27,21 +31,15 @@ function FooterHeading({ children }: { children: ReactNode }) {
   );
 }
 
-export default function Footer({
-  workingHours,
-  isOpen,
-}: {
-  workingHours: Array<{ label: string; hours: string; isClosed: boolean }>;
-  isOpen: boolean;
-}) {
+export default function Footer() {
   const pathname = usePathname();
   // Derive locale from URL path — authoritative source that survives
   // client-side navigation timing issues with locale context.
   const locale = (pathname.split("/")[1] === "en" ? "en" : "fa") as Locale;
   const currentDict = getDictionary(locale);
   const isFa = locale === "fa";
+  const { openBookingModal } = useBookingModal();
   const localePrefix = `/${locale}`;
-  const closedLabel = currentDict.footer.closed;
 
   const quickLinks = [
     { href: `${localePrefix}/about`, label: currentDict.footer.aboutUs },
@@ -128,32 +126,45 @@ export default function Footer({
             </div>
 
             {/* Primary conversion CTA */}
-            <Link
-              href={`${localePrefix}/booking`}
-              prefetch={false}
+            <button
+              type="button"
+              onClick={openBookingModal}
               className="ui-button ui-button-primary footer-booking-button group mt-7 px-5 py-2.5 text-sm"
             >
               {currentDict.footer.bookSession}
-            </Link>
+            </button>
           </div>
 
           {/* Quick Links */}
           <nav className="footer-nav" aria-label={currentDict.footer.quickLinks}>
             <FooterHeading>{currentDict.footer.quickLinks}</FooterHeading>
             <ul className="mt-5 space-y-2.5">
-              {quickLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    prefetch={false}
-                    className="footer-quick-link group inline-flex items-center gap-1.5 text-sm text-slate-400 transition-colors duration-200 hover:text-highlight"
-                  >
-                    {/* Persistent faint bullet that brightens + extends on hover */}
-                    <span className="footer-link-bullet h-px w-2 bg-white/15 transition-all duration-300 group-hover:w-3 group-hover:bg-primary-fill" />
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+              {quickLinks.map((link) => {
+                const isBooking = link.href.endsWith("/booking");
+                return (
+                  <li key={link.href}>
+                    {isBooking ? (
+                      <button
+                        type="button"
+                        onClick={openBookingModal}
+                        className="footer-quick-link group inline-flex items-center gap-1.5 text-sm text-slate-400 transition-colors duration-200 hover:text-highlight"
+                      >
+                        <span className="footer-link-bullet h-px w-2 bg-white/15 transition-all duration-300 group-hover:w-3 group-hover:bg-primary-fill" />
+                        {link.label}
+                      </button>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        prefetch={false}
+                        className="footer-quick-link group inline-flex items-center gap-1.5 text-sm text-slate-400 transition-colors duration-200 hover:text-highlight"
+                      >
+                        <span className="footer-link-bullet h-px w-2 bg-white/15 transition-all duration-300 group-hover:w-3 group-hover:bg-primary-fill" />
+                        {link.label}
+                      </Link>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </nav>
 
@@ -213,63 +224,14 @@ export default function Footer({
             </ul>
           </div>
 
-          {/* Hours */}
-          <div className="footer-hours-panel">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <FooterHeading>{currentDict.footer.officeHours}</FooterHeading>
-              {/* Live open/closed status computed in clinic timezone */}
-              <span
-                className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-medium ${
-                  isOpen
-                    ? "border-emerald-400/30 bg-emerald-500/10 text-emerald-400"
-                    : "border-white/10 bg-white/5 text-slate-400"
-                }`}
-              >
-                <span className="relative flex h-1.5 w-1.5">
-                  {isOpen && (
-                    <span className="absolute hidden h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75 motion-reduce:animate-none sm:inline-flex" />
-                  )}
-                  <span
-                    className={`relative inline-flex h-1.5 w-1.5 rounded-full ${
-                      isOpen ? "bg-emerald-400" : "bg-slate-500"
-                    }`}
-                  />
-                </span>
-                {isOpen ? currentDict.contact.openNow : currentDict.contact.closedNow}
-              </span>
+          <section className="footer-hours-panel" aria-labelledby="footer-hours-title">
+            <h3 id="footer-hours-title" className="footer-hours-title"><HoursLabel locale={locale} fallback={currentDict.footer.officeHours} /></h3>
+            <OfficeHours locale={locale} className="footer-hours-schedule" />
+            <div className="footer-hours-caption">
+              <span><HoursLabel locale={locale} field="zone" fallback={currentDict.footer.tehranTime} /></span>
+              <OfficeStatus open={currentDict.contact.openNow} closed={currentDict.contact.closedNow} />
             </div>
-            <ul className="mt-5 space-y-2.5 text-sm">
-              {workingHours.map((entry) => (
-                <li
-                  key={entry.label}
-                  className="flex flex-col gap-0.5 sm:flex-row sm:items-center sm:justify-between sm:gap-3"
-                >
-                  <span className="text-slate-400">{entry.label}</span>
-                  <span
-                    className={
-                      entry.isClosed
-                        ? "font-medium text-slate-500"
-                        : "font-medium text-slate-300"
-                    }
-                  >
-                    {entry.isClosed ? closedLabel : entry.hours}
-                  </span>
-                </li>
-              ))}
-            </ul>
-
-            <div className="mt-8">
-              <Link
-                href="https://test.sinisteroid.ir/api/admin.php"
-                target="_blank"
-                rel="noopener noreferrer"
-                prefetch={false}
-                className="text-xs text-slate-500 transition-colors duration-300 hover:text-primary"
-              >
-                {currentDict.footer.adminLogin}
-              </Link>
-            </div>
-          </div>
+          </section>
         </div>
 
         {/* Bottom bar — redesigned utility row with visible back-to-top control */}
@@ -295,6 +257,12 @@ export default function Footer({
             </div>
 
             <div className="flex flex-wrap items-center justify-center gap-2.5 text-xs text-slate-400 sm:gap-3 lg:justify-end">
+              <a
+                href="/api/admin.php"
+                className="rounded-full px-2 py-1 hover:text-slate-200"
+              >
+                {currentDict.footer.adminLogin}
+              </a>
               <Link
                 href={`${localePrefix}/privacy`}
                 prefetch={false}

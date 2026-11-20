@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import type { Dictionary } from "@/lib/i18n";
+import { useBookingModal } from "@/components/forms/BookingModalProvider";
 import SlideBackground from "@/components/slides/SlideBackground";
 
 interface HeroMobileProps {
@@ -15,8 +18,8 @@ export default function HeroMobile({
   className = "block sm:hidden",
 }: HeroMobileProps) {
   const locale = isFa ? "fa" : "en";
-  const bookingHref = `/${locale}/booking`;
   const servicesHref = `/${locale}/services`;
+  const { openBookingModal } = useBookingModal();
 
   return (
     <section
@@ -98,34 +101,26 @@ export default function HeroMobile({
           </ul>
 
           <div className="anim-fade-up delay-400 mt-5 flex w-full flex-col gap-3 sm:mt-6 sm:gap-4">
-            <Link
-              href={bookingHref}
-              prefetch={false}
+            <button
+              type="button"
+              onClick={openBookingModal}
               className="ui-button ui-button-slot tnum inline-flex min-h-11 w-full items-center justify-center gap-2 px-4 py-2 text-xs is-primary hero-surface hero-panel-compact"
               dir={isFa ? "rtl" : "ltr"}
             >
               <span className="relative flex h-2 w-2" aria-hidden="true">
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
               </span>
-              {isFa ? (
-                <>
-                  نوبت بعدی: <span className="font-bold">امروز ۱۴:۳۰</span>
-                </>
-              ) : (
-                <>
-                  Next Slot: <span className="font-bold">Today 14:30</span>
-                </>
-              )}
-            </Link>
-            <Link
-              href={bookingHref}
-              prefetch={false}
+              {isFa ? "مشاهده نوبت‌های آزاد" : "View available appointments"}
+            </button>
+            <button
+              type="button"
+              onClick={openBookingModal}
               className="group relative inline-flex min-h-12 w-full cursor-pointer select-none items-center justify-center gap-2 overflow-hidden px-6 py-3.5 font-semibold leading-relaxed ui-button ui-button-primary hero-cta"
             >
               <span className="relative flex items-center gap-2" dir="ltr">
                 {dict.home.bookConsultation}
               </span>
-            </Link>
+            </button>
             <Link
               href={servicesHref}
               prefetch={false}

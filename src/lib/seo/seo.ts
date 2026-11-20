@@ -2,6 +2,8 @@
 // All site-wide SEO values live here for consistency.
 // Identity data sourced from Dr. Ghadamgahi's visit card.
 
+import { clinicSchedule, dayNames } from "@/lib/clinic-schedule";
+
 const configuredSiteUrl = process.env.NEXT_PUBLIC_APP_URL?.trim().replace(/\/+$/, "");
 const siteUrl = configuredSiteUrl && !/yourdomain\.com/i.test(configuredSiteUrl)
   ? configuredSiteUrl
@@ -24,20 +26,20 @@ export const siteConfig = {
   alternateLocale: "en_US",
   defaultOgImage: "/images/og-default.jpg",
   twitterHandle: "@radiotherapyclinic",
-  phone: "09125044953",
-  phoneHref: "tel:09125044953",
-  mobile: "09125044953",
-  mobileHref: "tel:09125044953",
+  phone: "021-88870965",
+  phoneHref: "tel:02188870965",
+  mobile: "09355990459",
+  mobileHref: "tel:+989355990459",
   email: "dr.pghadamgahi@gmail.com",
   mapsEmbedUrl: `https://www.google.com/maps?q=${encodeURIComponent(
-    "Day Hospital, Valiasr Street, Tehran"
+    "Day Medical Tower, Valiasr St., Tehran, Iran"
   )}&z=15&output=embed`,
   mapsDirectionsUrl: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
-    "Day Hospital, Valiasr Street, Tehran"
+    "Day Medical Tower, Valiasr St., Tehran, Iran"
   )}`,
   address: {
-    street:
-      "Valiasr St., opposite Day Hospital ER, Day Medical Tower, 10th Floor, Unit C",
+    street: "Day Medical Tower",
+    streetExtra: "Valiasr Street, Floor 10, Unit C",
     city: "Tehran",
     country: "IR",
     postalCode: "",
@@ -46,10 +48,7 @@ export const siteConfig = {
     latitude: 35.6892,
     longitude: 51.389,
   },
-  hours: [
-    { day: "Saturday-Thursday", hours: "08:00-17:00" },
-    { day: "Friday", hours: "Closed" },
-  ],
+  hours: clinicSchedule.weekdays.map(day => ({ day: dayNames.en[day], opens: clinicSchedule.opens, closes: clinicSchedule.closes })),
   socials: {
     instagram: "https://instagram.com/radiotherapyclinic",
     linkedin: "https://linkedin.com/company/radiotherapyclinic",

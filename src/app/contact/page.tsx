@@ -10,10 +10,9 @@ import JsonLdScript from "@/components/feedback/JsonLd";
 import RadiationEmblem from "@/components/ui/RadiationEmblem";
 import ParticleBackground from "@/components/ui/ParticleBackground";
 import PageHero from "@/components/ui/PageHero";
-import {
-  getWorkingHoursSummary,
-  getOpenNowStatus,
-} from "@/lib/services/working-hours";
+import OfficeHours from "@/components/ui/OfficeHours";
+import { HoursLabel } from "@/components/providers/ClinicCopyProvider";
+import OfficeStatus from "@/components/ui/OfficeStatus";
 import {
   PhoneIcon,
   PhoneCallIcon,
@@ -58,10 +57,6 @@ const HERO_FEATURE_ICONS = [
 
 export default async function ContactPage() {
   const { dict, locale } = await getServerDictionary();
-  const workingHours = getWorkingHoursSummary(locale);
-  const closedLabel = locale === "fa" ? "تعطیل" : "Closed";
-  const { isOpen } = getOpenNowStatus();
-  const openLabel = isOpen ? dict.contact.openNow : dict.contact.closedNow;
   const breadcrumbs = breadcrumbSchema([
     { name: locale === "fa" ? "خانه" : "Home", path: "/" },
     { name: dict.contact.title, path: "/contact" },
@@ -258,31 +253,10 @@ export default async function ContactPage() {
               </div>
               <div className="min-w-0">
                 <div className="flex items-center gap-2">
-                  <p className="text-xs text-muted">{dict.contact.officeHours}</p>
-                  {/* Live open/closed status */}
-                  <span
-                    className={`inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[10px] font-semibold ${
-                      isOpen
-                        ? "bg-positive-soft text-positive"
-                        : "bg-positive-soft text-positive"
-                    }`}
-                  >
-                    <span
-                      className={`h-1.5 w-1.5 rounded-full ${
-                        isOpen ? "bg-positive animate-pulse" : "bg-danger"
-                      }`}
-                    />
-                    {openLabel}
-                  </span>
+                  <p className="text-xs text-muted"><HoursLabel locale={locale} fallback={dict.contact.officeHours} /></p>
+                  <OfficeStatus open={dict.contact.openNow} closed={dict.contact.closedNow} />
                 </div>
-                <div className="text-sm font-medium text-text-primary">
-                  {workingHours.map((entry) => (
-                    <span key={entry.label} className="block truncate">
-                      {entry.label}:{" "}
-                      {entry.isClosed ? closedLabel : entry.hours}
-                    </span>
-                  ))}
-                </div>
+                <OfficeHours locale={locale} className="mt-2 text-sm text-text-primary" />
               </div>
             </div>
           </div>

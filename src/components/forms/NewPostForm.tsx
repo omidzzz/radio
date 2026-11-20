@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useLocale } from "../providers/LocaleProvider";
 import { useDictionary } from "@/lib/i18n/client";
 import Honeypot from "../Honeypot";
 import { useForumSubmission } from "@/lib/hooks/useForumSubmission";
@@ -14,7 +14,7 @@ const INITIAL_VALUES = {
 };
 
 export default function NewPostForm() {
-  const router = useRouter();
+  const { locale } = useLocale();
   const dict = useDictionary();
 
   const {
@@ -31,8 +31,7 @@ export default function NewPostForm() {
     // Navigate to the freshly created topic so the author sees it immediately
     onSuccess: (data) => {
       const post = (data as { post?: { id?: number } }).post;
-      if (post?.id) router.push(`/forum/${post.id}`);
-      else router.refresh();
+      if (post?.id) window.location.assign(`/${locale}/forum/?topic=${post.id}`);
     },
   });
 

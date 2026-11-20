@@ -15,9 +15,9 @@
 
 // Database
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'siniste1_radio');
-define('DB_USER', 'siniste1_user');
-define('DB_PASS', 'sagekasif1');
+define('DB_NAME', 'drparigh_db');
+define('DB_USER', 'drparigh_user');
+define('DB_PASS', '_H_}*y3.GtqkRBYO');
 // Optional. Omit on cPanel (it connects on the standard 3306); the local dev
 // container sets this to 3307 so it cannot clash with a local MySQL.
 // define('DB_PORT', '3306');

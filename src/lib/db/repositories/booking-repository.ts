@@ -1,6 +1,7 @@
 import type { BookingRow } from "@/lib/types";
 import { BaseRepository } from "@/lib/db/repositories/base-repository";
 import { logger } from "@/lib/core/logger";
+import { validateBookingAvailability } from "@/lib/services/availability-service";
 
 /**
  * Repository for the bookings table.
@@ -27,6 +28,7 @@ export class BookingRepository extends BaseRepository<BookingRow> {
 
   /** Create a booking. */
   create(data: Record<string, unknown>): BookingRow {
+    validateBookingAvailability(String(data.preferred_date), String(data.preferred_time));
     try {
       const result = this.prepareStmt(
         `INSERT INTO bookings (full_name, email, phone, session_type, preferred_date, preferred_time, notes)

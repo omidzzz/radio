@@ -15,7 +15,7 @@ interface ReplyFormProps {
   postId: number;
 }
 
-export default function ReplyForm({ postId }: ReplyFormProps) {
+export default function ReplyForm({ postId, onReply }: ReplyFormProps & { onReply?: () => void }) {
   const router = useRouter();
   const dict = useDictionary();
 
@@ -27,11 +27,11 @@ export default function ReplyForm({ postId }: ReplyFormProps) {
     success,
     handleSubmit,
   } = useForumSubmission({
-    endpoint: `/api/forum/posts/${postId}/replies`,
+    endpoint: `/api/forum-replies.php?post_id=${postId}`,
     initialValues: INITIAL_VALUES,
     successMessage: dict.forum.successReply,
     // Refresh the server-rendered reply list immediately
-    onSuccess: () => router.refresh(),
+    onSuccess: () => onReply ? onReply() : router.refresh(),
   });
 
   const inputClasses =

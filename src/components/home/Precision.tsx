@@ -30,7 +30,7 @@ export default function Precision({ isFa }: PrecisionProps) {
     },
     {
       label: isFa ? "شاخص تطابق" : "Conformity index",
-      value: toFarsiDigits("1.02"),
+      value: isFa ? toFarsiDigits("1.02") : "1.02",
     },
     {
       label: isFa ? "دقت تنظیم بیمار" : "Setup accuracy",

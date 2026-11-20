@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/clinic-schedule.php';
 // Simple DB connection helper. Reads `config.php` (not checked in) or falls back to sample.
 // Note: do not set a global Content-Type here — callers decide their response type.
 // SECURITY: no Access-Control-Allow-Origin header on purpose. The frontend is
@@ -68,6 +69,7 @@ try {
 // Helper to output JSON and exit
 function jsonResponse($data)
 {
+    header('Content-Type: application/json; charset=utf-8');
     echo json_encode($data, JSON_UNESCAPED_UNICODE);
     exit;
 }
@@ -87,6 +89,17 @@ function ensureTables()
             error_log('[sinisteroid] ensureTables create failed: ' . $e->getMessage());
         }
     };
+
+    $createTable("CREATE TABLE IF NOT EXISTS clinic_copy (
+        locale VARCHAR(2) NOT NULL, section_key VARCHAR(16) NOT NULL,
+        content_json MEDIUMTEXT NOT NULL, revision INT NOT NULL, PRIMARY KEY(locale, section_key)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+
+    $createTable("CREATE TABLE IF NOT EXISTS posts (
+        id INT AUTO_INCREMENT PRIMARY KEY, slug VARCHAR(191) NOT NULL UNIQUE, title VARCHAR(300) NOT NULL,
+        status VARCHAR(20) NOT NULL DEFAULT 'draft', tags TEXT, featured_image TEXT, content_json MEDIUMTEXT NOT NULL,
+        views INT NOT NULL DEFAULT 0, date_published DATETIME NULL, date_updated DATETIME DEFAULT CURRENT_TIMESTAMP
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
     $createTable("
         CREATE TABLE IF NOT EXISTS bookings (
@@ -182,38 +195,29 @@ function ensureTables()
     $createTable("
         CREATE TABLE IF NOT EXISTS unavailable_slots (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            \`date\` DATE NOT NULL,
-            \`time\` TIME NOT NULL,
+            `date` DATE NOT NULL,
+            `time` TIME NOT NULL,
             reason VARCHAR(255),
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            UNIQUE KEY uniq_slot (\`date\`, \`time\`),
-            INDEX idx_date (\`date\`)
+            UNIQUE KEY uniq_slot (`date`, `time`),
+            INDEX idx_date (`date`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
     ");
 
     // Seed default availability settings (id=1) — always try, INSERT IGNORE handles duplicates
     try {
-        $today = date('Y-m-d');
+        $today = clinicNow()->format('Y-m-d');
         $pdo->prepare('INSERT IGNORE INTO availability_settings (id, first_available_date, booking_window_days, slot_duration_minutes) VALUES (1, ?, 30, 30)')
             ->execute([$today]);
     } catch (Exception $e) {
         error_log('[sinisteroid] ensureTables seed settings failed: ' . $e->getMessage());
     }
 
-    // Seed default day slots (Sun-Thu + Sat working, Fri closed) — always try
+    // Existing rows can restrict availability; the clinic policy always caps them.
     try {
-        $defaults = [
-            [0, 1, '08:00:00', '17:00:00'], // Sunday
-            [1, 1, '08:00:00', '17:00:00'], // Monday
-            [2, 1, '08:00:00', '17:00:00'], // Tuesday
-            [3, 1, '08:00:00', '17:00:00'], // Wednesday
-            [4, 1, '08:00:00', '17:00:00'], // Thursday
-            [5, 0, NULL, NULL],             // Friday (closed)
-            [6, 1, '08:00:00', '17:00:00'], // Saturday
-        ];
         $stmt = $pdo->prepare('INSERT IGNORE INTO availability_day_slots (day_of_week, is_available, start_time, end_time) VALUES (?, ?, ?, ?)');
-        foreach ($defaults as $row) {
-            $stmt->execute($row);
+        foreach (clinicDefaultWeek() as $row) {
+            $stmt->execute(array_values($row));
         }
     } catch (Exception $e) {
         error_log('[sinisteroid] ensureTables seed day_slots failed: ' . $e->getMessage());

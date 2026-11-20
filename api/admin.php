@@ -2,6 +2,7 @@
 // Full admin UI for blog posts with list, edit, delete, duplicate, JSON sync, uploads, and SEO fields.
 require_once __DIR__ . '/db.php';
 header('Content-Type: text/html; charset=utf-8');
+header('Cache-Control: private, no-store');
 
 // Load config for admin creds and uploads dir (config.sample.php used when config.php missing)
 if (defined('ADMIN_USER')) {
@@ -102,7 +103,7 @@ register_shutdown_function(static function () {
     header('Content-Type: application/json; charset=utf-8');
   }
   echo json_encode([
-    'error' => 'Server error: ' . $err['message'] . ' (' . basename($err['file']) . ':' . $err['line'] . ')',
+    'error' => 'Server error. Check the PHP error log.',
   ]);
 });
 
@@ -124,20 +125,15 @@ function assertSameOriginMutation()
   if ($site !== null && $site !== 'same-origin' && $site !== 'none') {
     errorResponse('Cross-site request blocked', 403);
   }
-  $host = $_SERVER['HTTP_HOST'] ?? '';
-  if ($host !== '') {
-    $origin = $_SERVER['HTTP_ORIGIN'] ?? null;
-    if ($origin !== null && $origin !== '') {
-      if (strcasecmp((string) parse_url($origin, PHP_URL_HOST), $host) !== 0) {
-        errorResponse('Cross-origin request blocked', 403);
-      }
-    } else {
-      $refHost = parse_url($_SERVER['HTTP_REFERER'] ?? '', PHP_URL_HOST);
-      if ($refHost !== null && strcasecmp((string) $refHost, $host) !== 0) {
-        errorResponse('Cross-origin request blocked', 403);
-      }
-    }
-  }
+  $scheme = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http';
+  $originOf = static function ($url) {
+    $p = parse_url($url);
+    if (!$p || !isset($p['scheme'], $p['host']) || !in_array($p['scheme'], ['http','https'], true)) return null;
+    return [$p['scheme'], strtolower($p['host']), $p['port'] ?? ($p['scheme'] === 'https' ? 443 : 80)];
+  };
+  $source = $_SERVER['HTTP_ORIGIN'] ?? $_SERVER['HTTP_REFERER'] ?? '';
+  $expected = $originOf($scheme . '://' . ($_SERVER['HTTP_HOST'] ?? ''));
+  if (!$expected || !$source || $originOf($source) !== $expected) errorResponse('Same-origin request required', 403);
 }
 
 if (!function_exists('jsonResponse')) {
@@ -578,9 +574,169 @@ function uploadImageFile($fileFieldName)
   return ['src' => getWebPath($targetPath), 'filename' => $targetName];
 }
 
-if (isset($_GET['action'])) {
+require_once __DIR__ . '/clinic-admin-actions.php';
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action'])) {
   $action = $_GET['action'];
   switch ($action) {
+    case 'clinic-copy': case 'schedule': case 'thread':
+      clinicAdminDispatch($pdo, $action, $_GET);
+      break;
+    case 'availability':
+      header('Content-Type: application/json; charset=utf-8');
+      try {
+        $settings = $pdo->query('SELECT * FROM availability_settings WHERE id = 1')->fetch();
+        if (!$settings) {
+          http_response_code(500);
+          echo json_encode(['error' => 'Availability not configured.'], JSON_UNESCAPED_UNICODE);
+          exit;
+        }
+        $daySlots = [];
+        $stmt = $pdo->query('SELECT * FROM availability_day_slots ORDER BY day_of_week');
+        while ($row = $stmt->fetch()) {
+          $daySlots[] = ['id' => (int) $row['id']] + clinicDaySlot($row);
+        }
+        echo json_encode([
+          'settings' => [
+            'id' => (int) $settings['id'],
+            'first_available_date' => $settings['first_available_date'],
+            'booking_window_days' => (int) $settings['booking_window_days'],
+            'slot_duration_minutes' => (int) $settings['slot_duration_minutes'],
+          ],
+          'daySlots' => $daySlots,
+        ], JSON_UNESCAPED_UNICODE);
+        exit;
+      } catch (Exception $e) {
+        error_log('[sinisteroid] admin availability get failed: ' . $e->getMessage());
+        http_response_code(500);
+        echo json_encode(['error' => 'Failed to load availability.'], JSON_UNESCAPED_UNICODE);
+        exit;
+      }
+
+    case 'stats':
+      header('Content-Type: application/json; charset=utf-8');
+      try {
+        $totalBookings = (int) $pdo->query('SELECT COUNT(*) FROM bookings')->fetchColumn();
+        $pendingBookings = (int) $pdo->query("SELECT COUNT(*) FROM bookings WHERE status = 'pending'")->fetchColumn();
+        $confirmedBookings = (int) $pdo->query("SELECT COUNT(*) FROM bookings WHERE status = 'confirmed'")->fetchColumn();
+        $totalMessages = (int) $pdo->query('SELECT COUNT(*) FROM contact_messages')->fetchColumn();
+        $totalForumPosts = (int) $pdo->query('SELECT COUNT(*) FROM forum_posts')->fetchColumn();
+        $totalForumReplies = (int) $pdo->query('SELECT COUNT(*) FROM forum_replies')->fetchColumn();
+        echo json_encode([
+          'totalBookings' => $totalBookings,
+          'pendingBookings' => $pendingBookings,
+          'confirmedBookings' => $confirmedBookings,
+          'totalMessages' => $totalMessages,
+          'totalForumPosts' => $totalForumPosts,
+          'totalForumReplies' => $totalForumReplies,
+        ], JSON_UNESCAPED_UNICODE);
+        exit;
+      } catch (Exception $e) {
+        error_log('[sinisteroid] admin stats failed: ' . $e->getMessage());
+        http_response_code(500);
+        echo json_encode(['error' => 'Failed to load stats.'], JSON_UNESCAPED_UNICODE);
+        exit;
+      }
+
+    case 'bookings':
+      header('Content-Type: application/json; charset=utf-8');
+      try {
+        $stmt = $pdo->query(
+          'SELECT id, full_name, email, phone, session_type, preferred_date, preferred_time, notes, status, created_at
+           FROM bookings ORDER BY created_at DESC'
+        );
+        $rows = $stmt->fetchAll();
+        foreach ($rows as &$row) {
+          if ($row['preferred_time'] !== null) {
+            $row['preferred_time'] = substr((string) $row['preferred_time'], 0, 5);
+          }
+        }
+        echo json_encode(['bookings' => $rows], JSON_UNESCAPED_UNICODE);
+        exit;
+      } catch (Exception $e) {
+        error_log('[sinisteroid] admin bookings list failed: ' . $e->getMessage());
+        http_response_code(500);
+        echo json_encode(['error' => 'Failed to load bookings.'], JSON_UNESCAPED_UNICODE);
+        exit;
+      }
+
+    case 'comments':
+      header('Content-Type: application/json; charset=utf-8');
+      $type = isset($_GET['type']) ? (string) $_GET['type'] : 'blog';
+      if ($type === 'forum') {
+        try {
+          $stmt = $pdo->query(
+            'SELECT fp.id, fp.author_name, fp.title, fp.content, fp.category, fp.created_at,
+                    (SELECT COUNT(*) FROM forum_replies fr WHERE fr.post_id = fp.id) as reply_count
+             FROM forum_posts fp ORDER BY fp.created_at DESC'
+          );
+          $rows = $stmt->fetchAll();
+          echo json_encode(['posts' => $rows], JSON_UNESCAPED_UNICODE);
+          exit;
+        } catch (Exception $e) {
+          error_log('[sinisteroid] admin forum list failed: ' . $e->getMessage());
+          http_response_code(500);
+          echo json_encode(['error' => 'Failed to load forum posts.'], JSON_UNESCAPED_UNICODE);
+          exit;
+        }
+      } else {
+        try {
+          $stmt = $pdo->query(
+            'SELECT c.id, c.post_id, c.author_name, c.content, c.is_approved, c.created_at,
+                    p.title AS post_title
+             FROM blog_comments c
+             LEFT JOIN posts p ON p.id = c.post_id
+             ORDER BY c.created_at DESC'
+          );
+          $rows = $stmt->fetchAll();
+          echo json_encode(['comments' => $rows], JSON_UNESCAPED_UNICODE);
+          exit;
+        } catch (Exception $e) {
+          error_log('[sinisteroid] admin comments list failed: ' . $e->getMessage());
+          http_response_code(500);
+          echo json_encode(['error' => 'Failed to load comments.'], JSON_UNESCAPED_UNICODE);
+          exit;
+        }
+      }
+
+    case 'messages':
+      header('Content-Type: application/json; charset=utf-8');
+      try {
+        $stmt = $pdo->query(
+          'SELECT id, name, email, subject, message, created_at
+           FROM contact_messages ORDER BY created_at DESC'
+        );
+        $rows = $stmt->fetchAll();
+        echo json_encode(['messages' => $rows], JSON_UNESCAPED_UNICODE);
+        exit;
+      } catch (Exception $e) {
+        error_log('[sinisteroid] admin messages list failed: ' . $e->getMessage());
+        http_response_code(500);
+        echo json_encode(['error' => 'Failed to load messages.'], JSON_UNESCAPED_UNICODE);
+        exit;
+      }
+
+    case 'unavailable-slots':
+      header('Content-Type: application/json; charset=utf-8');
+      try {
+        $stmt = $pdo->query(
+          'SELECT id, `date`, `time`, reason, created_at
+           FROM unavailable_slots ORDER BY `date` ASC, `time` ASC'
+        );
+        $rows = $stmt->fetchAll();
+        foreach ($rows as &$row) {
+          if ($row['time'] !== null) {
+            $row['time'] = substr((string) $row['time'], 0, 5);
+          }
+        }
+        echo json_encode(['slots' => $rows], JSON_UNESCAPED_UNICODE);
+        exit;
+      } catch (Exception $e) {
+        error_log('[sinisteroid] admin unavailable slots list failed: ' . $e->getMessage());
+        http_response_code(500);
+        echo json_encode(['error' => 'Failed to load blocked slots.'], JSON_UNESCAPED_UNICODE);
+        exit;
+      }
+
     case 'dashboard':
       try {
         $counts = $pdo->query("SELECT COUNT(*) AS total, COALESCE(SUM(status = 'published'), 0) AS published, COALESCE(SUM(status <> 'published'), 0) AS drafts FROM posts")->fetch();
@@ -651,56 +807,6 @@ if (isset($_GET['action'])) {
       }
       break;
 
-    case 'bookings':
-      try {
-        $stmt = $pdo->query(
-          'SELECT id, full_name, email, phone, session_type, preferred_date, preferred_time, notes, status, created_at
-           FROM bookings ORDER BY created_at DESC'
-        );
-        $rows = $stmt->fetchAll();
-        foreach ($rows as &$row) {
-          if ($row['preferred_time'] !== null) {
-            $row['preferred_time'] = substr((string) $row['preferred_time'], 0, 5);
-          }
-        }
-        jsonResponse(['bookings' => $rows]);
-      } catch (Throwable $e) {
-        error_log('[sinisteroid] admin bookings list failed: ' . $e->getMessage());
-        errorResponse('Bookings list failed; check the PHP error log.', 500);
-      }
-      break;
-
-    case 'comments':
-      try {
-        $stmt = $pdo->query(
-          'SELECT c.id, c.post_id, c.author_name, c.content, c.is_approved, c.created_at,
-                  p.title AS post_title
-           FROM blog_comments c
-           LEFT JOIN posts p ON p.id = c.post_id
-           ORDER BY c.created_at DESC'
-        );
-        $rows = $stmt->fetchAll();
-        jsonResponse(['comments' => $rows]);
-      } catch (Throwable $e) {
-        error_log('[sinisteroid] admin comments list failed: ' . $e->getMessage());
-        errorResponse('Comments list failed; check the PHP error log.', 500);
-      }
-      break;
-
-    case 'messages':
-      try {
-        $stmt = $pdo->query(
-          'SELECT id, name, email, subject, message, created_at
-           FROM contact_messages ORDER BY created_at DESC'
-        );
-        $rows = $stmt->fetchAll();
-        jsonResponse(['messages' => $rows]);
-      } catch (Throwable $e) {
-        error_log('[sinisteroid] admin messages list failed: ' . $e->getMessage());
-        errorResponse('Messages list failed; check the PHP error log.', 500);
-      }
-      break;
-
     case 'list':
       try {
         jsonResponse(listPosts());
@@ -747,6 +853,95 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
   }
   switch ($action) {
+    case 'publish-copy': case 'save-schedule': case 'block-slot': case 'unblock-slot':
+    case 'booking-status': case 'moderate-comment': case 'save-topic': case 'staff-reply': case 'delete-reply':
+      clinicAdminDispatch($pdo, $action, $jsonBody);
+      break;
+    case 'availability':
+      $method = $_SERVER['REQUEST_METHOD'];
+      if ($method === 'POST' && !empty($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'])) {
+        $method = strtoupper((string) $_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']);
+      }
+      if ($method !== 'PATCH') {
+        http_response_code(405);
+        echo json_encode(['error' => 'Method not allowed. Use PATCH.'], JSON_UNESCAPED_UNICODE);
+        exit;
+      }
+      $input = $jsonBody;
+      if (!is_array($input)) {
+        $input = [];
+      }
+      try {
+        $changes = $input['daySlots'] ?? [];
+        if (isset($input['day_of_week'])) {
+          $stmt = $pdo->prepare('SELECT * FROM availability_day_slots WHERE day_of_week = ?');
+          $stmt->execute([$input['day_of_week']]);
+          $row = $stmt->fetch();
+          $changes = [$row ? array_merge(clinicDaySlot($row), $input) : $input];
+        }
+        foreach ($changes as $slot) {
+          $day = filter_var($slot['day_of_week'] ?? null, FILTER_VALIDATE_INT);
+          $start = $slot['start_time'] ?? null;
+          $end = $slot['end_time'] ?? null;
+          $policy = clinicSchedule();
+          if ($day === false || $day < 0 || $day > 6 || !in_array($slot['is_available'] ?? null, [0, 1, '0', '1'], true) || ((int) $slot['is_available'] === 1 &&
+              (!in_array($day, $policy['weekdays'], true) || !is_string($start) || !is_string($end) ||
+               !preg_match('/^\\d\\d:[0-5]\\d$/D', $start) || !preg_match('/^\\d\\d:[0-5]\\d$/D', $end) ||
+               $start < $policy['opens'] || $end > $policy['closes'] || $start >= $end))) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Weekly availability must stay within clinic hours.'], JSON_UNESCAPED_UNICODE);
+            exit;
+          }
+        }
+        if (isset($input['slot_duration_minutes']) && ((int) $input['slot_duration_minutes'] < 10 || (int) $input['slot_duration_minutes'] > 240)) {
+          http_response_code(400);
+          echo json_encode(['error' => 'Invalid slot duration.'], JSON_UNESCAPED_UNICODE);
+          exit;
+        }
+        if (isset($input['first_available_date']) || isset($input['booking_window_days']) || isset($input['slot_duration_minutes'])) {
+          $updates = [];
+          $values = [];
+          if (isset($input['first_available_date'])) {
+            $updates[] = 'first_available_date = ?';
+            $values[] = $input['first_available_date'];
+          }
+          if (isset($input['booking_window_days'])) {
+            $updates[] = 'booking_window_days = ?';
+            $values[] = (int) $input['booking_window_days'];
+          }
+          if (isset($input['slot_duration_minutes'])) {
+            $updates[] = 'slot_duration_minutes = ?';
+            $values[] = (int) $input['slot_duration_minutes'];
+          }
+          if (!empty($updates)) {
+            $values[] = 1;
+            $stmt = $pdo->prepare('UPDATE availability_settings SET ' . implode(', ', $updates) . ', updated_at = CURRENT_TIMESTAMP WHERE id = ?');
+            $stmt->execute($values);
+          }
+        }
+        if ($changes) {
+          $stmt = $pdo->prepare(
+            'UPDATE availability_day_slots
+             SET is_available = ?, start_time = ?, end_time = ?, updated_at = CURRENT_TIMESTAMP
+             WHERE day_of_week = ?'
+          );
+          foreach ($changes as $slot) {
+            $slot = clinicDaySlot($slot);
+            $stmt->execute([
+              (int) ($slot['is_available'] ?? 0),
+              $slot['start_time'] ?? null,
+              $slot['end_time'] ?? null,
+              (int) $slot['day_of_week'],
+            ]);
+          }
+        }
+        echo json_encode(['ok' => true, 'message' => 'Availability settings saved.'], JSON_UNESCAPED_UNICODE);
+      } catch (Exception $e) {
+        error_log('[sinisteroid] admin availability patch failed: ' . $e->getMessage());
+        http_response_code(500);
+        echo json_encode(['error' => 'Failed to save availability.'], JSON_UNESCAPED_UNICODE);
+      }
+      exit;
     case 'save':
       $payload = json_decode($_POST['post_json'] ?? '', true);
       if (!is_array($payload)) {
@@ -824,6 +1019,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         errorResponse('Failed to delete message', 500);
       }
       break;
+    case 'delete-unavailable-slot':
+      $id = (int) ($jsonBody['id'] ?? 0);
+      if (!$id) {
+        errorResponse('Missing slot id', 400);
+      }
+      try {
+        $pdo->prepare('DELETE FROM unavailable_slots WHERE id = ?')->execute([$id]);
+        jsonResponse(['ok' => true]);
+      } catch (Throwable $e) {
+        error_log('[sinisteroid] delete unavailable slot failed: ' . $e->getMessage());
+        errorResponse('Failed to delete unavailable slot', 500);
+      }
+      break;
     default:
       errorResponse('Unknown action', 400);
   }
@@ -852,7 +1060,7 @@ function getDefaultPost()
   <meta charset="utf-8" />
   <!-- admin.php v3.0-personal — if you can NOT see this comment in the
          page source on the server, the deployed file is out of date. -->
-  <title>Blog Admin</title>
+  <title>Clinic Admin</title>
   <style>
     /* ============================================================
    BLOG ADMIN — design system
@@ -2320,6 +2528,18 @@ function getDefaultPost()
         scroll-behavior: auto !important;
       }
     }
+    .clinic-fields {display:grid;gap:12px;margin-block:12px;min-width:0}
+    .clinic-fields label,.clinic-week label {display:grid;gap:4px}
+    .clinic-fields fieldset,.clinic-week,.clinic-record {border:1px solid var(--line);border-radius:8px;padding:12px;min-width:0}
+    .clinic-record+.clinic-record {margin-top:8px}
+    .clinic-record summary {cursor:pointer;overflow-wrap:anywhere}
+    .clinic-record summary small {display:block;margin-top:4px}
+    .clinic-record p {white-space:pre-wrap;overflow-wrap:anywhere}
+    .clinic-fields button {justify-self:start}
+    .clinic-week {display:flex;gap:12px;align-items:end;flex-wrap:wrap}
+    body:not([data-workspace="posts"]) :is(#view-tabs,#preview-post,#save-post,#duplicate-post,#delete-post,#side-nav,.inspector,.rail-search,.rail-list-head,#post-list) {display:none}
+    body:not([data-workspace="posts"]) .canvas {grid-column:2/-1}
+    @media(max-width:760px){body:not([data-workspace="posts"]) .canvas {grid-column:1/-1}}
   </style>
 </head>
 
@@ -2329,8 +2549,8 @@ function getDefaultPost()
     <!-- Left rail: brand, actions, search, section index, post list -->
     <aside class="rail panel">
       <div class="rail-head">
-        <p class="rail-brand">BLOG <b>ADMIN</b></p>
-        <p class="rail-sub">Manage posts, SEO, images, structure.</p>
+        <p class="rail-brand">CLINIC <b>ADMIN</b></p>
+        <p class="rail-sub">Patient requests, publishing and clinic settings.</p>
         <div class="rail-actions">
           <button id="new-post" class="button button-primary">+ New</button>
           <button id="export-all" class="button button-secondary button-sm">Export All JSON</button>
@@ -2343,6 +2563,8 @@ function getDefaultPost()
         <button type="button" data-workspace="media">▧ <span>Media library</span></button>
         <button type="button" data-workspace="forum">Forum</button>
         <button type="button" data-workspace="bookings">Reservations</button>
+        <button type="button" data-workspace="schedule">Booking availability</button>
+        <button type="button" data-workspace="copy">Public site content</button>
         <button type="button" data-workspace="comments">Comments</button>
         <button type="button" data-workspace="messages">Messages</button>
         <button type="button" data-workspace="settings">⚙ <span>Settings</span></button>
@@ -2432,6 +2654,7 @@ function getDefaultPost()
             <p class="muted" id="media-empty" hidden>No uploaded images yet.</p>
           </div>
         </section>
+        <?php require __DIR__ . '/clinic-admin-panels.inc.php'; ?>
         <section class="utility-view" id="settings-view" hidden>
           <div class="utility-heading">
             <div>
@@ -2448,91 +2671,13 @@ function getDefaultPost()
           </div>
         </section>
 
-        <section class="utility-view" id="forum-view" hidden>
-            <div class="utility-heading">
-              <div>
-                <h1>Forum</h1>
-                <p>Manage forum posts and replies.</p>
-              </div>
-            </div>
-            <div class="utility-panel">
-              <div class="workspace-actions"
-                style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
-                <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                  <input id="forum-search" class="input" style="max-width:300px;" placeholder="Search forum..." />
-                  <button id="new-forum-post" class="button button-primary">+ New Post</button>
-                </div>
-              </div>
-              <div class="utility-panel" style="margin-top:12px;padding:12px;">
-                <div id="forum-post-list" class="post-list" style="max-height:400px;overflow-y:auto;"></div>
-              </div>
-            </div>
-          </section>
-
-          <section class="utility-view" id="bookings-view" hidden>
-            <div class="utility-heading">
-              <div>
-                <h1>Reservations</h1>
-                <p>Manage appointments and bookings.</p>
-              </div>
-            </div>
-            <div class="utility-panel">
-              <div class="workspace-actions"
-                style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
-                <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                  <input id="booking-search" class="input" style="max-width:300px;" placeholder="Search bookings..." />
-                </div>
-              </div>
-              <div class="utility-panel" style="margin-top:12px;padding:12px;">
-                <div id="booking-list" class="post-list" style="max-height:400px;overflow-y:auto;"></div>
-              </div>
-            </div>
-          </section>
-
-          <section class="utility-view" id="comments-view" hidden>
-            <div class="utility-heading">
-              <div>
-                <h1>Comments</h1>
-                <p>Manage blog comments and messages.</p>
-              </div>
-            </div>
-            <div class="utility-panel">
-              <div class="workspace-actions"
-                style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
-                <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                  <input id="comment-search" class="input" style="max-width:300px;" placeholder="Search comments..." />
-                </div>
-              </div>
-              <div class="utility-panel" style="margin-top:12px;padding:12px;">
-                <div id="comment-list" class="post-list" style="max-height:400px;overflow-y:auto;"></div>
-              </div>
-            </div>
-          </section>
-
-          <section class="utility-view" id="messages-view" hidden>
-            <div class="utility-heading">
-              <div>
-                <h1>Messages</h1>
-                <p>Manage messages and contact inquiries.</p>
-              </div>
-            </div>
-            <div class="utility-panel">
-              <div class="workspace-actions"
-                style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
-                <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                  <input id="message-search" class="input" style="max-width:300px;" placeholder="Search messages..." />
-                </div>
-              </div>
-              <div class="utility-panel" style="margin-top:12px;padding:12px;">
-                <div id="message-list" class="post-list" style="max-height:400px;overflow-y:auto;"></div>
-              </div>
-            </div>
-          </section>
-
-          <div class="utility-panel">
-            <h2>Blog system</h2>
-            <p class="muted">Post editing, media uploads, previews, and publishing use the connected blog database.</p>
-          </div>
+        <?php foreach (['forum'=>'Forum', 'bookings'=>'Reservations', 'comments'=>'Comment moderation', 'messages'=>'Contact inbox'] as $key=>$heading): ?>
+        <section class="utility-view" id="<?= $key ?>-view" hidden>
+          <div class="utility-heading"><h1><?= $heading ?></h1><?php if ($key==='forum'): ?><button class="button button-primary" type="button" id="new-topic">New topic</button><?php endif; ?></div>
+          <label>Search <?= strtolower($heading) ?><input class="input" type="search" id="<?= $key ?>-filter"></label>
+          <div class="utility-panel" id="<?= $key ?>-records"></div><p role="status" id="<?= $key ?>-result"></p>
+        </section>
+        <?php endforeach; ?>
         <div class="view-panel" id="post-editor-view" hidden>
           <div id="editor-view">
             <!-- Global language toggle drives every section's tabs at once -->
@@ -2906,6 +3051,7 @@ function getDefaultPost()
     }
 
     function closePreview() {
+      byId('preview-modal').hidden = true;
       byId('preview-modal').style.display = 'none';
     }
 
@@ -2950,222 +3096,16 @@ function getDefaultPost()
         view.hidden = !active;
         view.classList.toggle('active', active);
       });
-      const editorView = byId('post-editor-view');
-  if (editorView) {
-    editorView.hidden = name !== 'posts';
-  }
-  const newPostBtn = byId('new-post');
-  if (newPostBtn) {
-    newPostBtn.hidden = name !== 'posts';
-  }
-        if (name === 'overview') loadDashboard();
-        if (name === 'media') loadMedia();
-        if (name === 'forum') loadForums();
-        if (name === 'bookings') loadBookings();
-        if (name === 'comments') loadComments();
-        if (name === 'messages') loadMessages();
-    }
-    // Load data for different workspace types
-    async function loadForums() {
-      try {
-        const data = await fetchJson(apiBase + '?action=forum');
-        const container = byId('forum-post-list');
-        if (!data || !Array.isArray(data.posts)) {
-          container.innerHTML = '<p class="muted">No forum posts found.</p>';
-          return;
-        }
-        container.innerHTML = data.posts.map(p => `
-        <div class="post-row">
-          <div class="post-row-main">
-            <button class="post-row-title" data-open-forum="${escapeHtml(p.slug)}">${escapeHtml(p.title || p.slug)}</button>
-            <div class="post-row-meta">
-              <span class="badge badge-published">${escapeHtml(p.status || 'draft')}</span>
-              <span>Posted by ${escapeHtml(p.author_name || 'Unknown')} on ${escapeHtml(p.date || '')}</span>
-            </div>
-          </div>
-          <div class="actions">
-            <button class="button button-sm button-secondary" data-edit-forum="${escapeHtml(p.id)}">Edit</button>
-            <button class="button button-sm button-danger" data-delete-forum="${escapeHtml(p.id)}">Delete</button>
-          </div>
-        </div>
-      `).join('');
-      } catch (error) {
-        toast(error.message || 'Failed to load forum posts.', 'err');
-      }
-    }
-
-    // Event listeners for new workspace features
-    document.addEventListener('DOMContentLoaded', () => {
-      // Forum post list events
-      document.addEventListener('click', (e) => {
-        if (e.target.closest('[data-open-forum]')) {
-          setWorkspace('forum');
-          loadForums();
-        }
-        if (e.target.closest('[data-edit-forum]')) {
-          const id = e.target.closest('[data-edit-forum]').dataset.editForum;
-          setWorkspace('posts');
-          loadPost(id);
-        }
-        if (e.target.closest('[data-delete-forum]')) {
-          const id = e.target.closest('[data-delete-forum]').dataset.deleteForum;
-          if (confirm('Delete this forum post?')) {
-            fetchJson(apiBase + '?action=delete-forum', { method: 'POST', body: JSON.stringify({ id }) })
-              .then(() => loadForums())
-              .catch(e => toast(e.message || 'Failed to delete.', 'err'));
-          }
-        }
-      });
-
-      // Booking list events
-      document.addEventListener('click', (e) => {
-        if (e.target.closest('[data-open-booking]')) {
-          setWorkspace('bookings');
-          loadBookings();
-        }
-        if (e.target.closest('[data-edit-booking]')) {
-          const id = e.target.closest('[data-edit-booking]').dataset.editBooking;
-          setWorkspace('bookings');
-          loadBookings();
-        }
-        if (e.target.closest('[data-delete-booking]')) {
-          const id = e.target.closest('[data-delete-booking]').dataset.deleteBooking;
-          if (confirm('Delete this booking?')) {
-            fetchJson(apiBase + '?action=delete-booking', { method: 'POST', body: JSON.stringify({ id }) })
-              .then(() => loadBookings())
-              .catch(e => toast(e.message || 'Failed to delete.', 'err'));
-          }
-        }
-      });
-
-      // Comment list events
-      document.addEventListener('click', (e) => {
-        if (e.target.closest('[data-open-comment]')) {
-          setWorkspace('comments');
-          loadComments();
-        }
-        if (e.target.closest('[data-edit-comment]')) {
-          const id = e.target.closest('[data-edit-comment]').dataset.editComment;
-          setWorkspace('comments');
-          loadComments();
-        }
-        if (e.target.closest('[data-delete-comment]')) {
-          const id = e.target.closest('[data-delete-comment]').dataset.deleteComment;
-          if (confirm('Delete this comment?')) {
-            fetchJson(apiBase + '?action=delete-comment', { method: 'POST', body: JSON.stringify({ id }) })
-              .then(() => loadComments())
-              .catch(e => toast(e.message || 'Failed to delete.', 'err'));
-          }
-        }
-      });
-
-      // Message list events
-      document.addEventListener('click', (e) => {
-        if (e.target.closest('[data-open-message]')) {
-          setWorkspace('messages');
-          loadMessages();
-        }
-        if (e.target.closest('[data-edit-message]')) {
-          const id = e.target.closest('[data-edit-message]').dataset.editMessage;
-          setWorkspace('messages');
-          loadMessages();
-        }
-        if (e.target.closest('[data-delete-message]')) {
-          const id = e.target.closest('[data-delete-message]').dataset.deleteMessage;
-          if (confirm('Delete this message?')) {
-            fetchJson(apiBase + '?action=delete-message', { method: 'POST', body: JSON.stringify({ id }) })
-              .then(() => loadMessages())
-              .catch(e => toast(e.message || 'Failed to delete.', 'err'));
-          }
-        }
-      });
-    });
-
-    async function loadBookings() {
-      try {
-        const data = await fetchJson(apiBase + '?action=bookings');
-        const container = byId('booking-list');
-        if (!data || !Array.isArray(data.bookings)) {
-          container.innerHTML = '<p class="muted">No bookings found.</p>';
-          return;
-        }
-        container.innerHTML = data.bookings.map(b => `
-        <div class="post-row">
-          <div class="post-row-main">
-            <button class="post-row-title" data-open-booking="${escapeHtml(b.id)}">${escapeHtml(b.full_name || b.email || 'Unknown')}</button>
-            <div class="post-row-meta">
-              <span class="badge badge-published">${escapeHtml(b.session_type || 'Booking')}</span>
-              <span>${escapeHtml(b.preferred_date || '')} at ${escapeHtml(b.preferred_time || '')}</span>
-              <span class="badge badge-${b.status || 'pending'}">${escapeHtml(b.status || 'pending')}</span>
-            </div>
-          </div>
-          <div class="actions">
-            <button class="button button-sm button-secondary" data-edit-booking="${escapeHtml(b.id)}">Edit</button>
-            <button class="button button-sm button-danger" data-delete-booking="${escapeHtml(b.id)}">Delete</button>
-          </div>
-        </div>
-      `).join('');
-      } catch (error) {
-        toast(error.message || 'Failed to load bookings.', 'err');
-      }
-    }
-
-    async function loadComments() {
-      try {
-        const data = await fetchJson(apiBase + '?action=comments');
-        const container = byId('comment-list');
-        if (!data || !Array.isArray(data.comments)) {
-          container.innerHTML = '<p class="muted">No comments found.</p>';
-          return;
-        }
-        container.innerHTML = data.comments.map(c => `
-        <div class="post-row">
-          <div class="post-row-main">
-            <button class="post-row-title" data-open-comment="${escapeHtml(c.id)}">${escapeHtml(c.title || 'Comment')}</button>
-            <div class="post-row-meta">
-              <span class="badge badge-published">${escapeHtml(c.post_slug || 'Post')}</span>
-              <span class="badge badge-${c.status || 'pending'}">${escapeHtml(c.status || 'pending')}</span>
-              <span>${escapeHtml(c.author_name || 'Unknown')} on ${escapeHtml(c.date || '')}</span>
-            </div>
-          </div>
-          <div class="actions">
-            <button class="button button-sm button-secondary" data-edit-comment="${escapeHtml(c.id)}">Edit</button>
-            <button class="button button-sm button-danger" data-delete-comment="${escapeHtml(c.id)}">Delete</button>
-          </div>
-        </div>
-      `).join('');
-      } catch (error) {
-        toast(error.message || 'Failed to load comments.', 'err');
-      }
-    }
-
-    async function loadMessages() {
-      try {
-        const data = await fetchJson(apiBase + '?action=messages');
-        const container = byId('message-list');
-        if (!data || !Array.isArray(data.messages)) {
-          container.innerHTML = '<p class="muted">No messages found.</p>';
-          return;
-        }
-        container.innerHTML = data.messages.map(m => `
-        <div class="post-row">
-          <div class="post-row-main">
-            <button class="post-row-title" data-open-message="${escapeHtml(m.id)}">${escapeHtml(m.subject || 'Message')}</button>
-            <div class="post-row-meta">
-              <span class="badge badge-published">${escapeHtml(m.status || 'new')}</span>
-              <span>${escapeHtml(m.author_name || 'Unknown')} &lt;${escapeHtml(m.email || '')}&gt;</span>
-              <span>${escapeHtml(m.date || '')}</span>
-            </div>
-          </div>
-          <div class="actions">
-            <button class="button button-sm button-secondary" data-edit-message="${escapeHtml(m.id)}">Edit</button>
-            <button class="button button-sm button-danger" data-delete-message="${escapeHtml(m.id)}">Delete</button>
-          </div>
-        </div>
-      `).join('');
-      } catch (error) {
-        toast(error.message || 'Failed to load messages.', 'err');
-      }
+      const editing = name === 'posts';
+      document.body.dataset.workspace = name;
+      byId('post-editor-view').hidden = !editing;
+      byId('editor-view').hidden = state.view !== 'editor';
+      byId('json-view').hidden = state.view !== 'json';
+      byId('editor-title').textContent = editing ? state.current?.title || 'New post' : document.querySelector('#'+name+'-view h1')?.textContent || 'Clinic admin';
+      byId('editor-subtitle').hidden = !editing;
+      if(name==='overview') loadDashboard();
+      else if(name==='media') loadMedia();
+      else if(['forum','bookings','comments','messages','copy','schedule'].includes(name)) clinicWorkspace.load(name);
     }
 
     async function loadDashboard() {
@@ -3752,6 +3692,7 @@ function getDefaultPost()
       byId('preview-post').addEventListener('click', () => {
         if (!state.current) return;
         previewLang('en');
+        byId('preview-modal').hidden = false;
         byId('preview-modal').style.display = 'block';
         document.body.style.overflow = 'hidden';
       });
@@ -3795,7 +3736,7 @@ function getDefaultPost()
       document.querySelectorAll('.tab').forEach(tab => tab.addEventListener('click', () => {
         document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t === tab));
         const v = tab.dataset.view;
-        byId('post-editor-view').hidden = v !== 'editor';
+        byId('editor-view').hidden = v !== 'editor';
         byId('json-view').hidden = v !== 'json';
         state.view = v;
       }));
@@ -3877,7 +3818,7 @@ function getDefaultPost()
 
       // Init
       state.current = normalizePost(defaultPost()); render();
-      loadDashboard();
+      setWorkspace('overview');
       async function loadPosts() {
         try {
           const posts = await fetchJson(apiBase + '?action=list');
@@ -4141,7 +4082,8 @@ function getDefaultPost()
         `<div class="stat"><b>${(tr.faq || []).length}</b><span>FAQ</span></div>`;
 
       const focus = (seo.focusKeyword || '').trim();
-      const kws = (seo.keywords || '').split(',').map(k => k.trim()).filter(Boolean);
+      const kwsRaw = seo.keywords || '';
+      const kws = Array.isArray(kwsRaw) ? kwsRaw : String(kwsRaw).split(',').map(k => k.trim()).filter(Boolean);
       byId('seo-chips').innerHTML =
         (focus ? `<span class="chip is-focus">${escapeHtml(focus)}</span>` : '') +
         kws.filter(k => k !== focus).map(k => `<span class="chip">${escapeHtml(k)}</span>`).join('') ||
@@ -4331,8 +4273,8 @@ function getDefaultPost()
       // Keyboard: Ctrl/Cmd+S saves, Ctrl/Cmd+P previews, Esc closes.
       document.addEventListener('keydown', (e) => {
         const mod = e.ctrlKey || e.metaKey;
-        if (mod && e.key.toLowerCase() === 's') { e.preventDefault(); byId('save-post').click(); }
-        else if (mod && e.key.toLowerCase() === 'p') { e.preventDefault(); byId('preview-post').click(); }
+        if (mod && document.body.dataset.workspace === 'posts' && e.key.toLowerCase() === 's') { e.preventDefault(); byId('save-post').click(); }
+        else if (mod && document.body.dataset.workspace === 'posts' && e.key.toLowerCase() === 'p') { e.preventDefault(); byId('preview-post').click(); }
         else if (e.key === 'Escape') {
           const modal = byId('preview-modal');
           if (modal && !modal.hidden) closePreview();
@@ -4347,6 +4289,7 @@ function getDefaultPost()
       });
     });
   </script>
+  <script src="/api/clinic-admin.js"></script>
 </body>
 
 </html>
