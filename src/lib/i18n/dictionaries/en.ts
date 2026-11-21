@@ -54,7 +54,6 @@ const en = {
     closed: "Closed",
     rightsReserved: "All rights reserved.",
     designerBy: "Design by",
-    adminLogin: "Admin Login",
     addressLine1: "Day Medical Tower",
     addressLine2: "Valiasr Street, Floor 10, Unit C",
     addressLine3: "Tehran, Iran",

@@ -54,7 +54,6 @@ const fa = {
     closed: "تعطیل",
     rightsReserved: "تمامی حقوق محفوظ است.",
     designerBy: "طراحی توسط",
-    adminLogin: "ورود مدیریت",
     addressLine1: "ایران، تهران",
     addressLine2: "خیابان ولیعصر، برج پزشکان دی",
     addressLine3: "طبقه دهم، واحد C",

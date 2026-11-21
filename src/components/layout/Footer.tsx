@@ -257,12 +257,6 @@ export default function Footer() {
             </div>
 
             <div className="flex flex-wrap items-center justify-center gap-2.5 text-xs text-slate-400 sm:gap-3 lg:justify-end">
-              <a
-                href="/api/admin.php"
-                className="rounded-full px-2 py-1 hover:text-slate-200"
-              >
-                {currentDict.footer.adminLogin}
-              </a>
               <Link
                 href={`${localePrefix}/privacy`}
                 prefetch={false}
