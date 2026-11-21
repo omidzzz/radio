@@ -46,4 +46,22 @@
      feature panels (blog cards, hero-side panels). */
   --radius-card: 1.5rem;
   --radius-panel: 1.7rem;
+
+  /* ── Editorial article theme tokens ── */
+  --color-bg-secondary: var(--color-bg-secondary);
+  --color-border-soft: var(--color-border-soft);
+  --color-text-tertiary: var(--color-text-tertiary);
+  --type-title: var(--type-title);
+  --type-title-mobile: var(--type-title-mobile);
+  --type-subtitle: var(--type-subtitle);
+  --type-h2: var(--type-h2);
+  --type-h3: var(--type-h3);
+  --type-body: var(--type-body);
+  --type-body-mobile: var(--type-body-mobile);
+  --type-caption: var(--type-caption);
+  --type-line-body: var(--type-line-body);
+  --type-line-heading: var(--type-line-heading);
+  --type-line-lede: var(--type-line-lede);
+  --radius-figure: var(--radius-figure);
+  --shadow-editorial: var(--shadow-editorial);
 }

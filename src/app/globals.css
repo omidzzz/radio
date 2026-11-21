@@ -1844,6 +1844,25 @@ html[lang=fa] .hero-subtitle-mobile {
     --dur-entrance: 800ms;
     --radius-card: 1.5rem;
     --radius-panel: 1.7rem;
+    /* ── Editorial article tokens ── */
+    --color-bg-secondary: #e9ede5;
+    --color-border-soft: #e2dccd;
+    --color-text-tertiary: #8a938d;
+    /* Typography scale (article reading experience) */
+    --type-title: clamp(2.25rem, 1.55rem + 2.7vw, 3rem);
+    --type-title-mobile: clamp(1.75rem, 4vw, 2.25rem);
+    --type-subtitle: clamp(1.0625rem, 0.98rem + 0.22vw, 1.25rem);
+    --type-h2: clamp(1.625rem, 1.42rem + 1.3vw, 1.875rem);
+    --type-h3: clamp(1.3125rem, 1.2rem + 0.6vw, 1.5rem);
+    --type-body: 1.0625rem;
+    --type-body-mobile: 1rem;
+    --type-caption: 0.8125rem;
+    --type-line-body: 2;
+    --type-line-heading: 1.45;
+    --type-line-lede: 1.95;
+    --radius-figure: 1rem;
+    --shadow-editorial: 0 1px 2px 0 rgba(11, 46, 34, 0.04),
+        0 1px 3px 0 rgba(11, 46, 34, 0.06);
     color-scheme: light dark
 }
 
@@ -1878,6 +1897,12 @@ html[lang=fa] .hero-subtitle-mobile {
     --color-secondary: #2fa377;
     --color-secondary-hover: #5fd3a6;
     --color-blog-dark: #04120d;
+    /* ── Editorial article tokens (dark) ── */
+    --color-bg-secondary: #0b251a;
+    --color-border-soft: #1c4433;
+    --color-text-tertiary: #6b7a72;
+    --shadow-editorial: 0 0 0 1px rgba(76, 155, 122, 0.05),
+        0 12px 32px -20px rgba(0, 0, 0, 0.9);
     --elevation-card: 0 0 0 1px rgba(76, 155, 122, .05),
         0 12px 32px -20px rgba(0, 0, 0, .9);
     --elevation-card-hover: 0 0 0 1px rgba(76, 155, 122, .16),
@@ -1921,7 +1946,24 @@ html[lang=fa] .hero-subtitle-mobile {
     --dur-slow: 450ms;
     --dur-entrance: 800ms;
     --radius-card: 1.5rem;
-    --radius-panel: 1.7rem
+    --radius-panel: 1.7rem;
+    /* ── Editorial article theme tokens ── */
+    --color-bg-secondary: var(--color-bg-secondary);
+    --color-border-soft: var(--color-border-soft);
+    --color-text-tertiary: var(--color-text-tertiary);
+    --type-title: var(--type-title);
+    --type-title-mobile: var(--type-title-mobile);
+    --type-subtitle: var(--type-subtitle);
+    --type-h2: var(--type-h2);
+    --type-h3: var(--type-h3);
+    --type-body: var(--type-body);
+    --type-body-mobile: var(--type-body-mobile);
+    --type-caption: var(--type-caption);
+    --type-line-body: var(--type-line-body);
+    --type-line-heading: var(--type-line-heading);
+    --type-line-lede: var(--type-line-lede);
+    --radius-figure: var(--radius-figure);
+    --shadow-editorial: var(--shadow-editorial);
 }
 
 html {

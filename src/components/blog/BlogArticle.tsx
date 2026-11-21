@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import Breadcrumbs from "@/components/breadcrumbs/Breadcrumbs";
 import type { Metadata } from "next";
 import type { BlogPost } from "@/lib/types/blog";
@@ -11,13 +10,18 @@ import { processArticleHtml } from "@/lib/utils/blog-html";
 import { siteConfig } from "@/lib/seo/seo";
 import { articleSchema, breadcrumbSchema, faqSchema } from "@/lib/seo/json-ld";
 import JsonLdScript from "@/components/feedback/JsonLd";
-import ShareButtons from "@/components/feedback/ShareButtons";
 import BlogReadingProgress from "@/components/ui/BlogReadingProgress";
 import BlogBlocks from "./BlogBlocks";
-import BlogPostCard from "./BlogPostCard";
 import TableOfContents from "./TableOfContents";
 import LazyComments from "./LazyComments";
-import ViewCounter from "./ViewCounter";
+import ArticleHeader from "./ArticleHeader";
+import {
+  FAQSection,
+  AuthorProfile,
+  RelatedArticles,
+  ConsultationCTA,
+  MedicalCallout,
+} from "./EditorialComponents";
 import "./article.css";
 
 export function blogArticleMetadata(post: BlogPost, locale: Locale): Metadata {
@@ -56,44 +60,74 @@ export default function BlogArticle({ post, locale }: { post: BlogPost; locale: 
   const schema = articleSchema({ title: view.title, description: view.excerpt, url: view.path, image: view.image, author: view.author,
     datePublished: post.publishedAt, dateModified: post.updatedAt, wordCount: view.plainText.split(/\s+/u).filter(Boolean).length, locale, readMinutes: view.readMinutes });
   if (post.document?.demo) delete schema.publisher;
-  return <div className="blog-article" dir={fa ? "rtl" : "ltr"} lang={locale}>
+
+  const breadcrumbItems = [
+    { label: fa ? "خانه" : "Home", href: `/${locale}` },
+    { label: fa ? "مقالات" : "Articles", href: `/${locale}/blog` },
+    { label: view.title, href: view.path, isCurrent: true },
+  ];
+
+  const demoNotice = post.document?.demo && (
+    <MedicalCallout tone="warning" title={fa ? "نمونه نمایشی — بدون بازبینی پزشک" : "Demonstration — not clinician-reviewed"}>
+      {fa
+        ? "این مطلب برای نمایش قالب و فرآیند ورود محتوا تهیه شده است؛ راهنمای تشخیص یا درمان فردی نیست و نباید به پزشک سایت نسبت داده شود."
+        : "This sample demonstrates the template and import workflow. It is not personal diagnostic or treatment advice and is not attributed to the site's physician."}
+    </MedicalCallout>
+  );
+
+  return (
+    <div className="blog-article" dir={fa ? "rtl" : "ltr"} lang={locale}>
     <JsonLdScript data={[schema, breadcrumbSchema([{ name: fa ? "خانه" : "Home", path: `/${locale}` }, { name: fa ? "مقالات" : "Articles", path: `/${locale}/blog` }, { name: view.title, path: view.path }]), ...(faqs.length ? [faqSchema(faqs)] : [])]} />
     <BlogReadingProgress title={view.title} url={view.path} isRtl={fa} />
-    <header className="blog-header"><div className="blog-shell">
-      <nav className="blog-breadcrumb" aria-label={fa ? "مسیر صفحه" : "Breadcrumb"}><Breadcrumbs
-          items={[
-            { label: fa ? "خانه" : "Home", href: `/${locale}` },
-            { label: fa ? "مقالات" : "Articles", href: `/${locale}/blog` },
-            { label: view.title, href: view.path, isCurrent: true }
-          ]}
-          separator={<span aria-hidden="true">/</span>}
-        /></nav>
-      <span className="blog-eyebrow">{view.category}</span><h1 className="article-title">{view.title}</h1><p className="blog-deck">{view.excerpt}</p>
-      <div className="blog-meta"><span>{view.author}</span>{post.publishedAt && <time dateTime={post.publishedAt}>{new Intl.DateTimeFormat(fa ? "fa-IR" : "en-US", { dateStyle: "long", timeZone: "UTC" }).format(new Date(post.publishedAt))}</time>}<span>{new Intl.NumberFormat(locale).format(view.readMinutes)} {fa ? "دقیقه مطالعه" : "min read"}</span><ViewCounter postId={post.id} initialViews={post.views ?? 0} isFa={fa} /></div>
-      {post.document?.demo && <p className="blog-demo"><strong>{fa ? "نمونه نمایشی — بدون بازبینی پزشک" : "Demonstration — not clinician-reviewed"}</strong><br />{fa ? "این مطلب برای نمایش قالب و فرایند ورود محتوا تهیه شده است؛ راهنمای تشخیص یا درمان فردی نیست و نباید به پزشک سایت نسبت داده شود." : "This sample demonstrates the template and import workflow. It is not personal diagnostic or treatment advice and is not attributed to the site's physician."}</p>}
-      {view.image && <figure className="blog-cover">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <Image
-          src={view.image}
-          alt={view.imageAlt}
-          width={1200}
-          height={675}
-          fetchPriority="high"
-          priority
-          className="object-cover"
-        />
-      </figure>}
-    </div></header>
-    <div className="blog-shell blog-layout"><div>
-      {toc.length > 0 && <details className="blog-mobile-toc"><summary>{fa ? "فهرست مطالب" : "On this page"}</summary><TableOfContents items={toc} isFa={fa} /></details>}
-      <article className="blog-content article-content" aria-label={view.title}>
-        {view.translation ? <BlogBlocks blocks={view.translation.content} title={view.title} locale={locale} /> : <div dangerouslySetInnerHTML={{ __html: legacy!.html }} />}
-        {faqs.length > 0 && <section className="blog-accordion"><h2>{fa ? "پرسش‌های متداول" : "Frequently asked questions"}</h2>{faqs.map((item, i) => <details key={i}><summary>{item.question}</summary><p>{item.answer}</p></details>)}</section>}
-      </article>
-      <div className="blog-after blog-actions"><ShareButtons title={view.title} url={view.path} isFa={fa} /></div>
-      {related.length > 0 && <section className="blog-after"><h2>{fa ? "مقالات مرتبط" : "Related articles"}</h2><div className="blog-related">{related.map((item) => <BlogPostCard key={item.id} post={item} isFa={fa} />)}</div></section>}
-      <section className="blog-after blog-comments"><h2>{fa ? "نظرات" : "Comments"}</h2><LazyComments postId={post.id} initialComments={comments} /></section>
-      <div className="blog-after"><Link href={`/${locale}/blog`} className="ui-button ui-button-ghost">{fa ? "بازگشت به مقالات" : "Back to articles"}</Link></div>
-    </div><aside className="blog-sidebar"><TableOfContents items={toc} isFa={fa} /></aside></div>
-  </div>;
+    <header className="blog-header article-header">
+      <div className="blog-shell article-header-inner">
+        <Breadcrumbs items={breadcrumbItems} separator={<span aria-hidden="true">/</span>} />
+        <ArticleHeader post={post} locale={locale} />
+        {demoNotice}
+      </div>
+    </header>
+    <div className="blog-shell article-layout">
+      <div className="article-main">
+          {toc.length > 0 && (
+            <details className="article-toc">
+              <summary>{fa ? "فهرست مطالب" : "On this page"}</summary>
+              <TableOfContents items={toc} isFa={fa} />
+            </details>
+          )}
+          <article className="blog-content article-content" aria-label={view.title}>
+            {view.translation ? (
+              <BlogBlocks blocks={view.translation.content} title={view.title} locale={locale} />
+            ) : (
+              <div dangerouslySetInnerHTML={{ __html: legacy!.html }} />
+            )}
+            {faqs.length > 0 && (
+              <FAQSection title={fa ? "پرسش‌های متداول" : "Frequently asked questions"} items={faqs} />
+            )}
+            <AuthorProfile name={view.author} specialty={view.category} locale={locale} />
+            <RelatedArticles posts={related} isFa={fa} />
+            <section className="blog-after blog-comments">
+              <h2>{fa ? "نظرات" : "Comments"}</h2>
+              <LazyComments postId={post.id} initialComments={comments} />
+            </section>
+            <ConsultationCTA
+              title={fa ? "مشاوره رزرو کنید" : "Book a consultation"}
+              text={fa ? "برای رزرو مشاوره یا دریافت اطلاعات بیشتر، با ما در ارتباط باشید." : "To book a consultation or request more information, get in touch."}
+              buttonText={fa ? "رزرو مشاوره" : "Book consultation"}
+              buttonHref={`/${locale}/booking`}
+              phone={siteConfig.mobileHref}
+              locale={locale}
+            />
+            <div className="blog-after">
+              <Link href={`/${locale}/blog`} className="ui-button ui-button-ghost">
+                {fa ? "بازگشت به مقالات" : "Back to articles"}
+              </Link>
+            </div>
+          </article>
+        </div>
+        <aside className="article-sidebar">
+          {toc.length > 0 && <TableOfContents items={toc} isFa={fa} />}
+        </aside>
+      </div>
+    </div>
+  );
 }

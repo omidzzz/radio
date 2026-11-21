@@ -73,7 +73,7 @@ describe("projections and server rendering", () => {
     expect(new Set(toc.map((item) => item.id)).size).toBe(toc.length);
     for (const item of toc) expect(markup).toContain(`id="${item.id}"`);
     expect(markup).toContain('scope="col"');
-    expect(markup).toContain("<summary>");
+    expect(markup).toContain("<summary");
     expect(markup).toContain('dir="ltr"');
   });
   it("keeps structured text literal rather than executing HTML", () => {

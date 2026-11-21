@@ -19,6 +19,10 @@ export interface ThemePalette {
   secondary: string;
   "secondary-hover": string;
   "blog-dark": string;
+  /* Editorial article tokens */
+  "bg-secondary": string;
+  "border-soft": string;
+  "text-tertiary": string;
 }
 
 /**
@@ -49,6 +53,9 @@ export const themePalettes: Record<ThemeMode, ThemePalette> = {
     secondary: "#2e7d5b",
     "secondary-hover": "#3e9a74",
     "blog-dark": "#07211a",
+    "bg-secondary": "#e9ede5",
+    "border-soft": "#e2dccd",
+    "text-tertiary": "#8a938d",
   },
   dark: {
     deep: "#04120d",
@@ -69,6 +76,9 @@ export const themePalettes: Record<ThemeMode, ThemePalette> = {
     secondary: "#2dd4bf",
     "secondary-hover": "#7bc9a9",
     "blog-dark": "#07211a",
+    "bg-secondary": "#0b251a",
+    "border-soft": "#1c4433",
+    "text-tertiary": "#6b7a72",
   },
 };
 
@@ -110,6 +120,12 @@ export const theme = {
     "secondary-hoverHex": themePalettes.light["secondary-hover"],
     "blog-dark": "blog-dark",
     "blog-darkHex": themePalettes.light["blog-dark"],
+    "bg-secondary": "bg-secondary",
+    "bg-secondaryHex": themePalettes.light["bg-secondary"],
+    "border-soft": "border-soft",
+    "border-softHex": themePalettes.light["border-soft"],
+    "text-tertiary": "text-tertiary",
+    "text-tertiaryHex": themePalettes.light["text-tertiary"],
   },
   gradients: {
     hero: "from-primary via-secondary-hover to-primary",
