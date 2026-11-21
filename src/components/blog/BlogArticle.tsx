@@ -79,13 +79,13 @@ export default function BlogArticle({ post, locale }: { post: BlogPost; locale: 
     <div className="blog-article" dir={fa ? "rtl" : "ltr"} lang={locale}>
     <JsonLdScript data={[schema, breadcrumbSchema([{ name: fa ? "خانه" : "Home", path: `/${locale}` }, { name: fa ? "مقالات" : "Articles", path: `/${locale}/blog` }, { name: view.title, path: view.path }]), ...(faqs.length ? [faqSchema(faqs)] : [])]} />
     <BlogReadingProgress title={view.title} url={view.path} isRtl={fa} />
-    <header className="blog-header article-header">
+    <div className="blog-header">
       <div className="blog-shell article-header-inner">
         <Breadcrumbs items={breadcrumbItems} separator={<span aria-hidden="true">/</span>} />
         <ArticleHeader post={post} locale={locale} />
         {demoNotice}
       </div>
-    </header>
+    </div>
     <div className="blog-shell article-layout">
       <div className="article-main">
           {toc.length > 0 && (

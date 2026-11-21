@@ -27,7 +27,7 @@ export function MedicalCallout({ tone = "info", title, children, className }: Me
       className={[
         "article-callout",
         `article-callout-${tone}`,
-        "border-s border-border/70 rounded-xl p-5",
+        "p-5",
         className,
       ].filter(Boolean).join(" ")}
       style={{ borderInlineStartColor: CALLOUT_BORDER[tone] }}
@@ -56,7 +56,7 @@ interface DefinitionCardProps {
 
 export function DefinitionCard({ term, definition }: DefinitionCardProps) {
   return (
-    <figure className="article-definition border border-border/60 rounded-xl p-4 sm:p-5 shadow-sm">
+    <figure className="article-definition p-4 sm:p-5">
       <dt className="article-definition-term font-semibold text-primary">{term}</dt>
       <dd className="article-definition-definition mt-1 text-text-secondary leading-relaxed">{definition}</dd>
     </figure>
@@ -76,7 +76,7 @@ export function KeyTakeaways({ title, items, className }: KeyTakeawaysProps) {
   return (
     <aside
       className={[
-        "article-key-takeaways border border-border/60 rounded-xl bg-surface/60 p-5 sm:p-6 shadow-sm",
+        "article-key-takeaways p-5 sm:p-6",
         className,
       ].filter(Boolean).join(" ")}
     >
@@ -123,7 +123,7 @@ export function ArticleFigure({
         height={height}
         loading={priority ? "eager" : "lazy"}
         priority={priority}
-        className="article-figure-image block h-auto rounded-lg border border-border/60 shadow-sm"
+        className="article-figure-image block h-auto"
         sizes={sizes}
       />
       {caption && <figcaption className="article-caption">{caption}</figcaption>}
@@ -188,7 +188,7 @@ export function AuthorProfile({
   const fa = locale === "fa";
   const ProfileLink = profileUrl ? Link : "span";
   return (
-    <div className="article-author-profile flex items-start gap-4 border border-border/60 rounded-xl bg-surface p-5 sm:p-6 shadow-sm">
+    <div className="article-author-profile flex items-start gap-4">
       <div className="article-author-avatar shrink-0">
         <span className="h-10 w-10 rounded-full border border-border/60 bg-bg flex items-center justify-center font-semibold text-primary">
           {name.charAt(0)}
@@ -241,7 +241,7 @@ export function ReferencesSection({ title, items, className }: ReferencesSection
         {items.map((item) => (
           <li
             key={item.url}
-            className="article-reference-item border border-border/60 rounded-lg p-3 sm:p-4 bg-surface/50 text-sm leading-relaxed"
+            className="article-reference-item text-sm leading-relaxed"
             style={{ counterIncrement: "refs" }}
           >
             <a
@@ -321,7 +321,7 @@ export function ConsultationCTA({
 }: ConsultationCTAProps) {
   const fa = locale === "fa";
   return (
-    <section className="article-consultation-cta my-12 border border-border/60 rounded-xl bg-bg/50 p-6 sm:p-8 shadow-sm text-center sm:text-left">
+    <section className="article-consultation-cta my-12 p-6 sm:p-8 text-start sm:text-start">
       <div className="mx-auto sm:mx-0 max-w-2xl">
         <h2 className="article-consultation-title mb-2 text-primary font-semibold">{title ?? (fa ? "مشاوره رزرو کنید" : "Book a consultation")}</h2>
         <p className="article-consultation-text mb-6 text-text-secondary leading-relaxed">
@@ -370,9 +370,9 @@ function RelatedArticleCard({ post, isFa }: { post: BlogPostSummary; isFa: boole
 
   return (
     <Link href={`/${isFa ? "fa" : "en"}/blog/${post.slug || post.id}/`} className="block">
-      <article className="article-related-card border border-border/60 rounded-xl overflow-hidden shadow-sm group">
+      <article className="article-related-card group">
         {post.image && (
-          <div className="relative h-40 overflow-hidden">
+          <div className="relative h-32 overflow-hidden">
             <Image
               src={post.image || "/images/blog-default.webp"}
               alt={title}
@@ -383,7 +383,7 @@ function RelatedArticleCard({ post, isFa }: { post: BlogPostSummary; isFa: boole
             />
           </div>
         )}
-        <div className="p-4">
+        <div className="p-4 pt-3">
           <span className="article-related-eyebrow text-xs font-semibold text-primary uppercase tracking-wider">
             {category}
           </span>
