@@ -385,14 +385,14 @@ html[lang="fa"] .article-content :is(h2,h3,h4,h5,h6) {
   font-size: var(--type-h2);
   margin-top: 4rem;
   padding-top: 1rem;
-  padding-inline-start: 1.75rem;
+  padding-inline-start: 1rem;
   border-inline-start: 4px solid var(--color-primary);
   color: var(--color-primary);
   border-top: none;
   line-height: var(--type-line-heading);
   position: relative;
 }
-.article-content > h2::before {
+html[dir="ltr"] .article-content > h2::before {
   content: "";
   position: absolute;
   inset-inline-start: calc(-0.75rem - 4px);
@@ -405,11 +405,19 @@ html[lang="fa"] .article-content :is(h2,h3,h4,h5,h6) {
 }
 html[dir="rtl"] .article-content > h2 {
   padding-inline-start: 0;
-  padding-inline-end: 1.75rem;
+  padding-inline-end: 2rem;
 }
 html[dir="rtl"] .article-content > h2::before {
+  content: "";
+  position: absolute;
   inset-inline-start: auto;
   inset-inline-end: calc(-0.75rem - 4px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1rem;
+  height: 0.5rem;
+  background: var(--color-gold);
+  border-radius: 0.25rem;
 }
 .article-content > h3 {
   font-size: var(--type-h3);
