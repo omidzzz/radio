@@ -139,9 +139,13 @@ export default function BlogComments({
         onSubmit={handleSubmit}
         className="rounded-2xl border border-border/70 bg-soft/30 p-5 sm:p-6"
       >
-        <h3 className="text-lg font-semibold text-text-primary">ارسال نظر</h3>
+        <h3 className="text-lg font-semibold text-text-primary">
+          {locale === "fa" ? "ارسال نظر" : "Post a comment"}
+        </h3>
         <p className="mt-1 text-sm text-text-secondary">
-          دیدگاه خود را درباره این مقاله بنویسید
+          {locale === "fa"
+            ? "دیدگاه خود را درباره این مقاله بنویسید"
+            : "Write your comment about this article"}
         </p>
 
         <div className="mt-5 space-y-4">
@@ -150,7 +154,7 @@ export default function BlogComments({
               htmlFor="comment_author"
               className="mb-1.5 block text-sm font-medium text-text-primary"
             >
-              نام شما
+              {locale === "fa" ? "نام شما" : "Your name"}
             </label>
             <input
               id="comment_author"
@@ -158,7 +162,7 @@ export default function BlogComments({
               required
               value={authorName}
               onChange={(e) => setAuthorName(e.target.value)}
-              placeholder="نام شما"
+              placeholder={locale === "fa" ? "نام شما" : "Your name"}
               className={inputClasses}
             />
           </div>
@@ -168,7 +172,7 @@ export default function BlogComments({
               htmlFor="comment_content"
               className="mb-1.5 block text-sm font-medium text-text-primary"
             >
-              نظر شما
+              {locale === "fa" ? "نظر شما" : "Your comment"}
             </label>
             <textarea
               id="comment_content"
@@ -176,7 +180,7 @@ export default function BlogComments({
               rows={4}
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              placeholder="نظر خود را بنویسید..."
+              placeholder={locale === "fa" ? "نظر خود را بنویسید..." : "Write your comment..."}
               className={inputClasses}
             />
           </div>
@@ -200,7 +204,13 @@ export default function BlogComments({
             disabled={submitting}
             className="ui-button ui-button-primary px-6 py-2.5 text-sm"
           >
-            {submitting ? "در حال ارسال..." : "ارسال نظر"}
+            {submitting
+              ? locale === "fa"
+                ? "در حال ارسال..."
+                : "Sending..."
+              : locale === "fa"
+                ? "ارسال نظر"
+                : "Post comment"}
           </button>
         </div>
       </form>
