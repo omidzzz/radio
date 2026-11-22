@@ -383,7 +383,7 @@ html[lang="fa"] .article-content :is(h2,h3,h4,h5,h6) {
   font-size: var(--type-h2);
   margin-top: 4rem;
   padding-top: 1rem;
-  padding-inline-start: 1rem;
+  padding-inline-start: 1.75rem;
   border-inline-start: 4px solid var(--color-primary);
   color: var(--color-primary);
   border-top: none;
@@ -403,7 +403,7 @@ html[lang="fa"] .article-content :is(h2,h3,h4,h5,h6) {
 }
 html[dir="rtl"] .article-content > h2 {
   padding-inline-start: 0;
-  padding-inline-end: 1rem;
+  padding-inline-end: 1.75rem;
 }
 html[dir="rtl"] .article-content > h2::before {
   inset-inline-start: auto;
@@ -419,11 +419,17 @@ html[dir="rtl"] .article-content > h2::before {
 .article-content p {
   margin: 0;
   white-space: pre-line;
-  text-align: start;
+  text-align: justify;
   hyphens: auto;
   text-wrap: pretty;
 }
-html[dir="rtl"] .article-content p { text-align: start; }
+html[dir="rtl"] .article-content p { text-align: justify; }
+.article-content li,
+.article-content dd {
+  text-align: justify;
+}
+html[dir="rtl"] .article-content li,
+html[dir="rtl"] .article-content dd { text-align: justify; }
 /* ─── Prominent introductory paragraph ─── */
 .article-content p.article-lead,
 .article-content p.blog-lead {
