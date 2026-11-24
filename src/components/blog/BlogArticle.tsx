@@ -12,7 +12,8 @@ import { articleSchema, breadcrumbSchema, faqSchema } from "@/lib/seo/json-ld";
 import JsonLdScript from "@/components/feedback/JsonLd";
 import BlogReadingProgress from "@/components/ui/BlogReadingProgress";
 import BlogBlocks from "./BlogBlocks";
-import TableOfContents from "./TableOfContents";
+import AiDisclosure from "./AiDisclosure";
+import { TableOfContents, TableOfContentsSheet } from "./TableOfContents";
 import LazyComments from "./LazyComments";
 import ArticleHeader from "./ArticleHeader";
 import {
@@ -83,6 +84,7 @@ export default function BlogArticle({ post, locale }: { post: BlogPost; locale: 
       <div className="blog-shell article-header-inner">
         <Breadcrumbs items={breadcrumbItems} separator={<span aria-hidden="true">/</span>} />
         <ArticleHeader post={post} locale={locale} />
+        <AiDisclosure locale={locale} className="mt-4" />
         {demoNotice}
       </div>
     </div>
@@ -127,6 +129,7 @@ export default function BlogArticle({ post, locale }: { post: BlogPost; locale: 
         <aside className="article-sidebar">
           {toc.length > 0 && <TableOfContents items={toc} isFa={fa} />}
         </aside>
+        {toc.length > 0 && <TableOfContentsSheet items={toc} isFa={fa} />}
       </div>
     </div>
   );

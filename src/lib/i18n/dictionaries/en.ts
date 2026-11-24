@@ -696,6 +696,10 @@ const en = {
     unblockTime: "Unblock",
     unblockTimeConfirm: "Remove this blocked time slot?",
   },
+
+  article: {
+    aiDisclosure: "This article was researched and edited with AI assistance.",
+  },
 };
 
 export default en;

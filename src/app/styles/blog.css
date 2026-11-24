@@ -458,9 +458,10 @@
   min-width: 0;
   overflow: hidden;
   display: flex;
-  flex-direction: column-reverse;
-  gap: 0.3rem;
-  padding: clamp(0.95rem, 0.8rem + 0.7vw, 1.25rem);
+  flex-direction: column;
+  /* Number is rendered first (see BlogBlocks) so it always anchors the top. */
+  gap: 0.5rem;
+  padding: clamp(1rem, 0.85rem + 0.7vw, 1.35rem);
   border-radius: var(--blog-radius);
   border: 1px solid var(--color-border);
   background: linear-gradient(160deg,
@@ -468,6 +469,9 @@
       transparent 60%),
     var(--blog-surface);
   box-shadow: var(--blog-shadow);
+  align-items: center;   /* number + label centered horizontally */
+  text-align: center;
+  min-height: 100%;      /* equal-height cards within the grid row */
 }
 
 .blog-stats>div::before {
@@ -492,13 +496,17 @@
 }
 
 .blog-stats dt {
+  margin: 0;
   font-size: 0.8rem;
   line-height: 1.5;
   color: var(--color-muted);
+  /* Label sits below the number and may grow downward without moving it. */
 }
 
 .blog-stats dd {
   margin: 0;
+  align-self: center;
+  /* Large number pinned to the top-center of the card. */
   font-size: clamp(1.5rem, 1.25rem + 1.2vw, 2.25rem);
   font-weight: 800;
   line-height: 1.15;

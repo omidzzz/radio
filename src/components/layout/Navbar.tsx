@@ -60,8 +60,10 @@ export default function Navbar() {
     if (!mobileOpen) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    document.documentElement.classList.add("mobile-menu-open");
     return () => {
       document.body.style.overflow = prev;
+      document.documentElement.classList.remove("mobile-menu-open");
     };
   }, [mobileOpen]);
 
@@ -296,7 +298,7 @@ export default function Navbar() {
           aria-label={strings.toggleMenu}
           inert={!mobileOpen}
         >
-          <div className="min-h-0 overflow-hidden">
+          <div className="min-h-0 overflow-hidden z-[100]">
             <div className="site-header-mobile-menu border-t border-border bg-bg px-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))] pt-3">
               <div className="site-header-mobile-links flex flex-col gap-0.5">
                 {navLinks.map((link) => (

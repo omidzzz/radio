@@ -1,0 +1,1301 @@
+{
+  "slug": "radiation-therapy",
+  "title": "What Is Radiation Therapy and How Does It Help Treat Cancer?",
+  "date": "2026-11-21 18:56:22",
+  "tags": [
+    "پرتودرمانی",
+    "رادیوتراپی",
+    "سرطان",
+    "Radiation therapy",
+    "Radiotherapy",
+    "Radiation oncology",
+    "IMRT",
+    "VMAT",
+    "SRS",
+    "SBRT",
+    "patient-education"
+  ],
+  "status": "published",
+  "featuredImage": {
+    "src": "/api/uploads/20261123-224120-08c13457f65cb282.webp",
+    "alt": {
+      "en": "Modern radiation therapy treatment room with a linear accelerator and treatment couch",
+      "fa": "اتاق درمان مدرن پرتودرمانی با دستگاه شتاب‌دهنده خطی و تخت درمان"
+    }
+  },
+  "translations": {
+    "fa": {
+      "title": "پرتودرمانی چیست و چگونه به درمان سرطان کمک می‌کند؟",
+      "excerpt": "پرتودرمانی چیست و چگونه سرطان را درمان می‌کند؟ راهنمای انواع رادیوتراپی (IMRT، VMAT، SRS و SBRT)، مراحل درمان، عوارض احتمالی و آمادگی برای مشاوره با متخصص رادیوتراپی.",
+      "content": [
+        {
+          "type": "heading",
+          "level": 1,
+          "text": "پرتودرمانی چیست و چگونه به درمان سرطان کمک می‌کند؟"
+        },
+        {
+          "type": "paragraph",
+          "style": "lead",
+          "text": "پرتودرمانی یا رادیوتراپی (Radiation Therapy) یکی از روش‌های اصلی درمان سرطان است که با استفاده از پرتوهای پرانرژی، سلول‌های سرطانی را از بین می‌برد یا توانایی رشد و تکثیر آن‌ها را مختل می‌کند. این روش درمانی ممکن است به‌تنهایی یا در کنار جراحی، شیمی‌درمانی، درمان‌های هدفمند و ایمنی‌درمانی مورد استفاده قرار گیرد. [۱، ۲]"
+        },
+        {
+          "type": "paragraph",
+          "text": "امروزه با پیشرفت فناوری‌های تصویربرداری، طراحی درمان و دستگاه‌های پرتودرمانی، امکان رساندن دوزهای دقیق‌تر پرتو به تومور و کاهش آسیب به بافت‌های سالم اطراف فراهم شده است. روش‌هایی مانند پرتودرمانی با شدت تعدیل‌شده (IMRT)، پرتودرمانی با قوس حجمی (VMAT)، رادیوسرجری استریوتاکتیک (SRS) و پرتودرمانی استریوتاکتیک بدن (SBRT) نمونه‌هایی از این پیشرفت‌ها هستند. [۳، ۴]"
+        },
+        {
+          "type": "paragraph",
+          "text": "اما پرتودرمانی دقیقاً چگونه عمل می‌کند؟ در چه سرطان‌هایی کاربرد دارد؟ چه تفاوتی با شیمی‌درمانی دارد و بیمار در طول دوره درمان چه مراحلی را پشت سر می‌گذارد؟"
+        },
+        {
+          "type": "paragraph",
+          "text": "در این مقاله با اصول پرتودرمانی، روش‌های مختلف آن، کاربردها و عوارض احتمالی آشنا می‌شویم. همچنین مرور می‌کنیم که پیش از شروع درمان چه مراحلی طی می‌شود و برای جلسه مشاوره با متخصص رادیوتراپی چگونه می‌توان آماده شد."
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "پرتودرمانی در یک نگاه",
+          "text": "پرتودرمانی معمولاً یک درمان موضعی است؛ یعنی ناحیه مشخصی از بدن را هدف می‌گیرد. در بیشتر موارد به‌صورت سرپایی انجام می‌شود، در حین جلسه دردی ایجاد نمی‌کند و پس از پرتودرمانی خارجی، بیمار رادیواکتیو نمی‌شود. نوع روش، تعداد جلسات و عوارض احتمالی به نوع تومور، محل آن و هدف درمان بستگی دارد. [۲، ۳]"
+        },
+        {
+          "type": "stats",
+          "items": [
+            {
+              "value": "۵",
+              "label": "مرحله اصلی مسیر درمان: مشاوره، شبیه‌سازی، طراحی، اجرا و پیگیری"
+            },
+            {
+              "value": "۳",
+              "label": "دسته اصلی پرتودرمانی: خارجی، داخلی و سیستمیک"
+            },
+            {
+              "value": "۵",
+              "label": "فناوری پیشرفته معرفی‌شده در این مقاله: IMRT، VMAT، IGRT، SRS و SBRT"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "پرتودرمانی چیست؟"
+        },
+        {
+          "type": "paragraph",
+          "text": "پرتودرمانی روشی برای درمان سرطان است که در آن از پرتوهای یونیزان، مانند اشعه ایکس با انرژی بالا، برای آسیب‌رساندن به DNA سلول‌های سرطانی استفاده می‌شود. علاوه بر اشعه ایکس، در برخی روش‌ها از پرتوهای گاما، پرتوهای الکترونی و پروتون‌ها نیز بهره می‌گیریم. [۲]"
+        },
+        {
+          "type": "paragraph",
+          "text": "DNA ماده ژنتیکی سلول است و اطلاعات لازم برای رشد، تقسیم و عملکرد آن را در خود دارد. هنگامی که پرتو به سلول برخورد می‌کند، می‌تواند باعث آسیب مستقیم یا غیرمستقیم به DNA شود. اگر این آسیب به اندازه‌ای باشد که سلول نتواند آن را ترمیم کند، توانایی تقسیم خود را از دست می‌دهد یا در نهایت از بین می‌رود. [۲]"
+        },
+        {
+          "type": "paragraph",
+          "text": "هدف پرتودرمانی، رساندن دوز مشخص و مؤثری از پرتو به ناحیه موردنظر، با حفظ حداکثری بافت‌های سالم اطراف است."
+        },
+        {
+          "type": "paragraph",
+          "text": "یکی از ویژگی‌های مهم پرتودرمانی این است که اثر آن همیشه بلافاصله پس از تابش ظاهر نمی‌شود. سلول‌های سرطانی ممکن است طی روزها یا هفته‌ها پس از درمان، به‌تدریج توانایی تقسیم خود را از دست بدهند و از بین بروند. این روند حتی پس از پایان جلسات پرتودرمانی نیز می‌تواند ادامه پیدا کند. به همین دلیل، پاسخ درمان معمولاً در جلسات پیگیری ارزیابی می‌شود."
+        },
+        {
+          "type": "image",
+          "src": "/api/uploads/20261121-185541-c5e65618128408a0.webp",
+          "alt": "تصویر مفهومی از پرتو دستگاه شتاب‌دهنده خطی که روی یک تومور متمرکز شده و لایه‌های دوز پرتو دور آن دیده می‌شود",
+          "caption": "تصویر مفهومی برای توضیح تمرکز دوز پرتو بر تومور؛ طرح درمان یا اسکن یک بیمار واقعی نیست.",
+          "width": 1080,
+          "height": 607
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "چرا درمان به جلسات کوچک تقسیم می‌شود؟"
+        },
+        {
+          "type": "paragraph",
+          "text": "دوز کل پرتو معمولاً یک‌باره داده نمی‌شود، بلکه به جلسات روزانه کوچک‌تری تقسیم می‌شود که به آن‌ها «فراکشن» می‌گوییم. دلیل این کار آن است که سلول‌های سالم اطراف تومور بین جلسات فرصت ترمیم پیدا می‌کنند و بیشتر آن‌ها به عملکرد طبیعی خود بازمی‌گردند. [۲] تعداد جلسات و دوز هر جلسه را متخصص رادیوتراپی بر اساس نوع تومور، محل آن، مرحله بیماری و هدف درمان تعیین می‌کند."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "پرتودرمانی چگونه به درمان سرطان کمک می‌کند؟"
+        },
+        {
+          "type": "paragraph",
+          "text": "پرتودرمانی در همه بیماران یک هدف واحد ندارد. بسته به نوع تومور، مرحله بیماری، محل درگیری و شرایط عمومی بیمار، ممکن است با یکی از اهداف زیر به کار گرفته شود: [۱، ۲]"
+        },
+        {
+          "type": "list",
+          "style": "bullet",
+          "items": [
+            "درمان قطعی: در برخی تومورهای حساس به پرتو، پرتودرمانی به‌تنهایی می‌تواند تومور را کوچک کند یا به‌طور کامل از بین ببرد. [۲]",
+            "پیش از جراحی: گاهی پرتودرمانی برای کوچک‌کردن تومور و آسان‌تر شدن عمل جراحی انجام می‌شود. [۲]",
+            "پس از جراحی: هدف این است که سلول‌های سرطانی باقی‌مانده نابود شوند و خطر بازگشت بیماری کاهش یابد. [۲]",
+            "همزمان با شیمی‌درمانی یا سایر داروهای ضدسرطان: در بعضی سرطان‌ها ترکیب این دو درمان اثربخشی را افزایش می‌دهد. [۲]",
+            "درمان تسکینی: در بیماری پیشرفته یا گسترش‌یافته، پرتودرمانی می‌تواند علائمی مانند درد، مشکل بلع یا تنگی نفس را کاهش دهد و کیفیت زندگی را بهبود بخشد. [۲]"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "نکته مهم این است که پرتودرمانی صرفاً به معنای پیشرفته‌بودن بیماری نیست. در بسیاری از بیماران، حتی در مراحل ابتدایی، بخشی از برنامه درمان قطعی است. براساس منابع معتبر، بیش از نیمی از مبتلایان به سرطان در مسیر درمان خود پرتودرمانی دریافت می‌کنند. [۲]"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "پرتودرمانی در درمان چه سرطان‌هایی کاربرد دارد؟"
+        },
+        {
+          "type": "paragraph",
+          "text": "پرتودرمانی در درمان طیف گسترده‌ای از سرطان‌ها کاربرد دارد و بسته به نوع تومور، مرحله بیماری، محل درگیری و شرایط عمومی بیمار ممکن است با اهداف متفاوتی استفاده شود."
+        },
+        {
+          "type": "paragraph",
+          "text": "از جمله سرطان‌هایی که ممکن است در برنامه درمانی آن‌ها از پرتودرمانی استفاده شود، می‌توان به موارد زیر اشاره کرد: [۱، ۲]"
+        },
+        {
+          "type": "list",
+          "style": "bullet",
+          "items": [
+            "سرطان پستان",
+            "سرطان ریه",
+            "سرطان پروستات",
+            "سرطان‌های سر و گردن، از جمله حنجره و حفره دهان",
+            "تومورهای مغز و نخاع",
+            "سرطان مری",
+            "سرطان رکتوم و مقعد",
+            "سرطان دهانه رحم و رحم",
+            "سرطان مثانه",
+            "لنفوم",
+            "سرطان‌های پوست",
+            "متاستازهای استخوانی و مغزی"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "این فهرست کامل نیست. تصمیم نهایی درباره استفاده از پرتودرمانی همیشه بر اساس شرایط فردی گرفته می‌شود. اگر می‌خواهید با خدمات تخصصی رادیوتراپی و آنکولوژی بیشتر آشنا شوید، صفحه خدمات می‌تواند نقطه شروع خوبی باشد."
+        },
+        {
+          "type": "cta",
+          "title": "با خدمات تخصصی رادیوتراپی و آنکولوژی آشنا شوید",
+          "text": "مشاهده فهرست خدمات، روش‌های درمانی و حوزه‌های فعالیت دکتر پری قدمگاهی.",
+          "buttonText": "مشاهده خدمات",
+          "buttonUrl": "https://drparighadamgahi.ir/fa/services/"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "انواع پرتودرمانی"
+        },
+        {
+          "type": "paragraph",
+          "text": "پرتودرمانی را از نظر نحوه رساندن پرتو به سه دسته اصلی تقسیم می‌کنیم: پرتودرمانی خارجی، پرتودرمانی داخلی یا براکی‌تراپی، و پرتودرمانی سیستمیک. گاهی بیمار تنها یک نوع و گاهی ترکیبی از آن‌ها را دریافت می‌کند. [۱، ۲]"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "پرتودرمانی خارجی"
+        },
+        {
+          "type": "paragraph",
+          "text": "رایج‌ترین نوع پرتودرمانی، روش خارجی است. در این روش، دستگاهی به نام شتاب‌دهنده خطی پرتو را از بیرون بدن به ناحیه تومور می‌تابانَد. بیمار برای درمان در بیمارستان بستری نمی‌شود و معمولاً هر روز پس از جلسه به خانه بازمی‌گردد. [۱، ۲]"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "روش‌های نوین پرتودرمانی: IMRT، VMAT، IGRT، SRS و SBRT"
+        },
+        {
+          "type": "paragraph",
+          "text": "پیشرفت رایانه، تصویربرداری و دستگاه‌های درمانی باعث شده است پرتودرمانی خارجی به‌مراتب دقیق‌تر از گذشته باشد. جدول زیر مهم‌ترین این روش‌ها را به زبان ساده معرفی می‌کند:"
+        },
+        {
+          "type": "table",
+          "caption": "مقایسه روش‌های نوین پرتودرمانی خارجی",
+          "headers": [
+            "روش",
+            "توضیح ساده",
+            "نکته کاربردی"
+          ],
+          "rows": [
+            [
+              "3D-CRT (پرتودرمانی سه‌بعدی همدوس)",
+              "شکل پرتوها با استفاده از تصاویر CT با شکل سه‌بعدی تومور هماهنگ می‌شود.",
+              "پایه‌ای برای بسیاری از روش‌های پیشرفته‌تر."
+            ],
+            [
+              "IMRT (پرتودرمانی با شدت تعدیل‌شده)",
+              "شدت پرتو در هر باریکه کنترل و تعدیل می‌شود تا دوز بیشتر با شکل تومور منطبق شود و دوز بافت‌های مجاور کمتر باشد. [۳]",
+              "برای تومورهایی که نزدیک اندام‌های حساس قرار دارند، اهمیت ویژه‌ای دارد."
+            ],
+            [
+              "VMAT (پرتودرمانی با قوس حجمی)",
+              "نوعی IMRT است که در آن پرتو هنگام چرخش دستگاه به دور بیمار، به‌طور پیوسته و با تعدیل لحظه‌ای تابانده می‌شود. [۳]",
+              "در بسیاری از موارد زمان هر جلسه را کوتاه‌تر می‌کند."
+            ],
+            [
+              "IGRT (پرتودرمانی تصویر‌محور)",
+              "پیش از تابش یا در حین آن، تصویربرداری انجام می‌شود تا موقعیت بیمار و تومور با دقت بیشتری تنظیم شود. [۴]",
+              "با IMRT، VMAT، SRS و SBRT ترکیب می‌شود. [۴]"
+            ],
+            [
+              "SRS (رادیوسرجری استریوتاکتیک)",
+              "تابش دوز بالا و بسیار متمرکز به یک ضایعه کوچک، معمولاً در مغز یا ستون فقرات، در یک یا چند جلسه.",
+              "با وجود نام «سرجری»، برش جراحی در کار نیست."
+            ],
+            [
+              "SBRT (پرتودرمانی استریوتاکتیک بدن)",
+              "تابش دوز بالا به تومورهای محدود در نقاطی مانند ریه، کبد، ستون فقرات یا پروستات، معمولاً در تعداد کم جلسات.",
+              "فقط برای بیماران و تومورهای منتخب مناسب است."
+            ],
+            [
+              "پروتون‌تراپی",
+              "به‌جای اشعه ایکس از ذرات پروتون استفاده می‌شود. [۲]",
+              "در تعداد محدودی از مراکز در دسترس است و برای موارد انتخابی کاربرد دارد."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "وجود این فناوری‌ها به این معنا نیست که هر بیمار باید جدیدترین روش را دریافت کند. بهترین روش، روشی است که با نوع تومور، محل آن، هدف درمان و شرایط عمومی شما بیشترین هماهنگی را داشته باشد."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "براکی‌تراپی؛ پرتودرمانی داخلی"
+        },
+        {
+          "type": "paragraph",
+          "text": "در براکی‌تراپی، منبع پرتو به‌شکل دانه، نوار یا کپسول در داخل تومور یا بسیار نزدیک به آن قرار می‌گیرد. این روش موضعی است و فقط بخش مشخصی از بدن را درمان می‌کند. براکی‌تراپی اغلب برای سرطان‌های سر و گردن، پستان، دهانه رحم، پروستات و چشم به کار می‌رود. [۵] بسته به نوع منبع پرتو و بیماری، گاهی منبع تنها مدتی در بدن می‌ماند و گاهی به‌طور دائم کار گذاشته می‌شود. [۲]"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "پرتودرمانی سیستمیک"
+        },
+        {
+          "type": "paragraph",
+          "text": "در پرتودرمانی سیستمیک از داروهای رادیواکتیو استفاده می‌شود که خوراکی یا وریدی تجویز می‌شوند و در بدن گردش می‌کنند. این روش برای برخی سرطان‌ها، مانند سرطان تیروئید، کاربرد دارد. در این نوع درمان ممکن است رعایت نکات ایمنی خاصی در منزل برای مدتی ضروری باشد؛ این نکات را تیم درمان به‌صورت اختصاصی توضیح می‌دهد. [۱، ۲]"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "تفاوت پرتودرمانی و شیمی‌درمانی چیست؟"
+        },
+        {
+          "type": "paragraph",
+          "text": "پرسش رایج بسیاری از بیماران این است که پرتودرمانی با شیمی‌درمانی چه فرقی دارد. تفاوت اصلی در نحوه اثر است: پرتودرمانی معمولاً درمانی موضعی و دقیقاً هدف‌گذاری‌شده است، در حالی که داروهای شیمی‌درمانی معمولاً از راه خون در سراسر بدن می‌گردند. [۲]"
+        },
+        {
+          "type": "table",
+          "caption": "مقایسه پرتودرمانی و شیمی‌درمانی",
+          "headers": [
+            "معیار",
+            "پرتودرمانی",
+            "شیمی‌درمانی"
+          ],
+          "rows": [
+            [
+              "نحوه اثر",
+              "معمولاً موضعی؛ ناحیه مشخصی از بدن را هدف می‌گیرد. [۲]",
+              "معمولاً سیستمیک؛ از راه خون به سراسر بدن می‌رسد. [۲]"
+            ],
+            [
+              "نحوه دریافت",
+              "پرتو از دستگاه خارج بدن یا از منبعی داخل بدن تابانده می‌شود.",
+              "خوراکی یا از راه ورید."
+            ],
+            [
+              "محل بروز عوارض",
+              "بیشتر در ناحیه تحت درمان؛ خستگی می‌تواند عمومی باشد. [۶]",
+              "می‌تواند چند بخش بدن را درگیر کند."
+            ],
+            [
+              "کاربرد در ترکیب",
+              "ممکن است همزمان با شیمی‌درمانی یا پس از آن داده شود. [۲]",
+              "ممکن است پیش از پرتودرمانی، همزمان یا پس از آن باشد."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "در عمل، بسیاری از برنامه‌های درمان ترکیبی هستند. برای مثال، ممکن است جراحی، شیمی‌درمانی و پرتودرمانی هر کدام در مرحله‌ای از درمان قرار بگیرند."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "مراحل پرتودرمانی؛ از مشاوره تا پایان دوره"
+        },
+        {
+          "type": "paragraph",
+          "text": "پیش از اولین جلسه‌ای که روی تخت درمان دراز می‌کشید، مراحل دقیق ارزیابی و طراحی انجام می‌شود تا درمان برای بدن و بیماری شما شخصی‌سازی شود."
+        },
+        {
+          "type": "image",
+          "src": "/api/uploads/20261121-185602-ecff8301fe771f0c.webp",
+          "alt": "فن‌آور پرتودرمانی پشت ایستگاه کاری در حال بررسی تصاویر CT، در حالی که بیمار روی تخت دستگاه تصویربرداری در پس‌زمینه دراز کشیده است",
+          "caption": "شبیه‌سازی با CT و بررسی تصاویر در ایستگاه کاری، بخشی از مرحله طراحی درمان است.",
+          "width": 1080,
+          "height": 809
+        },
+        {
+          "type": "timeline",
+          "title": "مسیر معمول درمان؛ زمان‌بندی هر مرحله برای هر بیمار متفاوت است",
+          "items": [
+            {
+              "label": "گام اول",
+              "title": "مشاوره و ارزیابی",
+              "text": "بررسی پرونده، معاینه، مرور تصاویر و پاتولوژی و تعیین هدف درمان."
+            },
+            {
+              "label": "گام دوم",
+              "title": "شبیه‌سازی",
+              "text": "انجام CT و در صورت نیاز MRI یا PET در همان وضعیتی که درمان انجام می‌شود."
+            },
+            {
+              "label": "گام سوم",
+              "title": "طراحی درمان",
+              "text": "مشخص‌کردن تومور و اندام‌های سالم، محاسبه دوز و کنترل کیفیت طرح."
+            },
+            {
+              "label": "گام چهارم",
+              "title": "جلسات درمان",
+              "text": "اجرای درمان در تعداد جلسات تعیین‌شده، همراه با تنظیم دقیق موقعیت."
+            },
+            {
+              "label": "گام پنجم",
+              "title": "پیگیری",
+              "text": "بررسی عوارض، پاسخ درمان و برنامه مراقبت پس از پایان دوره."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "شبیه‌سازی و طراحی درمان"
+        },
+        {
+          "type": "paragraph",
+          "text": "در مرحله شبیه‌سازی، با کمک دستگاه CT و گاهی MRI یا PET تصاویری از ناحیه درمان تهیه می‌شود. ممکن است برای ثابت‌ماندن بدن از وسایل کمکی مانند ماسک یا بالشتک مخصوص استفاده کنیم و روی پوست نشانه‌های کوچکی بگذاریم تا هر روز دقیقاً در همان موقعیت قرار بگیرید."
+        },
+        {
+          "type": "paragraph",
+          "text": "سپس متخصص رادیوتراپی و آنکولوژی، حجم تومور و اندام‌های سالم اطراف را روی تصاویر مشخص می‌کند. فیزیکدان پزشکی و دوزیمتریست طرح دوز را محاسبه و بهینه می‌کنند و پیش از اولین جلسه، طرح از نظر کیفیت و ایمنی بررسی می‌شود. پرتودرمانی کاری تیمی است و متخصص رادیوتراپی، فیزیکدان، دوزیمتریست، فن‌آور پرتودرمانی و پرستار هرکدام نقشی تعیین‌کننده دارند. [۳، ۴]"
+        },
+        {
+          "type": "image",
+          "src": "/api/uploads/20261121-185839-e09299d509f8eb6f.webp",
+          "alt": "اتاق درمان مدرن پرتودرمانی با دستگاه شتاب‌دهنده خطی و تخت درمان در کنار دیواری با تصویر گل",
+          "caption": "اتاق درمان با شتاب‌دهنده خطی؛ بیمار روی تخت درمان قرار می‌گیرد و دستگاه به دور او می‌چرخد.",
+          "width": 1080,
+          "height": 607
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "در جلسه درمان چه اتفاقی می‌افتد؟"
+        },
+        {
+          "type": "paragraph",
+          "text": "در هر جلسه، فن‌آور پرتودرمانی شما را با کمک نشانه‌ها و وسایل تثبیت در همان وضعیت شبیه‌سازی قرار می‌دهد. پیش از تابش، معمولاً تصویربرداری انجام می‌شود تا موقعیت دقیق تأیید شود. [۴] سپس تیم از اتاق خارج می‌شود، اما شما از طریق دوربین و میکروفن در تماس مستقیم با آن‌ها هستید. دستگاه بدون تماس با بدن شما به دور شما می‌چرخد و پرتو را می‌تاباند."
+        },
+        {
+          "type": "paragraph",
+          "text": "درمان با پرتو درد ندارد و پرتو را حس نمی‌کنید. [۳] بخش عمده زمان جلسه صرف قرارگیری دقیق و کنترل موقعیت می‌شود و زمان تابش خود معمولاً کوتاه است. پس از پرتودرمانی خارجی بیمار رادیواکتیو نیست و نیازی به دوری از دیگران نیست. [۲]"
+        },
+        {
+          "type": "paragraph",
+          "text": "پرتودرمانی خارجی معمولاً در روزهای کاری هفته و طی چند هفته انجام می‌شود. [۲] در روش‌هایی مانند SRS و SBRT تعداد جلسات معمولاً بسیار کمتر است. تعداد دقیق جلسات هر بیمار را پس از طراحی درمان به شما اعلام می‌کنیم."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "عوارض پرتودرمانی"
+        },
+        {
+          "type": "paragraph",
+          "text": "عوارض پرتودرمانی به نوع پرتو، دوز، تعداد جلسات و مهم‌تر از همه، به محل درمان بستگی دارد. عوارض را به دو گروه زودرس و دیررس تقسیم می‌کنیم: عوارض زودرس معمولاً در طول درمان یا چند هفته پس از آن ظاهر می‌شوند و عوارض دیررس ممکن است ماه‌ها یا سال‌ها بعد بروز کنند. [۳، ۶] بسیاری از بیماران عوارض خفیف تا متوسطی دارند که با مراقبت مناسب قابل کنترل است."
+        },
+        {
+          "type": "paragraph",
+          "text": "برخی از شایع‌ترین عوارض عبارت‌اند از: [۶]"
+        },
+        {
+          "type": "list",
+          "style": "bullet",
+          "items": [
+            "خستگی: از شایع‌ترین عوارض است.",
+            "تغییرات پوستی: قرمزی، خشکی، خارش یا تیرگی پوست در ناحیه تابش.",
+            "ریزش مو: فقط در ناحیه‌ای که تحت پرتو قرار گرفته است.",
+            "سر و گردن: خشکی دهان، زخم دهان، تغییر در چشایی یا دشواری در بلع.",
+            "قفسه سینه: سرفه، تنگی نفس یا درد هنگام بلع.",
+            "شکم و لگن: تهوع، اسهال، یا تکرر و سوزش ادرار."
+          ]
+        },
+        {
+          "type": "callout",
+          "tone": "danger",
+          "title": "چه علائمی را نباید نادیده گرفت؟",
+          "text": "اگر در طول درمان تب، درد شدید و کنترل‌نشده، ناتوانی در نوشیدن مایعات یا بلع، خونریزی، تنگی نفس تازه یا شدید، یا ضعف و تشنج ناگهانی پیدا کردید، منتظر جلسه بعدی نمانید. فوراً با تیم درمان تماس بگیرید و در شرایط اورژانسی به نزدیک‌ترین مرکز اورژانس مراجعه کنید. [۶]"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "عوارض دیررس و پیگیری بلندمدت"
+        },
+        {
+          "type": "paragraph",
+          "text": "برخی تغییرات ممکن است مدت‌ها پس از پایان درمان دیده شوند؛ مانند سفتی یا تغییر رنگ پوست و بافت‌ها یا تغییر عملکرد اندامی که در میدان پرتو بوده است. همچنین خطر بسیار اندکی برای بروز سرطان ثانویه در سال‌های بعد وجود دارد. به همین دلیل پس از پایان درمان، پیگیری منظم برای بررسی عوارض و کنترل بیماری ضروری است. [۴، ۶]"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "چند توصیه برای مراقبت از خود"
+        },
+        {
+          "type": "list",
+          "style": "ordered",
+          "items": [
+            "پوست ناحیه درمان را با آب ولرم و به‌آرامی بشویید و از مالیدن شدید بپرهیزید.",
+            "پیش از استفاده از هر کرم یا پماد روی ناحیه درمان، با تیم درمان مشورت کنید.",
+            "ناحیه تحت پرتو را در برابر آفتاب محافظت کنید و لباس گشاد و نرم بپوشید.",
+            "مایعات کافی بنوشید و تغذیه خود را با نظر پزشک یا متخصص تغذیه تنظیم کنید.",
+            "استراحت کنید و هر علامت تازه را زود به تیم درمان گزارش دهید."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "چگونه برای مشاوره پرتودرمانی آماده شویم؟"
+        },
+        {
+          "type": "paragraph",
+          "text": "آمادگی برای جلسه مشاوره به ما کمک می‌کند تصمیم‌گیری دقیق‌تر و سریع‌تر باشد. مدارک زیر را همراه داشته باشید و پرسش‌های خود را از پیش بنویسید:"
+        },
+        {
+          "type": "checklist",
+          "title": "چک‌لیست پیشنهادی برای جلسه مشاوره",
+          "items": [
+            "گزارش پاتولوژی و آزمایش‌های تکمیلی، در صورت انجام",
+            "تصاویر و گزارش‌های CT، MRI، PET یا ماموگرافی",
+            "خلاصه جراحی، شیمی‌درمانی یا درمان‌های قبلی",
+            "فهرست داروهای مصرفی و حساسیت‌های دارویی",
+            "سابقه پرتودرمانی قبلی در همان ناحیه یا نواحی نزدیک",
+            "اطلاع‌رسانی درباره پیس‌میکر، دفیبریلاتور یا هر ایمپلنت دیگر، و احتمال بارداری",
+            "فهرست پرسش‌ها و در صورت نیاز یک همراه"
+          ]
+        },
+        {
+          "type": "quote",
+          "text": "پرسش پیشنهادی برای جلسه: هدف از این پرتودرمانی چیست، چه گزینه‌های دیگری دارم و چه عوارضی را باید پیش از همه زیر نظر بگیرم؟",
+          "attribution": "پرسش پیشنهادی برای این مقاله؛ نقل‌قول از بیمار یا پزشک نیست"
+        },
+        {
+          "type": "accordion",
+          "title": "پرسش‌های کوتاه و رایج",
+          "items": [
+            {
+              "question": "آیا جلسه پرتودرمانی دردناک است؟",
+              "answer": "خیر. همانند اغلب درمان‌های پرتودرمانی خارجی، در حین تابش دردی احساس نمی‌شود. اگر دراز کشیدن یا بی‌حرکت ماندن برایتان دشوار است، حتماً پیش از شروع به تیم درمان بگویید. [۳]"
+            },
+            {
+              "question": "آیا پس از پرتودرمانی رادیواکتیو می‌شوم؟",
+              "answer": "در پرتودرمانی خارجی خیر. اما در برخی روش‌های داخلی یا سیستمیک ممکن است احتیاط‌های موقتی لازم باشد که تیم درمان آن‌ها را توضیح می‌دهد. [۲]"
+            },
+            {
+              "question": "چرا نتیجه درمان بلافاصله مشخص نمی‌شود؟",
+              "answer": "چون اثر پرتو به‌تدریج و طی روزها یا هفته‌ها ظاهر می‌شود و حتی پس از پایان جلسات ادامه دارد. ارزیابی پاسخ درمان در جلسات پیگیری انجام می‌شود. [۲]"
+            }
+          ]
+        },
+        {
+          "type": "glossary",
+          "title": "واژه‌نامه کوچک پرتودرمانی",
+          "items": [
+            {
+              "term": "فراکشن",
+              "definition": "یک جلسه از دوره پرتودرمانی؛ دوز کل به چند فراکشن تقسیم می‌شود. [۲]"
+            },
+            {
+              "term": "شتاب‌دهنده خطی",
+              "definition": "دستگاهی که پرتوهای پرانرژی را برای پرتودرمانی خارجی تولید می‌کند. [۳]"
+            },
+            {
+              "term": "IMRT",
+              "definition": "پرتودرمانی با شدت تعدیل‌شده؛ تنظیم شدت پرتو برای انطباق بهتر دوز با شکل تومور. [۳]"
+            },
+            {
+              "term": "VMAT",
+              "definition": "نوعی IMRT که پرتو در حین چرخش دستگاه به دور بیمار تابانده می‌شود. [۳]"
+            },
+            {
+              "term": "IGRT",
+              "definition": "پرتودرمانی تصویر‌محور؛ استفاده از تصویربرداری برای دقت بیشتر در موقعیت‌دهی. [۴]"
+            },
+            {
+              "term": "SRS و SBRT",
+              "definition": "روش‌های استریوتاکتیک با دوز بالا و بسیار متمرکز؛ SRS بیشتر برای مغز و SBRT برای تومورهای محدود بدن."
+            },
+            {
+              "term": "براکی‌تراپی",
+              "definition": "پرتودرمانی داخلی با قراردادن منبع پرتو در داخل یا نزدیک تومور. [۵]"
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "چه زمانی با متخصص رادیوتراپی مشورت کنیم؟"
+        },
+        {
+          "type": "paragraph",
+          "text": "اگر تشخیص سرطان برای شما یا یکی از عزیزانتان مطرح شده است، یا پزشک معالج پرتودرمانی را پیشنهاد کرده است، بهتر است هرچه زودتر با متخصص رادیوتراپی و آنکولوژی مشورت کنید. این مشاوره به شما کمک می‌کند هدف درمان، گزینه‌های موجود، برنامه زمانی و عوارض احتمالی را به‌روشنی بشناسید و با آرامش بیشتری تصمیم بگیرید."
+        },
+        {
+          "type": "cta",
+          "title": "نوبت مشاوره پرتودرمانی را رزرو کنید",
+          "text": "برای بررسی پرونده و گفت‌وگو درباره گزینه‌های درمانی از صفحه رزرو نوبت استفاده کنید. در وضعیت اورژانسی به اورژانس مراجعه کنید.",
+          "buttonText": "رزرو نوبت",
+          "buttonUrl": "https://drparighadamgahi.ir/fa/booking/"
+        },
+        {
+          "type": "paragraph",
+          "text": "اگر پیش از رزرو نوبت پرسشی دارید یا می‌خواهید درباره نحوه مراجعه اطلاعات بگیرید، می‌توانید از طریق صفحه تماس با ما پیام بدهید."
+        },
+        {
+          "type": "cta",
+          "title": "پرسشی دارید؟ با ما در ارتباط باشید",
+          "text": "برای دریافت اطلاعات درباره مراجعه، مدارک موردنیاز و راه‌های تماس از صفحه تماس با ما استفاده کنید. لطفاً اطلاعات شناسایی یا مدارک پزشکی را در نظرات عمومی منتشر نکنید.",
+          "buttonText": "تماس با ما",
+          "buttonUrl": "https://drparighadamgahi.ir/fa/contact/"
+        },
+        {
+          "type": "callout",
+          "tone": "warning",
+          "title": "یادآوری مهم",
+          "text": "این مقاله جنبه آموزشی دارد و جایگزین معاینه، تشخیص و برنامه درمانی اختصاصی نیست. نویسنده: دکتر پری قدمگاهی، متخصص رادیوتراپی و آنکولوژی."
+        },
+        {
+          "type": "references",
+          "title": "منابع آموزشی؛ شماره‌ها با متن هماهنگ‌اند",
+          "items": [
+            {
+              "title": "[۱] Radiation Therapy to Treat Cancer",
+              "url": "https://www.cancer.gov/about-cancer/treatment/types/radiation-therapy",
+              "publisher": "National Cancer Institute"
+            },
+            {
+              "title": "[۲] What Is Radiation Therapy and How Does It Help?",
+              "url": "https://www.cancer.org/treatment/treatments-and-side-effects/treatment-types/radiation/what-radiation-therapy-is-how-it-helps/intro.html",
+              "publisher": "American Cancer Society"
+            },
+            {
+              "title": "[۳] Intensity-Modulated Radiation Therapy (IMRT)",
+              "url": "https://www.radiologyinfo.org/en/info/imrt",
+              "publisher": "RadiologyInfo.org (ACR/RSNA)"
+            },
+            {
+              "title": "[۴] Image-Guided Radiation Therapy (IGRT)",
+              "url": "https://www.radiologyinfo.org/en/info.cfm?pg=IGRT",
+              "publisher": "RadiologyInfo.org (ACR/RSNA)"
+            },
+            {
+              "title": "[۵] Brachytherapy to Treat Cancer",
+              "url": "https://www.cancer.gov/about-cancer/treatment/types/radiation-therapy/brachytherapy",
+              "publisher": "National Cancer Institute"
+            },
+            {
+              "title": "[۶] Radiation Therapy Side Effects",
+              "url": "https://www.cancer.gov/about-cancer/treatment/types/radiation-therapy/side-effects",
+              "publisher": "National Cancer Institute"
+            }
+          ]
+        }
+      ],
+      "html": "",
+      "css": "",
+      "faq": [
+        {
+          "question": "پرتودرمانی چیست؟",
+          "answer": "پرتودرمانی یا رادیوتراپی روشی برای درمان سرطان است که با پرتوهای پرانرژی به DNA سلول‌های سرطانی آسیب می‌زند و توانایی تقسیم و رشد آن‌ها را از بین می‌برد. [۱، ۲]"
+        },
+        {
+          "question": "پرتودرمانی با شیمی‌درمانی چه تفاوتی دارد؟",
+          "answer": "پرتودرمانی معمولاً درمانی موضعی است و ناحیه مشخصی را هدف می‌گیرد، اما شیمی‌درمانی معمولاً از راه خون به سراسر بدن می‌رسد. [۲]"
+        },
+        {
+          "question": "IMRT و VMAT چه فرقی دارند؟",
+          "answer": "IMRT با تعدیل شدت پرتو دوز را با شکل تومور هماهنگ می‌کند. VMAT نوعی IMRT است که در آن پرتو هنگام چرخش دستگاه به دور بیمار به‌طور پیوسته تابانده می‌شود. [۳]"
+        },
+        {
+          "question": "آیا رادیوسرجری SRS نوعی عمل جراحی است؟",
+          "answer": "خیر. SRS تابش بسیار متمرکز پرتو است و برش جراحی ندارد."
+        },
+        {
+          "question": "عوارض پرتودرمانی چیست؟",
+          "answer": "عوارض به محل و دوز درمان بستگی دارد. خستگی و تغییرات پوستی شایع‌اند و علائم دیگر مانند مشکل بلع یا تغییرات ادراری بسته به ناحیه درمان متفاوت است. [۶]"
+        },
+        {
+          "question": "آیا بعد از پرتودرمانی خارجی رادیواکتیو می‌شوم؟",
+          "answer": "خیر. پس از پرتودرمانی خارجی، بیمار رادیواکتیو نیست و نیازی به دوری از دیگران ندارد. [۲]"
+        }
+      ],
+      "seo": {
+        "title": "پرتودرمانی چیست؟ انواع روش‌ها، کاربردها و عوارض رادیوتراپی",
+        "metaDescription": "پرتودرمانی چیست و چگونه سرطان را درمان می‌کند؟ با انواع روش‌های رادیوتراپی از جمله IMRT، VMAT، SRS و SBRT، مراحل درمان و عوارض آن آشنا شوید.",
+        "canonical": "",
+        "openGraph": {
+          "title": "پرتودرمانی چیست؟ انواع روش‌ها، کاربردها و عوارض",
+          "description": "راهنمای کامل رادیوتراپی: نحوه اثر، سرطان‌های قابل درمان، روش‌های نوین IMRT، VMAT، SRS و SBRT و عوارض احتمالی.",
+          "image": "/images/radiation-therapy-treatment-room.jpg"
+        },
+        "twitter": {
+          "title": "پرتودرمانی چیست؟ انواع روش‌ها، کاربردها و عوارض",
+          "image": "/images/radiation-therapy-treatment-room.jpg"
+        },
+        "keywords": [
+          "پرتودرمانی چیست",
+          "رادیوتراپی چیست",
+          "انواع پرتودرمانی",
+          "عوارض پرتودرمانی",
+          "روش‌های نوین پرتودرمانی",
+          "IMRT و VMAT",
+          "رادیوسرجری SRS",
+          "پرتودرمانی SBRT"
+        ],
+        "focusKeyword": "پرتودرمانی چیست"
+      }
+    },
+    "en": {
+      "title": "What Is Radiation Therapy and How Does It Help Treat Cancer?",
+      "excerpt": "What is radiation therapy and how does it treat cancer? A guide to radiotherapy types (IMRT, VMAT, SRS and SBRT), treatment steps, possible side effects, and how to prepare for a consultation.",
+      "content": [
+        {
+          "type": "heading",
+          "level": 1,
+          "text": "What Is Radiation Therapy and How Does It Help Treat Cancer?"
+        },
+        {
+          "type": "paragraph",
+          "style": "lead",
+          "text": "Radiation therapy, also called radiotherapy, is one of the main treatments for cancer. It uses high-energy radiation to destroy cancer cells or to damage their ability to grow and multiply. It may be used on its own or alongside surgery, chemotherapy, targeted therapy and immunotherapy. [1, 2]"
+        },
+        {
+          "type": "paragraph",
+          "text": "Today, advances in imaging, treatment planning and radiotherapy machines make it possible to deliver more precise doses of radiation to the tumor while reducing harm to the healthy tissue around it. Intensity-modulated radiation therapy (IMRT), volumetric modulated arc therapy (VMAT), stereotactic radiosurgery (SRS) and stereotactic body radiation therapy (SBRT) are examples of these advances. [3, 4]"
+        },
+        {
+          "type": "paragraph",
+          "text": "But how exactly does radiation therapy work? Which cancers is it used for? How is it different from chemotherapy, and what steps does a patient go through during treatment?"
+        },
+        {
+          "type": "paragraph",
+          "text": "In this article, we look at the principles of radiation therapy, its different techniques, its uses and its possible side effects. We also walk through what happens before treatment begins and how to prepare for a consultation."
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Radiation therapy at a glance",
+          "text": "Radiation therapy is usually a local treatment, which means it targets a specific area of the body. It is most often given as an outpatient, it does not cause pain during the session, and after external beam radiation you do not become radioactive. The technique, the number of sessions and the possible side effects depend on the type of tumor, its location and the goal of treatment. [2, 3]"
+        },
+        {
+          "type": "stats",
+          "items": [
+            {
+              "value": "5",
+              "label": "main stages of the treatment pathway: consultation, simulation, planning, delivery and follow-up"
+            },
+            {
+              "value": "3",
+              "label": "main categories of radiation therapy: external, internal and systemic"
+            },
+            {
+              "value": "5",
+              "label": "advanced technologies introduced here: IMRT, VMAT, IGRT, SRS and SBRT"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "What is radiation therapy?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Radiation therapy is a cancer treatment that uses ionizing radiation, such as high-energy X-rays, to damage the DNA of cancer cells. Some techniques also use gamma rays, electron beams or protons. [2]"
+        },
+        {
+          "type": "paragraph",
+          "text": "DNA is the genetic material of the cell. It carries the information a cell needs to grow, divide and function. When radiation strikes a cell, it can damage DNA directly or indirectly. If the damage is too great for the cell to repair, the cell loses its ability to divide or eventually dies. [2]"
+        },
+        {
+          "type": "paragraph",
+          "text": "The aim of radiation therapy is to deliver a specific, effective dose of radiation to the target area while sparing as much of the surrounding healthy tissue as possible."
+        },
+        {
+          "type": "paragraph",
+          "text": "One important feature of radiation therapy is that its effect does not always appear immediately after treatment. Cancer cells may gradually lose their ability to divide and die over days or weeks, and this process can continue even after the last session. For this reason, the response to treatment is usually assessed at follow-up visits."
+        },
+        {
+          "type": "image",
+          "src": "/api/uploads/20261123-224129-ae318d7ef04e44ad.webp",
+          "alt": "Conceptual illustration of a linear accelerator beam focused on a tumor, with layers of radiation dose shown around it",
+          "caption": "Conceptual illustration of how dose is focused on a tumor; not the treatment plan or scan of a real patient.",
+          "width": 1080,
+          "height": 607
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Why is treatment divided into small sessions?"
+        },
+        {
+          "type": "paragraph",
+          "text": "The total dose is usually not given all at once. It is divided into smaller daily sessions called fractions. This gives the healthy cells around the tumor time to repair between sessions, and most of them return to normal function. [2] The radiation oncologist sets the number of sessions and the dose per session according to the tumor, its location and the goal of treatment."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "How does radiation therapy help treat cancer?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Radiation therapy does not have one goal for every patient. Depending on the tumor, the stage of disease and the patient's general health, it may be used for one of the following purposes: [1, 2]"
+        },
+        {
+          "type": "list",
+          "style": "bullet",
+          "items": [
+            "Curative treatment: for some radiation-sensitive tumors, radiation alone can shrink the tumor or eliminate it completely. [2]",
+            "Before surgery: radiation is sometimes given to shrink the tumor and make an operation easier. [2]",
+            "After surgery: the aim is to destroy remaining cancer cells and lower the risk that the disease returns. [2]",
+            "Together with chemotherapy or other anticancer drugs: in some cancers, combining the two treatments improves effectiveness. [2]",
+            "Palliative treatment: in advanced or widespread disease, radiation can relieve symptoms such as pain, trouble swallowing or shortness of breath, and improve quality of life. [2]"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "It is important to know that radiation therapy does not simply mean the disease is advanced. In many patients, even at early stages, it is part of the curative plan. In fact, more than half of people with cancer receive radiation therapy at some point. [2]"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Which cancers can be treated with radiation therapy?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Radiation therapy is used for a wide range of cancers, and depending on the tumor type, stage and site, it may be used with different goals."
+        },
+        {
+          "type": "paragraph",
+          "text": "Cancers that may include radiation therapy in their treatment plan include the following: [1, 2]"
+        },
+        {
+          "type": "list",
+          "style": "bullet",
+          "items": [
+            "Breast cancer",
+            "Lung cancer",
+            "Prostate cancer",
+            "Head and neck cancers, including the larynx and oral cavity",
+            "Brain and spinal cord tumors",
+            "Esophageal cancer",
+            "Rectal and anal cancer",
+            "Cervical and uterine cancer",
+            "Bladder cancer",
+            "Lymphoma",
+            "Skin cancers",
+            "Bone and brain metastases"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "This list is not complete, and the final decision to use radiation is always based on individual circumstances. If you would like to know more about our specialized radiation oncology services, the services page is a good place to start."
+        },
+        {
+          "type": "cta",
+          "title": "Explore our radiation oncology services",
+          "text": "See the list of services, treatment approaches and areas of practice of Dr. Pari Ghadamgahi.",
+          "buttonText": "View services",
+          "buttonUrl": "https://drparighadamgahi.ir/en/services/"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Types of radiation therapy"
+        },
+        {
+          "type": "paragraph",
+          "text": "We divide radiation therapy into three main categories according to how the radiation is delivered: external beam radiation, internal radiation (brachytherapy) and systemic radiation. Some patients receive one type, others a combination. [1, 2]"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "External beam radiation therapy"
+        },
+        {
+          "type": "paragraph",
+          "text": "External beam radiation is the most common type. A machine called a linear accelerator directs the radiation from outside the body to the tumor. You do not stay in the hospital for treatment, and you usually go home after each session. [1, 2]"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Modern radiotherapy techniques: IMRT, VMAT, IGRT, SRS and SBRT"
+        },
+        {
+          "type": "paragraph",
+          "text": "Advances in computing, imaging and treatment machines have made external beam radiation far more precise than it used to be. The table below introduces the most important techniques in plain language:"
+        },
+        {
+          "type": "table",
+          "caption": "Comparison of modern external beam radiation techniques",
+          "headers": [
+            "Technique",
+            "Plain-language description",
+            "Practical note"
+          ],
+          "rows": [
+            [
+              "3D-CRT (three-dimensional conformal radiation therapy)",
+              "The beams are shaped to match the three-dimensional shape of the tumor using CT images.",
+              "The foundation of many more advanced techniques."
+            ],
+            [
+              "IMRT (intensity-modulated radiation therapy)",
+              "The intensity of the radiation is controlled and varied within each beam so that the dose fits the tumor more closely and the dose to nearby tissue is lower. [3]",
+              "Especially important for tumors close to sensitive organs."
+            ],
+            [
+              "VMAT (volumetric modulated arc therapy)",
+              "A form of IMRT in which the radiation is delivered continuously as the machine rotates around the patient, with real-time modulation. [3]",
+              "In many cases it shortens the time of each session."
+            ],
+            [
+              "IGRT (image-guided radiation therapy)",
+              "Imaging is performed before or during treatment so the position of the patient and the tumor can be set more accurately. [4]",
+              "Used together with IMRT, VMAT, SRS and SBRT. [4]"
+            ],
+            [
+              "SRS (stereotactic radiosurgery)",
+              "A high, tightly focused dose to a small target, usually in the brain or spine, given in one or a few sessions.",
+              "Despite the word surgery, there is no surgical cut."
+            ],
+            [
+              "SBRT (stereotactic body radiation therapy)",
+              "A high dose to limited tumors in sites such as the lung, liver, spine or prostate, usually in a small number of sessions.",
+              "Suitable only for selected patients and tumors."
+            ],
+            [
+              "Proton therapy",
+              "Protons are used instead of X-rays. [2]",
+              "Available in a limited number of centers and used for selected cases."
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Having these technologies does not mean every patient needs the newest one. The best technique is the one that fits your tumor, its location and your health."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Brachytherapy: internal radiation"
+        },
+        {
+          "type": "paragraph",
+          "text": "In brachytherapy, the radiation source is placed as seeds, ribbons or capsules inside the tumor or very close to it. It is a local treatment that treats only a specific part of the body. It is often used for cancers of the head and neck, breast, cervix, prostate and eye. [5] Depending on the source and the disease, the source stays in the body for a limited time or is sometimes left in permanently. [2]"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Systemic radiation therapy"
+        },
+        {
+          "type": "paragraph",
+          "text": "Systemic radiation uses radioactive drugs, taken by mouth or given into a vein, that travel through the body. It is used for certain cancers, such as thyroid cancer. With this type of treatment, special safety measures at home may be needed for a period of time, and your care team will explain them to you individually. [1, 2]"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "What is the difference between radiation therapy and chemotherapy?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Many patients ask how radiation therapy differs from chemotherapy. The main difference is how they act. Radiation therapy is usually a local, carefully aimed treatment, while chemotherapy drugs usually travel through the blood to the whole body. [2]"
+        },
+        {
+          "type": "table",
+          "caption": "Radiation therapy compared with chemotherapy",
+          "headers": [
+            "Feature",
+            "Radiation therapy",
+            "Chemotherapy"
+          ],
+          "rows": [
+            [
+              "How it acts",
+              "Usually local; it targets a specific area of the body. [2]",
+              "Usually systemic; it reaches the whole body through the blood. [2]"
+            ],
+            [
+              "How it is given",
+              "Radiation is delivered by a machine outside the body or by a source placed inside the body.",
+              "By mouth or through a vein."
+            ],
+            [
+              "Where side effects appear",
+              "Mostly in the treated area, although fatigue can be general. [6]",
+              "Can affect several parts of the body."
+            ],
+            [
+              "Use in combination",
+              "May be given at the same time as chemotherapy or after it. [2]",
+              "May be given before radiation, at the same time or afterward."
+            ]
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "The stages of radiation therapy: from consultation to the last session"
+        },
+        {
+          "type": "paragraph",
+          "text": "Before the first session on the treatment couch, careful evaluation and planning take place so that treatment is personalized to your body and your disease."
+        },
+        {
+          "type": "image",
+          "src": "/api/uploads/20261123-224237-656f7eb856b4615e.webp",
+          "alt": "A radiation therapist at a workstation reviewing CT images while a patient lies on the couch of an imaging scanner in the background",
+          "caption": "CT simulation and image review at a workstation are part of treatment planning.",
+          "width": 1080,
+          "height": 809
+        },
+        {
+          "type": "timeline",
+          "title": "A typical pathway; timing differs for every patient",
+          "items": [
+            {
+              "label": "Step 1",
+              "title": "Consultation and evaluation",
+              "text": "Review of records, imaging and pathology, and agreement on the goal of treatment."
+            },
+            {
+              "label": "Step 2",
+              "title": "Simulation",
+              "text": "A CT scan, and if needed MRI or PET, in the same position used for treatment."
+            },
+            {
+              "label": "Step 3",
+              "title": "Treatment planning",
+              "text": "Outlining the tumor and healthy organs, calculating the dose and checking the quality of the plan."
+            },
+            {
+              "label": "Step 4",
+              "title": "Treatment sessions",
+              "text": "Delivery of the planned sessions, with careful positioning each time."
+            },
+            {
+              "label": "Step 5",
+              "title": "Follow-up",
+              "text": "Review of side effects, response and the care plan after treatment."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Simulation and treatment planning"
+        },
+        {
+          "type": "paragraph",
+          "text": "During simulation, a CT scanner and sometimes MRI or PET are used to obtain images of the treatment area. We may use a mask or special cushion to keep you still, and place small marks on the skin so you are positioned the same way every day."
+        },
+        {
+          "type": "paragraph",
+          "text": "The radiation oncologist then outlines the tumor and the healthy organs around it on the images. A medical physicist and a dosimetrist calculate and optimize the dose plan, and before your first session the plan is checked for quality and safety. Radiation therapy is teamwork, and the radiation oncologist, physicist, dosimetrist, radiation therapist and nurse each play a decisive role. [3, 4]"
+        },
+        {
+          "type": "image",
+          "src": "/api/uploads/20261123-224248-4ce6ca1e2d779207.webp",
+          "alt": "A modern radiation therapy treatment room with a linear accelerator and treatment couch beside a wall with a flower image",
+          "caption": "A treatment room with a linear accelerator; the patient lies on the couch while the machine moves around them.",
+          "width": 1080,
+          "height": 607
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "What happens during a treatment session?"
+        },
+        {
+          "type": "paragraph",
+          "text": "At each session, the radiation therapist positions you in the simulation position using marks and immobilization devices. Imaging is usually done before the beam is delivered to confirm your exact position. [4] The team then leaves the room, but you stay in direct contact with them through a camera and an intercom. The machine moves around you without touching you."
+        },
+        {
+          "type": "paragraph",
+          "text": "Treatment itself is painless, and you do not feel the radiation. [3] Most of the time in the room goes to careful positioning, and the beam itself is usually on for only a short time. After external beam radiation you are not radioactive, and you do not need to avoid other people. [2]"
+        },
+        {
+          "type": "paragraph",
+          "text": "External beam radiation is usually given on weekdays over several weeks. [2] With techniques such as SRS and SBRT, the number of sessions is usually much smaller. We tell each patient the exact number of sessions after the plan has been prepared."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Side effects of radiation therapy"
+        },
+        {
+          "type": "paragraph",
+          "text": "The side effects of radiation therapy depend on the type of radiation, the dose, the number of sessions and, above all, the treated area. Early effects usually appear during treatment or in the weeks after it, while late effects may appear months or years later. [3, 6] Most side effects can be managed with proper care."
+        },
+        {
+          "type": "paragraph",
+          "text": "Some of the most common side effects are: [6]"
+        },
+        {
+          "type": "list",
+          "style": "bullet",
+          "items": [
+            "Fatigue: one of the most common side effects.",
+            "Skin changes: redness, dryness, itching or darkening of the skin in the treated area.",
+            "Hair loss: only in the area that received radiation.",
+            "Head and neck: dry mouth, mouth sores, changes in taste or difficulty swallowing.",
+            "Chest: cough, shortness of breath or pain when swallowing.",
+            "Abdomen and pelvis: nausea, diarrhea, or frequent and painful urination."
+          ]
+        },
+        {
+          "type": "callout",
+          "tone": "danger",
+          "title": "Which symptoms should you never ignore?",
+          "text": "If during treatment you develop a fever, severe pain that is not controlled, inability to drink fluids or swallow, bleeding, new or severe shortness of breath, or sudden weakness or a seizure, do not wait for your next session. Contact your care team immediately, and in an emergency go to the nearest emergency department. [6]"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Late effects and long-term follow-up"
+        },
+        {
+          "type": "paragraph",
+          "text": "Some changes may be seen long after treatment ends, such as stiffness or color change in the skin and tissues, or a change in the function of an organ that was in the radiation field. There is also a very small risk of a second cancer years later. For this reason, regular follow-up after treatment is essential to check for side effects and to monitor the disease. [4, 6]"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "A few tips for looking after yourself"
+        },
+        {
+          "type": "list",
+          "style": "ordered",
+          "items": [
+            "Wash the treated skin gently with lukewarm water and avoid vigorous rubbing.",
+            "Check with your care team before using any cream or ointment on the treated area.",
+            "Protect the treated area from the sun and wear loose, soft clothing.",
+            "Drink enough fluids and talk to your team about your diet.",
+            "Rest, and report any new symptom to your care team early."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "How can you prepare for a radiation therapy consultation?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Preparing for your consultation helps us make decisions more precisely. Bring the documents below and write down your questions beforehand:"
+        },
+        {
+          "type": "checklist",
+          "title": "Suggested consultation checklist",
+          "items": [
+            "Pathology report and any additional tests",
+            "Images and reports from CT, MRI, PET or mammography",
+            "Summary of surgery, chemotherapy or other earlier treatment",
+            "List of your medications and drug allergies",
+            "Any previous radiation to the same area or a nearby one",
+            "Tell us about a pacemaker, defibrillator or any other implant, and about possible pregnancy",
+            "Your list of questions and, if you wish, a companion"
+          ]
+        },
+        {
+          "type": "quote",
+          "text": "A question to take to your visit: What is the goal of this radiation therapy, what other options do I have, and which side effects should I watch for first?",
+          "attribution": "A suggested question written for this article; not a quotation from a patient or clinician"
+        },
+        {
+          "type": "accordion",
+          "title": "Short and common questions",
+          "items": [
+            {
+              "question": "Is a radiation therapy session painful?",
+              "answer": "No. As with most external beam radiation, you do not feel pain during the beam. If lying still is difficult for you, tell your care team before treatment starts. [3]"
+            },
+            {
+              "question": "Will I become radioactive after radiation therapy?",
+              "answer": "Not after external beam radiation. With some internal or systemic treatments, temporary precautions may be needed, and your care team will explain them. [2]"
+            }
+          ]
+        },
+        {
+          "type": "glossary",
+          "title": "A small glossary of radiation therapy",
+          "items": [
+            {
+              "term": "Fraction",
+              "definition": "One session of a radiation course; the total dose is divided into several fractions. [2]"
+            },
+            {
+              "term": "Linear accelerator",
+              "definition": "The machine that produces the high-energy beams used in external beam radiation. [3]"
+            },
+            {
+              "term": "IMRT",
+              "definition": "Intensity-modulated radiation therapy; the intensity of the beam is adjusted so the dose fits the tumor shape better. [3]"
+            },
+            {
+              "term": "VMAT",
+              "definition": "A form of IMRT in which radiation is delivered while the machine rotates around the patient. [3]"
+            },
+            {
+              "term": "IGRT",
+              "definition": "Image-guided radiation therapy; imaging is used to improve the accuracy of positioning. [4]"
+            },
+            {
+              "term": "SRS and SBRT",
+              "definition": "Stereotactic techniques that deliver a high, tightly focused dose; SRS is mostly used for the brain and SBRT for limited tumors in the body."
+            },
+            {
+              "term": "Brachytherapy",
+              "definition": "Internal radiation, with the source placed inside or close to the tumor. [5]"
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "When should you talk to a radiation oncologist?"
+        },
+        {
+          "type": "paragraph",
+          "text": "If you or someone close to you has been diagnosed with cancer, or your treating doctor has suggested radiation therapy, it is best to consult a radiation oncologist as soon as you can. The consultation helps you understand the goal of treatment, your options, the schedule and the possible side effects."
+        },
+        {
+          "type": "cta",
+          "title": "Book a radiation therapy consultation",
+          "text": "Use the booking page to review your records and discuss treatment options. In an emergency, go to your nearest emergency department.",
+          "buttonText": "Book an appointment",
+          "buttonUrl": "https://drparighadamgahi.ir/en/booking/"
+        },
+        {
+          "type": "paragraph",
+          "text": "If you have a question before booking, or want to learn how to visit us, you can send a message through our contact page."
+        },
+        {
+          "type": "cta",
+          "title": "Have a question? Get in touch",
+          "text": "Use the contact page for information about visits, the documents you need and ways to reach us. Please do not post medical records in public comments.",
+          "buttonText": "Contact us",
+          "buttonUrl": "https://drparighadamgahi.ir/en/contact/"
+        },
+        {
+          "type": "callout",
+          "tone": "warning",
+          "title": "Important reminder",
+          "text": "This article is for education and does not replace an examination, diagnosis or an individual treatment plan. Author: Dr. Pari Ghadamgahi, radiation oncology specialist."
+        },
+        {
+          "type": "references",
+          "title": "Educational references, numbered to match the text",
+          "items": [
+            {
+              "title": "[1] Radiation Therapy to Treat Cancer",
+              "url": "https://www.cancer.gov/about-cancer/treatment/types/radiation-therapy",
+              "publisher": "National Cancer Institute"
+            },
+            {
+              "title": "[2] What Is Radiation Therapy and How Does It Help?",
+              "url": "https://www.cancer.org/treatment/treatments-and-side-effects/treatment-types/radiation/what-radiation-therapy-is-how-it-helps/intro.html",
+              "publisher": "American Cancer Society"
+            },
+            {
+              "title": "[3] Intensity-Modulated Radiation Therapy (IMRT)",
+              "url": "https://www.radiologyinfo.org/en/info/imrt",
+              "publisher": "RadiologyInfo.org (ACR/RSNA)"
+            },
+            {
+              "title": "[4] Image-Guided Radiation Therapy (IGRT)",
+              "url": "https://www.radiologyinfo.org/en/info.cfm?pg=IGRT",
+              "publisher": "RadiologyInfo.org (ACR/RSNA)"
+            },
+            {
+              "title": "[5] Brachytherapy to Treat Cancer",
+              "url": "https://www.cancer.gov/about-cancer/treatment/types/radiation-therapy/brachytherapy",
+              "publisher": "National Cancer Institute"
+            },
+            {
+              "title": "[6] Radiation Therapy Side Effects",
+              "url": "https://www.cancer.gov/about-cancer/treatment/types/radiation-therapy/side-effects",
+              "publisher": "National Cancer Institute"
+            }
+          ]
+        }
+      ],
+      "html": "",
+      "css": "",
+      "faq": [
+        {
+          "question": "What is radiation therapy?",
+          "answer": "Radiation therapy, or radiotherapy, is a cancer treatment that uses high-energy radiation to damage the DNA of cancer cells and remove their ability to divide and grow. [1, 2]"
+        },
+        {
+          "question": "How is radiation therapy different from chemotherapy?",
+          "answer": "Radiation therapy is usually a local treatment aimed at a specific area, while chemotherapy usually travels through the blood to the whole body. [2]"
+        },
+        {
+          "question": "What is the difference between IMRT and VMAT?",
+          "answer": "IMRT varies the intensity of the radiation so the dose fits the tumor shape. VMAT is a form of IMRT in which the radiation is delivered continuously as the machine rotates around the patient. [3]"
+        },
+        {
+          "question": "Is SRS radiosurgery an operation?",
+          "answer": "No. SRS is a tightly focused delivery of radiation, and there is no surgical cut."
+        },
+        {
+          "question": "What are the side effects of radiation therapy?",
+          "answer": "Side effects depend on the treated area and the dose. Fatigue and skin changes are common, while other symptoms, such as swallowing problems or urinary changes, depend on the site. [6]"
+        },
+        {
+          "question": "Will I be radioactive after external beam radiation?",
+          "answer": "No. After external beam radiation you are not radioactive and do not need to avoid other people. [2]"
+        }
+      ],
+      "seo": {
+        "title": "What Is Radiation Therapy? Types, Uses and Side Effects",
+        "metaDescription": "What is radiation therapy and how does it treat cancer? Learn about IMRT, VMAT, SRS and SBRT, the treatment steps, and common side effects.",
+        "canonical": "",
+        "openGraph": {
+          "title": "What Is Radiation Therapy? Types, Uses and Side Effects",
+          "description": "A clear guide to radiotherapy: how it works, which cancers it treats, modern techniques such as IMRT, VMAT, SRS and SBRT, and possible side effects.",
+          "image": "/images/radiation-therapy-treatment-room.jpg"
+        },
+        "twitter": {
+          "title": "What Is Radiation Therapy? Types, Uses and Side Effects",
+          "image": "/images/radiation-therapy-treatment-room.jpg"
+        },
+        "keywords": [
+          "what is radiation therapy",
+          "what is radiotherapy",
+          "types of radiation therapy",
+          "radiation therapy side effects",
+          "modern radiotherapy techniques",
+          "IMRT and VMAT",
+          "SRS radiosurgery",
+          "SBRT radiotherapy"
+        ],
+        "focusKeyword": "what is radiation therapy"
+      }
+    }
+  },
+  "kind": "article"
+}

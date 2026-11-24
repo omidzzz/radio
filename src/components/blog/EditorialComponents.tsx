@@ -321,8 +321,8 @@ export function ConsultationCTA({
 }: ConsultationCTAProps) {
   const fa = locale === "fa";
   return (
-    <section className="article-consultation-cta my-12 p-6 sm:p-8 text-start sm:text-start">
-      <div className="mx-auto sm:mx-0 max-w-2xl">
+    <section className="article-consultation-cta my-12 p-6 sm:p-8 text-center sm:text-center">
+      <div className="mx-auto max-w-2xl">
         <h2 className="article-consultation-title mb-2 text-primary font-semibold">{title ?? (fa ? "مشاوره رزرو کنید" : "Book a consultation")}</h2>
         <p className="article-consultation-text mb-6 text-text-secondary leading-relaxed">
           {text ?? (fa ? "برای رزمر مشاوره یا دریافت اطلاعات بیشتر، با ما در ارتباط باشید." : "To book a consultation or request more information, get in touch.")}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { Locale } from "@/lib/i18n/config";
 import { listAllBlogPostSummaries } from "@/lib/services/blog-service";
 import BlogListing from "./BlogListing";
+import AiDisclosure from "./AiDisclosure";
 import PageHero from "@/components/ui/PageHero";
 import Breadcrumbs from "@/components/breadcrumbs/Breadcrumbs";
 import "./article.css";
@@ -33,6 +34,9 @@ export default function BlogIndex({ locale }: { locale: Locale }) {
         />
       }
     />
-    <section className="blog-shell py-12" aria-label={fa ? "فهرست مقالات" : "Article listing"}><BlogListing posts={listAllBlogPostSummaries()} locale={locale} /></section>
+    <section className="blog-shell py-12" aria-label={fa ? "فهرست مقالات" : "Article listing"}>
+      <AiDisclosure locale={locale} className="mb-6" />
+      <BlogListing posts={listAllBlogPostSummaries()} locale={locale} />
+    </section>
   </div>;
 }

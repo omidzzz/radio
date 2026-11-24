@@ -23,7 +23,7 @@ function Block({ block, index, title, locale }: { block: BlogBlock; index: numbe
       const Tag = block.style === "bullet" ? "ul" : "ol";
       return <Tag>{block.items.map((text, i) => <li key={i}>{text}</li>)}</Tag>;
     }
-    case "stats": return <dl className="blog-stats">{block.items.map((item, i) => <div key={i}><dt>{item.label}</dt><dd>{item.value}</dd></div>)}</dl>;
+    case "stats": return <dl className="blog-stats">{block.items.map((item, i) => <div key={i}><dd>{item.value}</dd><dt>{item.label}</dt></div>)}</dl>;
     case "image": return <ArticleFigure src={block.src} alt={block.alt} caption={block.caption} width={block.width} height={block.height} />;
     case "cta": return <aside className="blog-cta text-center"><h2>{block.title}</h2><p>{block.text}</p><a className="ui-button ui-button-primary" href={block.buttonUrl}>{block.buttonText}<span aria-hidden="true">{fa ? "←" : "→"}</span></a></aside>;
     case "callout": return <MedicalCallout tone={block.tone} title={block.title}>{block.text}</MedicalCallout>;

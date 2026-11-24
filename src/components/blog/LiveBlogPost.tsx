@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { isSafeBlogUrl, localizeBlogText, type BlogDocument, type BlogBlock } from "@/lib/blog/schema";
+import { isSafeBlogUrl, localizeBlogText, type BlogDocument, type BlogBlock, getBlockToc } from "@/lib/blog/schema";
 import type { BlogPost } from "@/lib/types/blog";
 import type { Locale } from "@/lib/i18n/config";
 import Image from "next/image";
@@ -9,6 +9,7 @@ import Link from "next/link";
 import BlogBlocks from "./BlogBlocks";
 import BlogComments from "@/components/feedback/BlogComments";
 import Breadcrumbs from "@/components/breadcrumbs/Breadcrumbs";
+import { TableOfContents, TableOfContentsSheet } from "./TableOfContents";
 import { processArticleHtml } from "@/lib/utils/blog-html";
 import { siteConfig } from "@/lib/seo/seo";
 import "./article.css";
@@ -136,6 +137,7 @@ export default function LiveBlogPost({ locale }: { locale: Locale }) {
     const translation = post.document?.translations[locale];
     const content = translation?.content || [];
     const legacyHtml = processArticleHtml(fa ? post.bodyFA : post.bodyEN || post.bodyFA);
+    const toc = translation ? getBlockToc(content, title) : legacyHtml.toc;
     return <div className="blog-article" dir={fa ? "rtl" : "ltr"} lang={locale}>
       <header className="blog-header"><div className="blog-shell">
         <nav className="blog-breadcrumb" aria-label={fa ? "مسیر صفحه" : "Breadcrumb"}><Breadcrumbs items={[
@@ -146,7 +148,15 @@ export default function LiveBlogPost({ locale }: { locale: Locale }) {
         <span className="blog-eyebrow">{fa ? post.categoryFA : post.categoryEN || post.categoryFA}</span>
         <h1 className="article-title">{title}</h1>
         <p className="blog-deck">{excerpt}</p>
-        <div className="blog-meta"><span>{fa ? post.authorFA : post.authorEN || post.authorFA}</span>{post.publishedAt && <time dateTime={post.publishedAt}>{new Intl.DateTimeFormat(fa ? "fa-IR" : "en-US", { dateStyle: "long", timeZone: "UTC" }).format(new Date(post.publishedAt))}</time>}</div>
+        <div className="blog-meta" aria-label={fa ? "معرفی مقاله" : "Article details"}>
+          <span className="blog-meta-badge blog-meta-author">{fa ? post.authorFA : post.authorEN || post.authorFA}</span>
+          {post.publishedAt && (
+            <time className="blog-meta-badge blog-meta-date" dateTime={post.publishedAt}>
+              <span className="blog-meta-icon" aria-hidden="true">📅</span>
+              {new Intl.DateTimeFormat(fa ? "fa-IR" : "en-US", { dateStyle: "long", timeZone: "UTC" }).format(new Date(post.publishedAt))}
+            </time>
+          )}
+        </div>
         {post.image && <figure className="blog-cover">
         <Image
           src={post.image}
@@ -159,12 +169,26 @@ export default function LiveBlogPost({ locale }: { locale: Locale }) {
       </figure>
 }
       </div></header>
-      <div className="blog-shell blog-layout"><article className="blog-content article-content" aria-label={title}>
-        {translation ? <BlogBlocks blocks={content} title={title} locale={locale} /> : <div dangerouslySetInnerHTML={{ __html: legacyHtml.html }} />}
-        {!!translation?.faq.length && <section className="blog-accordion"><h2>{fa ? "پرسش‌های متداول" : "Frequently asked questions"}</h2>{translation.faq.map((item, index) => <details key={index}><summary>{item.question}</summary><p>{item.answer}</p></details>)}</section>}
-        <div className="blog-after"><Link href={`/${locale}/blog/`} className="ui-button ui-button-ghost">{fa ? "بازگشت به مقالات" : "Back to articles"}</Link></div>
-        {post.id > 0 && post.isPublished && <BlogComments postId={post.id} />}
-      </article></div>
+      <div className="blog-shell article-layout">
+        <div className="article-main">
+          {toc.length > 0 && (
+            <details className="article-toc">
+              <summary>{fa ? "فهرست مطالب" : "On this page"}</summary>
+              <TableOfContents items={toc} isFa={fa} />
+            </details>
+          )}
+          <article className="blog-content article-content" aria-label={title}>
+            {translation ? <BlogBlocks blocks={content} title={title} locale={locale} /> : <div dangerouslySetInnerHTML={{ __html: legacyHtml.html }} />}
+            {!!translation?.faq.length && <section className="blog-accordion"><h2>{fa ? "پرسش‌های متداول" : "Frequently asked questions"}</h2>{translation.faq.map((item, index) => <details key={index}><summary>{item.question}</summary><p>{item.answer}</p></details>)}</section>}
+            <div className="blog-after"><Link href={`/${locale}/blog/`} className="ui-button ui-button-ghost">{fa ? "بازگشت به مقالات" : "Back to articles"}</Link></div>
+            {post.id > 0 && post.isPublished && <BlogComments postId={post.id} />}
+          </article>
+        </div>
+        <aside className="article-sidebar">
+          {toc.length > 0 && <TableOfContents items={toc} isFa={fa} />}
+        </aside>
+        {toc.length > 0 && <TableOfContentsSheet items={toc} isFa={fa} />}
+      </div>
     </div>;
   }
   return <main className="blog-article blog-shell min-h-[50vh] py-20 text-center text-muted">{failed ? (locale === "fa" ? "مقاله پیدا نشد." : "Article not found.") : (locale === "fa" ? "در حال بارگذاری مقاله…" : "Loading article…")}</main>;

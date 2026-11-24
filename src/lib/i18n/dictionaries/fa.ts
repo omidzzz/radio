@@ -686,6 +686,10 @@ const fa = {
     unblockTime: "آزاد کردن",
     unblockTimeConfirm: "این اسلات زمانی مسدود شده حذف شود؟",
   },
+
+  article: {
+    aiDisclosure: "این مقاله با کمک هوش مصنوعی در تحقیق و تدوین آماده شده است.",
+  },
 };
 
 export default fa;
